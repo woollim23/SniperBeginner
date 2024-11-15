@@ -1,11 +1,9 @@
-using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
     public PlayerInput Input {get; private set;}
-    public PlayerInput.PlayerActions Actions {get; private set;}
+    public PlayerInput.PlayerActions Actions { get; private set;}
 
     private void Awake() 
     {
@@ -22,4 +20,5 @@ public class PlayerController : MonoBehaviour
     {
         Input.Disable();    
     }
+
 }
