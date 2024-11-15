@@ -405,11 +405,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 375469829}
+  - component: {fileID: 375469834}
   - component: {fileID: 375469831}
   - component: {fileID: 375469830}
   - component: {fileID: 375469832}
   - component: {fileID: 375469833}
-  - component: {fileID: 375469834}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -445,6 +445,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9acee98460d850148b5f13329aef4824, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WalkSpeed: 3
+  RunSpeed: 3
 --- !u!95 &375469831
 Animator:
   serializedVersion: 5

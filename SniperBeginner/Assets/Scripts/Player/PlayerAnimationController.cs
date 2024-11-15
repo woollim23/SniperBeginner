@@ -1,23 +1,57 @@
 using UnityEngine;
 
+[System.Serializable]
+public class PlayerAnitmationData
+{
+    public string runParamName = "Run";
+    public string horizontalParamName = "Horizontal";
+    public string verticalParamName = "Vertical";
+
+    // public string groundParamName = "@Ground";
+    public string standParamName = "Stand";
+    public string crouchParamName = "Crouch";
+    public string crawlParamName = "Crawl";
+
+
+    public int RunParamHash { get; private set; }
+    public int HorizontalParamHash { get; private set; }
+    public int VerticalParamHash { get; private set; }
+    
+    public int StandParamHash { get; private set; }
+    public int CrouchParamHash { get; private set; }
+    public int CrawlParamHash { get; private set; }
+
+    public void Initialize()
+    {
+        RunParamHash =          Animator.StringToHash(runParamName);
+        HorizontalParamHash =   Animator.StringToHash(horizontalParamName);
+        VerticalParamHash =     Animator.StringToHash(verticalParamName);
+
+        StandParamHash =        Animator.StringToHash(standParamName);
+        CrouchParamHash =       Animator.StringToHash(crouchParamName);
+        CrawlParamHash =        Animator.StringToHash(crawlParamName);
+    }
+}
+
+
 [RequireComponent(typeof(Animator))]
 public class PlayerAnimationController : MonoBehaviour 
 {
-    public readonly int Run = Animator.StringToHash("Run");
-    public readonly int Vertical = Animator.StringToHash("Vertical");
-    public readonly int Horizontal = Animator.StringToHash("Horizontal");
+    public PlayerAnitmationData data;
 
-    Animator animator;
+    public Animator Animator { get; private set; }
 
     private void Awake() 
     {        
-        animator = GetComponent<Animator>();
+        Animator = GetComponent<Animator>();
+        
+        data = new PlayerAnitmationData();
+        data.Initialize();
     }
 
     public void Move(Vector2 direction)
     {
-        animator.SetFloat(Horizontal, direction.x);
-        animator.SetFloat(Vertical, direction.y);
+        Animator.SetFloat(data.HorizontalParamHash, direction.x);
+        Animator.SetFloat(data.VerticalParamHash, direction.y);
     }
-
 }

@@ -1,8 +1,46 @@
-public class PlayerBaseState : IState
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public abstract class PlayerBaseState : IState
 {
-    public virtual void Enter(){}
+    protected PlayerStateMachine stateMachine;
+    protected PlayerAnimationController animation;
+    protected Vector2 Movement = Vector2.zero;
 
-    public virtual void Exit(){}
+    public PlayerBaseState(PlayerStateMachine stateMachine)
+    {
+        this.stateMachine = stateMachine;
+        animation = stateMachine.Player.Animation;
+    }
+    
 
-    public virtual void Update(){}
+    public virtual void Enter()
+    {
+        AddPlayerInput();
+    }
+
+    public virtual void Exit()
+    {
+        RemovePlayerInput();
+    }
+
+    public virtual void Update() { }
+
+
+    protected virtual void AddPlayerInput()
+    {
+        stateMachine.Player.Input.Actions.Move.performed += OnMove;
+        stateMachine.Player.Input.Actions.Move.canceled += OnMove;
+    }
+
+    protected virtual void RemovePlayerInput()
+    {
+        stateMachine.Player.Input.Actions.Move.performed -= OnMove;
+        stateMachine.Player.Input.Actions.Move.canceled -= OnMove;
+    }
+
+    protected virtual void OnMove(InputAction.CallbackContext context)
+    {
+        Movement = context.ReadValue<Vector2>();
+    }
 }

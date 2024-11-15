@@ -1,4 +1,4 @@
-public class StateMachine
+public abstract class StateMachine
 {
     public IState CurrentState { get; private set; }
 
@@ -13,6 +13,6 @@ public class StateMachine
 
     public virtual void Update()
     {
-        CurrentState?.Update();
+        CurrentState.Update();
     }
 }

@@ -1,18 +1,30 @@
-// 일반 걷기
+using UnityEngine.InputSystem;
+
+/// <summary>
+/// 일반 상태
+/// </summary>
 public class PlayerIdleState : PlayerBaseState
 {
-    public override void Enter()
+    public PlayerIdleState(PlayerStateMachine stateMachine) : base(stateMachine) {}
+
+    protected override void AddPlayerInput()
     {
-        base.Enter();
+        base.AddPlayerInput();
+        stateMachine.Player.Input.Actions.Pose.started += OnPose;
     }
 
-    public override void Exit()
+    protected override void RemovePlayerInput()
     {
-        base.Exit();
+        base.RemovePlayerInput();
+        stateMachine.Player.Input.Actions.Pose.started -= OnPose;
     }
 
     public override void Update()
     {
         base.Update();
+        stateMachine.Player.Animation.Move(Movement);
     }
+
+    // 자세 전환 - 자식에서 구현
+    protected virtual void OnPose(InputAction.CallbackContext context) {}
 }
