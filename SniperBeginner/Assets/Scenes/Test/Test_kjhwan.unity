@@ -446,7 +446,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WalkSpeed: 3
-  RunSpeed: 3
+  RunSpeed: 5
 --- !u!95 &375469831
 Animator:
   serializedVersion: 5
@@ -492,6 +492,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eb0c5789cbc5a9498fbf91250fd4a81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  data:
+    runParamName: Run
+    horizontalParamName: Horizontal
+    verticalParamName: Vertical
+    standParamName: Stand
+    crouchParamName: Crouch
+    crawlParamName: Crawl
 --- !u!143 &375469834
 CharacterController:
   m_ObjectHideFlags: 0

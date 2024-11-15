@@ -5,7 +5,9 @@ public abstract class PlayerBaseState : IState
 {
     protected PlayerStateMachine stateMachine;
     protected PlayerAnimationController animation;
-    protected Vector2 Movement = Vector2.zero;
+    
+    protected bool IsRun { get; set; } = false;
+    protected Vector2 Movement {get; set;} = Vector2.zero;
 
     public PlayerBaseState(PlayerStateMachine stateMachine)
     {

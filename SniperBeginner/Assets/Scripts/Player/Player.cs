@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     // TODO : 스크립터블 오브젝트 전환
     public float WalkSpeed = 3f;
     public float RunSpeed = 3f;
-    public float Movement;
+    // public float Movement;
 
 
     public CharacterController Controller { get; private set;}
