@@ -5,10 +5,8 @@ public abstract class PlayerBaseState : IState
 {
     protected PlayerStateMachine stateMachine;
     protected PlayerAnimationController animation;
-    
-    protected bool IsRun { get; set; } = false;
-    protected Vector2 Movement { get; set; } = Vector2.zero;
-    Vector2 MoveInput { get; set; }
+    protected Vector2 moveInput;
+
 
     public PlayerBaseState(PlayerStateMachine stateMachine)
     {
@@ -29,7 +27,6 @@ public abstract class PlayerBaseState : IState
 
     public virtual void Update() 
     {
-        Movement = Vector2.Lerp(Movement, MoveInput, stateMachine.Setting.MovementInputSmoothness);
     }
 
 
@@ -37,16 +34,39 @@ public abstract class PlayerBaseState : IState
     {
         stateMachine.Player.Input.Actions.Move.performed += OnMove;
         stateMachine.Player.Input.Actions.Move.canceled += OnMove;
+
+        stateMachine.Player.Input.Actions.Aim.started += OnAim;
+        stateMachine.Player.Input.Actions.Aim.canceled += OnAim;
+
+        stateMachine.Player.Input.Actions.Fire.started += OnFire;
     }
 
     protected virtual void RemovePlayerInput()
     {
         stateMachine.Player.Input.Actions.Move.performed -= OnMove;
         stateMachine.Player.Input.Actions.Move.canceled -= OnMove;
+
+        stateMachine.Player.Input.Actions.Aim.started -= OnAim;
+        stateMachine.Player.Input.Actions.Aim.canceled -= OnAim;
+
+        stateMachine.Player.Input.Actions.Fire.started -= OnFire;
     }
 
     protected virtual void OnMove(InputAction.CallbackContext context)
     {
-        MoveInput = context.ReadValue<Vector2>();
+        moveInput = context.ReadValue<Vector2>();
+    }
+
+    protected virtual void OnAim(InputAction.CallbackContext context)
+    {
+        if (context.started)
+            stateMachine.ChangeState(stateMachine.AimState);
+        else if (context.canceled)
+            stateMachine.ChangeState(stateMachine.CurrentIdle);
+    }
+
+    protected virtual void OnFire(InputAction.CallbackContext context)
+    {
+        stateMachine.ChangeState(stateMachine.FireState);
     }
 }

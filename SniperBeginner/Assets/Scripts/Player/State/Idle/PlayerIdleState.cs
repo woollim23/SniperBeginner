@@ -6,15 +6,26 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class PlayerIdleState : PlayerBaseState
 {
+    protected bool IsRun { get; set; } = false;
+    protected Vector2 movement = Vector2.zero;
+
     public PlayerIdleState(PlayerStateMachine stateMachine) : base(stateMachine) {}
+
+    public override void Enter()
+    {
+        base.Enter();
+        Initialize();
+    }
 
     protected override void AddPlayerInput()
     {
+        stateMachine.CurrentIdle = this;
+
         base.AddPlayerInput();
         stateMachine.Player.Input.Actions.Pose.started += OnPose;
 
-        stateMachine.Player.Input.Actions.Run.started += OnRunStarted;
-        stateMachine.Player.Input.Actions.Run.canceled += OnRunCanceled;
+        stateMachine.Player.Input.Actions.Run.started += OnRun;
+        stateMachine.Player.Input.Actions.Run.canceled += OnRun;
     }
 
     protected override void RemovePlayerInput()
@@ -22,35 +33,42 @@ public class PlayerIdleState : PlayerBaseState
         base.RemovePlayerInput();
         stateMachine.Player.Input.Actions.Pose.started -= OnPose;
         
-        stateMachine.Player.Input.Actions.Run.started -= OnRunStarted;
-        stateMachine.Player.Input.Actions.Run.canceled -= OnRunCanceled;
+        stateMachine.Player.Input.Actions.Run.started -= OnRun;
+        stateMachine.Player.Input.Actions.Run.canceled -= OnRun;
     }
 
     public override void Update()
     {
         base.Update();
+        
+        // if((movement - moveInput).sqrMagnitude > 0.01f)
+            movement = Vector2.Lerp(movement, moveInput, stateMachine.Setting.MovementInputSmoothness);
+
         Move();
     }
 
-    protected virtual void OnRunStarted(InputAction.CallbackContext context)
-    {
-        IsRun = true;
-        animation.Animator.SetBool(animation.data.RunParamHash, IsRun);
-    }
-    protected virtual void OnRunCanceled(InputAction.CallbackContext context)
-    {
-        IsRun = false;
-        animation.Animator.SetBool(animation.data.RunParamHash, IsRun);
-    }
 
     // 자세 전환 - 자식에서 구현
     protected virtual void OnPose(InputAction.CallbackContext context) {}
 
-    public void Move()
+    protected virtual void OnRun(InputAction.CallbackContext context)
     {
-        animation.Move(Movement);
+        if (context.performed)
+            IsRun = true;
+        else if (context.canceled)
+            IsRun = false;
 
-        float speed = (IsRun ? stateMachine.Setting.RunSpeed : stateMachine.Setting.WalkSpeed) * Time.deltaTime;
-        stateMachine.Player.Controller.Move(new Vector3(Movement.x * speed, 0f, Movement.y * speed));
+        animation.Animator.SetBool(animation.RunParamHash, IsRun);
+    }
+
+    void Initialize()
+    {
+        movement = Vector2.zero;
+        animation.Move(Vector2.zero);
+    }
+
+    protected virtual void Move()
+    {
+        animation.Move(movement);
     }
 }

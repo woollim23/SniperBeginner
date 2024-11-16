@@ -10,17 +10,22 @@ public class PlayerCrouchState : PlayerIdleState
     public override void Enter()
     {
         base.Enter();
-        animation.Animator.SetBool(animation.data.CrouchParamHash, true);
+        animation.Animator.SetBool(animation.CrouchParamHash, true);
     }
 
     public override void Exit()
     {
         base.Exit();
-        animation.Animator.SetBool(animation.data.CrouchParamHash, false);
     }
 
     protected override void OnPose(InputAction.CallbackContext context)
     {
+        animation.Animator.SetBool(animation.CrouchParamHash, false);
         stateMachine.ChangeState(stateMachine.CrawlState);
+    }
+
+    protected override void Move()
+    {
+        base.Move();
     }
 }
