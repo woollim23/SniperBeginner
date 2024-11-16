@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,6 +8,7 @@ public class PlayerView : MonoBehaviour
     PlayerSetting setting;
     Vector2 delta = Vector2.zero;
     float currentRotateY = 0f;
+
     
     private void Start() 
     {
@@ -28,23 +26,22 @@ public class PlayerView : MonoBehaviour
 
     private void LateUpdate() 
     {
+        Look();
+    }
+
+
+    void OnLook(InputAction.CallbackContext context)
+    {
+        delta = context.ReadValue<Vector2>();
+    }
+
+    void Look()
+    {
         Vector2 rotateSpeed = setting.lookSensitive * Time.deltaTime * delta;
         transform.Rotate(Vector3.up, rotateSpeed.x);
 
         currentRotateY -= rotateSpeed.y;
         currentRotateY = Mathf.Clamp(currentRotateY, setting.lookYAxisLimit.x, setting.lookYAxisLimit.y);
         cameraContainer.localEulerAngles = new Vector3(currentRotateY, 0f, 0f);
-    }
-
-    void OnLook(InputAction.CallbackContext context)
-    {
-        if(context.performed)
-        {
-            delta = context.ReadValue<Vector2>();
-        }
-        else if(context.canceled)
-        {
-            delta = Vector2.zero;
-        }
     }
 }

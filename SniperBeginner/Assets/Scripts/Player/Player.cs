@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerInputController))]
 [RequireComponent(typeof(PlayerAnimationController))]
 [RequireComponent(typeof(PlayerView))]
+[RequireComponent(typeof(PlayerEquipment))]
 public class Player : MonoBehaviour
 {
     public PlayerSetting setting;
@@ -13,7 +14,8 @@ public class Player : MonoBehaviour
     public PlayerInputController Input { get; private set; }
     public PlayerAnimationController Animation { get; private set; }
     public PlayerView View { get; private set; }
-
+    public PlayerEquipment Equipment { get; private set; }
+    
     public PlayerStateMachine StateMachine { get; private set; }
 
 
@@ -25,6 +27,7 @@ public class Player : MonoBehaviour
         Input = GetComponent<PlayerInputController>();
         Animation = GetComponent<PlayerAnimationController>();
         View = GetComponent<PlayerView>();
+        Equipment = GetComponent<PlayerEquipment>();
 
         StateMachine = new PlayerStateMachine(this);
     }
