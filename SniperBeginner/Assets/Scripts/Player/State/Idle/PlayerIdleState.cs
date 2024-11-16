@@ -50,7 +50,7 @@ public class PlayerIdleState : PlayerBaseState
     {
         animation.Move(Movement);
 
-        float speed = Time.deltaTime * (IsRun ? stateMachine.Player.RunSpeed : stateMachine.Player.WalkSpeed);
+        float speed = (IsRun ? stateMachine.Setting.RunSpeed : stateMachine.Setting.WalkSpeed) * Time.deltaTime;
         stateMachine.Player.Controller.Move(new Vector3(Movement.x * speed, 0f, Movement.y * speed));
     }
 }

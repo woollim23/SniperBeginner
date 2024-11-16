@@ -3,13 +3,9 @@ using UnityEngine;
 public class PlayerStateMachine : StateMachine
 {
     public Player Player { get; private set; }
+    public PlayerSetting Setting { get; private set; }
 
     public Camera camera;
-    
-    public Vector2 MovementInput { get; private set; }
-    public float WalkSpeed { get; private set; }
-    public float RunSpeed { get; private set; }
-
     
     public PlayerIdleState StandState { get; private set; }
     public PlayerIdleState CrouchState { get; private set; }
@@ -33,10 +29,7 @@ public class PlayerStateMachine : StateMachine
         AimState = new PlayerAimState(this);
         ShotState = new PlayerShotState(this);
 
-
-        WalkSpeed = Player.WalkSpeed;
-        RunSpeed = Player.RunSpeed;
-
+        Setting = Player.setting;
     }
     
 }

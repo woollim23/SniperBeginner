@@ -6,11 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerAnimationController))]
 public class Player : MonoBehaviour
 {
-    // TODO : 스크립터블 오브젝트 전환
-    public float WalkSpeed = 3f;
-    public float RunSpeed = 3f;
-    // public float Movement;
-
+    public PlayerSetting setting;
 
     public CharacterController Controller { get; private set;}
     public PlayerInputController Input { get; private set; }
@@ -21,6 +17,8 @@ public class Player : MonoBehaviour
 
     private void Awake() 
     {
+        CharacterManager.Instance.Player = this;
+
         Controller = GetComponent<CharacterController>();
         Input = GetComponent<PlayerInputController>();
         Animation = GetComponent<PlayerAnimationController>();
@@ -39,4 +37,14 @@ public class Player : MonoBehaviour
         StateMachine.Update();
     }
 
+}
+
+[System.Serializable]
+public class PlayerSetting
+{
+    // 필요하면 scriptable object로 분리
+    public float WalkSpeed = 3f;
+    public float RunSpeed = 6f;
+
+    [Range(0.01f, 1f)] public float MovementInputSmoothness = 0.5f;
 }

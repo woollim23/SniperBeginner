@@ -7,7 +7,8 @@ public abstract class PlayerBaseState : IState
     protected PlayerAnimationController animation;
     
     protected bool IsRun { get; set; } = false;
-    protected Vector2 Movement {get; set;} = Vector2.zero;
+    protected Vector2 Movement { get; set; } = Vector2.zero;
+    Vector2 MoveInput { get; set; }
 
     public PlayerBaseState(PlayerStateMachine stateMachine)
     {
@@ -26,7 +27,10 @@ public abstract class PlayerBaseState : IState
         RemovePlayerInput();
     }
 
-    public virtual void Update() { }
+    public virtual void Update() 
+    {
+        Movement = Vector2.Lerp(Movement, MoveInput, stateMachine.Setting.MovementInputSmoothness);
+    }
 
 
     protected virtual void AddPlayerInput()
@@ -43,6 +47,6 @@ public abstract class PlayerBaseState : IState
 
     protected virtual void OnMove(InputAction.CallbackContext context)
     {
-        Movement = context.ReadValue<Vector2>();
+        MoveInput = context.ReadValue<Vector2>();
     }
 }
