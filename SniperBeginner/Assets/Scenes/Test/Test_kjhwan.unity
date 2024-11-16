@@ -514,6 +514,7 @@ GameObject:
   - component: {fileID: 375469830}
   - component: {fileID: 375469832}
   - component: {fileID: 375469833}
+  - component: {fileID: 375469835}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -554,6 +555,8 @@ MonoBehaviour:
     WalkSpeed: 3
     RunSpeed: 6
     MovementInputSmoothness: 0.02
+    lookSensitive: 5
+    lookYAxisLimit: {x: -45, y: 45}
 --- !u!95 &375469831
 Animator:
   serializedVersion: 5
@@ -632,6 +635,19 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.9, z: 0}
+--- !u!114 &375469835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 375469828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e27e4cbae99f7f468266f5c4e8a0843, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraContainer: {fileID: 231519184}
 --- !u!1 &441156354
 GameObject:
   m_ObjectHideFlags: 0
