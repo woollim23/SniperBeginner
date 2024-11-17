@@ -78,7 +78,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Swat
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5866666021909216657, guid: e46124608863ab6468b994cd1d90be17, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

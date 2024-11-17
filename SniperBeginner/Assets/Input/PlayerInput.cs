@@ -46,6 +46,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Look"",
+                    ""type"": ""Value"",
+                    ""id"": ""29c8306a-0649-421f-9445-eb54bbcb3316"",
+                    ""expectedControlType"": ""Delta"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
                     ""name"": ""Fire"",
                     ""type"": ""Button"",
                     ""id"": ""25c693b3-7c82-4e4d-9b2f-55a4afc8292b"",
@@ -58,6 +67,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""name"": ""Aim"",
                     ""type"": ""Button"",
                     ""id"": ""44b5439d-44c0-4813-861c-c343a683a45d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Run"",
+                    ""type"": ""Button"",
+                    ""id"": ""03c79e4b-fa6f-4948-b039-646525f4ef91"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -80,13 +98,22 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Pose"",
+                    ""type"": ""Button"",
+                    ""id"": ""011f2557-9a3c-418e-acb9-74f869ba3004"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
                 {
                     ""name"": ""2D Vector"",
                     ""id"": ""7e337ebe-2f4c-4f5d-9498-d04ae2e7926b"",
-                    ""path"": ""2DVector"",
+                    ""path"": ""2DVector(mode=1)"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -236,6 +263,39 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""QuickSlot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cbffa8bf-20dd-4c66-a73e-214ad4c844f1"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Run"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""21307122-3a85-4346-962a-66dd5df08f4b"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""82c6d498-2576-47a5-9ea7-bcfe6b028d10"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pose"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -263,10 +323,13 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
+        m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
         m_Player_Aim = m_Player.FindAction("Aim", throwIfNotFound: true);
+        m_Player_Run = m_Player.FindAction("Run", throwIfNotFound: true);
         m_Player_Interaction = m_Player.FindAction("Interaction", throwIfNotFound: true);
         m_Player_QuickSlot = m_Player.FindAction("QuickSlot", throwIfNotFound: true);
+        m_Player_Pose = m_Player.FindAction("Pose", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -330,20 +393,26 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Jump;
+    private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Fire;
     private readonly InputAction m_Player_Aim;
+    private readonly InputAction m_Player_Run;
     private readonly InputAction m_Player_Interaction;
     private readonly InputAction m_Player_QuickSlot;
+    private readonly InputAction m_Player_Pose;
     public struct PlayerActions
     {
         private @PlayerInput m_Wrapper;
         public PlayerActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
+        public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @Fire => m_Wrapper.m_Player_Fire;
         public InputAction @Aim => m_Wrapper.m_Player_Aim;
+        public InputAction @Run => m_Wrapper.m_Player_Run;
         public InputAction @Interaction => m_Wrapper.m_Player_Interaction;
         public InputAction @QuickSlot => m_Wrapper.m_Player_QuickSlot;
+        public InputAction @Pose => m_Wrapper.m_Player_Pose;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -359,18 +428,27 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
+            @Look.started += instance.OnLook;
+            @Look.performed += instance.OnLook;
+            @Look.canceled += instance.OnLook;
             @Fire.started += instance.OnFire;
             @Fire.performed += instance.OnFire;
             @Fire.canceled += instance.OnFire;
             @Aim.started += instance.OnAim;
             @Aim.performed += instance.OnAim;
             @Aim.canceled += instance.OnAim;
+            @Run.started += instance.OnRun;
+            @Run.performed += instance.OnRun;
+            @Run.canceled += instance.OnRun;
             @Interaction.started += instance.OnInteraction;
             @Interaction.performed += instance.OnInteraction;
             @Interaction.canceled += instance.OnInteraction;
             @QuickSlot.started += instance.OnQuickSlot;
             @QuickSlot.performed += instance.OnQuickSlot;
             @QuickSlot.canceled += instance.OnQuickSlot;
+            @Pose.started += instance.OnPose;
+            @Pose.performed += instance.OnPose;
+            @Pose.canceled += instance.OnPose;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -381,18 +459,27 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
+            @Look.started -= instance.OnLook;
+            @Look.performed -= instance.OnLook;
+            @Look.canceled -= instance.OnLook;
             @Fire.started -= instance.OnFire;
             @Fire.performed -= instance.OnFire;
             @Fire.canceled -= instance.OnFire;
             @Aim.started -= instance.OnAim;
             @Aim.performed -= instance.OnAim;
             @Aim.canceled -= instance.OnAim;
+            @Run.started -= instance.OnRun;
+            @Run.performed -= instance.OnRun;
+            @Run.canceled -= instance.OnRun;
             @Interaction.started -= instance.OnInteraction;
             @Interaction.performed -= instance.OnInteraction;
             @Interaction.canceled -= instance.OnInteraction;
             @QuickSlot.started -= instance.OnQuickSlot;
             @QuickSlot.performed -= instance.OnQuickSlot;
             @QuickSlot.canceled -= instance.OnQuickSlot;
+            @Pose.started -= instance.OnPose;
+            @Pose.performed -= instance.OnPose;
+            @Pose.canceled -= instance.OnPose;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -423,9 +510,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnLook(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
         void OnAim(InputAction.CallbackContext context);
+        void OnRun(InputAction.CallbackContext context);
         void OnInteraction(InputAction.CallbackContext context);
         void OnQuickSlot(InputAction.CallbackContext context);
+        void OnPose(InputAction.CallbackContext context);
     }
 }
