@@ -54,7 +54,8 @@ public class GameManager : SingletonDontDestory<GameManager>
 
     public void ButtonGameResume()
     {
-        pausePanel.SetActive(false); // 메뉴 UI 비활성화
+        if (pausePanel != null)
+            pausePanel.SetActive(false); // 메뉴 UI 비활성화
         Time.timeScale = 1f;          // 게임 재개
         isPaused = false;             // 멈춤 상태 업데이트
     }
@@ -62,6 +63,7 @@ public class GameManager : SingletonDontDestory<GameManager>
     public void ButtonGameSave()
     {
         // 게임 저장 버튼
+        Debug.Log("save");
     }
 
     public void ButtonGameLoad()
