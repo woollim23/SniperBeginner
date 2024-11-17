@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : SingletonDontDestory<GameManager>
 {
-    private GameObject pauseMenuPanel;
+    private GameObject pausePanel;
 
     public int deadEnemyCnt;
     public bool isGameOver;
@@ -18,11 +18,14 @@ public class GameManager : SingletonDontDestory<GameManager>
         isGameOver = false;
         isPaused = false;
 
-        pauseMenuPanel = GameObject.Find("PauseMenuPanel");
-        if (pauseMenuPanel == null)
-            Debug.LogError("PauseMenuPanel이 없음");
-        else
-            pauseMenuPanel.SetActive(false);
+        Invoke("UIInit", 0.5f);
+    }
+
+    public void UIInit()
+    {
+        GameObject canvas = GameObject.Find("MainUI");
+
+        pausePanel = canvas.transform.Find("PausePanel")?.gameObject;
     }
 
     public void GameClear()
@@ -37,7 +40,7 @@ public class GameManager : SingletonDontDestory<GameManager>
 
     public void OnPauseMenu()
     {
-        pauseMenuPanel.SetActive(true); // 메뉴 UI 활성화
+        pausePanel.SetActive(true); // 메뉴 UI 활성화
         Time.timeScale = 0f;        // 게임 멈춤
         isPaused = true;            // 멈춤 상태 업데이트
     }
@@ -51,7 +54,7 @@ public class GameManager : SingletonDontDestory<GameManager>
 
     public void ButtonGameResume()
     {
-        pauseMenuPanel.SetActive(false); // 메뉴 UI 비활성화
+        pausePanel.SetActive(false); // 메뉴 UI 비활성화
         Time.timeScale = 1f;          // 게임 재개
         isPaused = false;             // 멈춤 상태 업데이트
     }
@@ -59,6 +62,11 @@ public class GameManager : SingletonDontDestory<GameManager>
     public void ButtonGameSave()
     {
         // 게임 저장 버튼
+    }
+
+    public void ButtonGameLoad()
+    {
+        // 저장 불러오기 버튼
     }
 
     public void ButtonGameTitle()
