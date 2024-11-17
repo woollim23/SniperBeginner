@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SingletonDontDestory<T> : MonoBehaviour where T : Component
 {
