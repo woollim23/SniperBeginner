@@ -8,14 +8,10 @@ public class PlayerStateMachine : StateMachine
     public Camera camera;
     
     public IState CurrentIdle { get; set; }
-    // Base Layer    
-    public IState StandState { get; private set; }
-    public IState CrouchState { get; private set; }
-    public IState CrawlState { get; private set; }
-    // Upper Layer
-    public IState AimState { get; private set; }
-    public IState FireState { get; private set; }
-
+    // Idle 계열    
+    public PlayerStandState StandState { get; private set; }
+    public PlayerCrouchState CrouchState { get; private set; }
+    public PlayerCrawlState CrawlState { get; private set; }
 
     public PlayerStateMachine(Player player)
     {
@@ -27,10 +23,6 @@ public class PlayerStateMachine : StateMachine
         StandState = new PlayerStandState(this);
         CrouchState = new PlayerCrouchState(this);
         CrawlState = new PlayerCrawlState(this);
-
-        // Fire 
-        AimState = new PlayerAimState(this);
-        FireState = new PlayerFireState(this);
 
         Setting = Player.setting;
     }

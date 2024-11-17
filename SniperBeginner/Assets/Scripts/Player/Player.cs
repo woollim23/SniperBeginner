@@ -1,9 +1,9 @@
 using UnityEngine;
 
-
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(PlayerInputController))]
 [RequireComponent(typeof(PlayerAnimationController))]
+[RequireComponent(typeof(PlayerShootingController))]
 [RequireComponent(typeof(PlayerView))]
 [RequireComponent(typeof(PlayerEquipment))]
 public class Player : MonoBehaviour
@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     public CharacterController Controller { get; private set;}
     public PlayerInputController Input { get; private set; }
     public PlayerAnimationController Animation { get; private set; }
+    public PlayerShootingController Shooting { get; private set; }
     public PlayerView View { get; private set; }
     public PlayerEquipment Equipment { get; private set; }
     
@@ -26,6 +27,7 @@ public class Player : MonoBehaviour
         Controller = GetComponent<CharacterController>();
         Input = GetComponent<PlayerInputController>();
         Animation = GetComponent<PlayerAnimationController>();
+        Shooting = GetComponent<PlayerShootingController>();
         View = GetComponent<PlayerView>();
         Equipment = GetComponent<PlayerEquipment>();
 

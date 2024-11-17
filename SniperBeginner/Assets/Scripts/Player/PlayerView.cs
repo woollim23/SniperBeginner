@@ -22,6 +22,9 @@ public class PlayerView : MonoBehaviour
         }
 
         currentRotateY = cameraContainer.transform.localEulerAngles.y;
+
+        // 임시
+        SetCursor(true);
     }
 
     private void LateUpdate() 
@@ -43,5 +46,11 @@ public class PlayerView : MonoBehaviour
         currentRotateY -= rotateSpeed.y;
         currentRotateY = Mathf.Clamp(currentRotateY, setting.lookYAxisLimit.x, setting.lookYAxisLimit.y);
         cameraContainer.localEulerAngles = new Vector3(currentRotateY, 0f, 0f);
+    }
+
+    // 임시
+    void SetCursor(bool isLocked)
+    {
+        Cursor.lockState = isLocked ? CursorLockMode.Locked : CursorLockMode.None;
     }
 }

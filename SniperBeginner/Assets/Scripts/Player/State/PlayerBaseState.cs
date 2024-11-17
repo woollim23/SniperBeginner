@@ -34,22 +34,12 @@ public abstract class PlayerBaseState : IState
     {
         stateMachine.Player.Input.Actions.Move.performed += OnMove;
         stateMachine.Player.Input.Actions.Move.canceled += OnMove;
-
-        stateMachine.Player.Input.Actions.Aim.started += OnAim;
-        stateMachine.Player.Input.Actions.Aim.canceled += OnAim;
-
-        stateMachine.Player.Input.Actions.Fire.started += OnFire;
     }
 
     protected virtual void RemovePlayerInput()
     {
         stateMachine.Player.Input.Actions.Move.performed -= OnMove;
         stateMachine.Player.Input.Actions.Move.canceled -= OnMove;
-
-        stateMachine.Player.Input.Actions.Aim.started -= OnAim;
-        stateMachine.Player.Input.Actions.Aim.canceled -= OnAim;
-
-        stateMachine.Player.Input.Actions.Fire.started -= OnFire;
     }
 
     protected virtual void OnMove(InputAction.CallbackContext context)
@@ -57,16 +47,4 @@ public abstract class PlayerBaseState : IState
         moveInput = context.ReadValue<Vector2>();
     }
 
-    protected virtual void OnAim(InputAction.CallbackContext context)
-    {
-        if (context.started)
-            stateMachine.ChangeState(stateMachine.AimState);
-        else if (context.canceled)
-            stateMachine.ChangeState(stateMachine.CurrentIdle);
-    }
-
-    protected virtual void OnFire(InputAction.CallbackContext context)
-    {
-        stateMachine.ChangeState(stateMachine.FireState);
-    }
 }

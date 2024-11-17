@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerEquipment : MonoBehaviour
 {
-    // 플레이어 장착에 대한 정보
-    [field:SerializeField] public GameObject CurrentEquip { get; private set; }
+    // TODO : 플레이어 장착에 대한 정보 -> Equipment나 Gun 스크립트가 필요할 듯
+    [field:SerializeField] public DummyWeapon CurrentEquip { get; private set; }
 
     // 손 위치
     public Transform leftHand;
@@ -23,14 +21,20 @@ public class PlayerEquipment : MonoBehaviour
             CurrentEquip.transform.rotation = Quaternion.LookRotation(leftHand.position - rightHand.position, Vector3.up);
     }
 
-    public void Equip(GameObject equipment)
+    public void Equip(DummyWeapon equipment)
     {
         equipment.transform.SetParent(rightHand);
         equipment.transform.localPosition = Vector3.zero;
+
+        // 장착했다 -> 쓸 수 있다는 것
+        // 무기라면 투사체 오브젝트 풀링이 확인해줄 것
+        if (!ObjectPoolManager.Instance.projectilePools.ContainsKey(CurrentEquip.projectile.data.type))
+        {
+            ObjectPoolManager.Instance.AddProjectilePool(CurrentEquip.projectile);
+        }
     }
 
     // 뼈에서 손 위치만 찾는 메서드
-    // 런타임용 아님
     [ContextMenu("Find Hand")]
     public void FindHand()
     {

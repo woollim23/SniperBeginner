@@ -58,11 +58,6 @@ public class PlayerAnimationController : MonoBehaviour
         Animator.SetFloat(VerticalParamHash, direction.y);
     }
 
-    public void Fire()
-    {
-        Animator.SetTrigger(FireParamHash);
-    }
-
     public void Aiming(bool isOn)
     {
         Animator.SetBool(AimingParamHash, isOn);

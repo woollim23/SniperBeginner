@@ -41,8 +41,7 @@ public class PlayerIdleState : PlayerBaseState
     {
         base.Update();
         
-        // if((movement - moveInput).sqrMagnitude > 0.01f)
-            movement = Vector2.Lerp(movement, moveInput, stateMachine.Setting.MovementInputSmoothness);
+        movement = Vector2.Lerp(movement, moveInput, stateMachine.Setting.MovementInputSmoothness);
 
         Move();
     }
@@ -53,7 +52,7 @@ public class PlayerIdleState : PlayerBaseState
 
     protected virtual void OnRun(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.started)
             IsRun = true;
         else if (context.canceled)
             IsRun = false;

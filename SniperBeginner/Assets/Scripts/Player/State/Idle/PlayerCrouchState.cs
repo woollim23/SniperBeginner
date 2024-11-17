@@ -16,11 +16,11 @@ public class PlayerCrouchState : PlayerIdleState
     public override void Exit()
     {
         base.Exit();
+        animation.Animator.SetBool(animation.CrouchParamHash, false);
     }
 
     protected override void OnPose(InputAction.CallbackContext context)
     {
-        animation.Animator.SetBool(animation.CrouchParamHash, false);
         stateMachine.ChangeState(stateMachine.CrawlState);
     }
 

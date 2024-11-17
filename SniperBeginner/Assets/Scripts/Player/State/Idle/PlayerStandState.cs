@@ -12,18 +12,16 @@ public class PlayerStandState : PlayerIdleState
     {
         base.Enter();
         animation.Animator.SetBool(animation.StandParamHash, true);
-
-        Debug.Log("Stand");
     }
 
     public override void Exit()
     {
         base.Exit();
+        animation.Animator.SetBool(animation.StandParamHash, false);
     }
 
     protected override void OnPose(InputAction.CallbackContext context)
     {
-        animation.Animator.SetBool(animation.StandParamHash, false);
         stateMachine.ChangeState(stateMachine.CrouchState);
     }
 
