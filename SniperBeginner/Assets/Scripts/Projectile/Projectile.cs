@@ -29,6 +29,8 @@ public class Projectile : MonoBehaviour
 
     public virtual void Fire(Vector3 firePoint, Vector3 direction)
     {
+        gameObject.SetActive(false);
+        
         rb.velocity = Vector3.zero;
 
         transform.position = firePoint;

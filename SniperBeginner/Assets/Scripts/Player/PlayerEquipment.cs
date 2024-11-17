@@ -2,12 +2,19 @@ using UnityEngine;
 
 public class PlayerEquipment : MonoBehaviour
 {
+    PlayerView view;
+
     // TODO : 플레이어 장착에 대한 정보 -> Equipment나 Gun 스크립트가 필요할 듯
     [field:SerializeField] public DummyWeapon CurrentEquip { get; private set; }
 
     // 손 위치
     public Transform leftHand;
     public Transform rightHand;
+
+    private void Awake() 
+    {
+        view = GetComponent<PlayerView>();
+    }
 
     private void Start() 
     {
@@ -20,7 +27,7 @@ public class PlayerEquipment : MonoBehaviour
         if (CurrentEquip != null)
             CurrentEquip.transform.rotation = Quaternion.LookRotation(leftHand.position - rightHand.position, Vector3.up);
     }
-    
+
 
     public void Equip(DummyWeapon equipment)
     {
@@ -33,7 +40,15 @@ public class PlayerEquipment : MonoBehaviour
         {
             ObjectPoolManager.Instance.AddProjectilePool(CurrentEquip.projectile);
         }
+
+        view.UpdateAimPosition(equipment.aimPoint);
     }
+
+    public void Unequip()
+    {
+        view.UpdateAimPosition(null);
+    }
+
 
     // 뼈에서 손 위치만 찾는 메서드
     [ContextMenu("Find Hand")]

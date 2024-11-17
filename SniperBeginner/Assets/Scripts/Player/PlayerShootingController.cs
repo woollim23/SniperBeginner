@@ -5,15 +5,13 @@ public class PlayerShootingController : MonoBehaviour
     PlayerAnimationController anim;
     PlayerEquipment equip;
 
-    bool isAiming;
+    public bool isAiming;
 
     Camera mainCamera;
-    [SerializeField] Transform aimPoint; // IK point로 쓸 것
+    [SerializeField] Transform aimIKTarget; // IK point로 쓸 것
 
-    [Header("Setting")]
+    [Header("Aim Setting")]
     [SerializeField] LayerMask aimLayerMask;
-    [SerializeField] float checkRate = 0.05f;
-    float lastCheckTime;
 
 
     private void Awake() 
@@ -21,8 +19,8 @@ public class PlayerShootingController : MonoBehaviour
         anim = GetComponent<PlayerAnimationController>();
         equip = GetComponent<PlayerEquipment>();
 
-        if(!aimPoint)
-            aimPoint = new GameObject("Aim Point").transform;
+        if(!aimIKTarget)
+            aimIKTarget = new GameObject("Aim IK Target").transform;
     }
 
     private void Start() 
@@ -40,9 +38,8 @@ public class PlayerShootingController : MonoBehaviour
 
     private void Update() 
     {
-        if (isAiming && Time.time - lastCheckTime > checkRate)
+        if (isAiming)
         {
-            lastCheckTime = Time.time;
             Aim();
         }
     }
@@ -73,12 +70,7 @@ public class PlayerShootingController : MonoBehaviour
         Ray ray = mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
         if (Physics.Raycast(ray, out RaycastHit hit , float.PositiveInfinity, aimLayerMask))
         {
-            aimPoint.position = hit.point;
-        }
-        else
-        {
-            aimPoint.position = transform.position + transform.forward + Vector3.up * 1.5f;
+            aimIKTarget.position = hit.point;
         }
     }
-
 }
