@@ -17,9 +17,10 @@ public class PlayerEquipment : MonoBehaviour
 
     private void FixedUpdate() 
     {
-        if(CurrentEquip)
+        if (CurrentEquip != null)
             CurrentEquip.transform.rotation = Quaternion.LookRotation(leftHand.position - rightHand.position, Vector3.up);
     }
+    
 
     public void Equip(DummyWeapon equipment)
     {

@@ -9,10 +9,10 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
     public void AddProjectilePool(Projectile projectile, int initialSize = 31, int maxSize = 100)
     {
         projectilePools.Add(projectile.data.type, new ObjectPool<Projectile>(
-            ()=>{ return Instantiate(projectile); },
-            null,//(projectile)=>{},
-            (projectile)=>{ projectile.gameObject.SetActive(false); }, 
-            (projectile)=>{ Destroy(projectile.gameObject); }, 
+            () => { return Instantiate(projectile); },
+            null, //(projectile)=>{},
+            (projectile) => { projectile.gameObject.SetActive(false); }, 
+            (projectile) => { Destroy(projectile.gameObject); }, 
             false, initialSize, maxSize));
     }
 

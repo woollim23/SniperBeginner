@@ -1,6 +1,7 @@
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 
-[RequireComponent(typeof(Animator))]
+
 public class PlayerAnimationController : MonoBehaviour 
 {
     public string runParamName = "Run";
@@ -27,14 +28,19 @@ public class PlayerAnimationController : MonoBehaviour
     public int FireParamHash { get; private set; }
     public int AimingParamHash { get; private set; }
     
-    public Animator Animator { get; private set; }
+    [field:Space(10f)]
+    [field:SerializeField] public Animator Animator { get; private set; }
+    [SerializeField] Rig rig; // IK
 
 
     private void Awake() 
     {        
-        Animator = GetComponent<Animator>();
+        if(!Animator)
+            Animator = GetComponentInChildren<Animator>();
         
         Initialize();
+
+        rig.weight = 0f;
     }
 
     
@@ -60,6 +66,7 @@ public class PlayerAnimationController : MonoBehaviour
 
     public void Aiming(bool isOn)
     {
+        rig.weight = isOn ? 1f : 0f;
         Animator.SetBool(AimingParamHash, isOn);
     }
 }

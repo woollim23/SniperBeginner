@@ -3,11 +3,13 @@ using UnityEngine.InputSystem;
 
 public class PlayerView : MonoBehaviour
 {
-    [SerializeField] Transform cameraContainer;
-
     PlayerSetting setting;
+
     Vector2 delta = Vector2.zero;
     float currentRotateY = 0f;
+
+    [SerializeField] Transform cameraContainer;
+
 
     
     private void Start() 
@@ -26,6 +28,7 @@ public class PlayerView : MonoBehaviour
         // 임시
         SetCursor(true);
     }
+
 
     private void LateUpdate() 
     {
@@ -47,6 +50,7 @@ public class PlayerView : MonoBehaviour
         currentRotateY = Mathf.Clamp(currentRotateY, setting.lookYAxisLimit.x, setting.lookYAxisLimit.y);
         cameraContainer.localEulerAngles = new Vector3(currentRotateY, 0f, 0f);
     }
+
 
     // 임시
     void SetCursor(bool isLocked)
