@@ -38,10 +38,7 @@ public class PlayerShootingController : MonoBehaviour
 
     private void Update() 
     {
-        if (isAiming)
-        {
-            Aim();
-        }
+        Aim();
     }
 
 
@@ -59,6 +56,7 @@ public class PlayerShootingController : MonoBehaviour
 
     void Fire()
     {
+
         // 애니메이션으로 처리하지 않을 것
         DummyWeapon weapon = equip.CurrentEquip;
         Projectile bullet = ObjectPoolManager.Instance.Get(weapon.projectile.data.type);

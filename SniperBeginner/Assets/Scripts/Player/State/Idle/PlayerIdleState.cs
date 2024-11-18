@@ -60,6 +60,12 @@ public class PlayerIdleState : PlayerBaseState
         animation.Animator.SetBool(animation.data.RunParamHash, IsRun);
     }
 
+    protected override void OnJump(InputAction.CallbackContext context)
+    {
+        stateMachine.Player.ForceReceiver.AddForce(Vector3.up * stateMachine.Player.setting.JumpPower);
+        //스테이트 변경
+    }
+
     void Initialize()
     {
         movement = Vector2.zero;
@@ -70,4 +76,5 @@ public class PlayerIdleState : PlayerBaseState
     {
         animation.Move(movement);
     }
+
 }

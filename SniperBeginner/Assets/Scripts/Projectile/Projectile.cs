@@ -19,7 +19,6 @@ public class ProjectileData
 public class Projectile : MonoBehaviour
 {
     Rigidbody rb;
-    
     public ProjectileData data;
 
     protected virtual void Awake() 
@@ -27,14 +26,21 @@ public class Projectile : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    public virtual void Fire(Vector3 firePoint, Vector3 direction)
+
+    public void Initialize(Vector3 firePoint, Vector3 direction)
     {
         gameObject.SetActive(false);
         
         rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
 
         transform.position = firePoint;
         transform.rotation = Quaternion.LookRotation(direction);
+    }
+
+    public virtual void Fire(Vector3 firePoint, Vector3 direction)
+    {
+        Initialize(firePoint, direction);
 
         gameObject.SetActive(true);
 

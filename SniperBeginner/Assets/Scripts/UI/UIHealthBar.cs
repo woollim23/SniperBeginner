@@ -23,5 +23,6 @@ public class UIHealthBar : MonoBehaviour
         slider.value = percent;
         if(healthLabel)
             healthLabel.text = string.Format("{0:N2} %", percent * 100f);
+
     }
 }

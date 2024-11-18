@@ -18,8 +18,6 @@ public class PlayerAnimationController : MonoBehaviour
         
         data = new AnimationData();
         data.Initialize();
-
-        rig.weight = 0f;
     }
 
 
@@ -31,7 +29,6 @@ public class PlayerAnimationController : MonoBehaviour
 
     public void Aiming(bool isOn)
     {
-        rig.weight = isOn ? 1f : 0f;
         Animator.SetBool(data.AimingParamHash, isOn);
     }
 }

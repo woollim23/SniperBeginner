@@ -26,4 +26,5 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
     {
         projectilePools[type].Release(projectile);
     }
+
 }

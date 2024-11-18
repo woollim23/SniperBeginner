@@ -34,12 +34,16 @@ public abstract class PlayerBaseState : IState
     {
         stateMachine.Player.Input.Actions.Move.performed += OnMove;
         stateMachine.Player.Input.Actions.Move.canceled += OnMove;
+
+        stateMachine.Player.Input.Actions.Jump.started += OnJump;
     }
 
     protected virtual void RemovePlayerInput()
     {
         stateMachine.Player.Input.Actions.Move.performed -= OnMove;
         stateMachine.Player.Input.Actions.Move.canceled -= OnMove;
+
+        stateMachine.Player.Input.Actions.Jump.started -= OnJump;
     }
 
     protected virtual void OnMove(InputAction.CallbackContext context)
@@ -47,4 +51,7 @@ public abstract class PlayerBaseState : IState
         moveInput = context.ReadValue<Vector2>();
     }
 
+    protected virtual void OnJump(InputAction.CallbackContext context)
+    {
+    }
 }

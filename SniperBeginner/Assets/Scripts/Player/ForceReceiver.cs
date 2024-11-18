@@ -39,9 +39,4 @@ public class ForceReceiver : MonoBehaviour
     {
         force += amount;
     }
-
-    public void Jump(float power)
-    {
-        force += Vector3.up * power;
-    }
 }
