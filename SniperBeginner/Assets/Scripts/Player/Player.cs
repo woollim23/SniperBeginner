@@ -6,6 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerView))]
 [RequireComponent(typeof(PlayerEquipment))]
 [RequireComponent(typeof(PlayerCondition))]
+[RequireComponent(typeof(ForceReceiver))]
 public class Player : MonoBehaviour
 {
     public PlayerSetting setting;
@@ -17,6 +18,7 @@ public class Player : MonoBehaviour
     public PlayerView View { get; private set; }
     public PlayerEquipment Equipment { get; private set; }
     public PlayerCondition Condition { get; private set; }
+    public ForceReceiver ForceReceiver { get; private set; }
     
     public PlayerStateMachine StateMachine { get; private set; }
 
@@ -32,6 +34,7 @@ public class Player : MonoBehaviour
         View = GetComponent<PlayerView>();
         Equipment = GetComponent<PlayerEquipment>();
         Condition = GetComponent<PlayerCondition>();
+        ForceReceiver = GetComponent<ForceReceiver>();
 
         StateMachine = new PlayerStateMachine(this);
     }

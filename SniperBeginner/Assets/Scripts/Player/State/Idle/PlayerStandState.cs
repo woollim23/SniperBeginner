@@ -30,6 +30,8 @@ public class PlayerStandState : PlayerIdleState
         base.Move();
 
         float speed = (IsRun ? stateMachine.Setting.RunSpeed : stateMachine.Setting.WalkSpeed) * Time.deltaTime;
-        stateMachine.Player.Controller.Move(new Vector3(movement.x * speed, 0f, movement.y * speed));
+        Transform player = stateMachine.Player.transform;
+        Vector3 motion = player.right * movement.x * speed + player.forward * movement.y * speed + stateMachine.Player.ForceReceiver.Movement * Time.deltaTime;
+        stateMachine.Player.Controller.Move(motion);
     }
 }

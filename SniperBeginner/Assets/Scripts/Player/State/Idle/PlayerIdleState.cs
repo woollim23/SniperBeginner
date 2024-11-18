@@ -57,7 +57,7 @@ public class PlayerIdleState : PlayerBaseState
         else if (context.canceled)
             IsRun = false;
 
-        animation.Animator.SetBool(animation.RunParamHash, IsRun);
+        animation.Animator.SetBool(animation.data.RunParamHash, IsRun);
     }
 
     void Initialize()
