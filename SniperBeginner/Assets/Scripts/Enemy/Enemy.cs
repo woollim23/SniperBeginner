@@ -40,18 +40,11 @@ public class Enemy : MonoBehaviour, IDamagable
     {
         stateMachine.ChangeState(stateMachine.IdleState);
         
-        //enemyHealth.OnDie += OnDie;
     }
 
     private void Update()
     {
-        //stateMachine.HandleInput();
         stateMachine.Update();
-    }
-
-    private void FixedUpdate()
-    {
-        //stateMachine.PhysicsUpdate();
     }
 
     public void TakeDamage(float damage)
