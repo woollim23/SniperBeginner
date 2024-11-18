@@ -41,7 +41,7 @@ public class AnimationData
     public string horizontalParamName = "Horizontal";
     public string verticalParamName = "Vertical";
 
-    // public string groundParamName = "@Ground";
+    public string groundParamName = "@Ground";
     public string standParamName = "Stand";
     public string crouchParamName = "Crouch";
     public string crawlParamName = "Crawl";
@@ -49,17 +49,26 @@ public class AnimationData
     public string fireParamName = "Fire";
     public string aimingParamName = "Aiming";
 
+    public string airParamName = "@Air";
+    public string jumpParamName = "Jump";
+    public string fallParamName = "Fall";
+
 
     public int RunParamHash { get; private set; }
     public int HorizontalParamHash { get; private set; }
     public int VerticalParamHash { get; private set; }
     
+    public int GroundParamHash { get; private set; }
     public int StandParamHash { get; private set; }
     public int CrouchParamHash { get; private set; }
     public int CrawlParamHash { get; private set; }
 
     public int FireParamHash { get; private set; }
     public int AimingParamHash { get; private set; }
+
+    public int AirParamHash { get; private set; }
+    public int JumpParamHash { get; private set; }
+    public int FallParamHash { get; private set; }
     
     
     public void Initialize()
@@ -68,11 +77,16 @@ public class AnimationData
         HorizontalParamHash =   Animator.StringToHash(horizontalParamName);
         VerticalParamHash =     Animator.StringToHash(verticalParamName);
 
+        GroundParamHash =       Animator.StringToHash(groundParamName);
         StandParamHash =        Animator.StringToHash(standParamName);
         CrouchParamHash =       Animator.StringToHash(crouchParamName);
         CrawlParamHash =        Animator.StringToHash(crawlParamName);
 
         FireParamHash =         Animator.StringToHash(fireParamName);
         AimingParamHash =       Animator.StringToHash(aimingParamName);
+
+        AirParamHash =          Animator.StringToHash(airParamName);
+        JumpParamHash =         Animator.StringToHash(jumpParamName);
+        FallParamHash =         Animator.StringToHash(fallParamName);
     }
 }

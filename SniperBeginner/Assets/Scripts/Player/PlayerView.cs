@@ -22,8 +22,8 @@ public class PlayerView : MonoBehaviour
             shooting = player.Shooting;
             
             // 생애주기를 함께할 것이라 구독 취소는 구현 안함
-            player.Input.Actions.Look.performed += OnLook;
-            player.Input.Actions.Look.canceled += OnLook;
+            player.Actions.Look.performed += OnLook;
+            player.Actions.Look.canceled += OnLook;
         }
 
         currentRotateY = cameraContainer.transform.localEulerAngles.y;

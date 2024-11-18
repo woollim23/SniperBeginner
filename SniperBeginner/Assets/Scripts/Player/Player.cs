@@ -11,9 +11,10 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public PlayerSetting setting;
+    public PlayerInput.PlayerActions Actions => InputManager.Instance.Actions;
 
     public CharacterController Controller { get; private set;}
-    public PlayerInputController Input { get; private set; }
+
     public PlayerAnimationController Animation { get; private set; }
     public PlayerShootingController Shooting { get; private set; }
     public PlayerView View { get; private set; }
@@ -30,7 +31,6 @@ public class Player : MonoBehaviour
         CharacterManager.Instance.Player = this;
 
         Controller = GetComponent<CharacterController>();
-        Input = GetComponent<PlayerInputController>();
         Animation = GetComponent<PlayerAnimationController>();
         Shooting = GetComponent<PlayerShootingController>();
         View = GetComponent<PlayerView>();

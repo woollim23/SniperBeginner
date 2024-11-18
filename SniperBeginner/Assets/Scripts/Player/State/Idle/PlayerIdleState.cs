@@ -22,19 +22,19 @@ public class PlayerIdleState : PlayerBaseState
         stateMachine.CurrentIdle = this;
 
         base.AddPlayerInput();
-        stateMachine.Player.Input.Actions.Pose.started += OnPose;
+        stateMachine.Player.Actions.Pose.started += OnPose;
 
-        stateMachine.Player.Input.Actions.Run.started += OnRun;
-        stateMachine.Player.Input.Actions.Run.canceled += OnRun;
+        stateMachine.Player.Actions.Run.started += OnRun;
+        stateMachine.Player.Actions.Run.canceled += OnRun;
     }
 
     protected override void RemovePlayerInput()
     {
         base.RemovePlayerInput();
-        stateMachine.Player.Input.Actions.Pose.started -= OnPose;
+        stateMachine.Player.Actions.Pose.started -= OnPose;
         
-        stateMachine.Player.Input.Actions.Run.started -= OnRun;
-        stateMachine.Player.Input.Actions.Run.canceled -= OnRun;
+        stateMachine.Player.Actions.Run.started -= OnRun;
+        stateMachine.Player.Actions.Run.canceled -= OnRun;
     }
 
     public override void Update()
