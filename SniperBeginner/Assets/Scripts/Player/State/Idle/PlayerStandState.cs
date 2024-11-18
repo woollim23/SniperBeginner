@@ -11,13 +11,13 @@ public class PlayerStandState : PlayerIdleState
     public override void Enter()
     {
         base.Enter();
-        animation.Animator.SetBool(animation.StandParamHash, true);
+        animation.Animator.SetBool(animation.data.StandParamHash, true);
     }
 
     public override void Exit()
     {
         base.Exit();
-        animation.Animator.SetBool(animation.StandParamHash, false);
+        animation.Animator.SetBool(animation.data.StandParamHash, false);
     }
 
     protected override void OnPose(InputAction.CallbackContext context)

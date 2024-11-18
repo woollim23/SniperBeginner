@@ -1,11 +1,11 @@
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
-[RequireComponent(typeof(PlayerInputController))]
 [RequireComponent(typeof(PlayerAnimationController))]
 [RequireComponent(typeof(PlayerShootingController))]
 [RequireComponent(typeof(PlayerView))]
 [RequireComponent(typeof(PlayerEquipment))]
+[RequireComponent(typeof(PlayerCondition))]
 public class Player : MonoBehaviour
 {
     public PlayerSetting setting;
@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     public PlayerShootingController Shooting { get; private set; }
     public PlayerView View { get; private set; }
     public PlayerEquipment Equipment { get; private set; }
+    public PlayerCondition Condition { get; private set; }
     
     public PlayerStateMachine StateMachine { get; private set; }
 
@@ -30,6 +31,7 @@ public class Player : MonoBehaviour
         Shooting = GetComponent<PlayerShootingController>();
         View = GetComponent<PlayerView>();
         Equipment = GetComponent<PlayerEquipment>();
+        Condition = GetComponent<PlayerCondition>();
 
         StateMachine = new PlayerStateMachine(this);
     }
