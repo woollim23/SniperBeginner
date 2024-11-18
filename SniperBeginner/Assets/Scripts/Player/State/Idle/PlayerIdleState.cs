@@ -57,7 +57,14 @@ public class PlayerIdleState : PlayerBaseState
         else if (context.canceled)
             IsRun = false;
 
-        animation.Animator.SetBool(animation.RunParamHash, IsRun);
+        animation.Animator.SetBool(animation.data.RunParamHash, IsRun);
+    }
+
+    protected override void OnJump(InputAction.CallbackContext context)
+    {
+        // 스테이트 변경
+        if (stateMachine.Player.Controller.isGrounded)
+            stateMachine.ChangeState(stateMachine.JumpState);
     }
 
     void Initialize()
@@ -70,4 +77,5 @@ public class PlayerIdleState : PlayerBaseState
     {
         animation.Move(movement);
     }
+
 }

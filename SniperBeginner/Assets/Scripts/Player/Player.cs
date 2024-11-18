@@ -1,11 +1,13 @@
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
-[RequireComponent(typeof(PlayerInputController))]
 [RequireComponent(typeof(PlayerAnimationController))]
 [RequireComponent(typeof(PlayerShootingController))]
 [RequireComponent(typeof(PlayerView))]
 [RequireComponent(typeof(PlayerEquipment))]
+[RequireComponent(typeof(PlayerCondition))]
+[RequireComponent(typeof(PlayerInteraction))]
+[RequireComponent(typeof(ForceReceiver))]
 public class Player : MonoBehaviour
 {
     public PlayerSetting setting;
@@ -16,6 +18,9 @@ public class Player : MonoBehaviour
     public PlayerShootingController Shooting { get; private set; }
     public PlayerView View { get; private set; }
     public PlayerEquipment Equipment { get; private set; }
+    public PlayerCondition Condition { get; private set; }
+    public PlayerInteraction Interact { get; private set; }
+    public ForceReceiver ForceReceiver { get; private set; }
     
     public PlayerStateMachine StateMachine { get; private set; }
 
@@ -30,6 +35,9 @@ public class Player : MonoBehaviour
         Shooting = GetComponent<PlayerShootingController>();
         View = GetComponent<PlayerView>();
         Equipment = GetComponent<PlayerEquipment>();
+        Condition = GetComponent<PlayerCondition>();
+        Interact = GetComponent<PlayerInteraction>();
+        ForceReceiver = GetComponent<ForceReceiver>();
 
         StateMachine = new PlayerStateMachine(this);
     }
@@ -55,6 +63,10 @@ public class PlayerSetting
     public float WalkSpeed = 3f;
     public float RunSpeed = 6f;
     [Range(0.01f, 1f)] public float MovementInputSmoothness = 0.05f;
+
+    
+    [Header("Jump")]
+    public float JumpPower = 20f;
 
     [Header("Look")]
     public float lookSensitive = 1f;
