@@ -14,10 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyModel: {fileID: 2347335746604759338, guid: d9bf93a723955444799d569c048e90f8,
     type: 3}
+  <MaxHealth>k__BackingField: 100
+  Damage: 10
   <PlayerChasingRange>k__BackingField: 10
   <AttackRange>k__BackingField: 3
-  <ForceTransitionTime>k__BackingField: 0
-  <Force>k__BackingField: 0
-  Damage: 0
   <Dealing_Start_TransitionTime>k__BackingField: 0
   <Dealing_End_TransitionTime>k__BackingField: 0
+  <GroundData>k__BackingField:
+    <BaseSpeed>k__BackingField: 5
+    <BaseRotationDamping>k__BackingField: 1
+    <WalkSpeedModifier>k__BackingField: 0.225
+    <RunSpeedModifier>k__BackingField: 1

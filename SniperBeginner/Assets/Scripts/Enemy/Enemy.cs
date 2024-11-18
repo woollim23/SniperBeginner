@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour, IDamagable
 {
     [field: Header("Enemy Data")]
     [field: SerializeField] private float health;
+
     [field: SerializeField] public EnemySO Data { get; private set; }
 
     [field: Header("Animations")]
@@ -34,6 +35,8 @@ public class Enemy : MonoBehaviour, IDamagable
 
         stateMachine = new EnemyStateMachine(this);
         health = 100; // TODO : 최대 체력 바꾸기
+
+        EnemyDatalInit();
     }
 
     private void Start()
@@ -45,6 +48,11 @@ public class Enemy : MonoBehaviour, IDamagable
     private void Update()
     {
         stateMachine.Update();
+    }
+
+    public void EnemyDatalInit()
+    {
+        health = Data.MaxHealth;
     }
 
     public void TakeDamage(float damage)
