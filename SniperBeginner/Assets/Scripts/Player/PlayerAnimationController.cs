@@ -8,7 +8,6 @@ public class PlayerAnimationController : MonoBehaviour
     
     [field:Space(10f)]
     [field:SerializeField] public Animator Animator { get; private set; }
-    [SerializeField] Rig rig; // IK
 
 
     private void Awake() 
@@ -30,6 +29,10 @@ public class PlayerAnimationController : MonoBehaviour
     public void Aiming(bool isOn)
     {
         Animator.SetBool(data.AimingParamHash, isOn);
+    }
+    public void Fire()
+    {
+        Animator.SetTrigger(data.FireParamHash);
     }
 
     public void Jump()

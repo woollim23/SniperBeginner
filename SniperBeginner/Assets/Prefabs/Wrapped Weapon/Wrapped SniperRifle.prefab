@@ -12,7 +12,7 @@ GameObject:
   m_Layer: 0
   m_Name: Fire Point
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -43,7 +43,7 @@ GameObject:
   m_Layer: 0
   m_Name: On Aim
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -111,6 +111,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firePoint: {fileID: 1730291088304789257}
   aimPoint: {fileID: 6033140158775473826}
+  LeftHandIK: {fileID: 0}
   projectile: {fileID: 2875054006511490313, guid: 158bd8e68e522ba44830e1b7ed7cdeaf,
     type: 3}
   ammoCount: 30

@@ -5,15 +5,13 @@ public class PlayerShootingController : MonoBehaviour
 {
     PlayerAnimationController anim;
     PlayerEquipment equip;
-
-    public bool isAiming;
-
     Camera mainCamera;
-    [SerializeField] Transform aimIKTarget; // IK point로 쓸 것
 
     [Header("Aim Setting")]
+    public bool isAiming;
     [SerializeField] LayerMask aimLayerMask;
-
+    [SerializeField] Transform aimIKTarget; // IK point로 쓸 것
+    float lastFireTime;
 
     public event Action<Transform, Transform> OnKilledEnemy;
 
@@ -25,6 +23,8 @@ public class PlayerShootingController : MonoBehaviour
 
         if(!aimIKTarget)
             aimIKTarget = new GameObject("Aim IK Target").transform;
+        
+        aimIKTarget.SetParent(null);
     }
 
     private void Start() 
@@ -42,7 +42,8 @@ public class PlayerShootingController : MonoBehaviour
 
     private void Update() 
     {
-        Aim();
+        if(equip.CurrentEquip)
+            Aim();
     }
 
 
@@ -60,11 +61,17 @@ public class PlayerShootingController : MonoBehaviour
 
     void Fire()
     {
+        if (Time.time - lastFireTime < equip.CurrentEquip.intervalTime) 
+            return;
+
+        lastFireTime = Time.time;
+        anim.Fire();
+
         // 애니메이션으로 처리하지 않을 것
         DummyWeapon weapon = equip.CurrentEquip;
         Projectile bullet = ObjectPoolManager.Instance.Get(weapon.projectile.data.type);
 
-        // 사전 검사 - 사망했는지?
+        // 사전 검사 - 이번 총격으로 사망했는지?
         if (Check())
         {
             // 검사에서 사망했다 -> 시네머신 : 시네머신에서 죽일 것
@@ -80,15 +87,20 @@ public class PlayerShootingController : MonoBehaviour
 
     void Aim()
     {
-        Ray ray = mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-        if (Physics.Raycast(ray, out RaycastHit hit , float.PositiveInfinity, aimLayerMask))
-        {
-            aimIKTarget.position = hit.point;
-        }
+        aimIKTarget.position = mainCamera.transform.position + mainCamera.transform.forward * 10f;
     }
 
     bool Check()
     {
+        Ray ray = mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+        if (Physics.Raycast(ray, out RaycastHit hit , float.PositiveInfinity, aimLayerMask))
+        {
+            if(hit.collider.TryGetComponent(out IDamagable damagable))
+            {
+                
+            }
+        }
+
         return false;
     }
 }

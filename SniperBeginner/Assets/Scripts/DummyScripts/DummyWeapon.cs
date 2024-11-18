@@ -10,6 +10,7 @@ public class DummyWeapon : MonoBehaviour
     // weapon data
     [Header("temp weapon data")]
     public Projectile projectile;
+    public float damage = 100f;
     public int ammoCount = 30;
     public float intervalTime = 1f;
     public float reloadTime = 1f;

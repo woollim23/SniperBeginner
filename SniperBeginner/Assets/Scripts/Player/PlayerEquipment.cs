@@ -9,8 +9,9 @@ public class PlayerEquipment : MonoBehaviour
     
 
     // 손 위치
-    public Transform leftHand;
-    public Transform rightHand;
+    [SerializeField] Transform rightHand;
+    [SerializeField] Transform leftHand;
+
 
     private void Awake() 
     {
@@ -26,9 +27,10 @@ public class PlayerEquipment : MonoBehaviour
     private void FixedUpdate() 
     {
         if (CurrentEquip != null)
+        {
             CurrentEquip.transform.rotation = Quaternion.LookRotation(leftHand.position - rightHand.position, Vector3.up);
+        }
     }
-
 
     public void Equip(DummyWeapon equipment)
     {
