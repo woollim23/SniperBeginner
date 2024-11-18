@@ -32,18 +32,18 @@ public abstract class PlayerBaseState : IState
 
     protected virtual void AddPlayerInput()
     {
-        stateMachine.Player.Input.Actions.Move.performed += OnMove;
-        stateMachine.Player.Input.Actions.Move.canceled += OnMove;
+        stateMachine.Player.Actions.Move.performed += OnMove;
+        stateMachine.Player.Actions.Move.canceled += OnMove;
 
-        stateMachine.Player.Input.Actions.Jump.started += OnJump;
+        stateMachine.Player.Actions.Jump.started += OnJump;
     }
 
     protected virtual void RemovePlayerInput()
     {
-        stateMachine.Player.Input.Actions.Move.performed -= OnMove;
-        stateMachine.Player.Input.Actions.Move.canceled -= OnMove;
+        stateMachine.Player.Actions.Move.performed -= OnMove;
+        stateMachine.Player.Actions.Move.canceled -= OnMove;
 
-        stateMachine.Player.Input.Actions.Jump.started -= OnJump;
+        stateMachine.Player.Actions.Jump.started -= OnJump;
     }
 
     protected virtual void OnMove(InputAction.CallbackContext context)

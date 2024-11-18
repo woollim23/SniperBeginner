@@ -42,7 +42,6 @@ GameObject:
   - component: {fileID: 8365841675938697134}
   - component: {fileID: 8535255399778760260}
   - component: {fileID: 4949356535031780303}
-  - component: {fileID: 6179196682327316558}
   - component: {fileID: 8565353724580743019}
   - component: {fileID: 248544757779303467}
   - component: {fileID: 7574824395645068272}
@@ -120,18 +119,6 @@ MonoBehaviour:
     JumpPower: 10
     lookSensitive: 10
     lookYAxisLimit: {x: -45, y: 45}
---- !u!114 &6179196682327316558
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 301170704557933457}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a0c86179f09404459584ed0de776096, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8565353724580743019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,11 +135,15 @@ MonoBehaviour:
     runParamName: Run
     horizontalParamName: Horizontal
     verticalParamName: Vertical
+    groundParamName: '@Ground'
     standParamName: Stand
     crouchParamName: Crouch
     crawlParamName: Crawl
     fireParamName: Fire
     aimingParamName: Aiming
+    airParamName: '@Air'
+    jumpParamName: Jump
+    fallParamName: Fall
   <Animator>k__BackingField: {fileID: 4540956004945665614}
   rig: {fileID: 7405992265049547688}
 --- !u!114 &248544757779303467

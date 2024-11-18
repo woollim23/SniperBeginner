@@ -27,12 +27,12 @@ public class PlayerShootingController : MonoBehaviour
     {
         mainCamera = Camera.main;
 
-        if (TryGetComponent(out PlayerInputController input))
+        if (TryGetComponent(out Player player))
         {
-            input.Actions.Aim.started += (context) => {AimStarted();};
-            input.Actions.Aim.canceled += (context) => {AimCanceled();};
+            player.Actions.Aim.started += (context) => {AimStarted();};
+            player.Actions.Aim.canceled += (context) => {AimCanceled();};
 
-            input.Actions.Fire.started += (context) => {Fire();};
+            player.Actions.Fire.started += (context) => {Fire();};
         }
     }
 

@@ -17,8 +17,6 @@ public class InputManager : Singleton<InputManager>
     {
         Input = new PlayerInput();
         Actions = Input.Player;
-
-        Debug.Log("InputManager Awake");
     }
 
     private void OnEnable() 
