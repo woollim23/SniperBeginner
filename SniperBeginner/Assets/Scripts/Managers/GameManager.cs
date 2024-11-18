@@ -26,17 +26,4 @@ public class GameManager : SingletonDontDestory<GameManager>
     {
         // 적 처치 카운팅 함수
     }
-    //---------UI 매니저------
-    public void UIInit()
-    {
-        GameObject canvas = GameObject.Find("MainUI");
-
-        pausePanel = canvas.transform.Find("PausePanel")?.gameObject;
-    }
-
-    public void OnPauseMenu()
-    {
-        pausePanel.SetActive(true); // 메뉴 UI 활성화
-        Time.timeScale = 0f;        // 게임 멈춤
-    }
 }
