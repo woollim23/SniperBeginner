@@ -62,8 +62,9 @@ public class PlayerIdleState : PlayerBaseState
 
     protected override void OnJump(InputAction.CallbackContext context)
     {
-        stateMachine.Player.ForceReceiver.AddForce(Vector3.up * stateMachine.Player.setting.JumpPower);
-        //스테이트 변경
+        // 스테이트 변경
+        if (stateMachine.Player.Controller.isGrounded)
+            stateMachine.ChangeState(stateMachine.JumpState);
     }
 
     void Initialize()
