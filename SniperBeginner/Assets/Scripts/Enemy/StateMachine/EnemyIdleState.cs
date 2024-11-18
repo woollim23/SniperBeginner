@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyIdleState : EnemyBaseState
 {
-    public EnemyIdleState(EnemyStateMachine playerStateMachine) : base(playerStateMachine)
+    public EnemyIdleState(EnemyStateMachine enemyStateMachine) : base(enemyStateMachine)
     {
     }
 
@@ -13,7 +13,7 @@ public class EnemyIdleState : EnemyBaseState
         stateMachine.MovementSpeedModifier = 0f;
 
         base.Enter();
-        //StartAnimation(stateMachine.Enemy.AnimationData.GroundParameterHash);
+        StartAnimation(stateMachine.Enemy.AnimationData.GroundParameterHash);
         //StartAnimation(stateMachine.Enemy.AnimationData.IdleParameterHash);
     }
 
