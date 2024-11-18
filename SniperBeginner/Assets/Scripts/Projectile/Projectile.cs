@@ -4,6 +4,8 @@ using UnityEngine;
 public enum EProjectile
 {
     TestBullet,
+    Bullet7mm, // 저격 라이플
+    Bullet5mm // 권총
 }
 
 

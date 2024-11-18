@@ -6,6 +6,7 @@ public class PlayerEquipment : MonoBehaviour
 
     // TODO : 플레이어 장착에 대한 정보 -> Equipment나 Gun 스크립트가 필요할 듯
     [field:SerializeField] public DummyWeapon CurrentEquip { get; private set; }
+    
 
     // 손 위치
     public Transform leftHand;
@@ -71,6 +72,17 @@ public class PlayerEquipment : MonoBehaviour
 
         rightHand.localPosition = Vector3.zero;
         rightHand.localEulerAngles = Vector3.zero;
+    }
+
+
+    public void AddAmmo(int count)
+    {
+
+    }
+
+    public void UseAmmo(int count = 1)
+    {
+
     }
 }
 

@@ -14,7 +14,6 @@ public class PlayerInteraction : MonoBehaviour
     {
         if(TryGetComponent(out Player player))
         {
-            Debug.Log(player.Actions.Interaction == null);
             player.Actions.Interaction.started += (context) => { Interact(); };
         }
     }

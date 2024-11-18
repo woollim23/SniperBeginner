@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerShootingController : MonoBehaviour
@@ -12,6 +13,9 @@ public class PlayerShootingController : MonoBehaviour
 
     [Header("Aim Setting")]
     [SerializeField] LayerMask aimLayerMask;
+
+
+    public event Action<Transform, Transform> OnKilledEnemy;
 
 
     private void Awake() 
@@ -56,11 +60,22 @@ public class PlayerShootingController : MonoBehaviour
 
     void Fire()
     {
-
         // 애니메이션으로 처리하지 않을 것
         DummyWeapon weapon = equip.CurrentEquip;
         Projectile bullet = ObjectPoolManager.Instance.Get(weapon.projectile.data.type);
-        bullet.Fire(weapon.firePoint.position, weapon.firePoint.forward);
+
+        // 사전 검사 - 사망했는지?
+        if (Check())
+        {
+            // 검사에서 사망했다 -> 시네머신 : 시네머신에서 죽일 것
+            Transform target = null;
+            OnKilledEnemy?.Invoke(bullet.transform, target);
+        }
+        else
+        {
+            // 검사에서 사망하지 않았다 -> 아래 코드 : 물리적으로 공격
+            bullet.Fire(weapon.firePoint.position, weapon.firePoint.forward);
+        }
     }
 
     void Aim()
@@ -70,5 +85,10 @@ public class PlayerShootingController : MonoBehaviour
         {
             aimIKTarget.position = hit.point;
         }
+    }
+
+    bool Check()
+    {
+        return false;
     }
 }

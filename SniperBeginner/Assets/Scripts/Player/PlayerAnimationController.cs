@@ -31,6 +31,26 @@ public class PlayerAnimationController : MonoBehaviour
     {
         Animator.SetBool(data.AimingParamHash, isOn);
     }
+
+    public void Jump()
+    {
+        Animator.SetTrigger(data.JumpParamHash);
+    }
+
+    public void InGround(bool isOn)
+    {
+        Animator.SetBool(data.GroundParamHash, isOn);
+    }
+    
+    public void InAir(bool isOn)
+    {
+        Animator.SetBool(data.AirParamHash, isOn);
+    }
+
+    public void Falling()
+    {
+        Animator.SetTrigger(data.FallParamHash);
+    }
 }
 
 [System.Serializable]
@@ -51,7 +71,7 @@ public class AnimationData
 
     public string airParamName = "@Air";
     public string jumpParamName = "Jump";
-    public string fallParamName = "Fall";
+    public string fallParamName = "Falling";
 
 
     public int RunParamHash { get; private set; }

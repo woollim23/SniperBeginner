@@ -11,4 +11,6 @@ public class DummyWeapon : MonoBehaviour
     [Header("temp weapon data")]
     public Projectile projectile;
     public int ammoCount = 30;
+    public float intervalTime = 1f;
+    public float reloadTime = 1f;
 }

@@ -34,6 +34,10 @@ public class EnemyBaseState : IState
         Move();
     }
 
+    public virtual void FixedUpdate()
+    {
+    }
+
     private void Move()
     {
         Vector3 movementDirection = GetMovementDirection();

@@ -114,6 +114,8 @@ MonoBehaviour:
   projectile: {fileID: 2875054006511490313, guid: 158bd8e68e522ba44830e1b7ed7cdeaf,
     type: 3}
   ammoCount: 30
+  intervalTime: 1
+  reloadTime: 1
 --- !u!1001 &2095179902396725295
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -175,17 +177,17 @@ PrefabInstance:
     - target: {fileID: 3918682168350424584, guid: 20217f91ebc081940a2cafa6da74be34,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.1435
+      value: 0.006
       objectReference: {fileID: 0}
     - target: {fileID: 3918682168350424584, guid: 20217f91ebc081940a2cafa6da74be34,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.036
+      value: -0.366
       objectReference: {fileID: 0}
     - target: {fileID: 3918682168350424584, guid: 20217f91ebc081940a2cafa6da74be34,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.342
+      value: 0.098
       objectReference: {fileID: 0}
     - target: {fileID: 3918682168350424584, guid: 20217f91ebc081940a2cafa6da74be34,
         type: 3}
@@ -195,22 +197,22 @@ PrefabInstance:
     - target: {fileID: 3918682168350424584, guid: 20217f91ebc081940a2cafa6da74be34,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 3918682168350424584, guid: 20217f91ebc081940a2cafa6da74be34,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 1
+      value: 0.70713013
       objectReference: {fileID: 0}
     - target: {fileID: 3918682168350424584, guid: 20217f91ebc081940a2cafa6da74be34,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0.7070834
       objectReference: {fileID: 0}
     - target: {fileID: 3918682168350424584, guid: 20217f91ebc081940a2cafa6da74be34,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: 90.01999
       objectReference: {fileID: 0}
     - target: {fileID: 3918682168350424584, guid: 20217f91ebc081940a2cafa6da74be34,
         type: 3}

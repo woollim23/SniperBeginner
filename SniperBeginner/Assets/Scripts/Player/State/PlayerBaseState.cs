@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 
 public abstract class PlayerBaseState : IState
 {
+    protected CharacterController controller;
     protected PlayerStateMachine stateMachine;
     protected PlayerAnimationController animation;
     protected Vector2 moveInput;
@@ -12,6 +13,7 @@ public abstract class PlayerBaseState : IState
     {
         this.stateMachine = stateMachine;
         animation = stateMachine.Player.Animation;
+        controller = stateMachine.Player.Controller;
     }
     
 
@@ -28,7 +30,9 @@ public abstract class PlayerBaseState : IState
     public virtual void Update() 
     {
     }
-
+    public virtual void FixedUpdate() 
+    {
+    }
 
     protected virtual void AddPlayerInput()
     {
@@ -54,4 +58,5 @@ public abstract class PlayerBaseState : IState
     protected virtual void OnJump(InputAction.CallbackContext context)
     {
     }
+
 }
