@@ -11,8 +11,11 @@ public class PlayerInteraction : MonoBehaviour
 
     private void Start() 
     {
+        Debug.Log("PlayerInteraction start");
+
         if(TryGetComponent(out PlayerInputController input))
         {
+            Debug.Log(input.Actions.Interaction == null);
             input.Actions.Interaction.started += (context) => { Interact(); };
         }
     }

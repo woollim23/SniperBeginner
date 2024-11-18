@@ -1,6 +1,7 @@
 
 using System;
 using UnityEngine.InputSystem;
+using UnityEngine;
 
 public class InputManager : Singleton<InputManager>
 {
@@ -16,6 +17,8 @@ public class InputManager : Singleton<InputManager>
     {
         Input = new PlayerInput();
         Actions = Input.Player;
+
+        Debug.Log("InputManager Awake");
     }
 
     private void OnEnable() 
