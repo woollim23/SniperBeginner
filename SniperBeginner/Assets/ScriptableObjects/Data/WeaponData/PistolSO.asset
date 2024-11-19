@@ -23,3 +23,7 @@ MonoBehaviour:
   weaponType: 0
   equipPrefab: {fileID: 0}
   projectile: {fileID: 0}
+  fireSound: {fileID: 8300000, guid: 8e1ba2d4ce5d91748a25ce8b32a74fe4, type: 3}
+  emptyFireSound: {fileID: 8300000, guid: 694d13ea30b7a8b498c0e14a16737381, type: 3}
+  reloadSound: {fileID: 8300000, guid: b6224cdae350c4941ad8341c8d8461f3, type: 3}
+  equipSound: {fileID: 8300000, guid: a907f66f7074c43418ba35e0591c83a6, type: 3}

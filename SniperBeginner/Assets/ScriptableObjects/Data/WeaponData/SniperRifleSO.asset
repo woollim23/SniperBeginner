@@ -22,5 +22,8 @@ MonoBehaviour:
   ammoType: 1
   weaponType: 1
   equipPrefab: {fileID: 0}
-  projectile: {fileID: 2875054006511490313, guid: 158bd8e68e522ba44830e1b7ed7cdeaf,
-    type: 3}
+  projectile: {fileID: 0}
+  fireSound: {fileID: 8300000, guid: d089796f848610443b4dc3c571dd346c, type: 3}
+  emptyFireSound: {fileID: 8300000, guid: 694d13ea30b7a8b498c0e14a16737381, type: 3}
+  reloadSound: {fileID: 8300000, guid: 221e5c4a9c767a346a512a40bb22d936, type: 3}
+  equipSound: {fileID: 8300000, guid: 4111ad2d818fbc14b9ff3c555b856050, type: 3}

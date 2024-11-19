@@ -39,20 +39,20 @@ public class QuickSlotManager : MonoBehaviour
     {
         for (int i = 0; i < quickSlots.Count; i++)
         {
-            if (i < allWeapons.Count) // ï¿½ï¿½ï¿½â°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+            if (i < allWeapons.Count) // ¹«±â°¡ ½½·Ô ¼öº¸´Ù ÀûÀ» ¶§
             {
                 quickSlots[i].weaponData = allWeapons[i];
-                quickSlots[i].UpdateUI(false); // ï¿½Ê±â¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+                quickSlots[i].UpdateUI(false); // ÃÊ±â¿¡´Â ¼±ÅÃµÇÁö ¾ÊÀº »óÅÂ
             }
             else
             {
                 quickSlots[i].weaponData = null;
-                quickSlots[i].UpdateUI(false); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
+                quickSlots[i].UpdateUI(false); // ½½·Ô ºñÈ°¼ºÈ­
             }
         }
     }
 
-    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
+    // Äü½½·Ô ¼±ÅÃ Ã³¸®
     private void HandleQuickSlotSelection(int slotIndex)
     {
         if (slotIndex < 1 || slotIndex > quickSlots.Count)
@@ -62,30 +62,34 @@ public class QuickSlotManager : MonoBehaviour
 
         int index = slotIndex - 1;
 
-        // ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
+        // ºñ¾î ÀÖ´Â ½½·ÔÀÎÁö È®ÀÎ
         if (quickSlots[index].weaponData == null)
         {
             return;
         }
 
-        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
+        // ÀÌÀü ½½·Ô ºñÈ°¼ºÈ­
         if (currentSlotIndex >= 0 && currentSlotIndex < quickSlots.Count)
         {
             quickSlots[currentSlotIndex].UpdateUI(false);
         }
 
-        // ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­
+        // »õ·Î¿î ½½·Ô È°¼ºÈ­
         currentSlotIndex = index;
         quickSlots[currentSlotIndex].UpdateUI(true);
 
         WeaponData selectedWeapon = quickSlots[currentSlotIndex].weaponData;
-        if (OnWeaponSelected != null)
+        if (selectedWeapon != null)
         {
-            OnWeaponSelected(selectedWeapon);
+            PlayEquipSound(selectedWeapon);
         }
-        else
+    }
+
+    private void PlayEquipSound(WeaponData weaponData)
+    {
+        if (weaponData != null && weaponData.equipSound != null)
         {
-            Debug.LogWarning("OnWeaponSelected ï¿½Ìºï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
-        }
+            SoundManager.Instance.PlaySound(weaponData.equipSound);
+        }        
     }
 }
