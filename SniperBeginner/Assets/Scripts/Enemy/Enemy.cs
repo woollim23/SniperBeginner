@@ -2,16 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IDamagable, ISnipable
 {
-    [field: Header("Reference")]
+    [field: Header("Enemy Data")]
+    [field: SerializeField] private float health;
+
     [field: SerializeField] public EnemySO Data { get; private set; }
 
     [field: Header("Animations")]
-    //[field: SerializeField] public PlayerAnimationData AnimationData { get; private set; }
+    [field: SerializeField] public EnemyAnimationData AnimationData { get; private set; }
 
     [field: Header("DropItems")]
-    [field: SerializeField] public ItemData[] dropOnDeath;
+    [field: SerializeField] public ItemData[] dropOnDeath; // ?????? ?????? ?????? ?迭
+    [field: SerializeField] private Transform dropPosition;
+
 
     public Rigidbody Rigidbody { get; private set; }
     public Animator Animator { get; private set; }
@@ -19,51 +23,65 @@ public class Enemy : MonoBehaviour
 
     public EnemyStateMachine stateMachine;
 
-    //public Health enemyHealth { get; private set; }
-
     //[field: SerializeField] public Weapon Weapon { get; private set; }
 
     private void Awake()
     {
-        //AnimationData.Initialize();
+        AnimationData.Initialize();
 
         Rigidbody = GetComponent<Rigidbody>();
         Animator = GetComponentInChildren<Animator>();
         Controller = GetComponent<CharacterController>();
 
         stateMachine = new EnemyStateMachine(this);
-        //enemyHealth = GetComponent<Health>();
+        health = 100; // TODO : ??? ??? ????
+
+        EnemyDatalInit();
     }
 
     private void Start()
     {
         stateMachine.ChangeState(stateMachine.IdleState);
-
-        //enemyHealth.OnDie += OnDie;
+        
     }
 
     private void Update()
     {
-        //stateMachine.HandleInput();
         stateMachine.Update();
     }
 
-    private void FixedUpdate()
+    public void EnemyDatalInit()
     {
-        //stateMachine.PhysicsUpdate();
+        health = Data.MaxHealth;
     }
 
-    void OnDie()
+    public void TakeDamage(float damage)
+    {
+        health = Mathf.Max(health - damage, 0);
+
+        Animator.SetTrigger("Hit");
+        if (health == 0)
+        {
+            Die();
+        }
+    }
+
+    public void Die()
     {
         GiveItem();
         Animator.SetTrigger("Die");
 
-
-        Invoke("Release", 5);
+        GameManager.Instance.CountDeadEnemy();
     }
 
     void GiveItem()
     {
+        //if (dropOnDeath != null) Instantiate(dropOnDeath[Random.Range(0, 3)]), dropPosition, quaternion.identity);
+    }
 
+    public float CheckRemainHealth()
+    {
+        return 1f; // 임시로 1f 반환
+        // 원래는 현재 남은 체력을 줘야함
     }
 }

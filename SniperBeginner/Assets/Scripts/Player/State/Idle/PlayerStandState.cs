@@ -28,10 +28,13 @@ public class PlayerStandState : PlayerIdleState
     protected override void Move()
     {
         base.Move();
-
-        float speed = (IsRun ? stateMachine.Setting.RunSpeed : stateMachine.Setting.WalkSpeed) * Time.deltaTime;
+        
         Transform player = stateMachine.Player.transform;
-        Vector3 motion = player.right * movement.x * speed + player.forward * movement.y * speed + stateMachine.Player.ForceReceiver.Movement * Time.deltaTime;
+        float speed = (IsRun ? stateMachine.Setting.RunSpeed : stateMachine.Setting.WalkSpeed) * Time.deltaTime;
+
+        Vector3 motion = player.right * movement.x * speed + player.forward * movement.y * speed;
+        motion += stateMachine.Player.ForceReceiver.Movement * Time.deltaTime;
+        
         stateMachine.Player.Controller.Move(motion);
     }
 }

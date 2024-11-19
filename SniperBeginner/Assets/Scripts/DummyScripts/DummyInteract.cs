@@ -18,6 +18,7 @@ public class DummyInteract : MonoBehaviour, IInteractable
     public void Interact()
     {
         Debug.Log("Interact");
+        // 체력회복
         Destroy(gameObject);
     }
 }

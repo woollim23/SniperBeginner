@@ -15,4 +15,8 @@ public abstract class StateMachine
     {
         CurrentState.Update();
     }
+    public virtual void FixedUpdate()
+    {
+        CurrentState.FixedUpdate();
+    }
 }
