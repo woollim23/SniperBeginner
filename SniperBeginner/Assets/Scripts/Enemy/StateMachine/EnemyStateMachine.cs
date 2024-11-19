@@ -26,6 +26,9 @@ public class EnemyStateMachine : StateMachine
         WanderState = new EnemyWanderState(this);
         AttackState = new EnemyAttackState(this);
 
+        Enemy.agent.speed = Enemy.Data.GroundData.BaseSpeed;
+
+        // -- º¸·ù
         MovementSpeed = Enemy.Data.GroundData.BaseSpeed;
         RotationDamping = Enemy.Data.GroundData.BaseRotationDamping;
         FieldOfView = Enemy.Data.GroundData.BaseFiledOfView;

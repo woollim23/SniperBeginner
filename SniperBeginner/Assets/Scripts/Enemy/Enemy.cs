@@ -1,14 +1,14 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.EventSystems.EventTrigger;
+using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour, ISnipable
 {
     [field: Header("Enemy Data")]
     [field: SerializeField] private float health;
-
+    public NavMeshAgent agent;
+    public float minWanderDistance;
+    public float maxWanderDistance;
     [field: SerializeField] public EnemySO Data { get; private set; }
 
     [field: Header("Animations")]
@@ -31,6 +31,9 @@ public class Enemy : MonoBehaviour, ISnipable
 
     private void Awake()
     {
+        minWanderDistance = 2;
+        maxWanderDistance = 5;
+        agent = GetComponent<NavMeshAgent>();
         AnimationData.Initialize();
 
         Rigidbody = GetComponent<Rigidbody>();

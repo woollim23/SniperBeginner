@@ -10,10 +10,13 @@ public class EnemyWanderState : EnemyBaseState
 
     public override void Enter()
     {
+        //Debug.Log("Wander");
+
         stateMachine.MovementSpeedModifier = groundData.WalkSpeedModifier;
         base.Enter();
         StartAnimation(stateMachine.Enemy.AnimationData.GroundParameterHash);
         StartAnimation(stateMachine.Enemy.AnimationData.WalkParameterHash);
+
     }
 
     public override void Exit()
@@ -27,12 +30,12 @@ public class EnemyWanderState : EnemyBaseState
     {
         base.Update();
 
-        if (!IsInChasingRange())
+        if (IsInChasingRange())
         {
             stateMachine.ChangeState(stateMachine.AttackState);
             return;
         }
-        else if(stateMachine.Enemy.Rigidbody.velocity.magnitude <= 0.01f)
+        else if(stateMachine.Enemy.agent.velocity.magnitude <= 0.1f)
         {
             stateMachine.ChangeState(stateMachine.IdleState);
             return;

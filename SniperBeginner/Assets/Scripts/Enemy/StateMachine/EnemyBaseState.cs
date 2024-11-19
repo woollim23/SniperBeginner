@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
-public class EnemyBaseState : IState
+public class EnemyBaseState : MonoBehaviour, IState
 {
     protected EnemyStateMachine stateMachine;
     protected readonly EnemyGroundData groundData;
+
+    private Coroutine moveCoroutine;
 
     public EnemyBaseState(EnemyStateMachine stateMachine)
     {
@@ -20,24 +23,35 @@ public class EnemyBaseState : IState
     public virtual void Exit()
     {
     }
-
-    public virtual void Update()
-    {
-        Move();
-    }
-
     public virtual void FixedUpdate()
     {
     }
 
+    public virtual void Update()
+    {
+        if (moveCoroutine == null)
+        {
+            moveCoroutine = stateMachine.Enemy.StartCoroutine(DelayedMove());
+        }
+    }
+
+    private IEnumerator DelayedMove()
+    {
+        yield return new WaitForSeconds(Random.Range(2f, 5f));
+        Move();
+        moveCoroutine = null;
+    }
+
     private void Move()
     {
-        Vector3 movementDirection = GetMovementDirection();
+        //Vector3 movementDirection = GetMovementDirection();
+        //stateMachine.Enemy.Controller.Move(((movementDirection * movementSpeed) + stateMachine.Enemy.ForceReceiver.Movement) * Time.deltaTime);
+        //float movementSpeed = GetMovementSpeed();
 
-        //if(IsPlayerInFieldOfView())
-            Rotate(movementDirection);
-
-        Move(movementDirection);
+        //Rotate(GetWanderLocation());
+        
+        stateMachine.Enemy.agent.SetDestination(GetWanderLocation());
+        stateMachine.Enemy.agent.isStopped = false;
     }
 
     protected void ForceMove()
@@ -45,18 +59,6 @@ public class EnemyBaseState : IState
         stateMachine.Enemy.Controller.Move(stateMachine.Enemy.ForceReceiver.Movement * Time.deltaTime);
     }
 
-    private Vector3 GetMovementDirection()
-    {
-        Vector3 dir = (stateMachine.Target.transform.position - stateMachine.Enemy.transform.position).normalized;
-        return dir;
-    }
-
-    void Move(Vector3 movementDirection)
-    {
-        float movementSpeed = GetMovementSpeed();
-        stateMachine.Enemy.Controller.Move(((movementDirection * movementSpeed) + stateMachine.Enemy.ForceReceiver.Movement) * Time.deltaTime);
-        
-    }
 
     void Rotate(Vector3 movementDirection)
     {
@@ -67,12 +69,6 @@ public class EnemyBaseState : IState
         }
     }
 
-    private float GetMovementSpeed()
-    {
-        float movementSpeed = stateMachine.MovementSpeed * stateMachine.MovementSpeedModifier;
-        return movementSpeed;
-        
-    }
 
     protected void StartAnimation(int animationHash)
     {
@@ -110,5 +106,29 @@ public class EnemyBaseState : IState
         float playerDistanceSqr = (stateMachine.Target.transform.position - stateMachine.Enemy.transform.position).sqrMagnitude;
 
         return playerDistanceSqr <= stateMachine.Enemy.Data.PlayerChasingRange * stateMachine.Enemy.Data.PlayerChasingRange;
+    }
+
+    void WanderToNewLocation()
+    {
+        // 반복적으로 다음 목표지점을 호출해주는 함수
+        stateMachine.Enemy.agent.SetDestination(GetWanderLocation());
+        // 목표지점 정해주는 함수
+    }
+
+    Vector3 GetWanderLocation()
+    {
+        // 목표지점 정해주는 함수
+
+        NavMeshHit hit;
+
+        // 포지션을 알려주면 이동할 수 있는 한 최단거리를 반환
+        // SamplePosition(Vector3 sourcePosition, out NavMeshHit hit, float maxDistance, int areaMask)
+        // onUnitSphere : 반지름이 1인 구 (이정도 영역 범위)
+        // NavMesh.AllAreas : 모든 영역 
+        NavMesh.SamplePosition(stateMachine.Enemy.transform.position + (Random.onUnitSphere * Random.Range(stateMachine.Enemy.minWanderDistance, stateMachine.Enemy.maxWanderDistance)), out hit, stateMachine.Enemy.maxWanderDistance, NavMesh.AllAreas);
+
+        
+
+        return hit.position;
     }
 }

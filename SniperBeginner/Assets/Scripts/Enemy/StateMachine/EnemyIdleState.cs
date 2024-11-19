@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyIdleState : EnemyBaseState
@@ -10,11 +11,13 @@ public class EnemyIdleState : EnemyBaseState
 
     public override void Enter()
     {
-        stateMachine.MovementSpeedModifier = 0f;
+        //Debug.Log("Idle");
+
 
         base.Enter();
         StartAnimation(stateMachine.Enemy.AnimationData.GroundParameterHash);
         StartAnimation(stateMachine.Enemy.AnimationData.IdleParameterHash);
+        stateMachine.Enemy.agent.isStopped = true;
     }
 
     public override void Exit()
@@ -33,8 +36,7 @@ public class EnemyIdleState : EnemyBaseState
             stateMachine.ChangeState(stateMachine.AttackState);
             return;
         }
-
-        if(stateMachine.Enemy.Rigidbody.velocity.magnitude > 0.01f)
+        if(stateMachine.Enemy.agent.velocity.magnitude > 0.1f)
         {
             stateMachine.ChangeState(stateMachine.WanderState);
             return;
