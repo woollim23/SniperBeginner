@@ -96,7 +96,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Breath",
+                    "name": "ControlBreath",
                     "type": "Button",
                     "id": "8b59ab2e-84b9-4c59-8af4-db9e295add78",
                     "expectedControlType": "Button",
@@ -311,7 +311,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Breath",
+                    "action": "ControlBreath",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

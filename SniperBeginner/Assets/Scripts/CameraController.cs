@@ -14,7 +14,7 @@ public class CameraController : MonoBehaviour
 
     private void Start()
     {
-        SwitchToIdle(); // ÃÊ±â Ä«¸Þ¶ó »óÅÂ
+        SwitchToIdle(); // ï¿½Ê±ï¿½ Ä«ï¿½Þ¶ï¿½ ï¿½ï¿½ï¿½ï¿½
     }
 
 
@@ -41,49 +41,49 @@ public class CameraController : MonoBehaviour
 
     public void SwitchToIdle()
     {
-        MainCamera.Priority = 10;  // ±âº» Ä«¸Þ¶ó ¿ì¼± ¼øÀ§ »ó½Â
-        aimCamera.Priority = 5;   // ¿¡ÀÓ Ä«¸Þ¶ó ºñÈ°¼ºÈ­
-        bulletCamera.Priority = 0; // ÃÑ¾Ë Ä«¸Þ¶ó ºñÈ°¼ºÈ­
+        MainCamera.Priority = 10;  // ï¿½âº» Ä«ï¿½Þ¶ï¿½ ï¿½ì¼± ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+        aimCamera.Priority = 5;   // ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½Þ¶ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
+        bulletCamera.Priority = 0; // ï¿½Ñ¾ï¿½ Ä«ï¿½Þ¶ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
 
-        ResetTimeScale(); // ¿ø·¡ ¼Óµµ·Î º¹±¸
+        ResetTimeScale(); // ï¿½ï¿½ï¿½ï¿½ ï¿½Óµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     }
 
     public void SwitchToAim()
     {
         MainCamera.Priority = 5;
-        aimCamera.Priority = 10;  // ¿¡ÀÓ Ä«¸Þ¶ó ¿ì¼± ¼øÀ§ »ó½Â
+        aimCamera.Priority = 10;  // ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½Þ¶ï¿½ ï¿½ì¼± ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
         bulletCamera.Priority = 0;
 
-        ResetTimeScale(); // È¤½Ã ³²¾ÆÀÖÀ» ½½·Î¿ì ¸ð¼Ç º¹±¸
+        ResetTimeScale(); // È¤ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     }
 
     public void SwitchToBullet(Transform bullet, Transform target)
     {
-        bulletCamera.Priority = 15; // ÃÑ¾Ë Ä«¸Þ¶ó È°¼ºÈ­
+        bulletCamera.Priority = 15; // ï¿½Ñ¾ï¿½ Ä«ï¿½Þ¶ï¿½ È°ï¿½ï¿½È­
         bulletCamera.Follow = bullet;
         bulletCamera.LookAt = target;
 
-        ApplySlowMotion(); // ½½·Î¿ì ¸ð¼Ç È°¼ºÈ­
+        ApplySlowMotion(); // ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­
 
-        StartCoroutine(ResetToIdle(1f)); // 1ÃÊ µÚ Idle·Î º¹±Í
+        StartCoroutine(ResetToIdle(1f)); // 1ï¿½ï¿½ ï¿½ï¿½ Idleï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     }
 
     private void ApplySlowMotion()
     {
-        Time.timeScale = slowMotionScale; // ½½·Î¿ì ¸ð¼Ç È°¼ºÈ­
-        Time.fixedDeltaTime = Time.timeScale * 0.02f; // ¹°¸® °è»êµµ ½½·Î¿ì¿¡ ¸Â°Ô Á¶Á¤
+        Time.timeScale = slowMotionScale; // ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­
+        Time.fixedDeltaTime = Time.timeScale * 0.02f; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½êµµ ï¿½ï¿½ï¿½Î¿ì¿¡ ï¿½Â°ï¿½ ï¿½ï¿½ï¿½ï¿½
     }
 
     private void ResetTimeScale()
     {
-        Time.timeScale = defaultTimeScale; // ¿ø·¡ ¼Óµµ·Î º¹±¸
-        Time.fixedDeltaTime = Time.timeScale * 0.02f; // ¹°¸® °è»ê º¹±¸
+        Time.timeScale = defaultTimeScale; // ï¿½ï¿½ï¿½ï¿½ ï¿½Óµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        Time.fixedDeltaTime = Time.timeScale * 0.02f; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     }
 
     private IEnumerator ResetToIdle(float delay)
     {
-        yield return new WaitForSeconds(delay); // Çö½Ç ½Ã°£ ±âÁØ ´ë±â
-        ResetTimeScale(); // ½Ã°£ º¹±¸
+        yield return new WaitForSeconds(delay); // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+        ResetTimeScale(); // ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½
         SwitchToIdle();
     }
 

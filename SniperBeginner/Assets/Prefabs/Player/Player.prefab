@@ -120,6 +120,10 @@ MonoBehaviour:
     JumpPower: 10
     lookSensitive: 10
     lookYAxisLimit: {x: -45, y: 45}
+    breathAmountOnRelax: 1
+    decayBreathWhileControl: 1
+    minBreathForControl: 3
+    maxBreath: 10
 --- !u!114 &8565353724580743019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,6 +146,7 @@ MonoBehaviour:
     crawlParamName: Crawl
     fireParamName: Fire
     aimingParamName: Aiming
+    aimingModifierParamName: AimingModifier
     reloadParamName: Aiming
     airParamName: '@Air'
     jumpParamName: Jump
@@ -193,6 +198,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 217
   aimIKTarget: {fileID: 1832646833289818142}
+  currentBreath: 0
 --- !u!114 &1361368798122350215
 MonoBehaviour:
   m_ObjectHideFlags: 0

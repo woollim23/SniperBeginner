@@ -118,7 +118,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Breath"",
+                    ""name"": ""ControlBreath"",
                     ""type"": ""Button"",
                     ""id"": ""8b59ab2e-84b9-4c59-8af4-db9e295add78"",
                     ""expectedControlType"": ""Button"",
@@ -333,7 +333,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Breath"",
+                    ""action"": ""ControlBreath"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -371,7 +371,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Player_QuickSlot = m_Player.FindAction("QuickSlot", throwIfNotFound: true);
         m_Player_Pose = m_Player.FindAction("Pose", throwIfNotFound: true);
         m_Player_Menu = m_Player.FindAction("Menu", throwIfNotFound: true);
-        m_Player_Breath = m_Player.FindAction("Breath", throwIfNotFound: true);
+        m_Player_ControlBreath = m_Player.FindAction("ControlBreath", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -443,7 +443,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_QuickSlot;
     private readonly InputAction m_Player_Pose;
     private readonly InputAction m_Player_Menu;
-    private readonly InputAction m_Player_Breath;
+    private readonly InputAction m_Player_ControlBreath;
     public struct PlayerActions
     {
         private @PlayerInput m_Wrapper;
@@ -458,7 +458,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @QuickSlot => m_Wrapper.m_Player_QuickSlot;
         public InputAction @Pose => m_Wrapper.m_Player_Pose;
         public InputAction @Menu => m_Wrapper.m_Player_Menu;
-        public InputAction @Breath => m_Wrapper.m_Player_Breath;
+        public InputAction @ControlBreath => m_Wrapper.m_Player_ControlBreath;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -498,9 +498,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Menu.started += instance.OnMenu;
             @Menu.performed += instance.OnMenu;
             @Menu.canceled += instance.OnMenu;
-            @Breath.started += instance.OnBreath;
-            @Breath.performed += instance.OnBreath;
-            @Breath.canceled += instance.OnBreath;
+            @ControlBreath.started += instance.OnControlBreath;
+            @ControlBreath.performed += instance.OnControlBreath;
+            @ControlBreath.canceled += instance.OnControlBreath;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -535,9 +535,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Menu.started -= instance.OnMenu;
             @Menu.performed -= instance.OnMenu;
             @Menu.canceled -= instance.OnMenu;
-            @Breath.started -= instance.OnBreath;
-            @Breath.performed -= instance.OnBreath;
-            @Breath.canceled -= instance.OnBreath;
+            @ControlBreath.started -= instance.OnControlBreath;
+            @ControlBreath.performed -= instance.OnControlBreath;
+            @ControlBreath.canceled -= instance.OnControlBreath;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -576,6 +576,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnQuickSlot(InputAction.CallbackContext context);
         void OnPose(InputAction.CallbackContext context);
         void OnMenu(InputAction.CallbackContext context);
-        void OnBreath(InputAction.CallbackContext context);
+        void OnControlBreath(InputAction.CallbackContext context);
     }
 }

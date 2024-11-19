@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class PlayerShootingController : MonoBehaviour
 {
+    Player player;
     PlayerAnimationController anim;
     PlayerEquipment equip;
     Camera mainCamera;
@@ -11,10 +12,17 @@ public class PlayerShootingController : MonoBehaviour
     public bool isAiming;
     [SerializeField] LayerMask aimLayerMask;
     [SerializeField] Transform aimIKTarget; // IK point로 쓸 것
+
+    [Header("Hold Breath")]
+    [SerializeField] float currentBreath;
+
     float lastFireTime;
 
+    bool isControllingBreath = false;
     bool isReloading = false;
 
+    
+    public event Action<float> OnControlBreath;
     public event Action<bool> OnAim;
     public event Action<Transform, Vector3, Vector3> OnKilledEnemy;
 
@@ -32,15 +40,20 @@ public class PlayerShootingController : MonoBehaviour
 
         if (TryGetComponent(out Player player))
         {
+            this.player = player;
             anim = player.Animation;
             equip = player.Equipment;
 
-            player.Actions.Aim.started += (context) => {AimStarted();};
-            player.Actions.Aim.canceled += (context) => {AimCanceled();};
+            player.Actions.Aim.started += (context) => { AimStarted(); };
+            player.Actions.Aim.canceled += (context) => { AimCanceled(); };
 
-            player.Actions.Fire.started += (context) => {Fire();};
+            player.Actions.Fire.started += (context) => { Fire(); };
+            player.Actions.ControlBreath.started += (context) => { OnControlBreathStart();};
+            player.Actions.ControlBreath.canceled += (context) => { OnControlBreathEnd();};
 
             equip.OnReload += Reload;
+            
+            currentBreath = player.setting.maxBreath;
         }
     }
 
@@ -48,6 +61,35 @@ public class PlayerShootingController : MonoBehaviour
     {
         if (equip.CurrentEquip)
             Aim();
+
+        if(isControllingBreath)
+            UseBreath();
+        else
+            RecoverBreath();
+    }
+
+
+    void RecoverBreath()
+    {
+        if (currentBreath < player.setting.maxBreath)
+            currentBreath += player.setting.breathAmountOnRelax * Time.deltaTime;
+        else
+            currentBreath = player.setting.maxBreath;
+
+        OnControlBreath?.Invoke(currentBreath / player.setting.maxBreath);
+    }
+
+    void UseBreath()
+    {
+        currentBreath -= player.setting.decayBreathWhileControl * Time.deltaTime;
+        
+        if (currentBreath <= 0f)
+        {
+            // 강제 종료
+            OnControlBreathEnd();
+        }
+
+        OnControlBreath?.Invoke(currentBreath / player.setting.maxBreath);
     }
 
 
@@ -97,7 +139,7 @@ public class PlayerShootingController : MonoBehaviour
     void Aim()
     {
         aimIKTarget.position = mainCamera.transform.position + mainCamera.transform.forward * 10f;
-    }
+    }  
 
     bool Check(out Transform target)
     {
@@ -115,6 +157,23 @@ public class PlayerShootingController : MonoBehaviour
         return false;
     }
 
+    void OnControlBreathStart()
+    {
+        if (currentBreath < player.setting.minBreathForControl) 
+            return;
+
+        isControllingBreath = true;
+        anim.AimingModifier(0.05f);
+    }
+
+    void OnControlBreathEnd()
+    {
+        isControllingBreath = false;
+        anim.AimingModifier(1f);
+    }
+
+
+    // TODO : Equip에 있어도 될거 같음
     void Reload(bool isStart)
     {
         isReloading = isStart;
@@ -126,5 +185,7 @@ public class PlayerShootingController : MonoBehaviour
             anim.Reload();
         }
     }
+
+
 
 }

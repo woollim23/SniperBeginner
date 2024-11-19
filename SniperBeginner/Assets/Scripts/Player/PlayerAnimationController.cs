@@ -28,6 +28,12 @@ public class PlayerAnimationController : MonoBehaviour
     {
         Animator.SetBool(data.AimingParamHash, isOn);
     }
+
+    public void AimingModifier(float value)
+    {
+        Animator.SetFloat(data.AimingModifierParamHash, value);
+    }
+
     public void Fire()
     {
         Animator.SetTrigger(data.FireParamHash);
@@ -74,6 +80,7 @@ public class AnimationData
 
     public string fireParamName = "Fire";
     public string aimingParamName = "Aiming";
+    public string aimingModifierParamName = "AimingModifier";
     public string reloadParamName = "Reload";
 
     public string airParamName = "@Air";
@@ -92,6 +99,7 @@ public class AnimationData
 
     public int FireParamHash { get; private set; }
     public int AimingParamHash { get; private set; }
+    public int AimingModifierParamHash { get; private set; }
     public int ReloadParamHash { get; private set; }
 
     public int AirParamHash { get; private set; }
@@ -112,6 +120,7 @@ public class AnimationData
 
         FireParamHash =         Animator.StringToHash(fireParamName);
         AimingParamHash =       Animator.StringToHash(aimingParamName);
+        AimingModifierParamHash = Animator.StringToHash(aimingModifierParamName);
         ReloadParamHash =       Animator.StringToHash(reloadParamName);
 
         AirParamHash =          Animator.StringToHash(airParamName);

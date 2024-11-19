@@ -39,20 +39,20 @@ public class QuickSlotManager : MonoBehaviour
     {
         for (int i = 0; i < quickSlots.Count; i++)
         {
-            if (i < allWeapons.Count) // ¹«±â°¡ ½½·Ô ¼öº¸´Ù ÀûÀ» ¶§
+            if (i < allWeapons.Count) // ï¿½ï¿½ï¿½â°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
             {
                 quickSlots[i].weaponData = allWeapons[i];
-                quickSlots[i].UpdateUI(false); // ÃÊ±â¿¡´Â ¼±ÅÃµÇÁö ¾ÊÀº »óÅÂ
+                quickSlots[i].UpdateUI(false); // ï¿½Ê±â¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             }
             else
             {
                 quickSlots[i].weaponData = null;
-                quickSlots[i].UpdateUI(false); // ½½·Ô ºñÈ°¼ºÈ­
+                quickSlots[i].UpdateUI(false); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
             }
         }
     }
 
-    // Äü½½·Ô ¼±ÅÃ Ã³¸®
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
     private void HandleQuickSlotSelection(int slotIndex)
     {
         if (slotIndex < 1 || slotIndex > quickSlots.Count)
@@ -62,19 +62,19 @@ public class QuickSlotManager : MonoBehaviour
 
         int index = slotIndex - 1;
 
-        // ºñ¾î ÀÖ´Â ½½·ÔÀÎÁö È®ÀÎ
+        // ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
         if (quickSlots[index].weaponData == null)
         {
             return;
         }
 
-        // ÀÌÀü ½½·Ô ºñÈ°¼ºÈ­
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
         if (currentSlotIndex >= 0 && currentSlotIndex < quickSlots.Count)
         {
             quickSlots[currentSlotIndex].UpdateUI(false);
         }
 
-        // »õ·Î¿î ½½·Ô È°¼ºÈ­
+        // ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­
         currentSlotIndex = index;
         quickSlots[currentSlotIndex].UpdateUI(true);
 
@@ -85,7 +85,7 @@ public class QuickSlotManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("OnWeaponSelected ÀÌº¥Æ®¿¡ ±¸µ¶ÀÚ°¡ ¾ø½À´Ï´Ù.");
+            Debug.LogWarning("OnWeaponSelected ï¿½Ìºï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
         }
     }
 }
