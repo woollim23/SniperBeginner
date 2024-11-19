@@ -55,7 +55,7 @@ public class ItemInteractable : MonoBehaviour, IInteractable
         switch (generatedItem.itemType)
         {
             case ItemType.Heal:
-                //CharacterManager.Instance.Player.AddHeal(generatedItem.effectValue); // 체력 회복 로직
+                CharacterManager.Instance.Player.Condition.Heal(generatedItem.effectValue);
                 break;
 
             case ItemType.PistolMagazine:
