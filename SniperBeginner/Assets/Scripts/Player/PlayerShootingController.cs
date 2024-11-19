@@ -95,9 +95,9 @@ public class PlayerShootingController : MonoBehaviour
         Ray ray = mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
         if (Physics.Raycast(ray, out RaycastHit hit , float.PositiveInfinity, aimLayerMask))
         {
-            if(hit.collider.TryGetComponent(out IDamagable damagable))
+            if (hit.collider.TryGetComponent(out ISnipable target))
             {
-                
+                return target.CheckRemainHealth() <= equip.CurrentEquip.damage;
             }
         }
 

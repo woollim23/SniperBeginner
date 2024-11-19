@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, ISnipable
 {
     [field: Header("Reference")]
     [field: SerializeField] public EnemySO Data { get; private set; }
@@ -65,5 +65,11 @@ public class Enemy : MonoBehaviour
     void GiveItem()
     {
 
+    }
+
+    public float CheckRemainHealth()
+    {
+        return 1f; // 임시로 1f 반환
+        // 원래는 현재 남은 체력을 줘야함
     }
 }

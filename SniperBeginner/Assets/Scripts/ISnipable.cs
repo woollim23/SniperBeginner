@@ -1,4 +1,4 @@
 public interface ISnipable
 {
-    bool IsSnipable();
+    float CheckRemainHealth();
 }
