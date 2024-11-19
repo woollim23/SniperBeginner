@@ -98,13 +98,11 @@ public class CameraController : MonoBehaviour
         while (elapsedTime < travelTime)
         {
             elapsedTime += Time.deltaTime;
-            // 총알을 firePoint에서 targetPosition까지 이동
-            bullet.position = Vector3.Lerp(firePoint, targetPosition, elapsedTime / travelTime);
+            bullet.position = Vector3.Lerp(firePoint, targetPosition, elapsedTime / travelTime); // 총알을 firePoint에서 targetPosition까지 이동
             yield return null;
         }
 
         bullet.position = targetPosition; // 최종 위치 보정
-        Debug.Log("총알 도착");
     }
 
 }
