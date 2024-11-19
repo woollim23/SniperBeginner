@@ -15,6 +15,7 @@ public class PlayerEquipment : MonoBehaviour
 
     bool isReloading = false;
     public event Action<bool> OnReload;
+    public event Action<int, int> OnAmmoChanged;
 
 
     private void Start() 
@@ -52,6 +53,7 @@ public class PlayerEquipment : MonoBehaviour
             Unequip();
 
         CurrentEquip = equipment;
+        CurrentEquip.OnAmmoChanged += CallOnAmmoChanged;
 
         equipment.transform.SetParent(rightHand);
         equipment.transform.localPosition = Vector3.zero;
@@ -74,7 +76,8 @@ public class PlayerEquipment : MonoBehaviour
         {
             // 1안. Destroy 하기 // 2안. 반환하기
             Destroy(CurrentEquip.gameObject);
-            
+
+            CurrentEquip.OnAmmoChanged -= CallOnAmmoChanged;
             
             CurrentEquip = null;
         }
@@ -108,6 +111,10 @@ public class PlayerEquipment : MonoBehaviour
         OnReload?.Invoke(isReloading);
     }
 
+    void CallOnAmmoChanged()
+    {
+        OnAmmoChanged?.Invoke(CurrentEquip.currentAmmoInMagazine, CurrentEquip.weaponData.magazineSize);
+    }
 
     // 뼈에서 손 위치만 찾는 메서드
     [ContextMenu("Find Hand")]

@@ -5,6 +5,11 @@ public class SoundManager : SingletonDontDestory<SoundManager>
     [Header("Audio Settings")]
     public AudioSource audioSource;
 
+    private void Awake() 
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
     public void PlaySound(AudioClip clip, float volume = 1.0f)
     {
         if (audioSource == null)

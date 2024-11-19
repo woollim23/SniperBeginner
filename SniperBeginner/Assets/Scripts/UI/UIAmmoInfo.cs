@@ -15,24 +15,16 @@ public class UIAmmoInfo : MonoBehaviour
             return;
         }
 
-        weapon = CharacterManager.Instance.Player.GetComponent<Weapon>();
-
-        if (weapon != null)
-        {
-            weapon.OnAmmoChanged += UpdateWeaponUI;
-            UpdateWeaponUI();
-        }        
+        //CharacterManager.Instance.Player.Equipment.OnAmmoChanged += UpdateWeaponUI;      
     }
 
-    private void OnDestroy()
+    private void OnDisable() 
     {
-        if (weapon != null)
-        {
-            weapon.OnAmmoChanged -= UpdateWeaponUI;
-        }
+        //CharacterManager.Instance.Player.Equipment.OnAmmoChanged -= UpdateWeaponUI;
     }
 
-    private void UpdateWeaponUI()
+
+    private void UpdateWeaponUI(int curAmmo, int maxAmmo)
     {
         if (ammoCountText == null)
         {
@@ -45,6 +37,6 @@ public class UIAmmoInfo : MonoBehaviour
             return;
         }
 
-        ammoCountText.text = $"{weapon.currentAmmoInMagazine} / {weapon.weaponData.magazineSize}";
+        ammoCountText.text = $"{curAmmo} / {maxAmmo}";
     }
 }
