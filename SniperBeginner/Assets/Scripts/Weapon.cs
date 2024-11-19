@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 public class Weapon : MonoBehaviour
 {
@@ -12,9 +13,12 @@ public class Weapon : MonoBehaviour
     public Transform firePoint;
     public Transform aimPoint;
 
+    public event Action OnAmmoChanged;
+
     void Start()
     {
         currentAmmoInMagazine = weaponData.magazineSize;
+        OnAmmoChanged?.Invoke();
     }
 
     public bool UseAmmo(int amount)
@@ -27,6 +31,7 @@ public class Weapon : MonoBehaviour
 
         currentAmmoInMagazine -= amount;
         Debug.Log($"탄약 사용: {amount}, 남은 탄약: {currentAmmoInMagazine}");
+        OnAmmoChanged?.Invoke();
         return true;
     }
 
@@ -45,6 +50,7 @@ public class Weapon : MonoBehaviour
         }
 
         Debug.Log($"재장전 완료: 현재 탄약 {currentAmmoInMagazine}");
+        OnAmmoChanged?.Invoke();
     }
 
     public bool HasAmmo()
