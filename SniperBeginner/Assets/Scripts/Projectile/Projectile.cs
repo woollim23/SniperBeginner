@@ -1,17 +1,10 @@
 using System;
 using UnityEngine;
 
-public enum EProjectile
-{
-    TestBullet,
-    Bullet7mm, // 저격 라이플
-    Bullet5mm // 권총
-}
-
-
 [Serializable]
 public class ProjectileData
 {
+    public float damage = 50f;
     public float speed = 100f;
     public float lifeTime = 3f;
     public AmmoType type;
@@ -20,12 +13,12 @@ public class ProjectileData
 [RequireComponent(typeof(Rigidbody))]
 public class Projectile : MonoBehaviour
 {
-    Rigidbody rb;
+    Rigidbody rigidBody;
     public ProjectileData data;
 
     protected virtual void Awake() 
     {
-        rb = GetComponent<Rigidbody>();
+        rigidBody = GetComponent<Rigidbody>();
     }
 
 
@@ -33,20 +26,20 @@ public class Projectile : MonoBehaviour
     {
         gameObject.SetActive(false);
         
-        rb.velocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
+        rigidBody.velocity = Vector3.zero;
+        rigidBody.angularVelocity = Vector3.zero;
 
         transform.position = firePoint;
         transform.rotation = Quaternion.LookRotation(direction);
     }
 
-    public virtual void Fire(Vector3 firePoint, Vector3 direction)
+    public virtual void Fire(Vector3 firePoint, Vector3 direction, float damage = 50f)
     {
         Initialize(firePoint, direction);
 
         gameObject.SetActive(true);
 
-        rb.AddForce(direction.normalized * data.speed, ForceMode.Impulse);
+        rigidBody.AddForce(direction.normalized * data.speed, ForceMode.Impulse);
 
         if (IsInvoking("Release"))
             CancelInvoke("Release");

@@ -62,7 +62,7 @@ public class PlayerShootingController : MonoBehaviour
         if (equip.CurrentEquip)
             Aim();
 
-        if(isControllingBreath)
+        if (isControllingBreath)
             UseBreath();
         else
             RecoverBreath();
@@ -127,12 +127,8 @@ public class PlayerShootingController : MonoBehaviour
             Debug.Log("시네머신 시작");
             OnKilledEnemy?.Invoke(bullet.transform, weapon.firePoint.position, target.position);
         }
-        else
-        {
-            // 검사에서 사망하지 않았다 -> 아래 코드 : 물리적으로 공격
-            bullet.Fire(weapon.firePoint.position, weapon.firePoint.forward);
-        }
-
+        
+        bullet.Fire(weapon.firePoint.position, weapon.firePoint.forward, weapon.weaponData.damage);
         anim.Fire();
     }
 
@@ -146,6 +142,7 @@ public class PlayerShootingController : MonoBehaviour
         Ray ray = mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
         if (Physics.Raycast(ray, out RaycastHit hit , float.PositiveInfinity, aimLayerMask))
         {
+            // 부위별 총격에서 데미지 확인 각각의
             if (hit.collider.TryGetComponent(out ISnipable snipable))
             {
                 target = hit.collider.transform;
