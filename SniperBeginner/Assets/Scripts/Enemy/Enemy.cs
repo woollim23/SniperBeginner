@@ -15,7 +15,7 @@ public class Enemy : MonoBehaviour, ISnipable
     [field: SerializeField] public EnemyAnimationData AnimationData { get; private set; }
 
     [field: Header("DropItems")]
-    [field: SerializeField] public ItemData[] dropOnDeath; // ?????? ?????? ?????? ?è¿?
+    [field: SerializeField] public ItemData[] dropOnDeath;
     [field: SerializeField] private Transform dropPosition;
 
     public Rigidbody Rigidbody { get; private set; }
@@ -35,7 +35,6 @@ public class Enemy : MonoBehaviour, ISnipable
         Controller = GetComponent<CharacterController>();
 
         stateMachine = new EnemyStateMachine(this);
-        health = 100; // TODO : ??? ??? ????
 
         EnemyDatalInit();
     }
@@ -48,8 +47,7 @@ public class Enemy : MonoBehaviour, ISnipable
     private void Update()
     {
         stateMachine.Update();
-        if (health < 0)
-            Die();
+        if (health <= 0) Die();
     }
 
     public void EnemyDatalInit()
@@ -62,7 +60,7 @@ public class Enemy : MonoBehaviour, ISnipable
         health = Mathf.Max(health - damage, 0);
 
         Animator.SetTrigger("Hit");
-        if (health == 0)
+        if (health <= 0)
         {
             Die();
         }
@@ -75,11 +73,17 @@ public class Enemy : MonoBehaviour, ISnipable
 
         GameManager.Instance.CountDeadEnemy();
         // TODO : 5ÃÊµÚ ¿¡³Ê¹Ì ÆÄ±«
+        Invoke("DestroyEnemy", 5);
     }
 
-    void GiveItem()
+    private void GiveItem()
     {
         ItemDropManager.Instance.DropRandomItem(dropPosition.position);
+    }
+
+    private void DestroyEnemy()
+    {
+        Destroy(gameObject);
     }
 
     public float CheckRemainHealth()
