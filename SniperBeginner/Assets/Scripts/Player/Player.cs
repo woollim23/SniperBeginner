@@ -53,6 +53,10 @@ public class Player : MonoBehaviour
         StateMachine.Update();
     }
 
+    private void FixedUpdate() 
+    {
+        StateMachine.FixedUpdate();
+    }
 }
 
 [System.Serializable]

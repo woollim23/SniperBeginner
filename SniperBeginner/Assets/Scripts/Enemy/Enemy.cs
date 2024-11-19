@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour, IDamagable
+public class Enemy : MonoBehaviour, IDamagable, ISnipable
 {
     [field: Header("Enemy Data")]
     [field: SerializeField] private float health;
@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour, IDamagable
     [field: SerializeField] public EnemyAnimationData AnimationData { get; private set; }
 
     [field: Header("DropItems")]
-    [field: SerializeField] public ItemData[] dropOnDeath; // Á×À¸¸é ¶³±¸´Â ¾ÆÀÌÅÛ ¹è¿­
+    [field: SerializeField] public ItemData[] dropOnDeath; // ?????? ?????? ?????? ?è¿­
     [field: SerializeField] private Transform dropPosition;
 
 
@@ -34,7 +34,7 @@ public class Enemy : MonoBehaviour, IDamagable
         Controller = GetComponent<CharacterController>();
 
         stateMachine = new EnemyStateMachine(this);
-        health = 100; // TODO : ÃÖ´ë Ã¼·Â ¹Ù²Ù±â
+        health = 100; // TODO : ??? ??? ????
 
         EnemyDatalInit();
     }
@@ -77,5 +77,11 @@ public class Enemy : MonoBehaviour, IDamagable
     void GiveItem()
     {
         ItemDropManager.Instance.DropRandomItem(dropPosition.localPosition);
+    }
+
+    public float CheckRemainHealth()
+    {
+        return 1f; // ì„ì‹œë¡œ 1f ë°˜í™˜
+        // ì›ë˜ëŠ” í˜„ì¬ ë‚¨ì€ ì²´ë ¥ì„ ì¤˜ì•¼í•¨
     }
 }

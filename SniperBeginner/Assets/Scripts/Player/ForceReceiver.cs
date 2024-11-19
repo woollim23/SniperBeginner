@@ -24,10 +24,11 @@ public class ForceReceiver : MonoBehaviour
     {
         AdjustForce();
     }
+    
 
     void AdjustForce()
     {
-        if(controller.isGrounded)
+        if (controller.isGrounded)
             vertical = Physics.gravity.y * Time.deltaTime;
         else
             vertical += Physics.gravity.y * Time.deltaTime;

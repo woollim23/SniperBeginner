@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 489e38ecec2d87b4291dcd62544c09f3, type: 3}
   m_Name: HealItem
   m_EditorClassIdentifier: 
-  itemName: 
-  description: 
-  icon: {fileID: 0}
-  isConsumable: 0
+  itemName: "\uD68C\uBCF5 \uC544\uC774\uD15C"
+  itemDescription: "\uC77C\uC815\uB7C9\uC758 HP\uB97C \uD68C\uBCF5\uC2DC\uCF1C\uC90D\uB2C8\uB2E4."
+  itemType: 0
+  effect:
+    minValue: 25
+    maxValue: 50
+  dropPrefab: {fileID: 0}

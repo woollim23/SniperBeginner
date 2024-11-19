@@ -17,6 +17,8 @@ public class InteractionData
 {
     public KeyCode interactKey;
     public InterationType type;
+    public string interactionName;
+    public string description;
 
     public InteractionData(InterationType initType)
     {

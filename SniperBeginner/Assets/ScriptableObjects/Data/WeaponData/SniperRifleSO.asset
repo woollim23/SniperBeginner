@@ -12,11 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3c949a445e0dbb43b026642625b0d1e, type: 3}
   m_Name: SniperRifleSO
   m_EditorClassIdentifier: 
-  weaponName: Sniper
+  weaponName: "\uC800\uACA9\uCD1D"
+  weaponDescription: "\uB9D0\uADF8\uB300\uB85C \uC800\uACA9\uCD1D\uC774\uB2E4."
+  icon: {fileID: 0}
   damage: 80
   reloadTime: 2.5
   fireRate: 0.5
-  range: 300
+  magazineSize: 10
+  currentAmmoInMagazine: 10
+  ammoType: 1
   weaponType: 1
-  weaponPrefab: {fileID: 8233166990092032302, guid: 20217f91ebc081940a2cafa6da74be34,
+  equipPrefab: {fileID: 8233166990092032302, guid: 20217f91ebc081940a2cafa6da74be34,
     type: 3}
+  firePoint: {fileID: 0}
+  aimPoint: {fileID: 0}

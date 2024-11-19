@@ -4,95 +4,72 @@ using UnityEngine.UI;
 
 public class QuickSlotManager : MonoBehaviour
 {
+    [Header("UI Elements")]
     public Image[] slotImages;
     public Text[] quantityTexts;
     public GameObject[] equipTexts;
 
-    public List<ItemData> quickSlots = new List<ItemData>();
+    [Header("Quick Slot Data")]
+    public List<WeaponData> quickSlots = new List<WeaponData>();
     public List<int> itemQuantities = new List<int>();
 
+    private PlayerEquipment playerEquipment;
+
+    private void Start()
+    {
+        playerEquipment = GetComponent<PlayerEquipment>();
+    }
+
+    // 슬롯 선택 시 처리
     public void OnSlotSelected(int slotIndex)
     {
-        if (slotIndex >= 0 && slotIndex < quickSlots.Count && quickSlots[slotIndex] != null)
+        if (IsValidSlotIndex(slotIndex) && quickSlots[slotIndex] != null)
         {
-            ItemData item = quickSlots[slotIndex];
-            ApplyItemEffect(item);
+            WeaponData selectedWeapon = quickSlots[slotIndex];
 
-            if (item.isConsumable)
-            {
-                itemQuantities[slotIndex]--;
-                if (itemQuantities[slotIndex] <= 0)
-                {
-                    RemoveItem(slotIndex);
-                }
-            }
+            // 무기 장착
+            //playerEquipment.Equip(selectedWeapon);
 
+            // UI 갱신
             UpdateQuickSlotUI();
         }
     }
 
-    void ApplyItemEffect(ItemData item)
-    {
-        switch (item.itemType)
-        {
-            case ItemType.Heal:
-                Debug.Log($"Healed by {item.healAmount} HP!");
-                break;
-            case ItemType.SpeedBoost:
-                Debug.Log($"Speed increased by {item.speedMultiplier}x!");
-                break;
-            case ItemType.Silencer:
-                Debug.Log("Silencer attached!");
-                break;
-        }
-    }
-
-    void RemoveItem(int slotIndex)
-    {
-        quickSlots[slotIndex] = null;
-        itemQuantities[slotIndex] = 0;
-
-        for (int i = slotIndex; i < quickSlots.Count - 1; i++)
-        {
-            quickSlots[i] = quickSlots[i + 1];
-            itemQuantities[i] = itemQuantities[i + 1];
-        }
-
-        quickSlots[quickSlots.Count - 1] = null;
-        itemQuantities[quickSlots.Count - 1] = 0;
-    }
-
+    // 슬롯에 장착된 무기를 UI에 업데이트
     void UpdateQuickSlotUI()
     {
         for (int i = 0; i < slotImages.Length; i++)
         {
             if (i < quickSlots.Count && quickSlots[i] != null)
             {
-                slotImages[i].sprite = quickSlots[i].icon;
                 slotImages[i].enabled = true;
-                quantityTexts[i].text = itemQuantities[i].ToString();
-                quantityTexts[i].enabled = true;
+                slotImages[i].sprite = quickSlots[i].icon; // 무기의 아이콘
+                quantityTexts[i].enabled = false; // 수량은 사용하지 않음
                 equipTexts[i].SetActive(false);
             }
             else
             {
-                slotImages[i].sprite = null;
                 slotImages[i].enabled = false;
-                quantityTexts[i].text = "";
                 quantityTexts[i].enabled = false;
                 equipTexts[i].SetActive(false);
             }
         }
     }
 
+    // 슬롯 교체 (무기 교체)
     public void SwapSlots(int fromIndex, int toIndex)
     {
-        if (fromIndex >= 0 && fromIndex < quickSlots.Count && toIndex >= 0 && toIndex < quickSlots.Count)
+        if (IsValidSlotIndex(fromIndex) && IsValidSlotIndex(toIndex))
         {
             (quickSlots[fromIndex], quickSlots[toIndex]) = (quickSlots[toIndex], quickSlots[fromIndex]);
-            (itemQuantities[fromIndex], itemQuantities[toIndex]) = (itemQuantities[toIndex], itemQuantities[fromIndex]);
 
             UpdateQuickSlotUI();
         }
+    }
+
+    // 유효한 슬롯 인덱스인지 확인
+    private bool IsValidSlotIndex(int index)
+    {
+        return index >= 0 && index < quickSlots.Count;
     }
 }

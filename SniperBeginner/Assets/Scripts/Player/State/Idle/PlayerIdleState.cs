@@ -15,7 +15,36 @@ public class PlayerIdleState : PlayerBaseState
     {
         base.Enter();
         Initialize();
+
+        animation.InGround(true);
     }
+
+    public override void Exit()
+    {
+        base.Exit();
+
+        animation.InGround(false);
+    }
+
+    public override void Update()
+    {
+        base.Update();
+        
+        movement = Vector2.Lerp(movement, moveInput, stateMachine.Setting.MovementInputSmoothness);
+        Move();
+    }
+
+    public override void FixedUpdate()
+    {
+        base.FixedUpdate();
+
+        if(!controller.isGrounded && 
+            controller.velocity.y < Physics.gravity.y * Time.fixedDeltaTime)
+        {
+            stateMachine.ChangeState(stateMachine.FallState);
+        }
+    }
+
 
     protected override void AddPlayerInput()
     {
@@ -37,16 +66,6 @@ public class PlayerIdleState : PlayerBaseState
         stateMachine.Player.Actions.Run.canceled -= OnRun;
     }
 
-    public override void Update()
-    {
-        base.Update();
-        
-        movement = Vector2.Lerp(movement, moveInput, stateMachine.Setting.MovementInputSmoothness);
-
-        Move();
-    }
-
-
     // 자세 전환 - 자식에서 구현
     protected virtual void OnPose(InputAction.CallbackContext context) {}
 
@@ -62,14 +81,14 @@ public class PlayerIdleState : PlayerBaseState
 
     protected override void OnJump(InputAction.CallbackContext context)
     {
-        // 스테이트 변경
-        if (stateMachine.Player.Controller.isGrounded)
+        if (controller.isGrounded)
             stateMachine.ChangeState(stateMachine.JumpState);
     }
 
     void Initialize()
     {
-        movement = Vector2.zero;
+        // movement = Vector2.zero;
+        moveInput = Vector2.zero;
         animation.Move(Vector2.zero);
     }
 
