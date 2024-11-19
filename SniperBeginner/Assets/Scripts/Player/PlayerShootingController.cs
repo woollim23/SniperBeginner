@@ -23,6 +23,7 @@ public class PlayerShootingController : MonoBehaviour
     
     public event Action<float> OnControlBreath;
     public event Action<bool> OnAim;
+    public event Action<Vector3> OnGunFire;
     public event Action<Transform, Vector3, Transform> OnKilledEnemy;
 
     private void Awake() 
@@ -134,6 +135,7 @@ public class PlayerShootingController : MonoBehaviour
         }
         
         anim.Fire();
+        OnGunFire?.Invoke(transform.position);
     }
 
     void Aim()
