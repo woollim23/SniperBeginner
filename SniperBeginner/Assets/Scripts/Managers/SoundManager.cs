@@ -5,22 +5,32 @@ public class SoundManager : SingletonDontDestory<SoundManager>
     [Header("Audio Settings")]
     public AudioSource audioSource;
 
+    private void Awake()
+    {
+        base.Awake();
+        EnsureAudioSource();
+    }
+
+    private void EnsureAudioSource()
+    {
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+    }
+
     public void PlaySound(AudioClip clip, float volume = 1.0f)
     {
         if (audioSource == null)
         {
-            
             return;
         }
 
         if (clip != null)
         {
             audioSource.PlayOneShot(clip, volume);
-        }
-        else
-        {
-            
-        }
+        }        
     }
 
     public void PlaySoundAtPosition(AudioClip clip, Vector3 position, float volume = 1.0f)
@@ -28,10 +38,6 @@ public class SoundManager : SingletonDontDestory<SoundManager>
         if (clip != null)
         {
             AudioSource.PlayClipAtPoint(clip, position, volume);
-        }
-        else
-        {
-            
         }
     }
 
@@ -48,11 +54,7 @@ public class SoundManager : SingletonDontDestory<SoundManager>
             audioSource.clip = clip;
             audioSource.loop = true;
             audioSource.Play();
-        }
-        else
-        {
-            
-        }
+        }        
     }
 
     public void StopBackgroundMusic()
