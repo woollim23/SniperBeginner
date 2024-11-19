@@ -14,7 +14,7 @@ public class ProjectileData
 {
     public float speed = 100f;
     public float lifeTime = 3f;
-    public EProjectile type;
+    public AmmoType type;
 }
 
 [RequireComponent(typeof(Rigidbody))]

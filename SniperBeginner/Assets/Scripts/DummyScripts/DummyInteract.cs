@@ -2,23 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DummyInteract : MonoBehaviour, IInteractable
+public class DummyInteract : ItemInteractable
 {
     [SerializeField] InteractionData interact;
+    [SerializeField] GeneratedItem gi;
     private void Start() 
     {
-        interact = new InteractionData(InterationType.Pick);    
-    }
-
-    public InteractionData GetInformation()
-    {
-        return interact;
-    }
-
-    public void Interact()
-    {
-        Debug.Log("Interact");
-        // 체력회복
-        Destroy(gameObject);
+        interact.interactKey = KeyCode.F;
+        Initialize(gi);
     }
 }

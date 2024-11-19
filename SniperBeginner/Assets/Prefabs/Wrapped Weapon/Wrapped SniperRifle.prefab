@@ -71,7 +71,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8060294878587473325}
-  - component: {fileID: 7926586728919719261}
+  - component: {fileID: 2771883895319922329}
   m_Layer: 0
   m_Name: Wrapped SniperRifle
   m_TagString: Untagged
@@ -97,7 +97,7 @@ Transform:
   - {fileID: 6033140158775473826}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7926586728919719261
+--- !u!114 &2771883895319922329
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -106,13 +106,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 8467474915087469755}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 935c79f4053d9be469b27dc04505335e, type: 3}
+  m_Script: {fileID: 11500000, guid: 9da866aeffc31554d8cb814b9550ab0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: bb7084e4f4c5820478a5f3d5da925c37, type: 2}
+  weaponData: {fileID: 11400000, guid: bb7084e4f4c5820478a5f3d5da925c37, type: 2}
+  currentAmmoInMagazine: 30
   firePoint: {fileID: 1730291088304789257}
   aimPoint: {fileID: 6033140158775473826}
-  currentAmmoInMagazine: 30
 --- !u!1001 &2095179902396725295
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -174,17 +174,17 @@ PrefabInstance:
     - target: {fileID: 3918682168350424584, guid: 20217f91ebc081940a2cafa6da74be34,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.006
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3918682168350424584, guid: 20217f91ebc081940a2cafa6da74be34,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.366
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3918682168350424584, guid: 20217f91ebc081940a2cafa6da74be34,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.098
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3918682168350424584, guid: 20217f91ebc081940a2cafa6da74be34,
         type: 3}
@@ -194,22 +194,22 @@ PrefabInstance:
     - target: {fileID: 3918682168350424584, guid: 20217f91ebc081940a2cafa6da74be34,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3918682168350424584, guid: 20217f91ebc081940a2cafa6da74be34,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.70713013
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3918682168350424584, guid: 20217f91ebc081940a2cafa6da74be34,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.7070834
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3918682168350424584, guid: 20217f91ebc081940a2cafa6da74be34,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 90.01999
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3918682168350424584, guid: 20217f91ebc081940a2cafa6da74be34,
         type: 3}

@@ -59,13 +59,11 @@ public class ItemInteractable : MonoBehaviour, IInteractable
                 break;
 
             case ItemType.PistolMagazine:
-                //CharacterManager.Instance.Player.ReplaceAmmo(generatedItem.effectValue, AmmoType.PistolAmmo); // 권총 탄약 교체 로직
-                // Weapon => ReplaceMagazine 호출
+                CharacterManager.Instance.Player.Equipment.ReplaceAmmo(generatedItem.effectValue, AmmoType.PistolAmmo); // 권총 탄약 교체 로직
                 break;
 
             case ItemType.SniperMagazine:
-                //CharacterManager.Instance.Player.ReplaceAmmo(generatedItem.effectValue, AmmoType.SniperAmmo); // 저격 탄약 교체 로직
-                // Weapon => ReplaceMagazine 호출
+                CharacterManager.Instance.Player.Equipment.ReplaceAmmo(generatedItem.effectValue, AmmoType.SniperAmmo); // 권총 탄약 교체 로직
                 break;
 
             default:

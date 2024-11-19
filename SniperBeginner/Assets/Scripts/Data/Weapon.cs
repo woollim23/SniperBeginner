@@ -17,16 +17,16 @@ public class Weapon : MonoBehaviour
         currentAmmoInMagazine = weaponData.magazineSize;
     }
 
-    public bool UseAmmo(int amount)
+    public bool UseAmmo(int amount = 1)
     {
         if (currentAmmoInMagazine < amount)
         {
-            Debug.Log("Åº¾à ºÎÁ·");
+            Debug.Log("íƒ„ì•½ ë¶€ì¡±");
             return false;
         }
 
         currentAmmoInMagazine -= amount;
-        Debug.Log($"Åº¾à »ç¿ë: {amount}, ³²Àº Åº¾à: {currentAmmoInMagazine}");
+        Debug.Log($"íƒ„ì•½ ì‚¬ìš©: {amount}, ë‚¨ì€ íƒ„ì•½: {currentAmmoInMagazine}");
         return true;
     }
 
@@ -44,7 +44,7 @@ public class Weapon : MonoBehaviour
             currentAmmoInMagazine = totalAmmo;
         }
 
-        Debug.Log($"ÀçÀåÀü ¿Ï·á: ÇöÀç Åº¾à {currentAmmoInMagazine}");
+        Debug.Log($"ìž¬ìž¥ì „ ì™„ë£Œ: í˜„ìž¬ íƒ„ì•½ {currentAmmoInMagazine}");
     }
 
     public bool HasAmmo()

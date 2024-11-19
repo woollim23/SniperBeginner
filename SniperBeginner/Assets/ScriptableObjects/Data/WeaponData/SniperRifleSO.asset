@@ -22,4 +22,5 @@ MonoBehaviour:
   ammoType: 1
   weaponType: 1
   equipPrefab: {fileID: 0}
-  projectile: {fileID: 0}
+  projectile: {fileID: 2875054006511490313, guid: 158bd8e68e522ba44830e1b7ed7cdeaf,
+    type: 3}

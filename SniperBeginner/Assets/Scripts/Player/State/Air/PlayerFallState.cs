@@ -9,7 +9,7 @@ public class PlayerFallState : PlayerAirState
     public override void Enter()
     {
         base.Enter();
-        animation.Falling();
+        animation.Fall();
     }
 
     public override void Exit()
