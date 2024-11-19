@@ -75,4 +75,11 @@ public class PlayerSetting
     [Header("Look")]
     public float lookSensitive = 1f;
     public Vector2 lookYAxisLimit = new Vector2(-80f, 80f);
+
+    [Header("Breathing")]
+    public float breathAmountOnRelax = 1f;
+    public float decayBreathWhileControl = 1f;
+    
+    public float minBreathForControl = 3f; // 숨을 제어하려면 최소 3은 있어야 함
+    public float maxBreath = 10f;
 }

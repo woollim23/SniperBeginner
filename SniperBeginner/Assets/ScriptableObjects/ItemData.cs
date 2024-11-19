@@ -36,12 +36,13 @@ public class ItemData : ScriptableObject
     {
         if (dropPrefab == null)
         {
-            Debug.LogWarning($"{itemName}¿¡ µå¶ø ÇÁ¸®ÆÕÀÌ ¼³Á¤µÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+            Debug.LogWarning($"{itemName}ì— ë“œë í”„ë¦¬íŒ¹ì´ ì„¤ì •ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
         }
         return dropPrefab;
     }
 }
 
+[System.Serializable]
 public class GeneratedItem
 {
     public ItemType itemType;

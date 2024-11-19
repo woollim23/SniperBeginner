@@ -25,4 +25,10 @@ public class WeaponData : ScriptableObject
 
     [Header("Projectile")]
     public Projectile projectile;      // πﬂªÁ√º        
+
+    [Header("Audio Clips")]
+    public AudioClip fireSound;
+    public AudioClip emptyFireSound;
+    public AudioClip reloadSound;
+    public AudioClip equipSound;
 }
