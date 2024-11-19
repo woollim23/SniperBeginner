@@ -13,7 +13,7 @@ public class PlayerShootingController : MonoBehaviour
     [SerializeField] Transform aimIKTarget; // IK point로 쓸 것
     float lastFireTime;
 
-    public event Action<Transform, Transform> OnKilledEnemy;
+    public event Action<Transform, Vector3, Vector3> OnKilledEnemy;
 
 
     private void Awake() 
@@ -77,7 +77,8 @@ public class PlayerShootingController : MonoBehaviour
         {
             // 검사에서 사망했다 -> 시네머신 : 시네머신에서 죽일 것
             Debug.Log("시네머신 시작");
-            OnKilledEnemy?.Invoke(bullet.transform, targetT);
+            OnKilledEnemy?.Invoke(bullet.transform, equip.CurrentEquip.firePoint.position, targetT.position);
+            
         }
         else
         {
