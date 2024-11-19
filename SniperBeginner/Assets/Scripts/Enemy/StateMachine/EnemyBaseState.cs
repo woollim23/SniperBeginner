@@ -5,12 +5,12 @@ using UnityEngine;
 public class EnemyBaseState : IState
 {
     protected EnemyStateMachine stateMachine;
-    //protected readonly PlayerGroundData groundData;
+    protected readonly EnemyGroundData groundData;
 
     public EnemyBaseState(EnemyStateMachine stateMachine)
     {
         this.stateMachine = stateMachine;
-        //groundData = stateMachine.Enemy.Data.GroundData;
+        groundData = stateMachine.Enemy.Data.GroundData;
     }
 
     public virtual void Enter()
@@ -18,14 +18,6 @@ public class EnemyBaseState : IState
     }
 
     public virtual void Exit()
-    {
-    }
-
-    public virtual void HandleInput()
-    {
-    }
-
-    public virtual void PhysicsUpdate()
     {
     }
 
@@ -106,12 +98,10 @@ public class EnemyBaseState : IState
 
     protected bool IsInChasingRange()
     {
-        /*
-        if (stateMachine.Target.GetComponent<PlayerCondition>().IsDie) return false;
+        if (!stateMachine.Target.GetComponent<PlayerCondition>()) return false;
+
         float playerDistanceSqr = (stateMachine.Target.transform.position - stateMachine.Enemy.transform.position).sqrMagnitude;
 
         return playerDistanceSqr <= stateMachine.Enemy.Data.PlayerChasingRange * stateMachine.Enemy.Data.PlayerChasingRange;
-        */
-        return true;
     }
 }
