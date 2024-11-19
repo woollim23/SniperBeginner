@@ -15,6 +15,7 @@ public class PlayerShootingController : MonoBehaviour
 
     bool isReloading = false;
 
+    public event Action<bool> OnAim;
     public event Action<Transform, Vector3, Vector3> OnKilledEnemy;
 
     private void Awake() 
@@ -54,12 +55,16 @@ public class PlayerShootingController : MonoBehaviour
     {
         isAiming = true;
         anim.Aiming(isAiming);
+
+        OnAim?.Invoke(true);
     }
 
     void AimCanceled()
     {
         isAiming = false;
         anim.Aiming(false);
+
+        OnAim?.Invoke(false);
     }
 
     void Fire()
@@ -119,8 +124,6 @@ public class PlayerShootingController : MonoBehaviour
             AimCanceled();
             // 모션 재생
             anim.Reload();
-
-            Debug.Log("reload");
         }
     }
 

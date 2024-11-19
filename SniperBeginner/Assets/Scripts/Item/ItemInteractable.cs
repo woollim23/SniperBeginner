@@ -55,15 +55,15 @@ public class ItemInteractable : MonoBehaviour, IInteractable
         switch (generatedItem.itemType)
         {
             case ItemType.Heal:
-                CharacterManager.Instance.Player.Condition.Heal(generatedItem.effectValue); // 체력 회복 로직
+                CharacterManager.Instance.Player.Condition.Heal(generatedItem.effectValue);
                 break;
 
             case ItemType.PistolMagazine:
-                CharacterManager.Instance.Player.Equipment.ReplaceAmmo(generatedItem.effectValue, AmmoType.PistolAmmo); // 권총 탄약 교체 로직
+                CharacterManager.Instance.Player.Equipment.ReplaceAmmo(generatedItem.effectValue, AmmoType.PistolAmmo); 
                 break;
 
             case ItemType.SniperMagazine:
-                CharacterManager.Instance.Player.Equipment.ReplaceAmmo(generatedItem.effectValue, AmmoType.SniperAmmo); // 권총 탄약 교체 로직
+                CharacterManager.Instance.Player.Equipment.ReplaceAmmo(generatedItem.effectValue, AmmoType.SniperAmmo);
                 break;
 
             default:
