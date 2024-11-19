@@ -76,6 +76,6 @@ public class Enemy : MonoBehaviour, IDamagable
 
     void GiveItem()
     {
-        //if (dropOnDeath != null) Instantiate(dropOnDeath[Random.Range(0, 3)]), dropPosition, quaternion.identity);
+        ItemDropManager.Instance.DropRandomItem(dropPosition.localPosition);
     }
 }
