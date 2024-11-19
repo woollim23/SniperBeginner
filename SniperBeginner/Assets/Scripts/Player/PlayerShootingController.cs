@@ -72,11 +72,11 @@ public class PlayerShootingController : MonoBehaviour
         Projectile bullet = ObjectPoolManager.Instance.Get(weapon.projectile.data.type);
 
         // 사전 검사 - 이번 총격으로 사망했는지?
-        if (Check())
+        if (Check(out Transform targetT))
         {
             // 검사에서 사망했다 -> 시네머신 : 시네머신에서 죽일 것
-            Transform target = null;
-            OnKilledEnemy?.Invoke(bullet.transform, target);
+            Debug.Log("시네머신 시작");
+            OnKilledEnemy?.Invoke(bullet.transform, targetT);
         }
         else
         {
@@ -90,17 +90,19 @@ public class PlayerShootingController : MonoBehaviour
         aimIKTarget.position = mainCamera.transform.position + mainCamera.transform.forward * 10f;
     }
 
-    bool Check()
+    bool Check(out Transform targetT)
     {
         Ray ray = mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
         if (Physics.Raycast(ray, out RaycastHit hit , float.PositiveInfinity, aimLayerMask))
         {
             if (hit.collider.TryGetComponent(out ISnipable target))
             {
+                targetT = hit.collider.transform;
                 return target.CheckRemainHealth() <= equip.CurrentEquip.damage;
             }
         }
 
+        targetT = null;
         return false;
     }
 }

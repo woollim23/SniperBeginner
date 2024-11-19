@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour, IDamagable, ISnipable
     [field: SerializeField] public EnemyAnimationData AnimationData { get; private set; }
 
     [field: Header("DropItems")]
-    [field: SerializeField] public ItemData[] dropOnDeath; // ?????? ?????? ?????? ?ò÷
+    [field: SerializeField] public ItemData[] dropOnDeath; // ?????? ?????? ?????? ?è¿­
     [field: SerializeField] private Transform dropPosition;
 
 
@@ -81,7 +81,7 @@ public class Enemy : MonoBehaviour, IDamagable, ISnipable
 
     public float CheckRemainHealth()
     {
-        return 1f; // ÀÓ½Ã·Î 1f ¹İÈ¯
-        // ¿ø·¡´Â ÇöÀç ³²Àº Ã¼·ÂÀ» Áà¾ßÇÔ
+        return 1f; // ì„ì‹œë¡œ 1f ë°˜í™˜
+        // ì›ë˜ëŠ” í˜„ì¬ ë‚¨ì€ ì²´ë ¥ì„ ì¤˜ì•¼í•¨
     }
 }
