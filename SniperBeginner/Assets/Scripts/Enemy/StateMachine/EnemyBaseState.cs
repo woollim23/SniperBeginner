@@ -34,11 +34,16 @@ public class EnemyBaseState : IState
     {
         Vector3 movementDirection = GetMovementDirection();
 
-        Rotate(movementDirection);
+        //if(IsPlayerInFieldOfView())
+            Rotate(movementDirection);
 
         Move(movementDirection);
     }
 
+    protected void ForceMove()
+    {
+        stateMachine.Enemy.Controller.Move(stateMachine.Enemy.ForceReceiver.Movement * Time.deltaTime);
+    }
 
     private Vector3 GetMovementDirection()
     {
@@ -49,7 +54,8 @@ public class EnemyBaseState : IState
     void Move(Vector3 movementDirection)
     {
         float movementSpeed = GetMovementSpeed();
-        stateMachine.Enemy.Controller.Move(movementDirection * movementSpeed);
+        stateMachine.Enemy.Controller.Move(((movementDirection * movementSpeed) + stateMachine.Enemy.ForceReceiver.Movement) * Time.deltaTime);
+        
     }
 
     void Rotate(Vector3 movementDirection)
@@ -65,6 +71,7 @@ public class EnemyBaseState : IState
     {
         float movementSpeed = stateMachine.MovementSpeed * stateMachine.MovementSpeedModifier;
         return movementSpeed;
+        
     }
 
     protected void StartAnimation(int animationHash)
@@ -98,7 +105,7 @@ public class EnemyBaseState : IState
 
     protected bool IsInChasingRange()
     {
-        if (!stateMachine.Target.GetComponent<PlayerCondition>()) return false;
+        //if (!stateMachine.Target.GetComponent<PlayerCondition>()) return false;
 
         float playerDistanceSqr = (stateMachine.Target.transform.position - stateMachine.Enemy.transform.position).sqrMagnitude;
 

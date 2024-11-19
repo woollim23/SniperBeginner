@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyChasingState : EnemyBaseState
+public class EnemyWanderState : EnemyBaseState
 {
-    public EnemyChasingState(EnemyStateMachine stateMachine) : base(stateMachine)
+    public EnemyWanderState(EnemyStateMachine stateMachine) : base(stateMachine)
     {
     }
 
@@ -29,12 +29,12 @@ public class EnemyChasingState : EnemyBaseState
 
         if (!IsInChasingRange())
         {
-            stateMachine.ChangeState(stateMachine.IdleState);
+            stateMachine.ChangeState(stateMachine.AttackState);
             return;
         }
-        else if (IsInAttackRange())
+        else if(stateMachine.Enemy.Rigidbody.velocity.magnitude <= 0.01f)
         {
-            stateMachine.ChangeState(stateMachine.AttackState);
+            stateMachine.ChangeState(stateMachine.IdleState);
             return;
         }
     }

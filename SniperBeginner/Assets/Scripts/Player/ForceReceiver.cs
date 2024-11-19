@@ -24,7 +24,13 @@ public class ForceReceiver : MonoBehaviour
     {
         AdjustForce();
     }
-    
+
+    // Ãß°¡
+    public void Reset()
+    {
+        vertical = 0;
+        force = Vector3.zero;
+    }
 
     void AdjustForce()
     {

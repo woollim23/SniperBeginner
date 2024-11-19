@@ -30,7 +30,13 @@ public class EnemyIdleState : EnemyBaseState
 
         if (IsInChasingRange())
         {
-            stateMachine.ChangeState(stateMachine.ChasingState);
+            stateMachine.ChangeState(stateMachine.AttackState);
+            return;
+        }
+
+        if(stateMachine.Enemy.Rigidbody.velocity.magnitude > 0.01f)
+        {
+            stateMachine.ChangeState(stateMachine.WanderState);
             return;
         }
     }

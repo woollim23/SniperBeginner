@@ -7,7 +7,7 @@ using static UnityEngine.EventSystems.EventTrigger;
 public class Enemy : MonoBehaviour, ISnipable
 {
     [field: Header("Enemy Data")]
-    [field: SerializeField] public float health;
+    [field: SerializeField] private float health;
 
     [field: SerializeField] public EnemySO Data { get; private set; }
 
@@ -21,8 +21,11 @@ public class Enemy : MonoBehaviour, ISnipable
     public Rigidbody Rigidbody { get; private set; }
     public Animator Animator { get; private set; }
     public CharacterController Controller { get; private set; }
+    public ForceReceiver ForceReceiver { get; private set; }
 
     public EnemyStateMachine stateMachine;
+
+    public Action<float> onTakeDamage;
 
     //[field: SerializeField] public Weapon Weapon { get; private set; }
 
@@ -34,7 +37,10 @@ public class Enemy : MonoBehaviour, ISnipable
         Animator = GetComponentInChildren<Animator>();
         Controller = GetComponent<CharacterController>();
 
+        ForceReceiver = GetComponent<ForceReceiver>();
         stateMachine = new EnemyStateMachine(this);
+
+        onTakeDamage += OnTakeDamage;
 
         EnemyDatalInit();
     }
@@ -55,15 +61,13 @@ public class Enemy : MonoBehaviour, ISnipable
         health = Data.MaxHealth;
     }
 
-    public void TakeDamage(float damage)
+    public void OnTakeDamage(float damage)
     {
-        health = Mathf.Max(health - damage, 0);
-
         Animator.SetTrigger("Hit");
-        if (health <= 0)
-        {
+
+        health = Mathf.Max(health - damage, 0);
+        if (health == 0)
             Die();
-        }
     }
 
     public void Die()
