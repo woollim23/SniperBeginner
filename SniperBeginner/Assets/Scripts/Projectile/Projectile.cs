@@ -14,7 +14,6 @@ public class Projectile : MonoBehaviour
 {
     Rigidbody rigidBody;
     public ProjectileData data;
-    public float damage = 50f;
 
     protected virtual void Awake() 
     {
@@ -33,10 +32,9 @@ public class Projectile : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(direction);
     }
 
-    public virtual void Fire(Vector3 firePoint, Vector3 direction, float damage = 50f)
+    public virtual void Fire(Vector3 firePoint, Vector3 direction)
     {
         Initialize(firePoint, direction);
-        this.damage = damage;
 
         gameObject.SetActive(true);
 
@@ -55,12 +53,6 @@ public class Projectile : MonoBehaviour
 
     private void OnCollisionEnter(Collision other) 
     {
-        if(other.gameObject.TryGetComponent(out IDamagable damagable))
-        {
-            damagable.TakeDamage(damage);
-        }
-
-
         if (IsInvoking("Release"))
             CancelInvoke("Release");
 
