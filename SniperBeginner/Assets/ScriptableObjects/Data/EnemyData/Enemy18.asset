@@ -12,16 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3bad05f2e4b4f642b12c166f7cf144a, type: 3}
   m_Name: Enemy18
   m_EditorClassIdentifier: 
-  EnemyModel: {fileID: 2347335746604759338, guid: d9bf93a723955444799d569c048e90f8,
-    type: 3}
   <MaxHealth>k__BackingField: 100
   Damage: 10
-  <PlayerChasingRange>k__BackingField: 10
-  <AttackRange>k__BackingField: 3
-  <Dealing_Start_TransitionTime>k__BackingField: 0
-  <Dealing_End_TransitionTime>k__BackingField: 0
+  <PlayerChasingRange>k__BackingField: 7
+  <AttackRange>k__BackingField: 0
+  <ForceTransitionTime>k__BackingField: 0.1
+  <Force>k__BackingField: 1
+  <Dealing_Start_TransitionTime>k__BackingField: 0.25
+  <Dealing_End_TransitionTime>k__BackingField: 0.35
   <GroundData>k__BackingField:
     <BaseSpeed>k__BackingField: 5
     <BaseRotationDamping>k__BackingField: 1
+    <BaseFiledOfView>k__BackingField: 0
     <WalkSpeedModifier>k__BackingField: 0.225
     <RunSpeedModifier>k__BackingField: 1

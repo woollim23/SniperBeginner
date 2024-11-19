@@ -3,9 +3,9 @@ using UnityEngine.Pool;
 
 public class ObjectPoolManager : Singleton<ObjectPoolManager>
 {
-    public Dictionary<EProjectile, ObjectPool<Projectile>> projectilePools = new Dictionary<EProjectile, ObjectPool<Projectile>>();
+    public Dictionary<AmmoType, ObjectPool<Projectile>> projectilePools = new Dictionary<AmmoType, ObjectPool<Projectile>>();
 
-    public void AddProjectilePool(Projectile projectile, int initialSize = 31, int maxSize = 100)
+    public void AddProjectilePool(Projectile projectile, int initialSize = 31, int maxSize = 500)
     {
         projectilePools.Add(projectile.data.type, new ObjectPool<Projectile>(
             () => { return Instantiate(projectile); },
@@ -16,12 +16,12 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
     }
 
 
-    public Projectile Get(EProjectile type)
+    public Projectile Get(AmmoType type)
     {
         return projectilePools[type].Get();
     }
 
-    public void Release(EProjectile type, Projectile projectile)
+    public void Release(AmmoType type, Projectile projectile)
     {
         projectilePools[type].Release(projectile);
     }

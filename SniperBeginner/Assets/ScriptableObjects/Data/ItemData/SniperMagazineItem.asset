@@ -19,4 +19,5 @@ MonoBehaviour:
   effect:
     minValue: 1
     maxValue: 5
-  dropPrefab: {fileID: 0}
+  dropPrefab: {fileID: 7433216080844143059, guid: f25f715c0a282574e96c88d3a80af31f,
+    type: 3}

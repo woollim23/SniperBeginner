@@ -94,13 +94,13 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 1.8
+  m_Height: 0.1
   m_Radius: 0.2
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.0001
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.9, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &4949356535031780303
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,6 +120,10 @@ MonoBehaviour:
     JumpPower: 10
     lookSensitive: 10
     lookYAxisLimit: {x: -45, y: 45}
+    breathAmountOnRelax: 1
+    decayBreathWhileControl: 1
+    minBreathForControl: 3
+    maxBreath: 10
 --- !u!114 &8565353724580743019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,6 +146,8 @@ MonoBehaviour:
     crawlParamName: Crawl
     fireParamName: Fire
     aimingParamName: Aiming
+    aimingModifierParamName: AimingModifier
+    reloadParamName: Aiming
     airParamName: '@Air'
     jumpParamName: Jump
     fallParamName: Fall
@@ -188,10 +194,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAiming: 0
-  aimIKTarget: {fileID: 1832646833289818142}
   aimLayerMask:
     serializedVersion: 2
     m_Bits: 217
+  aimIKTarget: {fileID: 1832646833289818142}
+  currentBreath: 0
 --- !u!114 &1361368798122350215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -246,7 +253,7 @@ GameObject:
   - component: {fileID: 767364459529581615}
   - component: {fileID: 5787095342685949226}
   - component: {fileID: 5819612545196794583}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Detector
   m_TagString: Untagged
   m_Icon: {fileID: 0}

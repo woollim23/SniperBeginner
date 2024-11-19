@@ -6,6 +6,7 @@ public class UIInteractionGuide : MonoBehaviour
 {
     [SerializeField] Image icon;
     [SerializeField] TextMeshProUGUI guideText;
+    [SerializeField] TextMeshProUGUI description;
 
 
     private void Start() 
@@ -20,6 +21,9 @@ public class UIInteractionGuide : MonoBehaviour
         gameObject.SetActive(data != null);
 
         if(data != null)
+        {
             guideText.text = $"키를 눌러 {data.ConvertTypeToString(data.type)}";
+            description.text = $"{data.description}";
+        }
     }
 }

@@ -1,47 +1,68 @@
+using System;
 using UnityEngine;
 
 public class PlayerEquipment : MonoBehaviour
 {
     PlayerView view;
-
-    // TODO : 플레이어 장착에 대한 정보 -> Equipment나 Gun 스크립트가 필요할 듯
-    [field:SerializeField] public DummyWeapon CurrentEquip { get; private set; }
+    [field:SerializeField] public Weapon CurrentEquip { get; private set; }
     
-
     // 손 위치
     [SerializeField] Transform rightHand;
     [SerializeField] Transform leftHand;
 
+    [Header("Temp Place")]
+    [SerializeField] QuickSlotManager quickSlotManager;
 
-    private void Awake() 
-    {
-        view = GetComponent<PlayerView>();
-    }
+    bool isReloading = false;
+    public event Action<bool> OnReload;
+    public event Action<int, int> OnAmmoChanged;
+
 
     private void Start() 
     {
-        // 테스트용
-        Equip(CurrentEquip);
+        if(TryGetComponent(out Player player))
+        {
+            view = player.View;
+        }
+
+        quickSlotManager.OnWeaponSelected += WeaponSelected;
+
+        // 퀵슬롯 1번 장착
+        WeaponSelected(quickSlotManager.allWeapons[0]);
+    }
+
+    private void WeaponSelected(WeaponData data)
+    {
+        GameObject weapon = Instantiate(data.equipPrefab);
+        Equip(weapon.GetComponent<Weapon>());
     }
 
     private void FixedUpdate() 
     {
+        if (isReloading) return;
+
         if (CurrentEquip != null)
         {
             CurrentEquip.transform.rotation = Quaternion.LookRotation(leftHand.position - rightHand.position, Vector3.up);
         }
     }
 
-    public void Equip(DummyWeapon equipment)
+    public void Equip(Weapon equipment)
     {
+        if(CurrentEquip != null)
+            Unequip();
+
+        CurrentEquip = equipment;
+        CurrentEquip.OnAmmoChanged += CallOnAmmoChanged;
+
         equipment.transform.SetParent(rightHand);
         equipment.transform.localPosition = Vector3.zero;
 
         // 장착했다 -> 쓸 수 있다는 것
         // 무기라면 투사체 오브젝트 풀링이 확인해줄 것
-        if (!ObjectPoolManager.Instance.projectilePools.ContainsKey(CurrentEquip.projectile.data.type))
+        if (!ObjectPoolManager.Instance.projectilePools.ContainsKey(CurrentEquip.weaponData.projectile.data.type))
         {
-            ObjectPoolManager.Instance.AddProjectilePool(CurrentEquip.projectile);
+            ObjectPoolManager.Instance.AddProjectilePool(CurrentEquip.weaponData.projectile);
         }
 
         view.UpdateAimPosition(equipment.aimPoint);
@@ -50,8 +71,50 @@ public class PlayerEquipment : MonoBehaviour
     public void Unequip()
     {
         view.UpdateAimPosition(null);
+
+        if(CurrentEquip != null)
+        {
+            // 1안. Destroy 하기 // 2안. 반환하기
+            Destroy(CurrentEquip.gameObject);
+
+            CurrentEquip.OnAmmoChanged -= CallOnAmmoChanged;
+            
+            CurrentEquip = null;
+        }
     }
 
+    public void ReplaceAmmo(int count, AmmoType type)
+    {
+        // 타입에 따라 퀵슬롯에도 적용
+        if(type == CurrentEquip.weaponData.ammoType)
+        {
+            CurrentEquip.ReplaceMagazine(count);
+
+            ReloadStart();
+            Invoke("ReloadEnd", 3.3f);
+        }
+        else
+        {
+            // TODO : 퀵슬롯에서 찾아서 넣어주기
+        }
+    }
+
+    void ReloadStart()
+    {
+        isReloading = true;
+        OnReload?.Invoke(isReloading);
+    }
+
+    void ReloadEnd()
+    {
+        isReloading = false;
+        OnReload?.Invoke(isReloading);
+    }
+
+    void CallOnAmmoChanged()
+    {
+        OnAmmoChanged?.Invoke(CurrentEquip.currentAmmoInMagazine, CurrentEquip.weaponData.magazineSize);
+    }
 
     // 뼈에서 손 위치만 찾는 메서드
     [ContextMenu("Find Hand")]
@@ -77,14 +140,5 @@ public class PlayerEquipment : MonoBehaviour
     }
 
 
-    public void AddAmmo(int count)
-    {
-
-    }
-
-    public void UseAmmo(int count = 1)
-    {
-
-    }
 }
 
