@@ -22,8 +22,8 @@ public class ItemInteractable : MonoBehaviour, IInteractable
         }
 
         string description = generatedItem.itemType == ItemType.Heal
-            ? $"Ã¼·ÂÀ» {generatedItem.effectValue} È¸º¹ÇÕ´Ï´Ù."
-            : $"Åº¾à {generatedItem.effectValue}¹ß·Î ±³Ã¼ÇÕ´Ï´Ù.";
+            ? $"ì²´ë ¥ì„ {generatedItem.effectValue} íšŒë³µí•©ë‹ˆë‹¤."
+            : $"íƒ„ì•½ {generatedItem.effectValue}ë°œë¡œ êµì²´í•©ë‹ˆë‹¤.";
 
         return new InteractionData(InterationType.Pick)
         {
@@ -55,15 +55,17 @@ public class ItemInteractable : MonoBehaviour, IInteractable
         switch (generatedItem.itemType)
         {
             case ItemType.Heal:
-                //CharacterManager.Instance.Player.AddHeal(generatedItem.effectValue); // Ã¼·Â È¸º¹ ·ÎÁ÷
+                CharacterManager.Instance.Player.Condition.Heal(generatedItem.effectValue); // ì²´ë ¥ íšŒë³µ ë¡œì§
                 break;
 
             case ItemType.PistolMagazine:
-                //CharacterManager.Instance.Player.ReplaceAmmo(generatedItem.effectValue, AmmoType.PistolAmmo); // ±ÇÃÑ Åº¾à ±³Ã¼ ·ÎÁ÷
+                //CharacterManager.Instance.Player.ReplaceAmmo(generatedItem.effectValue, AmmoType.PistolAmmo); // ê¶Œì´ íƒ„ì•½ êµì²´ ë¡œì§
+                // Weapon => ReplaceMagazine í˜¸ì¶œ
                 break;
 
             case ItemType.SniperMagazine:
-                //CharacterManager.Instance.Player.ReplaceAmmo(generatedItem.effectValue, AmmoType.SniperAmmo); // Àú°Ý Åº¾à ±³Ã¼ ·ÎÁ÷
+                //CharacterManager.Instance.Player.ReplaceAmmo(generatedItem.effectValue, AmmoType.SniperAmmo); // ì €ê²© íƒ„ì•½ êµì²´ ë¡œì§
+                // Weapon => ReplaceMagazine í˜¸ì¶œ
                 break;
 
             default:

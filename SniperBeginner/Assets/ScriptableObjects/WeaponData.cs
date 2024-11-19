@@ -10,56 +10,23 @@ public class WeaponData : ScriptableObject
 
     [Header("Combat Stats")]
     public int damage;
-    public float reloadTime;           // ÀçÀåÀü ½Ã°£
-    public float fireRate;             // ¹ß»ç ¼Óµµ
+    public float reloadTime;           // ì¬ì¥ì „ ì‹œê°„
+    public float fireRate;             // ë°œì‚¬ ì†ë„
 
     [Header("Ammunition")]
-    public int magazineSize;           // ÅºÃ¢ ÃÖ´ë Å©±â
-    public int currentAmmoInMagazine;  // ÇöÀç ÅºÃ¢¿¡ ³²Àº ÃÑ¾Ë
-    public AmmoType ammoType;          // Åº¾à À¯Çü
+    public Projectile projectile;
+    public int magazineSize;           // íƒ„ì°½ ìµœëŒ€ í¬ê¸°
+
+    public AmmoType ammoType;          // íƒ„ì•½ ìœ í˜•
 
     [Header("Weapon Type")]
     public WeaponType weaponType;
 
     [Header("Prefabs")]
-    public GameObject equipPrefab;     // ÀåÂø ÇÁ¸®ÆÕ
+    public GameObject equipPrefab;     // ì¥ì°© í”„ë¦¬íŒ¹
 
     [Header("Zoom Settings")]
     public Transform firePoint;
     public Transform aimPoint;
-
-    // ÃÑ¾Ë ¹ß»ç ½Ãµµ ¸Ş¼­µå
-    public bool UseAmmo(int amount)
-    {
-        if (currentAmmoInMagazine < amount)
-        {
-            Debug.Log("Åº¾à ºÎÁ·");
-            return false;
-        }
-
-        currentAmmoInMagazine -= amount;
-        return true;
-    }
-
-    // ÅºÃ¢ ±³Ã¼ ¸Ş¼­µå
-    public void ReplaceMagazine(int newAmmo)
-    {
-        int totalAmmo = currentAmmoInMagazine + newAmmo;
-
-        if (totalAmmo > magazineSize)
-        {
-            int excessAmmo = totalAmmo - magazineSize;
-            currentAmmoInMagazine = magazineSize;
-        }
-        else
-        {
-            currentAmmoInMagazine = totalAmmo;
-        }
-    }
-
-    // ÇöÀç ÃÑ¾ËÀÌ ³²¾Æ ÀÖ´ÂÁö È®ÀÎ
-    public bool HasAmmo()
-    {
-        return currentAmmoInMagazine > 0;
-    }
+    
 }

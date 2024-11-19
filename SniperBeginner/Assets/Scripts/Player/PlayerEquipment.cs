@@ -4,8 +4,7 @@ public class PlayerEquipment : MonoBehaviour
 {
     PlayerView view;
 
-    // TODO : 플레이어 장착에 대한 정보 -> Equipment나 Gun 스크립트가 필요할 듯
-    [field:SerializeField] public DummyWeapon CurrentEquip { get; private set; }
+    [field:SerializeField] public Weapon CurrentEquip { get; private set; }
     
 
     // 손 위치
@@ -32,16 +31,16 @@ public class PlayerEquipment : MonoBehaviour
         }
     }
 
-    public void Equip(DummyWeapon equipment)
+    public void Equip(Weapon equipment)
     {
         equipment.transform.SetParent(rightHand);
         equipment.transform.localPosition = Vector3.zero;
 
         // 장착했다 -> 쓸 수 있다는 것
         // 무기라면 투사체 오브젝트 풀링이 확인해줄 것
-        if (!ObjectPoolManager.Instance.projectilePools.ContainsKey(CurrentEquip.projectile.data.type))
+        if (!ObjectPoolManager.Instance.projectilePools.ContainsKey(CurrentEquip.data.projectile.data.type))
         {
-            ObjectPoolManager.Instance.AddProjectilePool(CurrentEquip.projectile);
+            ObjectPoolManager.Instance.AddProjectilePool(CurrentEquip.data.projectile);
         }
 
         view.UpdateAimPosition(equipment.aimPoint);
@@ -77,14 +76,5 @@ public class PlayerEquipment : MonoBehaviour
     }
 
 
-    public void AddAmmo(int count)
-    {
-
-    }
-
-    public void UseAmmo(int count = 1)
-    {
-
-    }
 }
 

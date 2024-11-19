@@ -61,15 +61,16 @@ public class PlayerShootingController : MonoBehaviour
 
     void Fire()
     {
-        if (Time.time - lastFireTime < equip.CurrentEquip.intervalTime) 
+        if (Time.time - lastFireTime < equip.CurrentEquip.data.fireRate) 
             return;
+
+        if(!equip.CurrentEquip.HasAmmo()) return;
 
         lastFireTime = Time.time;
         anim.Fire();
 
-        // 애니메이션으로 처리하지 않을 것
-        DummyWeapon weapon = equip.CurrentEquip;
-        Projectile bullet = ObjectPoolManager.Instance.Get(weapon.projectile.data.type);
+        Weapon weapon = equip.CurrentEquip;
+        Projectile bullet = ObjectPoolManager.Instance.Get(weapon.data.projectile.data.type);
 
         // 사전 검사 - 이번 총격으로 사망했는지?
         if (Check(out Transform targetT))
@@ -98,7 +99,7 @@ public class PlayerShootingController : MonoBehaviour
             if (hit.collider.TryGetComponent(out ISnipable target))
             {
                 targetT = hit.collider.transform;
-                return target.CheckRemainHealth() <= equip.CurrentEquip.damage;
+                return target.CheckRemainHealth() <= equip.CurrentEquip.data.damage;
             }
         }
 

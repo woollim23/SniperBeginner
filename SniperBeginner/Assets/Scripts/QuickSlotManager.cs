@@ -20,22 +20,22 @@ public class QuickSlotManager : MonoBehaviour
         playerEquipment = GetComponent<PlayerEquipment>();
     }
 
-    // ½½·Ô ¼±ÅÃ ½Ã Ã³¸®
+    // ìŠ¬ë¡¯ ì„ íƒ ì‹œ ì²˜ë¦¬
     public void OnSlotSelected(int slotIndex)
     {
         if (IsValidSlotIndex(slotIndex) && quickSlots[slotIndex] != null)
         {
             WeaponData selectedWeapon = quickSlots[slotIndex];
 
-            // ¹«±â ÀåÂø
+            // ë¬´ê¸° ì¥ì°©
             //playerEquipment.Equip(selectedWeapon);
 
-            // UI °»½Å
+            // UI ê°±ì‹ 
             UpdateQuickSlotUI();
         }
     }
 
-    // ½½·Ô¿¡ ÀåÂøµÈ ¹«±â¸¦ UI¿¡ ¾÷µ¥ÀÌÆ®
+    // ìŠ¬ë¡¯ì— ì¥ì°©ëœ ë¬´ê¸°ë¥¼ UIì— ì—…ë°ì´íŠ¸
     void UpdateQuickSlotUI()
     {
         for (int i = 0; i < slotImages.Length; i++)
@@ -43,8 +43,8 @@ public class QuickSlotManager : MonoBehaviour
             if (i < quickSlots.Count && quickSlots[i] != null)
             {
                 slotImages[i].enabled = true;
-                slotImages[i].sprite = quickSlots[i].icon; // ¹«±âÀÇ ¾ÆÀÌÄÜ
-                quantityTexts[i].enabled = false; // ¼ö·®Àº »ç¿ëÇÏÁö ¾ÊÀ½
+                slotImages[i].sprite = quickSlots[i].icon; // ë¬´ê¸°ì˜ ì•„ì´ì½˜
+                quantityTexts[i].enabled = false; // ìˆ˜ëŸ‰ì€ ì‚¬ìš©í•˜ì§€ ì•ŠìŒ
                 equipTexts[i].SetActive(false);
             }
             else
@@ -56,7 +56,7 @@ public class QuickSlotManager : MonoBehaviour
         }
     }
 
-    // ½½·Ô ±³Ã¼ (¹«±â ±³Ã¼)
+    // ìŠ¬ë¡¯ êµì²´ (ë¬´ê¸° êµì²´)
     public void SwapSlots(int fromIndex, int toIndex)
     {
         if (IsValidSlotIndex(fromIndex) && IsValidSlotIndex(toIndex))
@@ -67,7 +67,7 @@ public class QuickSlotManager : MonoBehaviour
         }
     }
 
-    // À¯È¿ÇÑ ½½·Ô ÀÎµ¦½ºÀÎÁö È®ÀÎ
+    // ìœ íš¨í•œ ìŠ¬ë¡¯ ì¸ë±ìŠ¤ì¸ì§€ í™•ì¸
     private bool IsValidSlotIndex(int index)
     {
         return index >= 0 && index < quickSlots.Count;
