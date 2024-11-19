@@ -1,41 +1,49 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.EventSystems.EventTrigger;
+using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour, ISnipable
 {
     [field: Header("Enemy Data")]
-    [field: SerializeField] public float health;
-
+    [field: SerializeField] private float health;
+    public NavMeshAgent agent;
+    public float minWanderDistance;
+    public float maxWanderDistance;
     [field: SerializeField] public EnemySO Data { get; private set; }
 
     [field: Header("Animations")]
     [field: SerializeField] public EnemyAnimationData AnimationData { get; private set; }
 
     [field: Header("DropItems")]
-    [field: SerializeField] public ItemData[] dropOnDeath; // ?????? ?????? ?????? ?è¿?
+    [field: SerializeField] public ItemData[] dropOnDeath;
     [field: SerializeField] private Transform dropPosition;
 
     public Rigidbody Rigidbody { get; private set; }
     public Animator Animator { get; private set; }
     public CharacterController Controller { get; private set; }
+    public ForceReceiver ForceReceiver { get; private set; }
 
     public EnemyStateMachine stateMachine;
+
+    public Action<float> onTakeDamage;
 
     //[field: SerializeField] public Weapon Weapon { get; private set; }
 
     private void Awake()
     {
+        minWanderDistance = 2;
+        maxWanderDistance = 5;
+        agent = GetComponent<NavMeshAgent>();
         AnimationData.Initialize();
 
         Rigidbody = GetComponent<Rigidbody>();
         Animator = GetComponentInChildren<Animator>();
         Controller = GetComponent<CharacterController>();
 
+        ForceReceiver = GetComponent<ForceReceiver>();
         stateMachine = new EnemyStateMachine(this);
-        health = 100; // TODO : ??? ??? ????
+
+        onTakeDamage += OnTakeDamage;
 
         EnemyDatalInit();
     }
@@ -48,8 +56,7 @@ public class Enemy : MonoBehaviour, ISnipable
     private void Update()
     {
         stateMachine.Update();
-        if (health < 0)
-            Die();
+        if (health <= 0) Die();
     }
 
     public void EnemyDatalInit()
@@ -57,15 +64,13 @@ public class Enemy : MonoBehaviour, ISnipable
         health = Data.MaxHealth;
     }
 
-    public void TakeDamage(float damage)
+    public void OnTakeDamage(float damage)
     {
-        health = Mathf.Max(health - damage, 0);
-
         Animator.SetTrigger("Hit");
+
+        health = Mathf.Max(health - damage, 0);
         if (health == 0)
-        {
             Die();
-        }
     }
 
     public void Die()
@@ -75,11 +80,17 @@ public class Enemy : MonoBehaviour, ISnipable
 
         GameManager.Instance.CountDeadEnemy();
         // TODO : 5ÃÊµÚ ¿¡³Ê¹Ì ÆÄ±«
+        Invoke("DestroyEnemy", 5);
     }
 
-    void GiveItem()
+    private void GiveItem()
     {
         ItemDropManager.Instance.DropRandomItem(dropPosition.position);
+    }
+
+    private void DestroyEnemy()
+    {
+        Destroy(gameObject);
     }
 
     public float CheckRemainHealth()

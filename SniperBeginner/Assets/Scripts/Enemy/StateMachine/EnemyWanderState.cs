@@ -2,18 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyChasingState : EnemyBaseState
+public class EnemyWanderState : EnemyBaseState
 {
-    public EnemyChasingState(EnemyStateMachine stateMachine) : base(stateMachine)
+    public EnemyWanderState(EnemyStateMachine stateMachine) : base(stateMachine)
     {
     }
 
     public override void Enter()
     {
+        //Debug.Log("Wander");
+
         stateMachine.MovementSpeedModifier = groundData.WalkSpeedModifier;
         base.Enter();
         StartAnimation(stateMachine.Enemy.AnimationData.GroundParameterHash);
         StartAnimation(stateMachine.Enemy.AnimationData.WalkParameterHash);
+
     }
 
     public override void Exit()
@@ -27,14 +30,14 @@ public class EnemyChasingState : EnemyBaseState
     {
         base.Update();
 
-        if (!IsInChasingRange())
-        {
-            stateMachine.ChangeState(stateMachine.IdleState);
-            return;
-        }
-        else if (IsInAttackRange())
+        if (IsInChasingRange())
         {
             stateMachine.ChangeState(stateMachine.AttackState);
+            return;
+        }
+        else if(stateMachine.Enemy.agent.velocity.magnitude <= 0.1f)
+        {
+            stateMachine.ChangeState(stateMachine.IdleState);
             return;
         }
     }
