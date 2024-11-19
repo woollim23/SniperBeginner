@@ -45,6 +45,6 @@ public class UIAmmoInfo : MonoBehaviour
             return;
         }
 
-        ammoCountText.text = $"Ammo: {weapon.currentAmmoInMagazine} / {weapon.weaponData.magazineSize}";
+        ammoCountText.text = $"{weapon.currentAmmoInMagazine} / {weapon.weaponData.magazineSize}";
     }
 }
