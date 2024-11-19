@@ -30,12 +30,12 @@ public class CameraController : MonoBehaviour
 
     private void SubscribeBulletEvents()
     {
-        // CharacterManager.Instance.Player.Shooting.OnKilledEnemy += SwitchToBullet;
+        CharacterManager.Instance.Player.Shooting.OnKilledEnemy += SwitchToBullet;
     }
 
     private void UnsubscribeBulletEvents()
     {
-        // CharacterManager.Instance.Player.Shooting.OnKilledEnemy -= SwitchToBullet;
+        CharacterManager.Instance.Player.Shooting.OnKilledEnemy -= SwitchToBullet;
     }
 
 
@@ -57,7 +57,7 @@ public class CameraController : MonoBehaviour
         ResetTimeScale(); // 혹시 남아있을 슬로우 모션 복구
     }
 
-    public void SwitchToBullet(Transform bullet, Transform target)
+    public void SwitchToBullet(Transform bullet, Vector3 firePoint, Transform target)
     {
         bulletCamera.Priority = 15; // 총알 카메라 활성화
         bulletCamera.Follow = bullet;
@@ -65,6 +65,7 @@ public class CameraController : MonoBehaviour
 
         ApplySlowMotion(); // 슬로우 모션 활성화
 
+        StartCoroutine(MoveBullet(bullet, firePoint, target.position));
         StartCoroutine(ResetToIdle(1f)); // 1초 뒤 Idle로 복귀
     }
 
@@ -87,5 +88,23 @@ public class CameraController : MonoBehaviour
         SwitchToIdle();
     }
 
-   
+    private IEnumerator MoveBullet(Transform bullet, Vector3 firePoint, Vector3 targetPosition)
+    {
+        float travelTime = 1f; // 총알이 타겟에 도달하는 데 걸리는 시간
+        float elapsedTime = 0f;
+
+        bullet.position = firePoint; // 총알을 발사 지점에 배치
+
+        while (elapsedTime < travelTime)
+        {
+            elapsedTime += Time.deltaTime;
+            // 총알을 firePoint에서 targetPosition까지 이동
+            bullet.position = Vector3.Lerp(firePoint, targetPosition, elapsedTime / travelTime);
+            yield return null;
+        }
+
+        bullet.position = targetPosition; // 최종 위치 보정
+        Debug.Log("총알 도착");
+    }
+
 }
