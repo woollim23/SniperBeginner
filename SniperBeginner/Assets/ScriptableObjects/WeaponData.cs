@@ -10,23 +10,19 @@ public class WeaponData : ScriptableObject
 
     [Header("Combat Stats")]
     public int damage;
-    public float reloadTime;           // ì¬ì¥ì „ ì‹œê°„
-    public float fireRate;             // ë°œì‚¬ ì†ë„
+    public float reloadTime;           // ÀçÀåÀü ½Ã°£
+    public float fireRate;             // ¹ß»ç ¼Óµµ
 
     [Header("Ammunition")]
-    public Projectile projectile;
-    public int magazineSize;           // íƒ„ì°½ ìµœëŒ€ í¬ê¸°
-
-    public AmmoType ammoType;          // íƒ„ì•½ ìœ í˜•
+    public int magazineSize;           // ÅºÃ¢ ÃÖ´ë Å©±â
+    public AmmoType ammoType;          // Åº¾à À¯Çü
 
     [Header("Weapon Type")]
     public WeaponType weaponType;
 
     [Header("Prefabs")]
-    public GameObject equipPrefab;     // ì¥ì°© í”„ë¦¬íŒ¹
+    public GameObject equipPrefab;     // ÀåÂø ÇÁ¸®ÆÕ
 
-    [Header("Zoom Settings")]
-    public Transform firePoint;
-    public Transform aimPoint;
-    
+    [Header("Projectile")]
+    public Projectile projectile;      // ¹ß»çÃ¼        
 }

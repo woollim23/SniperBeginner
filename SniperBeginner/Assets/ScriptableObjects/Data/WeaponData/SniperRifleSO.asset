@@ -18,11 +18,8 @@ MonoBehaviour:
   damage: 80
   reloadTime: 2.5
   fireRate: 0.5
-  projectile: {fileID: 0}
   magazineSize: 10
   ammoType: 1
   weaponType: 1
-  equipPrefab: {fileID: 8467474915087469755, guid: 8a225aa3664e03340bd6c63b4fa1aab2,
-    type: 3}
-  firePoint: {fileID: 0}
-  aimPoint: {fileID: 0}
+  equipPrefab: {fileID: 0}
+  projectile: {fileID: 0}
