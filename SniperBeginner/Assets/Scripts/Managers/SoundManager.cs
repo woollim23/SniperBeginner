@@ -9,18 +9,17 @@ public class SoundManager : SingletonDontDestory<SoundManager>
     {
         if (audioSource == null)
         {
-            Debug.LogWarning("AudioSource가 연결되지 않았습니다.");
+            
             return;
         }
 
         if (clip != null)
         {
-            Debug.Log($"사운드 재생: {clip.name}");
             audioSource.PlayOneShot(clip, volume);
         }
         else
         {
-            Debug.LogWarning("재생할 AudioClip이 없습니다.");
+            
         }
     }
 
@@ -32,7 +31,7 @@ public class SoundManager : SingletonDontDestory<SoundManager>
         }
         else
         {
-            Debug.LogWarning("재생할 AudioClip이 없습니다.");
+            
         }
     }
 
@@ -40,7 +39,7 @@ public class SoundManager : SingletonDontDestory<SoundManager>
     {
         if (audioSource == null)
         {
-            Debug.LogWarning("AudioSource가 설정되지 않았습니다.");
+            
             return;
         }
 
@@ -52,7 +51,7 @@ public class SoundManager : SingletonDontDestory<SoundManager>
         }
         else
         {
-            Debug.LogWarning("재생할 배경음악 AudioClip이 없습니다.");
+            
         }
     }
 

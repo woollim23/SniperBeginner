@@ -21,18 +21,16 @@ public class Weapon : MonoBehaviour
         OnAmmoChanged?.Invoke();
     }
 
-    public bool UseAmmo(int amount)
+    public bool UseAmmo(int amount = 1)
     {
         if (currentAmmoInMagazine < amount)
         {
             PlaySound(weaponData.emptyFireSound);
-            Debug.Log("Åº¾à ºÎÁ·");
             return false;
         }
 
         currentAmmoInMagazine -= amount;
         PlaySound(weaponData.fireSound);
-        Debug.Log($"Åº¾à »ç¿ë: {amount}, ³²Àº Åº¾à: {currentAmmoInMagazine}");
         OnAmmoChanged?.Invoke();
         return true;
     }
@@ -52,7 +50,7 @@ public class Weapon : MonoBehaviour
         }
 
         PlaySound(weaponData.reloadSound);
-        Debug.Log($"ÀçÀåÀü ¿Ï·á: ÇöÀç Åº¾à {currentAmmoInMagazine}");
+        Debug.Log($"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½: ï¿½ï¿½ï¿½ï¿½ Åºï¿½ï¿½ {currentAmmoInMagazine}");
         OnAmmoChanged?.Invoke();
     }
 
