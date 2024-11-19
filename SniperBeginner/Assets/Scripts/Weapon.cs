@@ -25,12 +25,10 @@ public class Weapon : MonoBehaviour
     {
         if (currentAmmoInMagazine < amount)
         {
-            Debug.Log("탄약 부족");
             return false;
         }
 
         currentAmmoInMagazine -= amount;
-        Debug.Log($"ź�� ���: {amount}, ���� ź��: {currentAmmoInMagazine}");
         OnAmmoChanged?.Invoke();
         return true;
     }
@@ -49,7 +47,6 @@ public class Weapon : MonoBehaviour
             currentAmmoInMagazine = totalAmmo;
         }
 
-        Debug.Log($"������ �Ϸ�: ���� ź�� {currentAmmoInMagazine}");
         OnAmmoChanged?.Invoke();
     }
 

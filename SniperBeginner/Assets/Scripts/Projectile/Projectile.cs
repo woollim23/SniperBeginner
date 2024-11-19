@@ -58,4 +58,12 @@ public class Projectile : MonoBehaviour
     {
         ObjectPoolManager.Instance.Release(data.type, this);
     }
+
+    private void OnCollisionEnter(Collision other) 
+    {
+        if (IsInvoking("Release"))
+            CancelInvoke("Release");
+
+        Release();
+    }
 }

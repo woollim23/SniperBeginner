@@ -99,7 +99,7 @@ MonoBehaviour:
   data:
     speed: 100
     lifeTime: 2
-    type: 0
+    type: 1
 --- !u!1 &7948349346001230405
 GameObject:
   m_ObjectHideFlags: 0
