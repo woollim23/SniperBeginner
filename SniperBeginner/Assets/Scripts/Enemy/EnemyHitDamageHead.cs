@@ -9,4 +9,9 @@ public class EnemyHitDamageHead : EnemyHitDamage
         damage *= 10;
         base.TakeDamage(damage);
     }
+
+    public override bool IsSnipable(float damage)
+    {
+        return enemy.Health <= damage * 10;
+    }
 }

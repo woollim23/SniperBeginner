@@ -20,11 +20,11 @@ public class PlayerShootingController : MonoBehaviour
 
     bool isControllingBreath = false;
     bool isReloading = false;
-
     
     public event Action<float> OnControlBreath;
     public event Action<bool> OnAim;
-    public event Action<Transform, Vector3, Vector3> OnKilledEnemy;
+    public event Action<Vector3> OnGunFire;
+    public event Action<Transform, Vector3, Transform> OnKilledEnemy;
 
     private void Awake() 
     {
@@ -55,6 +55,7 @@ public class PlayerShootingController : MonoBehaviour
             
             currentBreath = player.setting.maxBreath;
         }
+
     }
 
     private void Update() 
@@ -62,7 +63,7 @@ public class PlayerShootingController : MonoBehaviour
         if (equip.CurrentEquip)
             Aim();
 
-        if(isControllingBreath)
+        if (isControllingBreath)
             UseBreath();
         else
             RecoverBreath();
@@ -125,15 +126,16 @@ public class PlayerShootingController : MonoBehaviour
         {
             // 검사에서 사망했다 -> 시네머신 : 시네머신에서 죽일 것
             Debug.Log("시네머신 시작");
-            OnKilledEnemy?.Invoke(bullet.transform, weapon.firePoint.position, target.position);
+            OnKilledEnemy?.Invoke(bullet.transform, equip.CurrentEquip.firePoint.position, target);
         }
         else
         {
             // 검사에서 사망하지 않았다 -> 아래 코드 : 물리적으로 공격
             bullet.Fire(weapon.firePoint.position, weapon.firePoint.forward);
         }
-
+        
         anim.Fire();
+        OnGunFire?.Invoke(transform.position);
     }
 
     void Aim()
@@ -146,10 +148,11 @@ public class PlayerShootingController : MonoBehaviour
         Ray ray = mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
         if (Physics.Raycast(ray, out RaycastHit hit , float.PositiveInfinity, aimLayerMask))
         {
+            // 부위별 총격에서 데미지 확인 각각의
             if (hit.collider.TryGetComponent(out ISnipable snipable))
             {
                 target = hit.collider.transform;
-                return snipable.CheckRemainHealth() <= equip.CurrentEquip.weaponData.damage;
+                return snipable.IsSnipable(equip.CurrentEquip.weaponData.damage);
             }
         }
 

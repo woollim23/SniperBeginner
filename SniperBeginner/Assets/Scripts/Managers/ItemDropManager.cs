@@ -33,7 +33,6 @@ public class ItemDropManager : Singleton<ItemDropManager>
         float totalRate = healDropRate + pistolAmmoDropRate + sniperAmmoDropRate;
         if (totalRate <= 0)
         {
-            Debug.LogError("아이템 드랍 확률이 모두 0입니다.");
             return null;
         }
 

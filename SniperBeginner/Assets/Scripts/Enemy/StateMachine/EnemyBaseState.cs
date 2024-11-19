@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyBaseState : MonoBehaviour, IState
+public class EnemyBaseState : IState
 {
     protected EnemyStateMachine stateMachine;
     protected readonly EnemyGroundData groundData;

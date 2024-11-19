@@ -76,6 +76,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 0
+  agent: {fileID: 0}
+  minWanderDistance: 0
+  maxWanderDistance: 0
   <Data>k__BackingField: {fileID: 11400000, guid: 0165681e31ecc9143a44b9424192fe16,
     type: 2}
   <AnimationData>k__BackingField:
@@ -280,6 +283,11 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 7b4ac4afee530df49b860d2a8f8b6db1, type: 2}
+    - target: {fileID: 5866666021909216657, guid: de91c09f11130bb488d5c40e1dab9507,
+        type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8817898888258712963, guid: de91c09f11130bb488d5c40e1dab9507,
         type: 3}
       propertyPath: m_Layer

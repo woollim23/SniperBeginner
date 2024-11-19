@@ -50,7 +50,6 @@ public class Weapon : MonoBehaviour
         }
 
         PlaySound(weaponData.reloadSound);
-        Debug.Log($"������ �Ϸ�: ���� ź�� {currentAmmoInMagazine}");
         OnAmmoChanged?.Invoke();
     }
 

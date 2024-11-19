@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class EnemyHitDamage : MonoBehaviour, IDamagable
+public class EnemyHitDamage : MonoBehaviour, IDamagable, ISnipable
 {
-    [SerializeField] private Enemy enemy;
+    [SerializeField] protected Enemy enemy;
 
     private void Awake()
     {
@@ -12,5 +12,10 @@ public class EnemyHitDamage : MonoBehaviour, IDamagable
     public virtual void TakeDamage(float damage)
     {
         enemy.onTakeDamage(damage);
+    }
+
+    public virtual bool IsSnipable(float damage)
+    {
+        return enemy.Health <= damage;
     }
 }

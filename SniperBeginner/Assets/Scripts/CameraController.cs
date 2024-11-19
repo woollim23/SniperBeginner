@@ -14,13 +14,14 @@ public class CameraController : MonoBehaviour
 
     private void Start()
     {
-        SwitchToIdle(); // ï¿½Ê±ï¿½ Ä«ï¿½Þ¶ï¿½ ï¿½ï¿½ï¿½ï¿½
+        SubscribeBulletEvents();
+        SwitchToIdle(); // ÃÊ±â Ä«¸Þ¶ó »óÅÂ
     }
 
 
     private void OnEnable()
     {
-        SubscribeBulletEvents();
+        
     }
 
     private void OnDisable()
@@ -30,62 +31,73 @@ public class CameraController : MonoBehaviour
 
     private void SubscribeBulletEvents()
     {
-        // CharacterManager.Instance.Player.Shooting.OnKilledEnemy += SwitchToBullet;
+        CharacterManager.Instance.Player.Shooting.OnKilledEnemy += SwitchToBullet;
     }
 
     private void UnsubscribeBulletEvents()
     {
-        // CharacterManager.Instance.Player.Shooting.OnKilledEnemy -= SwitchToBullet;
+        CharacterManager.Instance.Player.Shooting.OnKilledEnemy -= SwitchToBullet;
     }
 
 
     public void SwitchToIdle()
     {
-        MainCamera.Priority = 10;  // ï¿½âº» Ä«ï¿½Þ¶ï¿½ ï¿½ì¼± ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
-        aimCamera.Priority = 5;   // ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½Þ¶ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
-        bulletCamera.Priority = 0; // ï¿½Ñ¾ï¿½ Ä«ï¿½Þ¶ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
+        MainCamera.Priority = 10;  // ±âº» Ä«¸Þ¶ó ¿ì¼± ¼øÀ§ »ó½Â
+        aimCamera.Priority = 5;   // ¿¡ÀÓ Ä«¸Þ¶ó ºñÈ°¼ºÈ­
+        bulletCamera.Priority = 0; // ÃÑ¾Ë Ä«¸Þ¶ó ºñÈ°¼ºÈ­
 
-        ResetTimeScale(); // ï¿½ï¿½ï¿½ï¿½ ï¿½Óµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        ResetTimeScale(); // ¿ø·¡ ¼Óµµ·Î º¹±¸
     }
 
-    public void SwitchToAim()
+    public void SwitchToBullet(Transform bullet, Vector3 firePoint, Transform target)
     {
-        MainCamera.Priority = 5;
-        aimCamera.Priority = 10;  // ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½Þ¶ï¿½ ï¿½ì¼± ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
-        bulletCamera.Priority = 0;
-
-        ResetTimeScale(); // È¤ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
-    }
-
-    public void SwitchToBullet(Transform bullet, Transform target)
-    {
-        bulletCamera.Priority = 15; // ï¿½Ñ¾ï¿½ Ä«ï¿½Þ¶ï¿½ È°ï¿½ï¿½È­
+        bulletCamera.Priority = 15; // ÃÑ¾Ë Ä«¸Þ¶ó È°¼ºÈ­
         bulletCamera.Follow = bullet;
         bulletCamera.LookAt = target;
 
-        ApplySlowMotion(); // ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­
+        ApplySlowMotion(); // ½½·Î¿ì ¸ð¼Ç È°¼ºÈ­
 
-        StartCoroutine(ResetToIdle(1f)); // 1ï¿½ï¿½ ï¿½ï¿½ Idleï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        StartCoroutine(HandleBulletCamera(bullet, firePoint, target.position));
     }
 
     private void ApplySlowMotion()
     {
-        Time.timeScale = slowMotionScale; // ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­
-        Time.fixedDeltaTime = Time.timeScale * 0.02f; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½êµµ ï¿½ï¿½ï¿½Î¿ì¿¡ ï¿½Â°ï¿½ ï¿½ï¿½ï¿½ï¿½
+        Time.timeScale = slowMotionScale; // ½½·Î¿ì ¸ð¼Ç È°¼ºÈ­
+        Time.fixedDeltaTime = Time.timeScale * 0.02f; // ¹°¸® °è»êµµ ½½·Î¿ì¿¡ ¸Â°Ô Á¶Á¤
     }
 
     private void ResetTimeScale()
     {
-        Time.timeScale = defaultTimeScale; // ï¿½ï¿½ï¿½ï¿½ ï¿½Óµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
-        Time.fixedDeltaTime = Time.timeScale * 0.02f; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        Time.timeScale = defaultTimeScale; // ±âº» ¼Óµµ·Î º¹±¸
+        Time.fixedDeltaTime = Time.timeScale * 0.02f; // ¹°¸® °è»ê º¹±¸
     }
 
-    private IEnumerator ResetToIdle(float delay)
+    private IEnumerator HandleBulletCamera(Transform bullet, Vector3 firePoint, Vector3 targetPosition)
     {
-        yield return new WaitForSeconds(delay); // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
-        ResetTimeScale(); // ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½
-        SwitchToIdle();
+        // ÃÑ¾Ë ÀÌµ¿
+        yield return StartCoroutine(MoveBullet(bullet, firePoint, targetPosition));
+
+        // ÃÑ¾Ë ÀÌµ¿ ÈÄ »óÅÂ º¹±¸
+        ResetTimeScale(); // ±âº» ¼Óµµ·Î º¹±¸
+        SwitchToIdle();   // ±âº» Ä«¸Þ¶ó·Î º¹±Í
     }
 
-   
+    private IEnumerator MoveBullet(Transform bullet, Vector3 firePoint, Vector3 targetPosition)
+    {
+        float distance = Vector3.Distance(firePoint, targetPosition); // ¹ß»ç ÁöÁ¡°ú Å¸°Ù À§Ä¡ »çÀÌÀÇ °Å¸®
+        float travelTime = distance / 50f; // ÀÌµ¿ ½Ã°£ = °Å¸® / ÃÑ¾Ë ¼Óµµ (TODO:: Weapon.cs¿¡¼­ °¡Á®¿À±â)
+        float elapsedTime = 0f; // °æ°ú ½Ã°£
+
+        bullet.position = firePoint; // ÃÑ¾ËÀ» ¹ß»ç ÁöÁ¡¿¡ ¹èÄ¡
+
+        while (elapsedTime < travelTime)
+        {
+            elapsedTime += Time.deltaTime;
+            bullet.position = Vector3.Lerp(firePoint, targetPosition, elapsedTime / travelTime); // ÃÑ¾ËÀ» ÀÌµ¿
+            yield return null;
+        }
+
+        bullet.position = targetPosition; // ÃÖÁ¾ À§Ä¡ º¸Á¤
+    }
+
 }

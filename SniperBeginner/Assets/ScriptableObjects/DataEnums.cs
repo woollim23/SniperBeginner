@@ -1,12 +1,14 @@
 public enum WeaponType
 {
     Pistol,
+    Rifle,
     Sniper
 }
 
 public enum AmmoType
 {
     PistolAmmo,
+    RifleAmmo,
     SniperAmmo
 }
 
