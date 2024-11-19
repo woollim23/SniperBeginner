@@ -48,15 +48,6 @@ public class CameraController : MonoBehaviour
         ResetTimeScale(); // 원래 속도로 복구
     }
 
-    public void SwitchToAim()
-    {
-        MainCamera.Priority = 5;
-        aimCamera.Priority = 10;  // 에임 카메라 우선 순위 상승
-        bulletCamera.Priority = 0;
-
-        ResetTimeScale(); // 혹시 남아있을 슬로우 모션 복구
-    }
-
     public void SwitchToBullet(Transform bullet, Vector3 firePoint, Transform target)
     {
         bulletCamera.Priority = 15; // 총알 카메라 활성화
@@ -65,8 +56,7 @@ public class CameraController : MonoBehaviour
 
         ApplySlowMotion(); // 슬로우 모션 활성화
 
-        StartCoroutine(MoveBullet(bullet, firePoint, target.position));
-        StartCoroutine(ResetToIdle(1f)); // 1초 뒤 Idle로 복귀
+        StartCoroutine(HandleBulletCamera(bullet, firePoint, target.position));
     }
 
     private void ApplySlowMotion()
@@ -77,28 +67,32 @@ public class CameraController : MonoBehaviour
 
     private void ResetTimeScale()
     {
-        Time.timeScale = defaultTimeScale; // 원래 속도로 복구
+        Time.timeScale = defaultTimeScale; // 기본 속도로 복구
         Time.fixedDeltaTime = Time.timeScale * 0.02f; // 물리 계산 복구
     }
 
-    private IEnumerator ResetToIdle(float delay)
+    private IEnumerator HandleBulletCamera(Transform bullet, Vector3 firePoint, Vector3 targetPosition)
     {
-        yield return new WaitForSeconds(delay); // 현실 시간 기준 대기
-        ResetTimeScale(); // 시간 복구
-        SwitchToIdle();
+        // 총알 이동
+        yield return StartCoroutine(MoveBullet(bullet, firePoint, targetPosition));
+
+        // 총알 이동 후 상태 복구
+        ResetTimeScale(); // 기본 속도로 복구
+        SwitchToIdle();   // 기본 카메라로 복귀
     }
 
     private IEnumerator MoveBullet(Transform bullet, Vector3 firePoint, Vector3 targetPosition)
     {
-        float travelTime = 1f; // 총알이 타겟에 도달하는 데 걸리는 시간
-        float elapsedTime = 0f;
+        float distance = Vector3.Distance(firePoint, targetPosition); // 발사 지점과 타겟 위치 사이의 거리
+        float travelTime = distance / 50f; // 이동 시간 = 거리 / 총알 속도 (TODO:: Weapon.cs에서 가져오기)
+        float elapsedTime = 0f; // 경과 시간
 
         bullet.position = firePoint; // 총알을 발사 지점에 배치
 
         while (elapsedTime < travelTime)
         {
             elapsedTime += Time.deltaTime;
-            bullet.position = Vector3.Lerp(firePoint, targetPosition, elapsedTime / travelTime); // 총알을 firePoint에서 targetPosition까지 이동
+            bullet.position = Vector3.Lerp(firePoint, targetPosition, elapsedTime / travelTime); // 총알을 이동
             yield return null;
         }
 
