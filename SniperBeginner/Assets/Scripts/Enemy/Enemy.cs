@@ -58,7 +58,6 @@ public class Enemy : MonoBehaviour
     private void Update()
     {
         stateMachine.Update();
-        if (health <= 0) Die();
     }
 
     public void EnemyDatalInit()
@@ -81,7 +80,6 @@ public class Enemy : MonoBehaviour
         Animator.avatar = null;
 
         GameManager.Instance.CountDeadEnemy();
-        // TODO : 5�ʵ� ���ʹ� �ı�
         Invoke("DestroyEnemy", 5);
     }
 

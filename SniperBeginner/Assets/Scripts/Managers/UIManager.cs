@@ -22,6 +22,7 @@ public class UIManager : Singleton<UIManager>
         PauseMenuInit();
         InputManager.Instance.OnMenuEvent += OpenPauseMenu;
         //Debug.Log("UIManager");
+        SetCursor(true);
     }
 
     public void OpenScreen(string screenName)
