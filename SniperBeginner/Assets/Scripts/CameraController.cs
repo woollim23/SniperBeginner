@@ -14,13 +14,14 @@ public class CameraController : MonoBehaviour
 
     private void Start()
     {
+        SubscribeBulletEvents();
         SwitchToIdle(); // 초기 카메라 상태
     }
 
 
     private void OnEnable()
     {
-        SubscribeBulletEvents();
+        
     }
 
     private void OnDisable()
