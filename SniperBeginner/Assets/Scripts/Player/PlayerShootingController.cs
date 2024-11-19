@@ -1,4 +1,5 @@
 using System;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class PlayerShootingController : MonoBehaviour
@@ -11,7 +12,7 @@ public class PlayerShootingController : MonoBehaviour
     [Header("Aim Setting")]
     public bool isAiming;
     [SerializeField] LayerMask aimLayerMask;
-    [SerializeField] Transform aimIKTarget; // IK point로 쓸 것
+    public Transform AimTarget => anim.aimIKTarget;
 
     [Header("Hold Breath")]
     [SerializeField] float currentBreath;
@@ -26,13 +27,6 @@ public class PlayerShootingController : MonoBehaviour
     public event Action<Vector3> OnGunFire;
     public event Action<Transform, Vector3, Transform> OnKilledEnemy;
 
-    private void Awake() 
-    {
-        if(!aimIKTarget)
-            aimIKTarget = new GameObject("Aim IK Target").transform;
-        
-        aimIKTarget.SetParent(null);
-    }
 
     private void Start() 
     {
@@ -61,7 +55,10 @@ public class PlayerShootingController : MonoBehaviour
     private void Update() 
     {
         if (equip.CurrentEquip)
+        {
             Aim();
+            equip.ModifyWeaponDirection(AimTarget.position);
+        }
 
         if (isControllingBreath)
             UseBreath();
@@ -122,7 +119,7 @@ public class PlayerShootingController : MonoBehaviour
         Projectile bullet = ObjectPoolManager.Instance.Get(weapon.weaponData.projectile.data.type);
 
         // 사전 검사 - 이번 총격으로 사망했는지?
-        if (Check(out Transform target))
+        if (CheckTarget(out Transform target))
         {
             // 검사에서 사망했다 -> 시네머신 : 시네머신에서 죽일 것
             Debug.Log("시네머신 시작");
@@ -140,13 +137,22 @@ public class PlayerShootingController : MonoBehaviour
 
     void Aim()
     {
-        aimIKTarget.position = mainCamera.transform.position + mainCamera.transform.forward * 10f;
+        
+        Ray ray = mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+        if (Physics.Raycast(ray, out RaycastHit hit , Mathf.Infinity, aimLayerMask))
+        {
+            AimTarget.position = hit.point;
+        }
+        else
+        {
+            AimTarget.position = mainCamera.transform.position + mainCamera.transform.forward * 10f;    
+        }
     }  
 
-    bool Check(out Transform target)
+    bool CheckTarget(out Transform target)
     {
         Ray ray = mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-        if (Physics.Raycast(ray, out RaycastHit hit , float.PositiveInfinity, aimLayerMask))
+        if (Physics.Raycast(ray, out RaycastHit hit , Mathf.Infinity, aimLayerMask))
         {
             // 부위별 총격에서 데미지 확인 각각의
             if (hit.collider.TryGetComponent(out ISnipable snipable))

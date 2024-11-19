@@ -1,12 +1,23 @@
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 
 public class PlayerAnimationController : MonoBehaviour 
 {
     public AnimationData data;
-    
+        
     [field:Space(10f)]
     [field:SerializeField] public Animator Animator { get; private set; }
+    
+    [Header("IK")]
+    [SerializeField] RigBuilder rigBuilder;
+    [SerializeField] Rig rig;
+    [SerializeField] MultiAimConstraint aimConstraint;
+    [SerializeField] ChainIKConstraint leftHandIK;
+    
 
+    public Transform aimIKTarget; // IK point로 쓸 것
+    [SerializeField] Transform leftHandIKTarget;
+    [SerializeField] Vector3 leftHandOffset;
 
     private void Awake() 
     {        
@@ -15,6 +26,25 @@ public class PlayerAnimationController : MonoBehaviour
         
         data = new AnimationData();
         data.Initialize();
+
+        if(!aimIKTarget)
+        {
+            aimIKTarget = new GameObject("Aim IK Target").transform;
+            
+            var data = aimConstraint.data.sourceObjects;
+            data.SetTransform(0, aimIKTarget);
+            aimConstraint.data.sourceObjects = data;
+
+            rigBuilder.Build();
+        }
+        
+        aimIKTarget.SetParent(null);
+    }
+
+    public void ModifyLeftHandIK(Vector3 targetPosition)
+    {
+        leftHandIKTarget.position = targetPosition;
+        leftHandIKTarget.localPosition += leftHandOffset;
     }
 
 
@@ -68,7 +98,6 @@ public class PlayerAnimationController : MonoBehaviour
 [System.Serializable]
 public class AnimationData
 {
-
     public string runParamName = "Run";
     public string horizontalParamName = "Horizontal";
     public string verticalParamName = "Vertical";

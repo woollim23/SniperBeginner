@@ -28,8 +28,6 @@ public class PlayerView : MonoBehaviour
 
         currentRotateY = cameraContainer.transform.localEulerAngles.y;
 
-        // 임시
-        SetCursor(true);
     }
 
     private void LateUpdate() 
@@ -61,10 +59,4 @@ public class PlayerView : MonoBehaviour
         aimPoint = newAimPoint ? newAimPoint : null;
     }
 
-
-    // 임시
-    void SetCursor(bool isLocked)
-    {
-        Cursor.lockState = isLocked ? CursorLockMode.Locked : CursorLockMode.None;
-    }
 }
