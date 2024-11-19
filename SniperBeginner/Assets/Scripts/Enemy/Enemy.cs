@@ -1,11 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
-public class Enemy : MonoBehaviour, IDamagable, ISnipable
+public class Enemy : MonoBehaviour, ISnipable
 {
     [field: Header("Enemy Data")]
-    [field: SerializeField] private float health;
+    [field: SerializeField] public float health;
 
     [field: SerializeField] public EnemySO Data { get; private set; }
 
@@ -13,9 +15,8 @@ public class Enemy : MonoBehaviour, IDamagable, ISnipable
     [field: SerializeField] public EnemyAnimationData AnimationData { get; private set; }
 
     [field: Header("DropItems")]
-    [field: SerializeField] public ItemData[] dropOnDeath; // ?????? ?????? ?????? ?迭
+    [field: SerializeField] public ItemData[] dropOnDeath; // ?????? ?????? ?????? ?�?
     [field: SerializeField] private Transform dropPosition;
-
 
     public Rigidbody Rigidbody { get; private set; }
     public Animator Animator { get; private set; }
@@ -42,12 +43,13 @@ public class Enemy : MonoBehaviour, IDamagable, ISnipable
     private void Start()
     {
         stateMachine.ChangeState(stateMachine.IdleState);
-        
     }
 
     private void Update()
     {
         stateMachine.Update();
+        if (health < 0)
+            Die();
     }
 
     public void EnemyDatalInit()
@@ -69,19 +71,20 @@ public class Enemy : MonoBehaviour, IDamagable, ISnipable
     public void Die()
     {
         GiveItem();
-        Animator.SetTrigger("Die");
+        Animator.avatar = null;
 
         GameManager.Instance.CountDeadEnemy();
+        // TODO : 5�ʵ� ���ʹ� �ı�
     }
 
     void GiveItem()
     {
-        ItemDropManager.Instance.DropRandomItem(dropPosition.localPosition);
+        ItemDropManager.Instance.DropRandomItem(dropPosition.position);
     }
 
     public float CheckRemainHealth()
     {
-        return 1f; // 임시로 1f 반환
-        // 원래는 현재 남은 체력을 줘야함
+        return 1f; // ?�시�?1f 반환
+        // ?�래???�재 ?��? 체력??줘야??
     }
 }

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: "\uAD8C\uCD1D"
   weaponDescription: "\uB9D0\uADF8\uB300\uB85C \uAD8C\uCD1D\uC774\uB2E4."
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 85eed5061198ba54bad801a5ed146571, type: 3}
   damage: 20
   reloadTime: 1.5
   fireRate: 3
