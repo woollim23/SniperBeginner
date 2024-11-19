@@ -6,13 +6,13 @@ public enum WeaponType
 
 public enum AmmoType
 {
-    ACP45,
-    Magnum338
+    PistolAmmo,
+    SniperAmmo
 }
 
 public enum ItemType
 {
     Heal,
-    SpeedBoost,
-    Silencer
+    PistolMagazine,
+    SniperMagazine
 }

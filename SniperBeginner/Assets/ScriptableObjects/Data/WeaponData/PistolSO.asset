@@ -12,11 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3c949a445e0dbb43b026642625b0d1e, type: 3}
   m_Name: PistolSO
   m_EditorClassIdentifier: 
-  weaponName: Pistol
+  weaponName: "\uAD8C\uCD1D"
+  weaponDescription: "\uB9D0\uADF8\uB300\uB85C \uAD8C\uCD1D\uC774\uB2E4."
+  icon: {fileID: 0}
   damage: 20
   reloadTime: 1.5
   fireRate: 3
-  range: 50
+  magazineSize: 20
+  currentAmmoInMagazine: 20
+  ammoType: 0
   weaponType: 0
-  weaponPrefab: {fileID: 6590277284082801644, guid: 629a537ba20e9a249b2a1986835e73f8,
+  equipPrefab: {fileID: 6590277284082801644, guid: 629a537ba20e9a249b2a1986835e73f8,
     type: 3}
+  firePoint: {fileID: 0}
+  aimPoint: {fileID: 0}
