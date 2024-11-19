@@ -25,11 +25,13 @@ public class Weapon : MonoBehaviour
     {
         if (currentAmmoInMagazine < amount)
         {
+            PlaySound(weaponData.emptyFireSound);
             Debug.Log("Åº¾à ºÎÁ·");
             return false;
         }
 
         currentAmmoInMagazine -= amount;
+        PlaySound(weaponData.fireSound);
         Debug.Log($"Åº¾à »ç¿ë: {amount}, ³²Àº Åº¾à: {currentAmmoInMagazine}");
         OnAmmoChanged?.Invoke();
         return true;
@@ -49,6 +51,7 @@ public class Weapon : MonoBehaviour
             currentAmmoInMagazine = totalAmmo;
         }
 
+        PlaySound(weaponData.reloadSound);
         Debug.Log($"ÀçÀåÀü ¿Ï·á: ÇöÀç Åº¾à {currentAmmoInMagazine}");
         OnAmmoChanged?.Invoke();
     }
@@ -56,5 +59,13 @@ public class Weapon : MonoBehaviour
     public bool HasAmmo()
     {
         return currentAmmoInMagazine > 0;
+    }
+
+    private void PlaySound(AudioClip clip)
+    {
+        if (clip != null)
+        {
+            SoundManager.Instance.PlaySound(clip);
+        }
     }
 }

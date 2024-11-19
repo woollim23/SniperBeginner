@@ -79,13 +79,17 @@ public class QuickSlotManager : MonoBehaviour
         quickSlots[currentSlotIndex].UpdateUI(true);
 
         WeaponData selectedWeapon = quickSlots[currentSlotIndex].weaponData;
-        if (OnWeaponSelected != null)
+        if (selectedWeapon != null)
         {
-            OnWeaponSelected(selectedWeapon);
+            PlayEquipSound(selectedWeapon);
         }
-        else
+    }
+
+    private void PlayEquipSound(WeaponData weaponData)
+    {
+        if (weaponData != null && weaponData.equipSound != null)
         {
-            Debug.LogWarning("OnWeaponSelected 이벤트에 구독자가 없습니다.");
-        }
+            SoundManager.Instance.PlaySound(weaponData.equipSound);
+        }        
     }
 }
