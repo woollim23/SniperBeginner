@@ -5,15 +5,15 @@ using System;
 public class QuickSlotManager : MonoBehaviour
 {
     [Header("Quick Slots")]
-    public Transform slotParent;
-    public List<UIQuickSlot> quickSlots = new List<UIQuickSlot>();
-    public List<WeaponData> allWeapons = new List<WeaponData>();
+    public Transform slotParent; // UI
+    public List<UIQuickSlot> quickSlots = new List<UIQuickSlot>(); // UI
+    public List<WeaponData> allWeapons = new List<WeaponData>(); // ë°ì´í„°
 
-    public event Action<WeaponData> OnWeaponSelected;
+    public event Action<WeaponData> OnWeaponSelected; // ë¡œì§
 
-    private int currentSlotIndex = -1;
+    private int currentSlotIndex = -1; // ë¡œì§
 
-    private void Start()
+    private void Awake()
     {
         AutoRegisterSlots();
         InitializeQuickSlots();
@@ -21,6 +21,7 @@ public class QuickSlotManager : MonoBehaviour
         InputManager.Instance.OnQuickSlotEvent += HandleQuickSlotSelection;
     }
 
+    // UI
     private void AutoRegisterSlots()
     {
         quickSlots.Clear();
@@ -35,24 +36,26 @@ public class QuickSlotManager : MonoBehaviour
         }
     }
 
+    // ë°ì´í„° ë¡œì§ -> UI ì—…ë°ì´íŠ¸
     private void InitializeQuickSlots()
     {
         for (int i = 0; i < quickSlots.Count; i++)
         {
-            if (i < allWeapons.Count) // ¹«±â°¡ ½½·Ô ¼öº¸´Ù ÀûÀ» ¶§
+            if (i < allWeapons.Count)
             {
                 quickSlots[i].weaponData = allWeapons[i];
-                quickSlots[i].UpdateUI(false); // ÃÊ±â¿¡´Â ¼±ÅÃµÇÁö ¾ÊÀº »óÅÂ
+                quickSlots[i].UpdateUI(false);
             }
             else
             {
                 quickSlots[i].weaponData = null;
-                quickSlots[i].UpdateUI(false); // ½½·Ô ºñÈ°¼ºÈ­
+                quickSlots[i].UpdateUI(false);
             }
         }
     }
 
-    // Äü½½·Ô ¼±ÅÃ Ã³¸®
+    
+    // ë°ì´í„° ë¡œì§ -> UI ì—…ë°ì´íŠ¸
     private void HandleQuickSlotSelection(int slotIndex)
     {
         if (slotIndex < 1 || slotIndex > quickSlots.Count)
@@ -62,19 +65,16 @@ public class QuickSlotManager : MonoBehaviour
 
         int index = slotIndex - 1;
 
-        // ºñ¾î ÀÖ´Â ½½·ÔÀÎÁö È®ÀÎ
         if (quickSlots[index].weaponData == null)
         {
             return;
         }
 
-        // ÀÌÀü ½½·Ô ºñÈ°¼ºÈ­
         if (currentSlotIndex >= 0 && currentSlotIndex < quickSlots.Count)
         {
             quickSlots[currentSlotIndex].UpdateUI(false);
         }
 
-        // »õ·Î¿î ½½·Ô È°¼ºÈ­
         currentSlotIndex = index;
         quickSlots[currentSlotIndex].UpdateUI(true);
 
@@ -83,6 +83,8 @@ public class QuickSlotManager : MonoBehaviour
         {
             PlayEquipSound(selectedWeapon);
         }
+
+        OnWeaponSelected?.Invoke(selectedWeapon);
     }
 
     private void PlayEquipSound(WeaponData weaponData)

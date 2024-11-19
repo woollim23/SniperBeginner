@@ -4,12 +4,14 @@ using UnityEngine;
 public class PlayerEquipment : MonoBehaviour
 {
     PlayerView view;
-
     [field:SerializeField] public Weapon CurrentEquip { get; private set; }
     
     // 손 위치
     [SerializeField] Transform rightHand;
     [SerializeField] Transform leftHand;
+
+    [Header("Temp Place")]
+    [SerializeField] QuickSlotManager quickSlotManager;
 
     bool isReloading = false;
     public event Action<bool> OnReload;
@@ -22,8 +24,16 @@ public class PlayerEquipment : MonoBehaviour
             view = player.View;
         }
 
-        // TODO : 퀵슬롯 1번 장착
-        Equip(CurrentEquip);
+        quickSlotManager.OnWeaponSelected += WeaponSelected;
+
+        // 퀵슬롯 1번 장착
+        WeaponSelected(quickSlotManager.allWeapons[0]);
+    }
+
+    private void WeaponSelected(WeaponData data)
+    {
+        GameObject weapon = Instantiate(data.equipPrefab);
+        Equip(weapon.GetComponent<Weapon>());
     }
 
     private void FixedUpdate() 
@@ -59,6 +69,15 @@ public class PlayerEquipment : MonoBehaviour
     public void Unequip()
     {
         view.UpdateAimPosition(null);
+
+        if(CurrentEquip != null)
+        {
+            // 1안. Destroy 하기 // 2안. 반환하기
+            Destroy(CurrentEquip.gameObject);
+            
+            
+            CurrentEquip = null;
+        }
     }
 
     public void ReplaceAmmo(int count, AmmoType type)

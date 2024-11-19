@@ -12,7 +12,9 @@ public class EnemyHitDamage : MonoBehaviour, IDamagable
     public virtual void TakeDamage(float damage)
     {
         enemy.health = Mathf.Max(enemy.health - damage, 0);
+        
         if (enemy.health == 0)
             enemy.Die();
     }
+
 }
