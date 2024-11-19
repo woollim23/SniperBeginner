@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class UIManager : Singleton<UIManager>
@@ -21,6 +22,7 @@ public class UIManager : Singleton<UIManager>
         PauseMenuInit();
         InputManager.Instance.OnMenuEvent += OpenPauseMenu;
         //Debug.Log("UIManager");
+        SetCursor(true);
     }
 
     public void OpenScreen(string screenName)
@@ -71,10 +73,22 @@ public class UIManager : Singleton<UIManager>
 
     public void OpenPauseMenu()
     {
-        //Debug.Log("메뉴");
-        if (PauseMenu != null)
-            PauseMenu.SetActive(true);
+        PauseMenu.SetActive(true);
         Time.timeScale = 0f;
+        InputManager.Instance.Actions.Disable();
+        SetCursor(false);
     }
 
+    private bool Toggle(GameObject gameObject)
+    {
+        if (gameObject.activeSelf)
+            return true;
+        else
+            return false;
+    }
+
+    public void SetCursor(bool isLocked)
+    {
+        Cursor.lockState = isLocked ? CursorLockMode.Locked : CursorLockMode.None;
+    }
 }

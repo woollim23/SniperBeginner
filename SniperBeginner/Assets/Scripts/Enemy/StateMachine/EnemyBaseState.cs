@@ -44,11 +44,8 @@ public class EnemyBaseState : IState
 
     private void Move()
     {
-        //Vector3 movementDirection = GetMovementDirection();
-        //stateMachine.Enemy.Controller.Move(((movementDirection * movementSpeed) + stateMachine.Enemy.ForceReceiver.Movement) * Time.deltaTime);
-        //float movementSpeed = GetMovementSpeed();
-
-        //Rotate(GetWanderLocation());
+        
+        Rotate(GetWanderLocation());
         
         stateMachine.Enemy.agent.SetDestination(GetWanderLocation());
         stateMachine.Enemy.agent.isStopped = false;
@@ -106,13 +103,6 @@ public class EnemyBaseState : IState
         float playerDistanceSqr = (stateMachine.Target.transform.position - stateMachine.Enemy.transform.position).sqrMagnitude;
 
         return playerDistanceSqr <= stateMachine.Enemy.Data.PlayerChasingRange * stateMachine.Enemy.Data.PlayerChasingRange;
-    }
-
-    void WanderToNewLocation()
-    {
-        // 반복적으로 다음 목표지점을 호출해주는 함수
-        stateMachine.Enemy.agent.SetDestination(GetWanderLocation());
-        // 목표지점 정해주는 함수
     }
 
     Vector3 GetWanderLocation()
