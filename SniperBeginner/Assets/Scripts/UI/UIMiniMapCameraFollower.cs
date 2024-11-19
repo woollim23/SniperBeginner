@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class UIMiniMapCameraFollower : MonoBehaviour
 {
-    public Transform player; // 플레이어 Transform
+    public Transform player;
 
     private void LateUpdate()
     {

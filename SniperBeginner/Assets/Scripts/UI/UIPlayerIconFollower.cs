@@ -9,12 +9,14 @@ public class UIPlayerIconFollower : MonoBehaviour
 
     private void Start()
     {
-        offset = transform.position - player.position;
+        offset = miniMapIcon.position - player.position;
     }
 
     private void Update()
     {
-        Vector3 playerPosition = player.position + offset;
-        miniMapIcon.position = new Vector3(playerPosition.x, playerPosition.z, 0);
+        if (player == null || miniMapIcon == null) return;
+
+        Vector3 playerPosition = player.position;
+        miniMapIcon.position = new Vector3(playerPosition.x + offset.x, playerPosition.z + offset.y, 0);
     }
 }
