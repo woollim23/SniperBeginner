@@ -152,7 +152,7 @@ public class PlayerShootingController : MonoBehaviour
             if (hit.collider.TryGetComponent(out ISnipable snipable))
             {
                 target = hit.collider.transform;
-                return snipable.CheckRemainHealth() <= equip.CurrentEquip.weaponData.damage;
+                return snipable.IsSnipable(equip.CurrentEquip.weaponData.damage);
             }
         }
 

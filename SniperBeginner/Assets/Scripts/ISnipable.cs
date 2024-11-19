@@ -1,5 +1,5 @@
 public interface ISnipable
 {
-    float CheckRemainHealth();
+    bool IsSnipable(float damage);
         
 }
