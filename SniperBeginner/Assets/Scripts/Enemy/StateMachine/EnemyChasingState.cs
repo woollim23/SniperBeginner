@@ -10,17 +10,17 @@ public class EnemyChasingState : EnemyBaseState
 
     public override void Enter()
     {
-        //stateMachine.MovementSpeedModifier = groundData.WalkSpeedModifier;
+        stateMachine.MovementSpeedModifier = groundData.WalkSpeedModifier;
         base.Enter();
-        //StartAnimation(stateMachine.Enemy.AnimationData.GroundParameterHash);
-        //StartAnimation(stateMachine.Enemy.AnimationData.WalkParameterHash);
+        StartAnimation(stateMachine.Enemy.AnimationData.GroundParameterHash);
+        StartAnimation(stateMachine.Enemy.AnimationData.WalkParameterHash);
     }
 
     public override void Exit()
     {
         base.Exit();
-        //StopAnimation(stateMachine.Enemy.AnimationData.GroundParameterHash);
-        //StopAnimation(stateMachine.Enemy.AnimationData.WalkParameterHash);
+        StopAnimation(stateMachine.Enemy.AnimationData.GroundParameterHash);
+        StopAnimation(stateMachine.Enemy.AnimationData.WalkParameterHash);
     }
 
     public override void Update()
