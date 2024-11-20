@@ -2006,6 +2006,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2610372579832276774, guid: 3f8a57adb5246f241b761e8130e7b596,
+        type: 3}
+      propertyPath: cameraController
+      value: 
+      objectReference: {fileID: 7629746286972156112}
+    - target: {fileID: 2610372579832276774, guid: 3f8a57adb5246f241b761e8130e7b596,
+        type: 3}
+      propertyPath: bulletVirtualCamera
+      value: 
+      objectReference: {fileID: 63080562}
     - target: {fileID: 7548736029863187040, guid: 3f8a57adb5246f241b761e8130e7b596,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2539,7 +2549,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44cdd6fdd8751dd48bf8e3dc3f5b89ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MainCamera: {fileID: 0}
+  mainCamera: {fileID: 0}
   aimCamera: {fileID: 0}
   bulletCamera: {fileID: 63080562}
   cameraRandomOffset: 0
@@ -2612,12 +2622,12 @@ GameObject:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1474520988}
   - {fileID: 1707830365}
   - {fileID: 1436260921}
   - {fileID: 281515530}
   - {fileID: 5942612045083494946}
   - {fileID: 1096474593}
-  - {fileID: 1474520988}
   - {fileID: 1949333485}
   - {fileID: 1909224634}
   - {fileID: 5958689180693079994}
