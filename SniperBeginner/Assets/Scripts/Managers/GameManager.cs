@@ -8,10 +8,21 @@ public class GameManager : SingletonDontDestory<GameManager>
 {
     [SerializeField] public List<GameObject> enemies;
 
+    public GameData GameData { get; private set; }
+
     public event Action onChangeScore;
 
     public bool isGameOver;
 
+
+    private void Start()
+    {
+        if (GameData == null)
+        {
+            Debug.Log("GameData가 null입니다. 기본값을 생성합니다.");
+            LoadGame();
+        }
+    }
 
     public void GameStartInit()
     {
@@ -33,5 +44,38 @@ public class GameManager : SingletonDontDestory<GameManager>
         }
 
         onChangeScore?.Invoke();
+    }
+
+    public void SaveGame()
+    {
+        
+        Player player = CharacterManager.Instance.Player; // Player 인스턴스 가져오기
+        if (player != null)
+        {
+            GameData.playerData.Position = player.transform.position; // 플레이어 위치 저장
+            GameData.playerData.Health = player.Condition.Health; // 플레이어 체력 저장
+            // 플레이어 장비 저장
+            // 플레이어 총알 저장
+        }
+
+        DataManager.SaveGameData(GameData);
+    }
+
+    public void LoadGame()
+    {
+        GameData = DataManager.LoadGameData();
+        if (GameData == null)
+        {
+            GameData = new GameData
+            {
+                playerData = new PlayerData()
+            };
+        }
+        Player player = CharacterManager.Instance.Player;
+        if (player != null)
+        {
+            player.transform.position = GameData.playerData.Position;
+            player.Condition.Health = GameData.playerData.Health;
+        }
     }
 }
