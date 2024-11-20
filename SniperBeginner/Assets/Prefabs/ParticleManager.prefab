@@ -44,6 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6228e27859947fd41930a97ae6bf5f80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  muzzleFlashPrefab: {fileID: 0}
-  wallImpactPrefab: {fileID: 0}
-  bloodImpactPrefab: {fileID: 0}
+  muzzleFlashPrefab: {fileID: 6615351621682608318, guid: 7aef42ec8a190674bbf5fd88b15192e5,
+    type: 3}
+  wallImpactPrefab: {fileID: 3943862117034262315, guid: 84509c991680ba948a59e12046d065c2,
+    type: 3}
+  bloodImpactPrefab: {fileID: 5251037290161720368, guid: 850d47eab34792243ba1d50834192220,
+    type: 3}
