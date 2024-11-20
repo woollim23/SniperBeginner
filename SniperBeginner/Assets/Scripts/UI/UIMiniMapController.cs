@@ -14,15 +14,12 @@ public class UIMiniMapController : MonoBehaviour
 
     private void Start()
     {
-        //for (int i = 0; i < enemyIcons.Count; i++)
-        //{
-        //    CharacterManager.Instance.enemies[i].gameObject.GetComponentInChildren<Enemy>().OnEnemySpawned += AddEnemyIcon;
-        //}
-
-        //CharacterManager.Instance.enemies.
-
-        //.Instance.OnEnemySpawned += AddEnemyIcon;
-        //.Instance.OnEnemyDied += RemoveEnemyIcon;
+        //
+        foreach(var e in CharacterManager.Instance.enemies)
+        {
+            AddEnemyIcon(e.transform);
+            e.OnEnemyDied += RemoveEnemyIcon;
+        }
 
         mapImageSize = mapImage.sizeDelta;
     }
@@ -35,19 +32,19 @@ public class UIMiniMapController : MonoBehaviour
 
     private void UpdatePlayerIcon()
     {
-        Transform playerTransform = CharacterManager.Instance.Player.GetComponent<Transform>();
+        Transform playerTransform = CharacterManager.Instance.Player.transform;
 
         Vector3 playerPosition = playerTransform.position;
 
-        // ¿ùµå ÁÂÇ¥¸¦ ¹Ì´Ï¸Ê ºñÀ²·Î º¯È¯ (0~1)
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½Ì´Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ (0~1)
         float xRatio = playerPosition.x / mapSize.x;
         float yRatio = playerPosition.z / mapSize.y;
 
-        // ¹Ì´Ï¸Ê Áß½ÉÀ» ±âÁØÀ¸·Î ÁÂÇ¥ º¸Á¤
+        // ï¿½Ì´Ï¸ï¿½ ï¿½ß½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½
         float xPos = (xRatio - 0.5f) * mapImageSize.x;
         float yPos = (yRatio - 0.5f) * mapImageSize.y;
 
-        // ÇÃ·¹ÀÌ¾î ¾ÆÀÌÄÜ À§Ä¡ ¼³Á¤
+        // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
         playerIcon.anchoredPosition = new Vector2(xPos, yPos);
     }
 
@@ -62,15 +59,15 @@ public class UIMiniMapController : MonoBehaviour
 
             Vector3 enemyPosition = enemy.position;
 
-            // ¿ùµå ÁÂÇ¥¸¦ ¹Ì´Ï¸Ê ºñÀ²·Î º¯È¯ (0~1)
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½Ì´Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ (0~1)
             float xRatio = enemyPosition.x / mapSize.x;
             float yRatio = enemyPosition.z / mapSize.y;
 
-            // ¹Ì´Ï¸Ê Áß½ÉÀ» ±âÁØÀ¸·Î ÁÂÇ¥ º¸Á¤
+            // ï¿½Ì´Ï¸ï¿½ ï¿½ß½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½
             float xPos = (xRatio - 0.5f) * mapImageSize.x;
             float yPos = (yRatio - 0.5f) * mapImageSize.y;
 
-            // Àû ¾ÆÀÌÄÜ À§Ä¡ ¼³Á¤
+            // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
             icon.anchoredPosition = new Vector2(xPos, yPos);
         }
     }

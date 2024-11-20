@@ -1976,6 +1976,8 @@ MonoBehaviour:
     type: 3}
   prefabQuickSlot: {fileID: 6026172891943885927, guid: 4c67ed51671399349a24f7dc48ea6685,
     type: 3}
+  prefabMiniMap: {fileID: 6992059242411987594, guid: a750a613c8f847c48830422754613791,
+    type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
