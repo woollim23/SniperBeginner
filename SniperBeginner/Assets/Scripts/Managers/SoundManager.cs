@@ -20,7 +20,7 @@ public class SoundManager : SingletonDontDestory<SoundManager>
         }
     }
 
-    public void PlaySound(AudioClip clip, float volume = 1.0f)
+    public void PlaySound(AudioClip clip, float volume = 0.15f)
     {
         if (audioSource == null)
         {
@@ -33,7 +33,7 @@ public class SoundManager : SingletonDontDestory<SoundManager>
         }        
     }
 
-    public void PlaySoundAtPosition(AudioClip clip, Vector3 position, float volume = 1.0f)
+    public void PlaySoundAtPosition(AudioClip clip, Vector3 position, float volume = 0.15f)
     {
         if (clip != null)
         {
