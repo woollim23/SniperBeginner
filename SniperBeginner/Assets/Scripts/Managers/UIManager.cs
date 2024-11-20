@@ -9,11 +9,13 @@ public class UIManager : Singleton<UIManager>
 
 
     [Header("Player UI")]
-    [SerializeField] GameObject prefabPayerCanvas;
+    [SerializeField] CanvasGroup prefabPayerCanvas;
     [SerializeField] UIAmmoInfo prefabAmmoInfo;
     [SerializeField] UIQuickSlotManager prefabQuickSlot;
     [SerializeField] UIMiniMapController prefabMiniMap;
     
+    
+    public CanvasGroup PlayerCanvas { get; private set; }
     public UIAmmoInfo AmmoInfo { get; private set; }
     public UIQuickSlotManager QuickSlot { get; private set; }
     public UIMiniMapController MiniMap { get; private set; }
@@ -33,11 +35,11 @@ public class UIManager : Singleton<UIManager>
 
     public void Initialize()
     {
-        GameObject playerCanvas = Instantiate(prefabPayerCanvas);
+        PlayerCanvas = Instantiate(prefabPayerCanvas);
 
-        AmmoInfo = Instantiate(prefabAmmoInfo, playerCanvas.transform);
-        QuickSlot = Instantiate(prefabQuickSlot, playerCanvas.transform);
-        MiniMap = Instantiate(prefabMiniMap, playerCanvas.transform);
+        AmmoInfo = Instantiate(prefabAmmoInfo, PlayerCanvas.transform);
+        QuickSlot = Instantiate(prefabQuickSlot, PlayerCanvas.transform);
+        MiniMap = Instantiate(prefabMiniMap, PlayerCanvas.transform);
     }
 
     private void OnChangeScore()

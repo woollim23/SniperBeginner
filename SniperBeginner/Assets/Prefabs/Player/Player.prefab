@@ -177,6 +177,7 @@ MonoBehaviour:
   cameraContainer: {fileID: 3991082926354647705}
   mainVirtualCam: {fileID: 7849855011339813663}
   aimVirtualCam: {fileID: 7742737638296623587}
+  generalAimVirtualCam: {fileID: 3468733153772026090}
 --- !u!114 &7574824395645068272
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,6 +211,9 @@ MonoBehaviour:
   aimLayerMask:
     serializedVersion: 2
     m_Bits: 841
+  snipeLayerMask:
+    serializedVersion: 2
+    m_Bits: 512
   currentBreath: 0
 --- !u!114 &1361368798122350215
 MonoBehaviour:

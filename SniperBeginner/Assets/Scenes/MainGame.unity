@@ -1247,6 +1247,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1528207837745529070, guid: 53e761aabc5962043b0228b17e4f892b,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1528207837745529070, guid: 53e761aabc5962043b0228b17e4f892b,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 10.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2534037018593588261, guid: 53e761aabc5962043b0228b17e4f892b,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -7.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2534037018593588261, guid: 53e761aabc5962043b0228b17e4f892b,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -21.1
+      objectReference: {fileID: 0}
     - target: {fileID: 5736738637229261696, guid: 53e761aabc5962043b0228b17e4f892b,
         type: 3}
       propertyPath: m_Name
@@ -1439,21 +1459,15 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 401759254758054916, guid: 3f8a57adb5246f241b761e8130e7b596,
+        type: 3}
+      propertyPath: cameraMaxOffset
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4836228672820557446, guid: 3f8a57adb5246f241b761e8130e7b596,
         type: 3}
       propertyPath: field of view
       value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 5357915877303090477, guid: 3f8a57adb5246f241b761e8130e7b596,
-        type: 3}
-      propertyPath: enemyPrefab
-      value: 
-      objectReference: {fileID: 3966694913851334202, guid: 2f4a990f4a7037d4b96919df9934af66,
-        type: 3}
-    - target: {fileID: 5357915877303090477, guid: 3f8a57adb5246f241b761e8130e7b596,
-        type: 3}
-      propertyPath: SpawnPoints.Array.size
-      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5357915877303090477, guid: 3f8a57adb5246f241b761e8130e7b596,
         type: 3}
@@ -1505,6 +1519,11 @@ PrefabInstance:
       propertyPath: SpawnPoints.Array.data[9]
       value: 
       objectReference: {fileID: 1410856930}
+    - target: {fileID: 6047476424427323433, guid: 3f8a57adb5246f241b761e8130e7b596,
+        type: 3}
+      propertyPath: m_CameraRadius
+      value: 0.01
+      objectReference: {fileID: 0}
     - target: {fileID: 6370408605872481106, guid: 3f8a57adb5246f241b761e8130e7b596,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1594,36 +1613,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GameManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 7774858635232708404, guid: 3f8a57adb5246f241b761e8130e7b596,
-        type: 3}
-      propertyPath: enemies.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7774858635232708404, guid: 3f8a57adb5246f241b761e8130e7b596,
-        type: 3}
-      propertyPath: enemies.Array.data[0]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7774858635232708404, guid: 3f8a57adb5246f241b761e8130e7b596,
-        type: 3}
-      propertyPath: enemies.Array.data[1]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7774858635232708404, guid: 3f8a57adb5246f241b761e8130e7b596,
-        type: 3}
-      propertyPath: enemies.Array.data[2]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7774858635232708404, guid: 3f8a57adb5246f241b761e8130e7b596,
-        type: 3}
-      propertyPath: enemies.Array.data[3]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7774858635232708404, guid: 3f8a57adb5246f241b761e8130e7b596,
-        type: 3}
-      propertyPath: enemies.Array.data[4]
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1991,7 +1980,7 @@ MonoBehaviour:
   PauseMenu: {fileID: 5785689196937466219, guid: 97a797b73c49b2342b12d94cf5102721,
     type: 3}
   Score: {fileID: 0}
-  prefabPayerCanvas: {fileID: 4674809590667589747, guid: f60b00ddf09086548be5205fdf9dfbe5,
+  prefabPayerCanvas: {fileID: -6400473186415350299, guid: f60b00ddf09086548be5205fdf9dfbe5,
     type: 3}
   prefabAmmoInfo: {fileID: 2547704951697346788, guid: c83c076b47667aa41ac3a41ff7a0ab65,
     type: 3}

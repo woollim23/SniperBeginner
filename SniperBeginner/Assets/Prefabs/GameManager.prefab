@@ -187,8 +187,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 0}
   aimCamera: {fileID: 0}
+  generalAimCamera: {fileID: 0}
   bulletCamera: {fileID: 3637133599438168448}
-  cameraRandomOffset: 1
+  cameraRandomOffset: 1.5
+  travelSpeed: 30
 --- !u!1 &7693077004930876175
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,7 +257,17 @@ MonoBehaviour:
   enemies: []
   enemyPrefab: {fileID: 3966694913851334202, guid: 2f4a990f4a7037d4b96919df9934af66,
     type: 3}
-  SpawnPoints: []
+  SpawnPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &2610372579832276774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -271,6 +283,7 @@ MonoBehaviour:
   cameraController: {fileID: 401759254758054916}
   mainVirtualCamera: {fileID: 0}
   aimVirtualCamera: {fileID: 0}
+  generalAimVirtualCamera: {fileID: 0}
   bulletVirtualCamera: {fileID: 3637133599438168448}
 --- !u!114 &896908355302070727
 MonoBehaviour:
@@ -347,11 +360,44 @@ PrefabInstance:
       propertyPath: m_Name
       value: BulletTrackingCamera
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2601804990382703160, guid: 2d92fe39fca20434596a321d55d835e0, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3964831367056601802, guid: 2d92fe39fca20434596a321d55d835e0,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 143987737168659823}
   m_SourcePrefab: {fileID: 100100000, guid: 2d92fe39fca20434596a321d55d835e0, type: 3}
+--- !u!1 &1833995920604989050 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3964831367056601802, guid: 2d92fe39fca20434596a321d55d835e0,
+    type: 3}
+  m_PrefabInstance: {fileID: 3347934349689435312}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &143987737168659823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1833995920604989050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa7155796051b734daa718462081dc5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BindingMode: 1
+  m_FollowOffset: {x: 0, y: 0, z: -10}
+  m_XDamping: 1
+  m_YDamping: 1
+  m_ZDamping: 1
+  m_AngularDampingMode: 0
+  m_PitchDamping: 0
+  m_YawDamping: 0
+  m_RollDamping: 0
+  m_AngularDamping: 0
 --- !u!4 &2073652488702403837 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3652796972058218573, guid: 2d92fe39fca20434596a321d55d835e0,

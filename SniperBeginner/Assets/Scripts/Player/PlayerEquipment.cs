@@ -64,7 +64,6 @@ public class PlayerEquipment : MonoBehaviour
         CurrentEquip = equipment;
         CurrentEquip.gameObject.SetActive(true);
 
-
         CurrentEquip.OnAmmoChanged += CallOnAmmoChanged;
         CallOnAmmoChanged(); // 장착 후 초기화
 

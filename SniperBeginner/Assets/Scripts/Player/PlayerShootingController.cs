@@ -11,6 +11,7 @@ public class PlayerShootingController : MonoBehaviour
     [Header("Aim Setting")]
     public bool isAiming;
     [SerializeField] LayerMask aimLayerMask;
+    [SerializeField] LayerMask snipeLayerMask;
     public Transform AimTarget => anim.aimIKTarget;
 
     [Header("Hold Breath")]
@@ -20,6 +21,7 @@ public class PlayerShootingController : MonoBehaviour
 
     bool isControllingBreath = false;
     bool isReloading = false;
+    bool isInCinemachine = false;
     
     public event Action<float> OnControlBreath;
     public event Action<bool> OnAim;
@@ -133,6 +135,8 @@ public class PlayerShootingController : MonoBehaviour
         if (isAiming && CheckTarget(out Transform target))
         {
             AimCanceled();
+            isInCinemachine = true;
+            UIManager.Instance.PlayerCanvas.alpha = 0f;
             
             bullet.InitializeForCinemachine
             (
@@ -140,33 +144,26 @@ public class PlayerShootingController : MonoBehaviour
                 weapon.firePoint.forward
             );
 
+            Action actionOnEnd = () =>
+            {
+                if (target.TryGetComponent(out IDamagable damagable))
+                    damagable.TakeDamage(weapon.weaponData.damage); 
+
+                bullet.Release();
+                UIManager.Instance.PlayerCanvas.alpha = 1f;
+                isInCinemachine = false;
+            };
+
             OnSnipe?.Invoke(
                 bullet.transform,
                 target,
                 weapon.firePoint.position,
-                ()=>
-                {
-                    if (target.TryGetComponent(out IDamagable damagable))
-                        damagable.TakeDamage(weapon.weaponData.damage); 
-
-                    bullet.Release();
-                }
+                actionOnEnd
             );
         }
         else
         {
             bullet.Fire(weapon.firePoint.position, weapon.firePoint.forward, weapon.weaponData.damage);
-            // 다시 투사체 방식으로 변경
-            // Ray ray = GetRayFromCamera(0f);
-            // if (Physics.Raycast(ray, out RaycastHit hitInfo, weapon.weaponData.range, aimLayerMask))
-            // {
-            //     if (hitInfo.collider.TryGetComponent(out IDamagable damagable))
-            //     {
-            //         damagable.TakeDamage(weapon.weaponData.damage);
-            //     }
-
-            //     bullet.Fire(weapon.firePoint.position, weapon.firePoint.forward, weapon.weaponData.damage);
-            // }
         }
         
         anim.Fire();
@@ -179,6 +176,8 @@ public class PlayerShootingController : MonoBehaviour
 
     void Aim()
     {
+        if(isInCinemachine) return;
+
         Ray ray = GetRayFromCamera();
         if (Physics.Raycast(ray, out RaycastHit hit , equip.CurrentEquip.weaponData.range, aimLayerMask))
         {
@@ -192,8 +191,13 @@ public class PlayerShootingController : MonoBehaviour
 
     bool CheckTarget(out Transform target)
     {
-        Ray ray = GetRayFromCamera(0f);
-        if (Physics.Raycast(ray, out RaycastHit hit , equip.CurrentEquip.weaponData.range, aimLayerMask))
+        Ray rayFromCamera = GetRayFromCamera(0f);
+        Ray rayFromFirepoint = GetRayFromFirePoint();
+
+        RaycastHit hit;
+
+        if (Physics.Raycast(rayFromCamera, out hit , equip.CurrentEquip.weaponData.range, snipeLayerMask) ||
+            Physics.Raycast(rayFromFirepoint, out hit , equip.CurrentEquip.weaponData.range, snipeLayerMask))
         {
             Debug.Log($"hit : {hit.collider.name}");
             // 부위별 총격에서 데미지 확인 각각의
@@ -238,6 +242,11 @@ public class PlayerShootingController : MonoBehaviour
     Ray GetRayFromCamera(float zAxisOffset = 3f)
     {
         return new Ray(mainCamera.transform.position + mainCamera.transform.forward * zAxisOffset, mainCamera.transform.forward);
+    }
+
+    Ray GetRayFromFirePoint()
+    {
+        return new Ray(equip.CurrentEquip.firePoint.position, equip.CurrentEquip.firePoint.forward);
     }
 
 }
