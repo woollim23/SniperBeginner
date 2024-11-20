@@ -16,8 +16,6 @@ public class EnemyWanderState : EnemyBaseState
         StartAnimation(stateMachine.Enemy.AnimationData.GroundParameterHash);
         StartAnimation(stateMachine.Enemy.AnimationData.WalkParameterHash);
 
-        stateMachine.MovementSpeedModifier = groundData.WalkSpeedModifier;
-
     }
 
     public override void Exit()
@@ -33,7 +31,7 @@ public class EnemyWanderState : EnemyBaseState
 
         if (IsInChasingRange())
         {
-            stateMachine.ChangeState(stateMachine.AttackState);
+            stateMachine.ChangeState(stateMachine.ChasingState);
             return;
         }
         else if(stateMachine.Enemy.Agent.velocity.magnitude <= 0.1f)
@@ -41,12 +39,5 @@ public class EnemyWanderState : EnemyBaseState
             stateMachine.ChangeState(stateMachine.IdleState);
             return;
         }
-    }
-
-    protected bool IsInAttackRange()
-    {
-        float playerDistanceSqr = (stateMachine.Target.transform.position - stateMachine.Enemy.transform.position).sqrMagnitude;
-
-        return playerDistanceSqr <= stateMachine.Enemy.Data.AttackRange * stateMachine.Enemy.Data.AttackRange;
     }
 }

@@ -44,8 +44,18 @@ public class Player : MonoBehaviour
 
     private void Start() 
     {
+        return;
         // 시작은 일반 - 서 있는 상태
-        StateMachine.ChangeState(StateMachine.StandState);    
+        StateMachine.ChangeState(StateMachine.StandState);
+
+        // *********** 저장 테스트: 플레이어 위치, 체력 정보 세팅
+        PlayerData data = GameManager.Instance.GameData.playerData;
+        if (data != null)
+        {
+            // 위치 및 체력 복구
+            transform.position = data.Position;
+            Condition.Health = data.Health;           
+        }
     }
 
     private void Update() 
@@ -57,6 +67,21 @@ public class Player : MonoBehaviour
     {
         StateMachine.FixedUpdate();
     }
+
+
+    public void Initialize(PlayerData data)
+    {
+        Debug.Log("플레이어 정보 초기화");
+        if (data != null)
+        {
+            // 위치 및 체력 복구
+            transform.position = data.Position;
+            Condition.Health = data.Health;           
+        }
+
+        // 시작은 일반 - 서 있는 상태
+        StateMachine.ChangeState(StateMachine.StandState);
+    }
 }
 
 [System.Serializable]
@@ -64,13 +89,17 @@ public class PlayerSetting
 {
     // 필요하면 scriptable object로 분리
     [Header("Move")]
-    public float WalkSpeed = 3f;
-    public float RunSpeed = 6f;
-    [Range(0.01f, 1f)] public float MovementInputSmoothness = 0.05f;
+    public float walkSpeed = 3f;
+    public float runSpeed = 6f;
+    public float crouchSpeed = 2f;
+    [Range(0.01f, 1f)] public float movementInputSmoothness = 0.05f;
 
     
     [Header("Jump")]
-    public float JumpPower = 20f;
+    public float jumpPower = 20f;
+
+    [Header("Fall")]
+    public float fallThreshold = 1f;
 
     [Header("Look")]
     public float lookSensitive = 1f;

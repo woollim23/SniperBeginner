@@ -603,7 +603,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c2b5bcc2b6ef4940931a1a3edf721ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 0}
+  damageModifier: 1
 --- !u!1 &564928259447246422 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3135921509060577837, guid: de91c09f11130bb488d5c40e1dab9507,
@@ -718,7 +718,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c2b5bcc2b6ef4940931a1a3edf721ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 0}
+  damageModifier: 1
 --- !u!1 &1918372229165912368 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3948933247560734027, guid: de91c09f11130bb488d5c40e1dab9507,
@@ -833,7 +833,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c2b5bcc2b6ef4940931a1a3edf721ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 0}
+  damageModifier: 1
 --- !u!1 &2546504258662046321 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1082271958561512970, guid: de91c09f11130bb488d5c40e1dab9507,
@@ -900,7 +900,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c2b5bcc2b6ef4940931a1a3edf721ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 0}
+  damageModifier: 1
 --- !u!1 &3336361134971651645 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -9070493210130169274, guid: de91c09f11130bb488d5c40e1dab9507,
@@ -1015,7 +1015,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c2b5bcc2b6ef4940931a1a3edf721ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 0}
+  damageModifier: 1
 --- !u!1 &5410328525669500703 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -1781356600409242780, guid: de91c09f11130bb488d5c40e1dab9507,
@@ -1125,10 +1125,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5410328525669500703}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96c721f6c004f7b4ca80fa8182753bf0, type: 3}
+  m_Script: {fileID: 11500000, guid: 1c2b5bcc2b6ef4940931a1a3edf721ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 0}
+  damageModifier: 10
 --- !u!1 &5870936722598537340 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -203856693384778745, guid: de91c09f11130bb488d5c40e1dab9507,
@@ -1238,10 +1238,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5870936722598537340}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86cadd46a8c79724daca58464e767d82, type: 3}
+  m_Script: {fileID: 11500000, guid: 1c2b5bcc2b6ef4940931a1a3edf721ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 0}
+  damageModifier: 5
 --- !u!1 &6200745221111034360 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8817898888258712963, guid: de91c09f11130bb488d5c40e1dab9507,
@@ -1356,7 +1356,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c2b5bcc2b6ef4940931a1a3edf721ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 0}
+  damageModifier: 1
 --- !u!1 &6315468069185305476 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -290750445479886849, guid: de91c09f11130bb488d5c40e1dab9507,
@@ -1471,7 +1471,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c2b5bcc2b6ef4940931a1a3edf721ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 0}
+  damageModifier: 1
 --- !u!1 &8038119104765143347 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -4332706925441422008, guid: de91c09f11130bb488d5c40e1dab9507,
@@ -1586,7 +1586,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c2b5bcc2b6ef4940931a1a3edf721ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 0}
+  damageModifier: 1
 --- !u!1 &8752964116113649904 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -3086436065929644917, guid: de91c09f11130bb488d5c40e1dab9507,
@@ -1701,4 +1701,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c2b5bcc2b6ef4940931a1a3edf721ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 0}
+  damageModifier: 1

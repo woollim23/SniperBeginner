@@ -9,7 +9,6 @@ public class PlayerStateMachine : StateMachine
     // Idle 계열    
     public PlayerStandState StandState { get; private set; }
     public PlayerCrouchState CrouchState { get; private set; }
-    public PlayerCrawlState CrawlState { get; private set; }
 
     // Air 계열
     public PlayerJumpState JumpState { get; private set; }
@@ -22,7 +21,6 @@ public class PlayerStateMachine : StateMachine
 
         StandState = new PlayerStandState(this);
         CrouchState = new PlayerCrouchState(this);
-        CrawlState = new PlayerCrawlState(this);
 
         JumpState = new PlayerJumpState(this);
         FallState = new PlayerFallState(this);

@@ -8,10 +8,6 @@ public class Enemy : MonoBehaviour
     [field: Header("Enemy Data")]
     [field: SerializeField] private float health;
     public float Health {get => health;}
-
-    public NavMeshAgent Agent { get; private set; }
-    public float MinWanderDistance { get; private set; }
-    public float MaxWanderDistance { get; private set; }
     [field: SerializeField] public EnemySO Data { get; private set; }
 
     [field: Header("Animations")]
@@ -27,6 +23,7 @@ public class Enemy : MonoBehaviour
     public ForceReceiver ForceReceiver { get; private set; }
 
     public EnemyStateMachine stateMachine;
+    public NavMeshAgent Agent { get; private set; }
 
     public Action<float> onTakeDamage;
 
@@ -34,8 +31,6 @@ public class Enemy : MonoBehaviour
 
     private void Awake()
     {
-        MinWanderDistance = 2;
-        MaxWanderDistance = 5;
         Agent = GetComponent<NavMeshAgent>();
         AnimationData.Initialize();
 

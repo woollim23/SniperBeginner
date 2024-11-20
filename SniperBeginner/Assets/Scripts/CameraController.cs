@@ -35,19 +35,9 @@ public class CameraController : MonoBehaviour
         SubscribeBulletEvents();
     }
 
-    private void OnDisable()
-    {
-        UnsubscribeBulletEvents(); 
-    }
-
     private void SubscribeBulletEvents()
     {
         CharacterManager.Instance.Player.Shooting.OnSnipeEnemy += SwitchToBullet;
-    }
-
-    private void UnsubscribeBulletEvents()
-    {
-        CharacterManager.Instance.Player.Shooting.OnSnipeEnemy -= SwitchToBullet;
     }
 
 

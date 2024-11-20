@@ -73,7 +73,6 @@ public class Projectile : MonoBehaviour
 
     private void OnCollisionEnter(Collision other) 
     {
-
         if (IsInvoking("Release"))
             CancelInvoke("Release");
 

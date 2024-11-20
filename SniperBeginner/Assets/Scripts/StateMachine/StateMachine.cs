@@ -13,10 +13,10 @@ public abstract class StateMachine
 
     public virtual void Update()
     {
-        CurrentState.Update();
+        CurrentState?.Update();
     }
     public virtual void FixedUpdate()
     {
-        CurrentState.FixedUpdate();
+        CurrentState?.FixedUpdate();
     }
 }
