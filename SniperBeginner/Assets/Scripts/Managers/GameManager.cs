@@ -1,29 +1,37 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : SingletonDontDestory<GameManager>
 {
-    private GameObject pausePanel;
+    [SerializeField] public List<GameObject> enemies;
 
-    public int deadEnemyCnt;
+    public event Action onChangeScore;
+
     public bool isGameOver;
+
 
     public void GameStartInit()
     {
         // 게임 시작 초기화 함수
-        deadEnemyCnt = 0;
         isGameOver = false;
     }
 
     public void GameClear()
     {
-        // 게임 클리어 확인 함수
+        
     }
 
     public void CountDeadEnemy()
     {
-        // 적 처치 카운팅 함수
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            if (enemies[i].GetComponentInChildren<Enemy>().Health <= 0)
+                enemies.Remove(enemies[i]);
+        }
+
+        onChangeScore?.Invoke();
     }
 }

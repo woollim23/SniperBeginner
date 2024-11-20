@@ -1,15 +1,16 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerEquipment : MonoBehaviour
 {
     PlayerView view;
     PlayerAnimationController anim;
+    [SerializeField] List<GameObject> weaponInstance = new List<GameObject>();
     public Weapon CurrentEquip { get; private set; }
     
     // 손 위치
     [SerializeField] Transform rightHand;
-    [SerializeField] Transform leftHand;
 
     [Header("Temp Place")]
     [SerializeField] QuickSlotManager quickSlotManager;
@@ -26,17 +27,22 @@ public class PlayerEquipment : MonoBehaviour
             view = player.View;
             anim = player.Animation;
         }
+        
+        for (int i = 0; i < quickSlotManager.allWeapons.Count; i++)
+        {
+            GameObject instance = Instantiate(quickSlotManager.allWeapons[i].equipPrefab);
+            instance.SetActive(false);
+            weaponInstance.Add(instance);
+        }
 
         quickSlotManager.OnWeaponSelected += WeaponSelected;
-
-        // 퀵슬롯 1번 장착
-        WeaponSelected(quickSlotManager.allWeapons[0]);
+        quickSlotManager.HandleQuickSlotSelection(1);
     }
 
-    private void WeaponSelected(WeaponData data)
+
+    private void WeaponSelected(int idx)
     {
-        GameObject weapon = Instantiate(data.equipPrefab);
-        Equip(weapon.GetComponent<Weapon>());
+        Equip(weaponInstance[idx - 1].GetComponent<Weapon>());
     }
 
     public void ModifyWeaponDirection(Vector3 targetPoint)
@@ -51,19 +57,22 @@ public class PlayerEquipment : MonoBehaviour
         }
     }
 
+
     public void Equip(Weapon equipment)
     {
         if(CurrentEquip != null)
             Unequip();
 
         CurrentEquip = equipment;
+        CurrentEquip.gameObject.SetActive(true);
+
+
         CurrentEquip.OnAmmoChanged += CallOnAmmoChanged;
+        CallOnAmmoChanged(); // 장착 후 초기화
 
         equipment.transform.SetParent(rightHand);
         equipment.transform.localPosition = Vector3.zero;
 
-        // 장착했다 -> 쓸 수 있다는 것
-        // 무기라면 투사체 오브젝트 풀링이 확인해줄 것
         if (!ObjectPoolManager.Instance.projectilePools.ContainsKey(CurrentEquip.weaponData.projectile.data.type))
         {
             ObjectPoolManager.Instance.AddProjectilePool(CurrentEquip.weaponData.projectile);
@@ -79,10 +88,10 @@ public class PlayerEquipment : MonoBehaviour
         if(CurrentEquip != null)
         {
             // 1안. Destroy 하기 // 2안. 반환하기
-            Destroy(CurrentEquip.gameObject);
+            // Destroy(CurrentEquip.gameObject);
+            CurrentEquip.gameObject.SetActive(false);
 
             CurrentEquip.OnAmmoChanged -= CallOnAmmoChanged;
-            
             CurrentEquip = null;
         }
     }
@@ -119,30 +128,5 @@ public class PlayerEquipment : MonoBehaviour
     {
         OnAmmoChanged?.Invoke(CurrentEquip.currentAmmoInMagazine, CurrentEquip.weaponData.magazineSize);
     }
-
-    // 뼈에서 손 위치만 찾는 메서드
-    // [ContextMenu("Find Hand")]
-    // public void FindHand()
-    // {
-    //     Animator anim = GetComponent<Animator>();
-
-    //     if (leftHand == null)
-    //         leftHand = new GameObject("Left Hand").transform;
-        
-    //     if (rightHand == null)
-    //         rightHand = new GameObject("Right Hand").transform;
-
-
-    //     leftHand.SetParent(anim.GetBoneTransform(HumanBodyBones.LeftHand));
-    //     rightHand.SetParent(anim.GetBoneTransform(HumanBodyBones.RightHand));
-
-    //     leftHand.localPosition = Vector3.zero;
-    //     leftHand.localEulerAngles = Vector3.zero;
-
-    //     rightHand.localPosition = Vector3.zero;
-    //     rightHand.localEulerAngles = Vector3.zero;
-    // }
-
-
 }
 

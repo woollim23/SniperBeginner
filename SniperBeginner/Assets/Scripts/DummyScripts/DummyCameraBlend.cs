@@ -1,32 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using Cinemachine;
 using UnityEngine;
 
 public class DummyCameraBlend : MonoBehaviour
 {
-    [SerializeField] int curid = 0;
-    [SerializeField] CinemachineBrain brain;
     [SerializeField] CinemachineVirtualCamera[] cams;
 
 
-    [ContextMenu("Test Change")]
+    [ContextMenu("Test")]
     public void Test()
     {
-        curid++;
-        if(curid >= cams.Length)
-            curid = 0;
+        var a = cams[0].GetCinemachineComponent<CinemachineComposer>();
+        Debug.Log(a != null);
+        Debug.Log(a);
 
-        Change(curid);
+        a.m_TrackedObjectOffset = Vector3.one;
     }
 
-
-    void Change(int id)
-    {
-        for (int i = 0; i < cams.Length; i++)
-        {
-            cams[i].enabled = i == id;
-            
-        }
-    }
 }
