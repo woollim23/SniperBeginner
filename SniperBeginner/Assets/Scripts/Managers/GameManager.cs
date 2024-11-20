@@ -79,13 +79,5 @@ public class GameManager : SingletonDontDestory<GameManager>
             };
         }
 
-        // 캐릭터 초기화
-        CharacterManager.Instance.Player.Initialize(GameData.playerData);
-
-        // if (player != null)
-        // {
-        //     player.transform.position = GameData.playerData.Position;
-        //     player.Condition.Health = GameData.playerData.Health;
-        // }
     }
 }

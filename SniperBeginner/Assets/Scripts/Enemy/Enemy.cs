@@ -27,8 +27,6 @@ public class Enemy : MonoBehaviour
 
     public Action<float> onTakeDamage;
 
-    //[field: SerializeField] public Weapon Weapon { get; private set; }
-
     private void Awake()
     {
         Agent = GetComponent<NavMeshAgent>();
@@ -49,6 +47,7 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         stateMachine.ChangeState(stateMachine.IdleState);
+
     }
 
     private void Update()
@@ -59,6 +58,8 @@ public class Enemy : MonoBehaviour
     public void EnemyDatalInit()
     {
         health = Data.MaxHealth;
+
+        
     }
 
     public void OnTakeDamage(float damage)

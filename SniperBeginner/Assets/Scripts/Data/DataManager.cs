@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class DataManager 
 {
-    private static string gameDataPath => Application.dataPath + "/GameData.json"; // TODO:: 문제 없으면 Application.persistentDataPath로 바꾸기
+    public bool IsLoadedGame = false;
+    private static string gameDataPath => Application.dataPath + "/GameData.json"; 
+    // TODO:: 문제 없으면 Application.persistentDataPath로 바꾸기
 
     public static void SaveGameData(GameData data)
     {
