@@ -22,7 +22,7 @@ public class ParticleManager : Singleton<ParticleManager>
             muzzleFlash.transform.position = muzzlePoint.position;
             muzzleFlash.transform.rotation = muzzlePoint.rotation;
 
-            StartCoroutine(ReturnParticleAfterDelay(ParticleType.MuzzleFlash, muzzleFlash, 0.5f));
+            StartCoroutine(ReturnParticleAfterDelay(ParticleType.MuzzleFlash, muzzleFlash, 1.5f));
         }
     }
 

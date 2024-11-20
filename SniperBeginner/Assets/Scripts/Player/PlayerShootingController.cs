@@ -124,6 +124,8 @@ public class PlayerShootingController : MonoBehaviour
 
         lastFireTime = Time.time;
 
+        ParticleManager.Instance.SpawnMuzzleFlash(weapon.firePoint);
+
         // 겉으로 표시만 하는 용도
         Projectile bullet = ObjectPoolManager.Instance.Get(weapon.weaponData.projectile.data.type);
 
