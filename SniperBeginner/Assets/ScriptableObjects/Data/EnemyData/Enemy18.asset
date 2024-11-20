@@ -14,9 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <MaxHealth>k__BackingField: 100
   Damage: 10
-  <PlayerChasingRange>k__BackingField: 7
-  <AttackRange>k__BackingField: 0
-  <ForceTransitionTime>k__BackingField: 0.1
+  <PlayerChasingRange>k__BackingField: 9
+  <AttackRange>k__BackingField: 5
   <Force>k__BackingField: 1
   <Dealing_Start_TransitionTime>k__BackingField: 0.25
   <Dealing_End_TransitionTime>k__BackingField: 0.35

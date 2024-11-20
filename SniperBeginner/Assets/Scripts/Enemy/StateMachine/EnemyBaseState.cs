@@ -14,6 +14,7 @@ public class EnemyBaseState : IState
     {
         this.stateMachine = stateMachine;
         groundData = stateMachine.Enemy.Data.GroundData;
+        stateMachine.Enemy.Agent.isStopped = false;
     }
 
     public virtual void Enter()
@@ -42,24 +43,30 @@ public class EnemyBaseState : IState
         moveCoroutine = null;
     }
 
+
     private void Move()
     {
         // MovementSpeedModifier에 따라 속력 변경
         // 체력으로 죽음 확인 후, 움직임 결정
-        stateMachine.Enemy.Agent.speed = stateMachine.BaseSpeed * stateMachine.MovementSpeedModifier * (stateMachine.Enemy.Health <= 0 ? 0 : 1);
 
-        Rotate(GetWanderLocation());
-        
+        stateMachine.Enemy.Agent.speed = stateMachine.BaseSpeed * stateMachine.MovementSpeedModifier;
+
         stateMachine.Enemy.Agent.SetDestination(GetWanderLocation());
     }
 
-    protected void ForceMove()
+    private Vector3 GetWanderLocation()
     {
-        stateMachine.Enemy.Controller.Move(stateMachine.Enemy.ForceReceiver.Movement * Time.deltaTime);
+        NavMeshHit hit;
+        // 포지션을 알려주면 이동할 수 있는 한 최단거리를 반환
+        NavMesh.SamplePosition(stateMachine.Enemy.transform.position + (Random.onUnitSphere * Random.Range(stateMachine.Enemy.MinWanderDistance, stateMachine.Enemy.MaxWanderDistance)), out hit, stateMachine.Enemy.MaxWanderDistance, NavMesh.AllAreas);
+
+
+        Rotate(hit.position);
+
+        return hit.position;
     }
 
-
-    void Rotate(Vector3 movementDirection)
+    public void Rotate(Vector3 movementDirection)
     {
         if (movementDirection != Vector3.zero)
         {
@@ -68,6 +75,26 @@ public class EnemyBaseState : IState
         }
     }
 
+    protected bool IsInChasingRange()
+    {
+        //if (!stateMachine.Target.GetComponent<PlayerCondition>()) return false;
+
+        float playerDistanceSqr = (stateMachine.Target.transform.position - stateMachine.Enemy.transform.position).sqrMagnitude;
+
+        return playerDistanceSqr <= stateMachine.Enemy.Data.PlayerChasingRange * stateMachine.Enemy.Data.PlayerChasingRange;
+    }
+
+    protected bool IsInAttackRange()
+    {
+        float playerDistanceSqr = (stateMachine.Target.transform.position - stateMachine.Enemy.transform.position).sqrMagnitude;
+
+        return playerDistanceSqr <= stateMachine.Enemy.Data.AttackRange * stateMachine.Enemy.Data.AttackRange;
+    }
+
+    protected void ChangeWarningState()
+    {
+        //stateMachine.ChasingState(Warn)
+    }
 
     protected void StartAnimation(int animationHash)
     {
@@ -96,31 +123,5 @@ public class EnemyBaseState : IState
         {
             return 0f;
         }
-    }
-
-    protected bool IsInChasingRange()
-    {
-        //if (!stateMachine.Target.GetComponent<PlayerCondition>()) return false;
-
-        float playerDistanceSqr = (stateMachine.Target.transform.position - stateMachine.Enemy.transform.position).sqrMagnitude;
-
-        return playerDistanceSqr <= stateMachine.Enemy.Data.PlayerChasingRange * stateMachine.Enemy.Data.PlayerChasingRange;
-    }
-
-    Vector3 GetWanderLocation()
-    {
-        // 목표지점 정해주는 함수
-
-        NavMeshHit hit;
-
-        // 포지션을 알려주면 이동할 수 있는 한 최단거리를 반환
-        // SamplePosition(Vector3 sourcePosition, out NavMeshHit hit, float maxDistance, int areaMask)
-        // onUnitSphere : 반지름이 1인 구 (이정도 영역 범위)
-        // NavMesh.AllAreas : 모든 영역 
-        NavMesh.SamplePosition(stateMachine.Enemy.transform.position + (Random.onUnitSphere * Random.Range(stateMachine.Enemy.MinWanderDistance, stateMachine.Enemy.MaxWanderDistance)), out hit, stateMachine.Enemy.MaxWanderDistance, NavMesh.AllAreas);
-
-        
-
-        return hit.position;
     }
 }
