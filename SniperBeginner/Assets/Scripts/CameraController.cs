@@ -88,31 +88,11 @@ public class CameraController : MonoBehaviour
 
     private IEnumerator HandleBulletCamera(Transform projectile, Transform destination, Vector3 startPosition, Action onEnd)
     {
-        yield return StartCoroutine(MoveBullet(projectile, startPosition, destination));
+        yield return StartCoroutine(CharacterManager.Instance.Player.Shooting.MoveBullet(projectile, startPosition, destination, travelSpeed));
         onEnd?.Invoke();
 
         ResetTimeScale(); 
         SwitchToIdle();
-    }
-
-    private IEnumerator MoveBullet(Transform bullet, Vector3 firePoint, Transform destination)
-    {
-        float sqrDistance = Vector3.SqrMagnitude(firePoint - destination.position);
-        float travelTime = sqrDistance / (travelSpeed * travelSpeed);
-        float elapsedTime = 0f;
-
-        Vector3 end = destination.position;
-        Debug.Log(destination.name);
-
-        while (elapsedTime < travelTime)
-        {
-            elapsedTime += Time.deltaTime;
-            bullet.position = Vector3.Lerp(firePoint, end, elapsedTime / travelTime);  //
-            
-            yield return null;
-        }
-
-        bullet.position = destination.position;
     }
 
 }

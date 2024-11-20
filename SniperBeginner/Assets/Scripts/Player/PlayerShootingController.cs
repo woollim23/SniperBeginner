@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class PlayerShootingController : MonoBehaviour
@@ -7,6 +8,7 @@ public class PlayerShootingController : MonoBehaviour
     PlayerAnimationController anim;
     PlayerEquipment equip;
     Camera mainCamera;
+
 
     [Header("Aim Setting")]
     public bool isAiming;
@@ -199,7 +201,6 @@ public class PlayerShootingController : MonoBehaviour
         if (Physics.Raycast(rayFromCamera, out hit , equip.CurrentEquip.weaponData.range, snipeLayerMask) ||
             Physics.Raycast(rayFromFirepoint, out hit , equip.CurrentEquip.weaponData.range, snipeLayerMask))
         {
-            Debug.Log($"hit : {hit.collider.name}");
             // 부위별 총격에서 데미지 확인 각각의
             if (hit.collider.TryGetComponent(out ISnipable snipable))
             {
@@ -247,6 +248,26 @@ public class PlayerShootingController : MonoBehaviour
     Ray GetRayFromFirePoint()
     {
         return new Ray(equip.CurrentEquip.firePoint.position, equip.CurrentEquip.firePoint.forward);
+    }
+
+
+    public IEnumerator MoveBullet(Transform bullet, Vector3 firePoint, Transform destination, float travelSpeed)
+    {
+        float sqrDistance = Vector3.SqrMagnitude(firePoint - destination.position);
+        float travelTime = sqrDistance / (travelSpeed * travelSpeed);
+        float elapsedTime = 0f;
+
+        Vector3 end = destination.position;
+
+        while (elapsedTime < travelTime)
+        {
+            elapsedTime += Time.deltaTime;
+            bullet.position = Vector3.Lerp(firePoint, end, elapsedTime / travelTime);  //
+            
+            yield return null;
+        }
+
+        bullet.position = destination.position;
     }
 
 }
