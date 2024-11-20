@@ -10,7 +10,7 @@ public class PlayerJumpState : PlayerAirState
     {
         base.Enter();
         
-        stateMachine.Player.ForceReceiver.AddForce(Vector3.up * stateMachine.Player.setting.JumpPower);
+        stateMachine.Player.ForceReceiver.AddForce(Vector3.up * stateMachine.Player.setting.jumpPower);
 
         // 애니메이션 적용
         animation.Jump();

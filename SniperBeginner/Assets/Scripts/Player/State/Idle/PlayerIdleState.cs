@@ -30,7 +30,7 @@ public class PlayerIdleState : PlayerBaseState
     {
         base.Update();
         
-        movement = Vector2.Lerp(movement, moveInput, stateMachine.Setting.MovementInputSmoothness);
+        movement = Vector2.Lerp(movement, moveInput, stateMachine.Setting.movementInputSmoothness);
         Move();
     }
 
@@ -39,10 +39,12 @@ public class PlayerIdleState : PlayerBaseState
         base.FixedUpdate();
 
         if (!controller.isGrounded && 
-            controller.velocity.y < Physics.gravity.y * Time.fixedDeltaTime)
+            controller.velocity.y < -stateMachine.Setting.fallThreshold)
         {
             stateMachine.ChangeState(stateMachine.FallState);
         }
+
+        
     }
 
 

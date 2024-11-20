@@ -340,6 +340,16 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -2
       objectReference: {fileID: 0}
+    - target: {fileID: 4949356535031780303, guid: fefcefeb1770cfc4996c456672a0a440,
+        type: 3}
+      propertyPath: setting.jumpPower
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4949356535031780303, guid: fefcefeb1770cfc4996c456672a0a440,
+        type: 3}
+      propertyPath: setting.fallThreshold
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6286322467852827871, guid: fefcefeb1770cfc4996c456672a0a440,
         type: 3}
       propertyPath: m_ChildCameras.Array.size

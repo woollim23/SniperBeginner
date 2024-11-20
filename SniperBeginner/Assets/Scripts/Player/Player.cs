@@ -64,13 +64,16 @@ public class PlayerSetting
 {
     // 필요하면 scriptable object로 분리
     [Header("Move")]
-    public float WalkSpeed = 3f;
-    public float RunSpeed = 6f;
-    [Range(0.01f, 1f)] public float MovementInputSmoothness = 0.05f;
+    public float walkSpeed = 3f;
+    public float runSpeed = 6f;
+    [Range(0.01f, 1f)] public float movementInputSmoothness = 0.05f;
 
     
     [Header("Jump")]
-    public float JumpPower = 20f;
+    public float jumpPower = 20f;
+
+    [Header("Fall")]
+    public float fallThreshold = 1f;
 
     [Header("Look")]
     public float lookSensitive = 1f;

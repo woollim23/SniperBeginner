@@ -30,7 +30,7 @@ public class PlayerStandState : PlayerIdleState
         base.Move();
         
         Transform player = stateMachine.Player.transform;
-        float speed = (IsRun ? stateMachine.Setting.RunSpeed : stateMachine.Setting.WalkSpeed) * Time.deltaTime;
+        float speed = (IsRun ? stateMachine.Setting.runSpeed : stateMachine.Setting.walkSpeed) * Time.deltaTime;
 
         Vector3 motion = player.right * movement.x * speed + player.forward * movement.y * speed;
         motion += stateMachine.Player.ForceReceiver.Movement * Time.deltaTime;
