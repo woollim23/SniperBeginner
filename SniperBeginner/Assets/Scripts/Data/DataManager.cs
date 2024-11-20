@@ -5,24 +5,29 @@ using UnityEngine;
 
 public class DataManager 
 {
-    private static string PlayerDataPath => Application.dataPath + "/PlayerData.json";
+    private static string gameDataPath => Application.dataPath + "/GameData.json"; // TODO:: 문제 없으면 Application.persistentDataPath로 바꾸기
 
-    public static void SavePlayerData(PlayerData data)
+    public static void SaveGameData(GameData data)
     {
         string json = JsonUtility.ToJson(data, true);
-        File.WriteAllText(PlayerDataPath, json);
+        File.WriteAllText(gameDataPath, json);
     }
 
-    public static PlayerData LoadPlayerData()
+    public static GameData LoadGameData()
     {
-        if (!File.Exists(PlayerDataPath)) // 저장 파일 확인
+        if (!File.Exists(gameDataPath)) // 저장 파일 확인
         {
             Debug.Log("저장 파일 없음");
-            return new PlayerData(); // 기본 세팅 반환
+            return new GameData // 기본 세팅 반환
+            {
+                playerData = new PlayerData(),
+                // 에너미 데이터
+                // 인벤토리 데이터
+            };
         }
 
-        string json = File.ReadAllText(PlayerDataPath);
-        return JsonUtility.FromJson<PlayerData>(json);
+        string json = File.ReadAllText(gameDataPath);
+        return JsonUtility.FromJson<GameData>(json);
     }
 
 }

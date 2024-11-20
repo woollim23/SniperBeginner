@@ -16,7 +16,7 @@ public class PausePanel : MonoBehaviour
 
     public void GameSave()
     {
-        // 게임 저장 버튼
+        GameManager.Instance.SaveGame();
         Debug.Log("save");
     }
 

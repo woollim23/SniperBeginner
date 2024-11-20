@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class GameData : MonoBehaviour
+public class GameData 
 {
     public PlayerData playerData;
-    // public EnemyData enemyData;
+    // public List<EnemyData> enemyData;
     // public InventoryData inventoryData;
 }
