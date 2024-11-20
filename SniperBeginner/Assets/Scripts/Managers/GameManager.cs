@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class GameManager : SingletonDontDestory<GameManager>
 {
-    [SerializeField] public List<GameObject> enemies;
-
     public GameData GameData { get; private set; }
+    public int Score { get; set; } = 0;
+    public bool isGameOver { get; private set; }
 
     public event Action onChangeScore;
-
-    public bool isGameOver;
-
+    
     public override void Awake() 
     {
         base.Awake();
@@ -39,13 +37,11 @@ public class GameManager : SingletonDontDestory<GameManager>
 
     public void CountDeadEnemy()
     {
-        for (int i = 0; i < enemies.Count; i++)
-        {
-            if (enemies[i].GetComponentInChildren<Enemy>().Health <= 0)
-                enemies.Remove(enemies[i]);
-        }
-
+        Score++;
         onChangeScore?.Invoke();
+
+        if (Score == CharacterManager.Instance.enemies.Count)
+            GameClear();
     }
 
     public void SaveGame()

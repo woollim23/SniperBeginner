@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class DataManager 
+public class DataManager // 싱글톤 - 돈디스트로이
 {
     public bool IsLoadedGame = false;
+    
     private static string gameDataPath => Application.dataPath + "/GameData.json"; 
     // TODO:: 문제 없으면 Application.persistentDataPath로 바꾸기
 
