@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class QuickSlotManager : MonoBehaviour
+public class UIQuickSlotManager : MonoBehaviour
 {
     [Header("Quick Slots")]
     public Transform slotParent; // UI

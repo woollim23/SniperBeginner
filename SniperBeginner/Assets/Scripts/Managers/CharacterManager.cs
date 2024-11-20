@@ -5,13 +5,14 @@ public class CharacterManager : Singleton<CharacterManager>
     [SerializeField] Player playerPrefab;
     public Player Player { get; set; }
 
-    [SerializeField] Transform[] SpawnPoints;
     [SerializeField] Enemy enemyPrefab;
+    [SerializeField] Transform[] SpawnPoints;
 
-    private void Start() 
+    public void Initialize()
     {
-        if(!Player)
-            Instantiate(playerPrefab);
+        Player = Instantiate(playerPrefab);
+
+        // 추후에 적들도 생성
     }
 
     public void InstaiateEnemy()

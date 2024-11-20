@@ -13,7 +13,7 @@ public class PlayerEquipment : MonoBehaviour
     [SerializeField] Transform rightHand;
 
     [Header("Temp Place")]
-    [SerializeField] QuickSlotManager quickSlotManager;
+    [SerializeField] UIQuickSlotManager quickSlotManager;
 
     bool isReloading = false;
     public event Action<bool> OnReload;

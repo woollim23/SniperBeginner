@@ -42,21 +42,6 @@ public class Player : MonoBehaviour
         StateMachine = new PlayerStateMachine(this);
     }
 
-    private void Start() 
-    {
-        return;
-        // 시작은 일반 - 서 있는 상태
-        StateMachine.ChangeState(StateMachine.StandState);
-
-        // *********** 저장 테스트: 플레이어 위치, 체력 정보 세팅
-        PlayerData data = GameManager.Instance.GameData.playerData;
-        if (data != null)
-        {
-            // 위치 및 체력 복구
-            transform.position = data.Position;
-            Condition.Health = data.Health;           
-        }
-    }
 
     private void Update() 
     {

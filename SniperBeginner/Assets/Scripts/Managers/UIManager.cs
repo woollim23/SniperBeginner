@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
@@ -12,6 +10,15 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private TextMeshProUGUI Score;
 
 
+    [Header("Player UI")]
+    [SerializeField] GameObject prefabPayerCanvas;
+    [SerializeField] UIAmmoInfo prefabAmmoInfo;
+    [SerializeField] UIQuickSlotManager prefabQuickSlot;
+    
+    public UIAmmoInfo AmmoInfo { get; private set; }
+    public UIQuickSlotManager QuickSlot { get; private set; }
+    
+
     void Start()
     {
         Score = GetComponentInChildren<TextMeshProUGUI>();
@@ -22,6 +29,14 @@ public class UIManager : Singleton<UIManager>
         PauseMenuInit();
         InputManager.Instance.OnMenuEvent += OpenPauseMenu;
         SetCursor(true);
+    }
+
+    public void Initialize()
+    {
+        Instantiate(prefabPayerCanvas);
+
+        AmmoInfo = Instantiate(prefabAmmoInfo);
+        QuickSlot = Instantiate(prefabQuickSlot);
     }
 
     private void OnChangeScore()
