@@ -7,5 +7,5 @@ public class GameData
 {
     public PlayerData playerData;
     // public List<EnemyData> enemyData;
-    // public InventoryData inventoryData;
+    
 }

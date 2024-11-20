@@ -28,7 +28,7 @@ public class DataManager : SingletonDontDestory<DataManager>
             {
                 playerData = new PlayerData()
                 // TODO :: 에너미 데이터 초기화
-                // TODO :: 인벤 데이터 초기화
+                
             };
             existData = false;
         }
