@@ -24,7 +24,7 @@ public class UIManager : Singleton<UIManager>
     {
         GameManager.Instance.onChangeScore += OnChangeScore;
         OnChangeScore();
-        
+
         InputManager.Instance.OnMenuEvent += OpenPauseMenu;
         SetCursor(true);
     }
