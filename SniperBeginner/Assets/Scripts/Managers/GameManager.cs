@@ -26,6 +26,10 @@ public class GameManager : SingletonDontDestory<GameManager>
 
     public void CountDeadEnemy()
     {
+        for(int i = 0; i < enemies.Count; i++)
+            if(enemies[i] != null)
+                enemies.Remove(enemies[i]);
+
         onChangeScore?.Invoke();
     }
 }
