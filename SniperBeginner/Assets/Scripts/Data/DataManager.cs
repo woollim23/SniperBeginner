@@ -26,9 +26,9 @@ public class DataManager : SingletonDontDestory<DataManager>
             Debug.Log("저장 파일 없음");
             CurrentGameData = new GameData
             {
-                playerData = new PlayerData()
-                // TODO :: 에너미 데이터 초기화
-                
+                playerData = new PlayerData(),
+                enemyData = new List<EnemyData>()
+
             };
             existData = false;
         }
