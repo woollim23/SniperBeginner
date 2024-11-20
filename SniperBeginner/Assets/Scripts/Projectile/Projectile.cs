@@ -7,6 +7,7 @@ public class ProjectileData
     public float speed = 100f;
     public float lifeTime = 3f;
     public AmmoType type;
+    public float damage = 0;
 }
 
 [RequireComponent(typeof(Rigidbody))]
@@ -52,9 +53,10 @@ public class Projectile : MonoBehaviour
         gameObject.SetActive(true);
     }
 
-    public virtual void Fire(Vector3 firePoint, Vector3 direction)
+    public virtual void Fire(Vector3 firePoint, Vector3 direction, float damage = 30f)
     {
         Initialize(firePoint, direction);
+        data.damage = damage;
 
         gameObject.SetActive(true);
 
@@ -86,6 +88,11 @@ public class Projectile : MonoBehaviour
         else
         {
             ParticleManager.Instance.SpawnWallImpact(impactPoint, impactNormal);
+        }
+
+        if(other.gameObject.TryGetComponent(out IDamagable damagable))
+        {
+            damagable.TakeDamage(data.damage);
         }
 
         Release();

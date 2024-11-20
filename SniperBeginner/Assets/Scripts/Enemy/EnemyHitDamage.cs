@@ -1,6 +1,12 @@
 using UnityEngine;
 
-public class EnemyHitDamage : MonoBehaviour, IDamagable, ISnipable
+public abstract class HitDamage : MonoBehaviour, IDamagable
+{
+    public abstract void TakeDamage(float damage);
+
+}
+
+public class EnemyHitDamage : HitDamage, ISnipable
 {
     [SerializeField] private float damageModifier = 1;
     private Enemy enemy;
@@ -10,7 +16,7 @@ public class EnemyHitDamage : MonoBehaviour, IDamagable, ISnipable
         enemy = GetComponentInParent<Enemy>();
     }
 
-    public void TakeDamage(float damage)
+    public override void TakeDamage(float damage)
     {
         enemy.OnTakeDamage(damage * damageModifier);
     }

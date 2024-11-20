@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyStateMachine : StateMachine
 {
     public Enemy Enemy { get; private set; }
-
+    public int isMove = 1;
     public float RotationDamping { get; private set; }
 
     public GameObject Target { get; private set; }
