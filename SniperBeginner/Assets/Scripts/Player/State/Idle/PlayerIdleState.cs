@@ -38,7 +38,7 @@ public class PlayerIdleState : PlayerBaseState
     {
         base.FixedUpdate();
 
-        if(!controller.isGrounded && 
+        if (!controller.isGrounded && 
             controller.velocity.y < Physics.gravity.y * Time.fixedDeltaTime)
         {
             stateMachine.ChangeState(stateMachine.FallState);
