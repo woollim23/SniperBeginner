@@ -18,12 +18,7 @@ public class DataManager
         if (!File.Exists(gameDataPath)) // 저장 파일 확인
         {
             Debug.Log("저장 파일 없음");
-            return new GameData // 기본 세팅 반환
-            {
-                playerData = new PlayerData(),
-                // 에너미 데이터
-                // 인벤토리 데이터
-            };
+            return null;
         }
 
         string json = File.ReadAllText(gameDataPath);

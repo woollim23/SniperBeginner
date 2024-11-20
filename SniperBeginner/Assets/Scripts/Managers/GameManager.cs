@@ -66,12 +66,20 @@ public class GameManager : SingletonDontDestory<GameManager>
         GameData = DataManager.LoadGameData();
         if (GameData == null)
         {
+            Player player = CharacterManager.Instance.Player;
+
             GameData = new GameData
             {
+                // 새 데이터는 현재 값을 받아오도록
                 playerData = new PlayerData()
+                {
+                    Position = player.transform.position,
+                    Health = player.Condition.Health,
+                }
             };
         }
 
+        // 캐릭터 초기화
         CharacterManager.Instance.Player.Initialize(GameData.playerData);
 
         // if (player != null)
