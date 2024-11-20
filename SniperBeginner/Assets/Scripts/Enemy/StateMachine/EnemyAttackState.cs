@@ -15,6 +15,9 @@ public class EnemyAttackState : EnemyBaseState
         StartAnimation(stateMachine.Enemy.AnimationData.FireParameterHash);
 
         stateMachine.Enemy.Agent.isStopped = true;
+
+        stateMachine.Enemy.OnEnemyGunFire?.Invoke();
+        stateMachine.Enemy.StartCoroutine(WaitForAnimationToEnd());
     }
 
     public override void Exit()
@@ -26,15 +29,12 @@ public class EnemyAttackState : EnemyBaseState
         stateMachine.Enemy.Agent.isStopped = false;
     }
 
-    public override void Update()
+    private IEnumerator WaitForAnimationToEnd()
     {
-        
-        Debug.Log("발사");
+        float animationLength = stateMachine.Enemy.Animator.GetCurrentAnimatorStateInfo(0).length;
 
-        // 애니메이션 진행도를 0.0 ~ 1.0
-        float normalizedTime = GetNormalizedTime(stateMachine.Enemy.Animator, "Fire");
-        
+        yield return new WaitForSeconds(animationLength);
 
-        // TODO : 플레이어가 죽으면 멈추도록 or 플레이어 죽음 이벤트 받아서 상태 변화
+        stateMachine.ChangeState(stateMachine.AimingState); // 조준 상태로 변경
     }
 }

@@ -44,7 +44,7 @@ public class EnemyAimingState : EnemyBaseState
         }
         else
         {
-            stateMachine.ChangeState(stateMachine.AttackState);
+            stateMachine.ChangeState(stateMachine.AttackState); // 공격 상태
         }
 
         // TODO : 플레이어가 죽으면 멈추도록 or 플레이어 죽음 이벤트 받아서 상태 변화
