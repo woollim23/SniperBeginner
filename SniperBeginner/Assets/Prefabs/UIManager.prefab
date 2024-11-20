@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 043c007ffc8fff840927ae610883276b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabPayerCanvas: {fileID: 4674809590667589747, guid: f60b00ddf09086548be5205fdf9dfbe5,
+  prefabPlayerCanvas: {fileID: -6400473186415350299, guid: f60b00ddf09086548be5205fdf9dfbe5,
     type: 3}
   prefabAmmoInfo: {fileID: 2547704951697346788, guid: c83c076b47667aa41ac3a41ff7a0ab65,
     type: 3}

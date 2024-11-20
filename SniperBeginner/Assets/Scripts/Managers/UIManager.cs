@@ -4,7 +4,7 @@ using UnityEngine;
 public class UIManager : Singleton<UIManager>
 {
     [Header("Player UI")]
-    [SerializeField] CanvasGroup prefabPayerCanvas;
+    [SerializeField] CanvasGroup prefabPlayerCanvas;
     [SerializeField] UIAmmoInfo prefabAmmoInfo;
     [SerializeField] UIQuickSlotManager prefabQuickSlot;
     [SerializeField] UIMiniMapController prefabMiniMap;
@@ -30,13 +30,13 @@ public class UIManager : Singleton<UIManager>
 
     public void Initialize()
     {
-        PlayerCanvas = Instantiate(prefabPayerCanvas);
+        PlayerCanvas = Instantiate(prefabPlayerCanvas);
 
-        AmmoInfo = Instantiate(prefabAmmoInfo, playerCanvas.transform);
-        QuickSlot = Instantiate(prefabQuickSlot, playerCanvas.transform);
-        MiniMap = Instantiate(prefabMiniMap, playerCanvas.transform);
-        Score = Instantiate(prefabScore, playerCanvas.transform);
-        PauseMenu = Instantiate(prefabPauseMenu, playerCanvas.transform);
+        AmmoInfo = Instantiate(prefabAmmoInfo, PlayerCanvas.transform);
+        QuickSlot = Instantiate(prefabQuickSlot, PlayerCanvas.transform);
+        MiniMap = Instantiate(prefabMiniMap, PlayerCanvas.transform);
+        Score = Instantiate(prefabScore, PlayerCanvas.transform);
+        PauseMenu = Instantiate(prefabPauseMenu, PlayerCanvas.transform);
     }
 
     private void OnChangeScore()
