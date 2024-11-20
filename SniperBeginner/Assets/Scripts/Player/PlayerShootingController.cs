@@ -103,7 +103,8 @@ public class PlayerShootingController : MonoBehaviour
         isAiming = true;
         anim.Aiming(isAiming);
 
-        OnAim?.Invoke(true);
+        if (equip.CurrentEquip.weaponData.ammoType == AmmoType.SniperAmmo)
+            OnAim?.Invoke(true);
     }
 
     void AimCanceled()
@@ -111,7 +112,8 @@ public class PlayerShootingController : MonoBehaviour
         isAiming = false;
         anim.Aiming(false);
 
-        OnAim?.Invoke(false);
+        if (equip.CurrentEquip.weaponData.ammoType == AmmoType.SniperAmmo)
+            OnAim?.Invoke(false);
     }
 
     void Fire()

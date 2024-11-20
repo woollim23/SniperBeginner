@@ -25,3 +25,9 @@ public enum ParticleType
     WallImpact,
     BloodImpact
 }
+
+public enum InterationType
+{
+    Pick, // 줍기
+    Open, // 열기
+}

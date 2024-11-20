@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System;
 
 public class CharacterManager : Singleton<CharacterManager>
 {

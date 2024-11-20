@@ -146,6 +146,7 @@ MonoBehaviour:
     standParamName: Stand
     crouchParamName: Crouch
     fireParamName: Fire
+    weaponTypeParamName: WeaponType
     aimingParamName: Aiming
     aimingModifierParamName: AimingModifier
     reloadParamName: Aiming
@@ -407,6 +408,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8365841675938697134}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2008223803462053151
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7605892729125441040}
+  - component: {fileID: 4731179824174020036}
+  m_Layer: 0
+  m_Name: cm
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7605892729125441040
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2008223803462053151}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2196589822390121351}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4731179824174020036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2008223803462053151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2580635354901306991
 GameObject:
   m_ObjectHideFlags: 0
@@ -456,6 +501,78 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Weight: 1
   m_Effectors: []
+--- !u!1 &2712478984465434541
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2196589822390121351}
+  - component: {fileID: 3468733153772026090}
+  m_Layer: 0
+  m_Name: General Aim Virtual Camera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2196589822390121351
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2712478984465434541}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.5, y: 0, z: -1.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7605892729125441040}
+  m_Father: {fileID: 3991082926354647705}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3468733153772026090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2712478984465434541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ExcludedPropertiesInInspector:
+  - m_Script
+  m_LockStageInInspector: 
+  m_StreamingVersion: 20170927
+  m_Priority: 10
+  m_StandbyUpdate: 2
+  m_LookAt: {fileID: 0}
+  m_Follow: {fileID: 0}
+  m_Lens:
+    FieldOfView: 40
+    OrthographicSize: 5
+    NearClipPlane: 0.3
+    FarClipPlane: 1000
+    Dutch: 0
+    ModeOverride: 0
+    LensShift: {x: 0, y: 0}
+    GateFit: 2
+    FocusDistance: 10
+    m_SensorSize: {x: 1, y: 1}
+  m_Transitions:
+    m_BlendHint: 0
+    m_InheritPosition: 0
+    m_OnCameraLive:
+      m_PersistentCalls:
+        m_Calls: []
+  m_LegacyBlendHint: 0
+  m_ComponentOwner: {fileID: 7605892729125441040}
 --- !u!1 &2965236617881651110
 GameObject:
   m_ObjectHideFlags: 0
@@ -606,6 +723,7 @@ Transform:
   m_Children:
   - {fileID: 1874877064047016730}
   - {fileID: 5444509145255941574}
+  - {fileID: 2196589822390121351}
   m_Father: {fileID: 8365841675938697134}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6286322467852827871
@@ -634,13 +752,18 @@ MonoBehaviour:
   m_ChildCameras:
   - {fileID: 7849855011339813663}
   - {fileID: 7742737638296623587}
+  - {fileID: 3468733153772026090}
   m_Instructions:
   - m_FullHash: 0
     m_VirtualCamera: {fileID: 7849855011339813663}
     m_ActivateAfter: 0
     m_MinDuration: 0
-  - m_FullHash: 1517524103
+  - m_FullHash: 138293352
     m_VirtualCamera: {fileID: 7742737638296623587}
+    m_ActivateAfter: 0
+    m_MinDuration: 0
+  - m_FullHash: 923217448
+    m_VirtualCamera: {fileID: 3468733153772026090}
     m_ActivateAfter: 0
     m_MinDuration: 0
   m_DefaultBlend:
@@ -656,9 +779,11 @@ MonoBehaviour:
   m_ParentHash:
   - m_Hash: 1803683024
     m_ParentHash: 1676416303
-  - m_Hash: 1517524103
+  - m_Hash: 138293352
     m_ParentHash: 1676416303
   - m_Hash: -1201578223
+    m_ParentHash: 1676416303
+  - m_Hash: 923217448
     m_ParentHash: 1676416303
 --- !u!1 &5316404768313542747
 GameObject:
@@ -687,7 +812,7 @@ Transform:
   m_GameObject: {fileID: 5316404768313542747}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: 0, z: -2}
+  m_LocalPosition: {x: 0.75, y: 0, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -948,7 +1073,7 @@ GameObject:
   - component: {fileID: 5444509145255941574}
   - component: {fileID: 7742737638296623587}
   m_Layer: 0
-  m_Name: Aim Virtual Camera
+  m_Name: Sniper Aim Virtual Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

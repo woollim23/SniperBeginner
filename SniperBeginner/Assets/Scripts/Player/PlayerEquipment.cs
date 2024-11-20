@@ -74,6 +74,7 @@ public class PlayerEquipment : MonoBehaviour
         ObjectPoolManager.Instance.AddProjectilePool(CurrentEquip.weaponData.projectile);
 
         view.UpdateAimPosition(equipment.aimPoint);
+        anim.SetWeaponType(equipment.weaponData.weaponType);
     }
 
     public void Unequip()

@@ -97,7 +97,11 @@ public class PlayerAnimationController : MonoBehaviour
     public void Hide(bool isHide)
     {
         Animator.SetBool(data.HidingParamName, isHide);;
+    }
 
+    public void SetWeaponType(WeaponType type)
+    {
+        Animator.SetInteger(data.WeaponTypeParamHash, (int)type);
     }
 }
 
@@ -114,6 +118,8 @@ public class AnimationData
     // public string crawlParamName = "Crawl";
 
     public string fireParamName = "Fire";
+
+    public string weaponTypeParamName = "WeaponType";
     public string aimingParamName = "Aiming";
     public string aimingModifierParamName = "AimingModifier";
     public string reloadParamName = "Reload";
@@ -135,6 +141,7 @@ public class AnimationData
     // public int CrawlParamHash { get; private set; }
 
     public int FireParamHash { get; private set; }
+    public int WeaponTypeParamHash { get; private set; }
     public int AimingParamHash { get; private set; }
     public int AimingModifierParamHash { get; private set; }
     public int ReloadParamHash { get; private set; }
@@ -157,6 +164,7 @@ public class AnimationData
         // CrawlParamHash =        Animator.StringToHash(crawlParamName);
 
         FireParamHash =         Animator.StringToHash(fireParamName);
+        WeaponTypeParamHash =   Animator.StringToHash(weaponTypeParamName);
         AimingParamHash =       Animator.StringToHash(aimingParamName);
         AimingModifierParamHash = Animator.StringToHash(aimingModifierParamName);
         ReloadParamHash =       Animator.StringToHash(reloadParamName);
