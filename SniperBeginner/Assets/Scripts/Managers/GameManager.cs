@@ -58,12 +58,12 @@ public class GameManager : SingletonDontDestory<GameManager>
             // 플레이어 총알 저장
         }
 
-        DataManager.SaveGameData(GameData);
+        DataManager.Instance.SaveGameData(GameData);
     }
 
     public void LoadGame()
     {
-        GameData = DataManager.LoadGameData();
+        DataManager.Instance.LoadGameData();
         if (GameData == null)
         {
             Player player = CharacterManager.Instance.Player;
