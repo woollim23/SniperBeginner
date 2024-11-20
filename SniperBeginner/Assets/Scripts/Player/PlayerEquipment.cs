@@ -6,14 +6,15 @@ public class PlayerEquipment : MonoBehaviour
 {
     PlayerView view;
     PlayerAnimationController anim;
+
+    public List<WeaponData> allWeapons = new List<WeaponData>(); // 데이터
     [SerializeField] List<GameObject> weaponInstance = new List<GameObject>();
+
     public Weapon CurrentEquip { get; private set; }
     
     // 손 위치
     [SerializeField] Transform rightHand;
 
-    [Header("Temp Place")]
-    [SerializeField] QuickSlotManager quickSlotManager;
 
     bool isReloading = false;
     public event Action<bool> OnReload;
@@ -28,19 +29,16 @@ public class PlayerEquipment : MonoBehaviour
             anim = player.Animation;
         }
         
-        for (int i = 0; i < quickSlotManager.allWeapons.Count; i++)
+        for (int i = 0; i < allWeapons.Count; i++)
         {
-            GameObject instance = Instantiate(quickSlotManager.allWeapons[i].equipPrefab);
+            GameObject instance = Instantiate(allWeapons[i].equipPrefab);
             instance.SetActive(false);
             weaponInstance.Add(instance);
         }
-
-        quickSlotManager.OnWeaponSelected += WeaponSelected;
-        quickSlotManager.HandleQuickSlotSelection(1);
     }
 
 
-    private void WeaponSelected(int idx)
+    public void WeaponSelected(int idx)
     {
         Equip(weaponInstance[idx - 1].GetComponent<Weapon>());
     }

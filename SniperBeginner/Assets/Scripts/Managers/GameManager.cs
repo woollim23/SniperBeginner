@@ -1,27 +1,27 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameManager : SingletonDontDestory<GameManager>
 {
-    [SerializeField] public List<GameObject> enemies;
-
     public GameData GameData { get; private set; }
+    public int Score { get; set; } = 0;
+    public bool isGameOver { get; private set; }
 
     public event Action onChangeScore;
+    
+    public override void Awake() 
+    {
+        base.Awake();
 
-    public bool isGameOver;
-
+        // 게임 내에서만 쓰는 매니저들 Initialize
+        CharacterManager.Instance.Initialize();
+        UIManager.Instance.Initialize();
+        CameraManager.Instance.Initialize();
+    }
 
     private void Start()
     {
-        if (GameData == null)
-        {
-            Debug.Log("GameData가 null입니다. 기본값을 생성합니다.");
-            LoadGame();
-        }
     }
 
     public void GameStartInit()
@@ -37,18 +37,15 @@ public class GameManager : SingletonDontDestory<GameManager>
 
     public void CountDeadEnemy()
     {
-        for (int i = 0; i < enemies.Count; i++)
-        {
-            if (enemies[i].GetComponentInChildren<Enemy>().Health <= 0)
-                enemies.Remove(enemies[i]);
-        }
-
+        Score++;
         onChangeScore?.Invoke();
+
+        if (Score == CharacterManager.Instance.enemies.Count)
+            GameClear();
     }
 
     public void SaveGame()
     {
-        
         Player player = CharacterManager.Instance.Player; // Player 인스턴스 가져오기
         if (player != null)
         {
@@ -60,6 +57,7 @@ public class GameManager : SingletonDontDestory<GameManager>
 
         DataManager.Instance.SaveGameData(GameData);
     }
+
 
     public void LoadGame()
     {
@@ -80,4 +78,5 @@ public class GameManager : SingletonDontDestory<GameManager>
         }
 
     }
+
 }

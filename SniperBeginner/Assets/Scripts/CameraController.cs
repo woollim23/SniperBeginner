@@ -16,7 +16,7 @@ public class CinemachineProjectileSetting
 
 public class CameraController : MonoBehaviour
 {
-    public CinemachineVirtualCamera MainCamera;
+    public CinemachineVirtualCamera mainCamera;
     public CinemachineVirtualCamera aimCamera;
     public CinemachineVirtualCamera bulletCamera;
     [SerializeField] [Range(0.5f, 3f)] float cameraRandomOffset;
@@ -26,13 +26,8 @@ public class CameraController : MonoBehaviour
 
     private void Start()
     {
-        SwitchToIdle();
-    }
-
-
-    private void OnEnable()
-    { 
         SubscribeBulletEvents();
+        SwitchToIdle();
     }
 
     private void SubscribeBulletEvents()
@@ -43,7 +38,7 @@ public class CameraController : MonoBehaviour
 
     public void SwitchToIdle()
     {
-        MainCamera.Priority = 10;
+        mainCamera.Priority = 10;
         aimCamera.Priority = 5;
         bulletCamera.Priority = 0;
 

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
@@ -10,6 +8,17 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private Canvas MainCanvas;
     [SerializeField] private GameObject PauseMenu;
     [SerializeField] private TextMeshProUGUI Score;
+
+
+    [Header("Player UI")]
+    [SerializeField] GameObject prefabPayerCanvas;
+    [SerializeField] UIAmmoInfo prefabAmmoInfo;
+    [SerializeField] UIQuickSlotManager prefabQuickSlot;
+    [SerializeField] UIMiniMapController prefabMiniMap;
+    
+    public UIAmmoInfo AmmoInfo { get; private set; }
+    public UIQuickSlotManager QuickSlot { get; private set; }
+    public UIMiniMapController MiniMap { get; private set; }
 
 
     void Start()
@@ -24,10 +33,19 @@ public class UIManager : Singleton<UIManager>
         SetCursor(true);
     }
 
+    public void Initialize()
+    {
+        GameObject playerCanvas = Instantiate(prefabPayerCanvas);
+
+        AmmoInfo = Instantiate(prefabAmmoInfo, playerCanvas.transform);
+        QuickSlot = Instantiate(prefabQuickSlot, playerCanvas.transform);
+        MiniMap = Instantiate(prefabMiniMap, playerCanvas.transform);
+    }
+
     private void OnChangeScore()
     {
         if(Score != null)
-            Score.text = GameManager.Instance.enemies.Count + " / " + GameManager.Instance.enemies.Capacity;
+            Score.text = GameManager.Instance.Score + " / " + CharacterManager.Instance.enemies.Count;
     }
 
     public void PauseMenuInit()

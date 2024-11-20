@@ -1,3 +1,4 @@
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,9 +11,16 @@ public class PlayerView : MonoBehaviour
     float currentRotateY = 0f;
 
     [SerializeField] Transform cameraContainer;
-    [SerializeField] Transform aimCamera;
+    public CinemachineVirtualCamera mainVirtualCam;
+    public CinemachineVirtualCamera aimVirtualCam;
+
     Transform aimPoint;
 
+    private void Awake() 
+    {
+        CameraManager.Instance.mainVirtualCamera = mainVirtualCam;
+        CameraManager.Instance.aimVirtualCamera = aimVirtualCam;    
+    }
 
     private void Start() 
     {
@@ -33,7 +41,7 @@ public class PlayerView : MonoBehaviour
         Look();
 
         if (shooting.isAiming)
-            aimCamera.position = aimPoint.position;
+            aimVirtualCam.transform.position = aimPoint.position;
     }
 
 

@@ -5,20 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class StartScreenPanel : MonoBehaviour
 {
+    // 새 게임 시작
     public void GameStart()
     {
         SceneManager.LoadSceneAsync("MainGame");
-
-        GameManager.Instance.GameStartInit();
     }
 
-    public void GameLoad()
+    // 로드한 게임 시작
+    public void StartLoadedGame()
     {
-        var a = SceneManager.LoadSceneAsync("MainGame");
-        a.completed += (op) => { GameManager.Instance.LoadGame(); };
+        SceneManager.LoadSceneAsync("MainGame");
     }
-
-
 
 
     public void GameExit()

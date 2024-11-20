@@ -1,24 +1,47 @@
 using UnityEngine;
+using System.Collections.Generic;
+using System;
 
 public class CharacterManager : Singleton<CharacterManager>
 {
     [SerializeField] Player playerPrefab;
+    [SerializeField] public List<Enemy> enemies;
     public Player Player { get; set; }
 
-    [SerializeField] Transform[] SpawnPoints;
     [SerializeField] Enemy enemyPrefab;
+    [SerializeField] Transform[] SpawnPoints;
 
-    private void Start() 
+    public void Initialize()
     {
-        if(!Player)
-            Instantiate(playerPrefab);
+        Player = Instantiate(playerPrefab);
+        Player.Initialize(null); // TODO : 로드한 데이터 받아오기
+
+        InstaiateEnemy();
     }
 
     public void InstaiateEnemy()
     {
-        Enemy e = Instantiate(enemyPrefab);
-        // e.Agent.Warp(Position);
-        
+        if (false)
+        {
+            // TODO : ????? ??????? ???? ?? ???? ??? ?????
+            // ??????????? ????? ??????? ??? ????
+            for (int i = 0; i < SpawnPoints.Length; i++)
+            {
+                Enemy newEnemy = Instantiate(enemyPrefab, SpawnPoints[i].position, SpawnPoints[i].rotation);
+
+                // ???? ?????? ????? ???????? ????
+                if (newEnemy.Health <= 0)
+                    GameManager.Instance.Score++;
+            }
+        }
+        else
+        {
+            for (int i = 0; i < SpawnPoints.Length; i++)
+            {
+                Enemy newEnemy = Instantiate(enemyPrefab, SpawnPoints[i].position, SpawnPoints[i].rotation);
+                enemies.Add(newEnemy);
+            }
+        }
     }
 
 }
