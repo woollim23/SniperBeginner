@@ -201,6 +201,7 @@ GameObject:
   - component: {fileID: 7774858635232708404}
   - component: {fileID: 5357915877303090477}
   - component: {fileID: 2610372579832276774}
+  - component: {fileID: 896908355302070727}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -237,8 +238,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea2c908556d3e6d44841c3ccc525a57d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemies: []
-  isGameOver: 0
 --- !u!114 &5357915877303090477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -253,6 +252,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 4949356535031780303, guid: fefcefeb1770cfc4996c456672a0a440,
     type: 3}
+  enemies: []
   enemyPrefab: {fileID: 3966694913851334202, guid: 2f4a990f4a7037d4b96919df9934af66,
     type: 3}
   SpawnPoints: []
@@ -272,6 +272,18 @@ MonoBehaviour:
   mainVirtualCamera: {fileID: 0}
   aimVirtualCamera: {fileID: 0}
   bulletVirtualCamera: {fileID: 3637133599438168448}
+--- !u!114 &896908355302070727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7693077004930876175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5ccccf54cb7e27409e25d5e2adfb11f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3347934349689435312
 PrefabInstance:
   m_ObjectHideFlags: 0
