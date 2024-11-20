@@ -56,7 +56,6 @@ public class Player : MonoBehaviour
 
     public void Initialize(PlayerData data)
     {
-        Debug.Log("플레이어 정보 초기화");
         if (data != null)
         {
             // 위치 및 체력 복구

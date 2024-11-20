@@ -32,11 +32,11 @@ RectTransform:
   - {fileID: 7875263201630888265}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_SizeDelta: {x: 400, y: 400}
+  m_Pivot: {x: 1, y: 1}
 --- !u!114 &6992059242411987594
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51,10 +51,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerIcon: {fileID: 8117339809497118690}
   mapImage: {fileID: 7875263201630888265}
-  player: {fileID: 0}
-  mapSize: {x: 100, y: 100}
   enemyIconPrefab: {fileID: 8655627687480330405, guid: 43924117709753a43a2800431b86c343,
     type: 3}
+  mapSize: {x: 100, y: 100}
 --- !u!1 &6838010564351005546
 GameObject:
   m_ObjectHideFlags: 0
@@ -163,11 +162,11 @@ RectTransform:
   - {fileID: 8117339809497118690}
   m_Father: {fileID: 6609203336579782291}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 400, y: 400}
-  m_Pivot: {x: 1, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1687041574884838666
 CanvasRenderer:
   m_ObjectHideFlags: 0

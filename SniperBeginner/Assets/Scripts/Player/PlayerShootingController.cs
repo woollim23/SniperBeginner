@@ -24,7 +24,7 @@ public class PlayerShootingController : MonoBehaviour
     public event Action<float> OnControlBreath;
     public event Action<bool> OnAim;
     public event Action<Vector3> OnGunFire;
-    public event Action<CinemachineProjectileSetting> OnSnipeEnemy;
+    public event Action<Transform, Transform, Vector3, Action> OnSnipe;
 
 
     private void Start() 
@@ -70,7 +70,7 @@ public class PlayerShootingController : MonoBehaviour
         OnAim = null;
         OnControlBreath = null;
         OnGunFire = null;
-        OnSnipeEnemy = null;
+        OnSnipe = null;
     }
 
 
@@ -124,8 +124,6 @@ public class PlayerShootingController : MonoBehaviour
 
         lastFireTime = Time.time;
 
-        ParticleManager.Instance.SpawnMuzzleFlash(weapon.firePoint);
-
         // 겉으로 표시만 하는 용도
         Projectile bullet = ObjectPoolManager.Instance.Get(weapon.weaponData.projectile.data.type);
 
@@ -133,38 +131,45 @@ public class PlayerShootingController : MonoBehaviour
         if (isAiming && CheckTarget(out Transform target))
         {
             AimCanceled();
-            bullet.InitializeForCinemachine(weapon.firePoint.position, weapon.firePoint.forward);
-            OnSnipeEnemy?.Invoke(new CinemachineProjectileSetting()
-            {
-                projectile = bullet.transform,
-                destination = target,
-                startPosition = weapon.firePoint.position,
-                onEnd = ()=>
+            
+            bullet.InitializeForCinemachine
+            (
+                weapon.firePoint.position,
+                weapon.firePoint.forward
+            );
+
+            OnSnipe?.Invoke(
+                bullet.transform,
+                target,
+                weapon.firePoint.position,
+                ()=>
                 {
-                    if(target.TryGetComponent(out IDamagable damagable))
+                    if (target.TryGetComponent(out IDamagable damagable))
                         damagable.TakeDamage(weapon.weaponData.damage); 
 
                     bullet.Release();
                 }
-            });
+            );
         }
         else
         {
-            // 데미지 : 레이 방식으로 변경
-            Ray ray = GetRayFromCamera(0f);
-            // Ray ray = new Ray(weapon.firePoint.position, weapon.firePoint.forward);
-            if (Physics.Raycast(ray, out RaycastHit hitInfo, weapon.weaponData.range, aimLayerMask))
-            {
-                if (hitInfo.collider.TryGetComponent(out IDamagable damagable))
-                {
-                    damagable.TakeDamage(weapon.weaponData.damage);
-                }
+            bullet.Fire(weapon.firePoint.position, weapon.firePoint.forward, weapon.weaponData.damage);
+            // 다시 투사체 방식으로 변경
+            // Ray ray = GetRayFromCamera(0f);
+            // if (Physics.Raycast(ray, out RaycastHit hitInfo, weapon.weaponData.range, aimLayerMask))
+            // {
+            //     if (hitInfo.collider.TryGetComponent(out IDamagable damagable))
+            //     {
+            //         damagable.TakeDamage(weapon.weaponData.damage);
+            //     }
 
-                bullet.Fire(weapon.firePoint.position, weapon.firePoint.forward);
-            }
+            //     bullet.Fire(weapon.firePoint.position, weapon.firePoint.forward, weapon.weaponData.damage);
+            // }
         }
         
         anim.Fire();
+
+        ParticleManager.Instance.SpawnMuzzleFlash(weapon.firePoint);
         SoundManager.Instance.PlaySound(weapon.weaponData.fireSound);
 
         OnGunFire?.Invoke(weapon.firePoint.position);
@@ -188,6 +193,7 @@ public class PlayerShootingController : MonoBehaviour
         Ray ray = GetRayFromCamera(0f);
         if (Physics.Raycast(ray, out RaycastHit hit , equip.CurrentEquip.weaponData.range, aimLayerMask))
         {
+            Debug.Log($"hit : {hit.collider.name}");
             // 부위별 총격에서 데미지 확인 각각의
             if (hit.collider.TryGetComponent(out ISnipable snipable))
             {
@@ -215,17 +221,14 @@ public class PlayerShootingController : MonoBehaviour
         anim.AimingModifier(1f);
     }
 
-
-    // TODO : Equip에 있어도 될거 같음
     void Reload(bool isStart)
     {
+        // 재장전 시, 조준 해제
         isReloading = isStart;
-        if(isStart)
+        if (isStart)
         {
             // aim 강제 해제
             AimCanceled();
-            // 모션 재생
-            anim.Reload();
         }
     }
 

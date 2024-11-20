@@ -5,14 +5,6 @@ using UnityEngine;
 
 using Random = UnityEngine.Random;
 
-public class CinemachineProjectileSetting
-{
-    public Transform projectile;
-    public Transform destination;
-    public Vector3 startPosition;
-
-    public Action onEnd;
-}
 
 public class CameraController : MonoBehaviour
 {
@@ -32,7 +24,7 @@ public class CameraController : MonoBehaviour
 
     private void SubscribeBulletEvents()
     {
-        CharacterManager.Instance.Player.Shooting.OnSnipeEnemy += SwitchToBullet;
+        CharacterManager.Instance.Player.Shooting.OnSnipe += SwitchToBullet;
     }
 
 
@@ -46,7 +38,7 @@ public class CameraController : MonoBehaviour
     }
 
 
-    public void SwitchToBullet(CinemachineProjectileSetting setting)
+    public void SwitchToBullet(Transform projectile, Transform destination, Vector3 startPosition, Action onEnd)
     {
         var orbit = bulletCamera.GetCinemachineComponent<CinemachineOrbitalTransposer>();
 
@@ -57,12 +49,12 @@ public class CameraController : MonoBehaviour
         }
 
         bulletCamera.Priority = 15;
-        bulletCamera.Follow = setting.projectile;
-        bulletCamera.LookAt =  setting.projectile;//setting.destination;
+        bulletCamera.Follow = projectile;
+        bulletCamera.LookAt = projectile;//setting.destination;
 
         ApplySlowMotion();
 
-        StartCoroutine(HandleBulletCamera(setting));
+        StartCoroutine(HandleBulletCamera(projectile, destination, startPosition, onEnd));
     }
 
     private void ApplySlowMotion()
@@ -78,18 +70,18 @@ public class CameraController : MonoBehaviour
     }
 
 
-    private IEnumerator HandleBulletCamera(CinemachineProjectileSetting setting)
+    private IEnumerator HandleBulletCamera(Transform projectile, Transform destination, Vector3 startPosition, Action onEnd)
     {
-        yield return StartCoroutine(MoveBullet(setting.projectile, setting.startPosition, setting.destination.position));
-        setting.onEnd?.Invoke();
+        yield return StartCoroutine(MoveBullet(projectile, startPosition, destination));
+        onEnd?.Invoke();
 
         ResetTimeScale(); 
         SwitchToIdle();
     }
 
-    private IEnumerator MoveBullet(Transform bullet, Vector3 firePoint, Vector3 targetPosition)
+    private IEnumerator MoveBullet(Transform bullet, Vector3 firePoint, Transform destination)
     {
-        float distance = Vector3.Distance(firePoint, targetPosition); 
+        float distance = Vector3.Distance(firePoint, destination.position); 
         float travelTime = distance / 50f;
         float elapsedTime = 0f;
 
@@ -98,11 +90,11 @@ public class CameraController : MonoBehaviour
         while (elapsedTime < travelTime)
         {
             elapsedTime += Time.deltaTime;
-            bullet.position = Vector3.Lerp(firePoint, targetPosition, elapsedTime / travelTime); 
+            bullet.position = Vector3.Lerp(firePoint, destination.position, elapsedTime / travelTime); 
             yield return null;
         }
 
-        bullet.position = targetPosition;
+        bullet.position = destination.position;
     }
 
 }
