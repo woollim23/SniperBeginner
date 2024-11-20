@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class DataManager 
 {
-    private static string gameDataPath => Application.dataPath + "/GameData.json"; // TODO:: ¹®Á¦ ¾øÀ¸¸é Application.persistentDataPath·Î ¹Ù²Ù±â
+    private static string gameDataPath => Application.dataPath + "/GameData.json"; // TODO:: ë¬¸ì œ ì—†ìœ¼ë©´ Application.persistentDataPathë¡œ ë°”ê¾¸ê¸°
 
     public static void SaveGameData(GameData data)
     {
@@ -15,14 +15,14 @@ public class DataManager
 
     public static GameData LoadGameData()
     {
-        if (!File.Exists(gameDataPath)) // ÀúÀå ÆÄÀÏ È®ÀÎ
+        if (!File.Exists(gameDataPath)) // ì €ì¥ íŒŒì¼ í™•ì¸
         {
-            Debug.Log("ÀúÀå ÆÄÀÏ ¾øÀ½");
-            return new GameData // ±âº» ¼¼ÆÃ ¹İÈ¯
+            Debug.Log("ì €ì¥ íŒŒì¼ ì—†ìŒ");
+            return new GameData // ê¸°ë³¸ ì„¸íŒ… ë°˜í™˜
             {
                 playerData = new PlayerData(),
-                // ¿¡³Ê¹Ì µ¥ÀÌÅÍ
-                // ÀÎº¥Åä¸® µ¥ÀÌÅÍ
+                // ì—ë„ˆë¯¸ ë°ì´í„°
+                // ì¸ë²¤í† ë¦¬ ë°ì´í„°
             };
         }
 

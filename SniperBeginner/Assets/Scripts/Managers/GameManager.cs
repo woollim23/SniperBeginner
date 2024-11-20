@@ -71,11 +71,13 @@ public class GameManager : SingletonDontDestory<GameManager>
                 playerData = new PlayerData()
             };
         }
-        Player player = CharacterManager.Instance.Player;
-        if (player != null)
-        {
-            player.transform.position = GameData.playerData.Position;
-            player.Condition.Health = GameData.playerData.Health;
-        }
+
+        CharacterManager.Instance.Player.Initialize(GameData.playerData);
+
+        // if (player != null)
+        // {
+        //     player.transform.position = GameData.playerData.Position;
+        //     player.Condition.Health = GameData.playerData.Health;
+        // }
     }
 }

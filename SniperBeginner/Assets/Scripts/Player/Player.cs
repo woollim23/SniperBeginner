@@ -44,6 +44,7 @@ public class Player : MonoBehaviour
 
     private void Start() 
     {
+        return;
         // 시작은 일반 - 서 있는 상태
         StateMachine.ChangeState(StateMachine.StandState);
 
@@ -55,7 +56,6 @@ public class Player : MonoBehaviour
             transform.position = data.Position;
             Condition.Health = data.Health;           
         }
-
     }
 
     private void Update() 
@@ -66,6 +66,21 @@ public class Player : MonoBehaviour
     private void FixedUpdate() 
     {
         StateMachine.FixedUpdate();
+    }
+
+
+    public void Initialize(PlayerData data)
+    {
+        Debug.Log("플레이어 정보 초기화");
+        if (data != null)
+        {
+            // 위치 및 체력 복구
+            transform.position = data.Position;
+            Condition.Health = data.Health;           
+        }
+
+        // 시작은 일반 - 서 있는 상태
+        StateMachine.ChangeState(StateMachine.StandState);
     }
 }
 
