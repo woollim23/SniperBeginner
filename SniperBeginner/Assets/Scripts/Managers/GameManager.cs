@@ -5,15 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : SingletonDontDestory<GameManager>
 {
-    private GameObject pausePanel;
-
-    public int deadEnemyCnt;
+    [SerializeField] private List<GameObject> enemies;
+    
     public bool isGameOver;
 
     public void GameStartInit()
     {
         // 게임 시작 초기화 함수
-        deadEnemyCnt = 0;
         isGameOver = false;
     }
 

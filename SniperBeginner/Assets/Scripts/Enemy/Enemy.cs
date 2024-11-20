@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -67,17 +68,35 @@ public class Enemy : MonoBehaviour
 
     public void OnTakeDamage(float damage)
     {
-        Animator.SetTrigger("Hit");
-
         health = Mathf.Max(health - damage, 0);
         if (health == 0)
+        {
             Die();
+            return;
+        }
+
+        Debug.Log("Hit");
+        Animator.SetTrigger("Hit");
+        Agent.isStopped = true;
+        StartCoroutine(WaitForHitAnimation());
+    }
+
+    private IEnumerator WaitForHitAnimation()
+    {
+        AnimatorStateInfo stateInfo = Animator.GetCurrentAnimatorStateInfo(0);
+        while (stateInfo.IsName("Hit") && stateInfo.normalizedTime < 1f)
+        {
+            yield return null;
+            stateInfo = Animator.GetCurrentAnimatorStateInfo(0);
+        }
+
+        Agent.isStopped = false;
     }
 
     public void Die()
     {
         GiveItem();
-        Animator.avatar = null;
+        Animator.enabled = false;
         Agent.isStopped = true;
         GameManager.Instance.CountDeadEnemy();
         Invoke("DestroyEnemy", 5);
