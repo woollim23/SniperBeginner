@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 9019485309175406472}
   - component: {fileID: 5950650909031795151}
   - component: {fileID: 8037084056905222776}
-  m_Layer: 0
+  - component: {fileID: -2034929729354311503}
+  m_Layer: 3
   m_Name: HealItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,3 +107,15 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -1948423400586059757, guid: 687f9559644557d4ba5b955087ff2032, type: 3}
+--- !u!114 &-2034929729354311503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7815877692974063603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfd8b50e986a8094d9583807650fff87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
