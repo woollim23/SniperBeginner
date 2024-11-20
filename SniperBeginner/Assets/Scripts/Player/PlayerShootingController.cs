@@ -1,5 +1,4 @@
 using System;
-using Unity.Mathematics;
 using UnityEngine;
 
 public class PlayerShootingController : MonoBehaviour
@@ -25,7 +24,7 @@ public class PlayerShootingController : MonoBehaviour
     public event Action<float> OnControlBreath;
     public event Action<bool> OnAim;
     public event Action<Vector3> OnGunFire;
-    public event Action<Transform, Vector3, Transform> OnKilledEnemy;
+    public event Action<CinemachineBullet> OnSnipeEnemy;
 
 
     private void Start() 
@@ -116,41 +115,42 @@ public class PlayerShootingController : MonoBehaviour
             return;
 
         lastFireTime = Time.time;
+
+        // 겉으로 표시만 하는 용도
+        Projectile bullet = ObjectPoolManager.Instance.Get(weapon.weaponData.projectile.data.type);
+
+        // 사전 검사 - 조준 중에 이번 총격으로 사망했는지?
+        if (isAiming && CheckTarget(out Transform target))
+        {
+            OnSnipeEnemy?.Invoke(new CinemachineBullet(){
+                projectile = bullet.transform,
+                destination = target,
+                startPosition = weapon.firePoint.position,
+                OnHit = ()=>{
+                    if(target.TryGetComponent(out IDamagable damagable))
+                        damagable.TakeDamage(weapon.weaponData.damage); 
+                }
+            });
+        }
+        else
+        {
+            // 데미지 : 레이 방식으로 변경
+            Ray ray = mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+            // Ray ray = new Ray(weapon.firePoint.position, weapon.firePoint.forward);
+            if (Physics.Raycast(ray, out RaycastHit hitInfo, weapon.weaponData.range, aimLayerMask))
+            {
+                if (hitInfo.collider.TryGetComponent(out IDamagable damagable))
+                {
+                    damagable.TakeDamage(weapon.weaponData.damage);
+                }
+
+                bullet.Fire(weapon.firePoint.position, weapon.firePoint.forward);
+            }
+        }
         
         anim.Fire();
         SoundManager.Instance.PlaySound(weapon.weaponData.fireSound);
 
-        // 겉으로 표시만 하는 용도
-        Projectile bullet = ObjectPoolManager.Instance.Get(weapon.weaponData.projectile.data.type);
-        bullet.Fire(weapon.firePoint.position, weapon.firePoint.forward);
-
-        // 레이 방식으로 변경
-        // mainCamera.ScreenPointToRay(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, 0f));
-        Ray ray = new Ray(weapon.firePoint.position, weapon.firePoint.forward);
-        if (Physics.Raycast(ray, out RaycastHit hitInfo, weapon.weaponData.range, aimLayerMask))
-        {
-            if (hitInfo.collider.TryGetComponent(out IDamagable damagable))
-            {
-                damagable.TakeDamage(weapon.weaponData.damage);
-                Debug.Log($"Ray hit : {hitInfo.collider.name}");
-            }
-        }
-
-        return;
-        
-
-        // 사전 검사 - 이번 총격으로 사망했는지?
-        if (CheckTarget(out Transform target))
-        {
-            // 검사에서 사망했다 -> 시네머신 : 시네머신에서 죽일 것
-            Debug.Log("시네머신 시작");
-            OnKilledEnemy?.Invoke(bullet.transform, equip.CurrentEquip.firePoint.position, target);
-        }
-        else
-        {
-            // 검사에서 사망하지 않았다 -> 아래 코드 : 물리적으로 공격
-            bullet.Fire(weapon.firePoint.position, weapon.firePoint.forward);
-        }
         OnGunFire?.Invoke(transform.position);
     }
 

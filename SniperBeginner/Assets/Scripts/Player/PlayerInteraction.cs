@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class PlayerInteraction : MonoBehaviour
 {
-    [SerializeField] LayerMask layerMask = 1 << 3;
     List<IInteractable> interactables = new List<IInteractable>();
 
     public event Action<InteractionData> OnDetected;
