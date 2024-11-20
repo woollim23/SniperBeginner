@@ -11,11 +11,12 @@ public class EnemyWanderState : EnemyBaseState
     public override void Enter()
     {
         //Debug.Log("Wander");
-
-        stateMachine.MovementSpeedModifier = groundData.WalkSpeedModifier;
+        
         base.Enter();
         StartAnimation(stateMachine.Enemy.AnimationData.GroundParameterHash);
         StartAnimation(stateMachine.Enemy.AnimationData.WalkParameterHash);
+
+        stateMachine.MovementSpeedModifier = groundData.WalkSpeedModifier;
 
     }
 
@@ -35,7 +36,7 @@ public class EnemyWanderState : EnemyBaseState
             stateMachine.ChangeState(stateMachine.AttackState);
             return;
         }
-        else if(stateMachine.Enemy.agent.velocity.magnitude <= 0.1f)
+        else if(stateMachine.Enemy.Agent.velocity.magnitude <= 0.1f)
         {
             stateMachine.ChangeState(stateMachine.IdleState);
             return;

@@ -8,9 +8,9 @@ public class Enemy : MonoBehaviour
     [field: SerializeField] private float health;
     public float Health {get => health;}
 
-    public NavMeshAgent agent;
-    public float minWanderDistance;
-    public float maxWanderDistance;
+    public NavMeshAgent Agent { get; private set; }
+    public float MinWanderDistance { get; private set; }
+    public float MaxWanderDistance { get; private set; }
     [field: SerializeField] public EnemySO Data { get; private set; }
 
     [field: Header("Animations")]
@@ -33,9 +33,9 @@ public class Enemy : MonoBehaviour
 
     private void Awake()
     {
-        minWanderDistance = 2;
-        maxWanderDistance = 5;
-        agent = GetComponent<NavMeshAgent>();
+        MinWanderDistance = 2;
+        MaxWanderDistance = 5;
+        Agent = GetComponent<NavMeshAgent>();
         AnimationData.Initialize();
 
         Rigidbody = GetComponent<Rigidbody>();
@@ -78,7 +78,7 @@ public class Enemy : MonoBehaviour
     {
         GiveItem();
         Animator.avatar = null;
-
+        Agent.isStopped = true;
         GameManager.Instance.CountDeadEnemy();
         Invoke("DestroyEnemy", 5);
     }

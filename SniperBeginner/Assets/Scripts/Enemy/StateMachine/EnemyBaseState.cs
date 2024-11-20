@@ -37,18 +37,20 @@ public class EnemyBaseState : IState
 
     private IEnumerator DelayedMove()
     {
-        yield return new WaitForSeconds(Random.Range(2f, 5f));
+        yield return new WaitForSeconds(Random.Range(4f, 7f));
         Move();
         moveCoroutine = null;
     }
 
     private void Move()
     {
-        
+        // MovementSpeedModifier에 따라 속력 변경
+        // 체력으로 죽음 확인 후, 움직임 결정
+        stateMachine.Enemy.Agent.speed = stateMachine.BaseSpeed * stateMachine.MovementSpeedModifier * (stateMachine.Enemy.Health <= 0 ? 0 : 1);
+
         Rotate(GetWanderLocation());
         
-        stateMachine.Enemy.agent.SetDestination(GetWanderLocation());
-        stateMachine.Enemy.agent.isStopped = false;
+        stateMachine.Enemy.Agent.SetDestination(GetWanderLocation());
     }
 
     protected void ForceMove()
@@ -115,7 +117,7 @@ public class EnemyBaseState : IState
         // SamplePosition(Vector3 sourcePosition, out NavMeshHit hit, float maxDistance, int areaMask)
         // onUnitSphere : 반지름이 1인 구 (이정도 영역 범위)
         // NavMesh.AllAreas : 모든 영역 
-        NavMesh.SamplePosition(stateMachine.Enemy.transform.position + (Random.onUnitSphere * Random.Range(stateMachine.Enemy.minWanderDistance, stateMachine.Enemy.maxWanderDistance)), out hit, stateMachine.Enemy.maxWanderDistance, NavMesh.AllAreas);
+        NavMesh.SamplePosition(stateMachine.Enemy.transform.position + (Random.onUnitSphere * Random.Range(stateMachine.Enemy.MinWanderDistance, stateMachine.Enemy.MaxWanderDistance)), out hit, stateMachine.Enemy.MaxWanderDistance, NavMesh.AllAreas);
 
         
 
