@@ -11,12 +11,6 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private GameObject PauseMenu;
     [SerializeField] private TextMeshProUGUI Score;
 
-    public GameObject CurrentScreen { get; private set; }
-
-    private void Awake()
-    {
-        
-    }
 
     void Start()
     {
