@@ -1,22 +1,15 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 public class CharacterManager : Singleton<CharacterManager>
 {
     [SerializeField] Player playerPrefab;
-    [SerializeField] public List<GameObject> enemies;
+    [SerializeField] public List<Enemy> enemies;
     public Player Player { get; set; }
 
     [SerializeField] Enemy enemyPrefab;
     [SerializeField] Transform[] SpawnPoints;
-
-    private void Start() 
-    {
-        if(!Player)
-            Instantiate(playerPrefab);
-
-        InstaiateEnemy();
-    }
 
     public void Initialize()
     {
@@ -46,7 +39,7 @@ public class CharacterManager : Singleton<CharacterManager>
             for (int i = 0; i < SpawnPoints.Length; i++)
             {
                 Enemy newEnemy = Instantiate(enemyPrefab, SpawnPoints[i].position, SpawnPoints[i].rotation);
-                enemies.Add(newEnemy.gameObject);
+                enemies.Add(newEnemy);
             }
         }
     }
