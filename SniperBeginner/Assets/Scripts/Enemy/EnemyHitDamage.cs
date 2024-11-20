@@ -12,7 +12,7 @@ public class EnemyHitDamage : MonoBehaviour, IDamagable, ISnipable
 
     public void TakeDamage(float damage)
     {
-        enemy.onTakeDamage(damage * damageModifier);
+        enemy.OnTakeDamage(damage * damageModifier);
     }
 
     public bool IsSnipable(float damage)
