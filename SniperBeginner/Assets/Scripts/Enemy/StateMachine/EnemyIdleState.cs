@@ -11,7 +11,7 @@ public class EnemyIdleState : EnemyBaseState
 
     public override void Enter()
     {
-        Debug.Log("Idle");
+        //Debug.Log("Idle");
 
         base.Enter();
         StartAnimation(stateMachine.Enemy.AnimationData.GroundParameterHash);

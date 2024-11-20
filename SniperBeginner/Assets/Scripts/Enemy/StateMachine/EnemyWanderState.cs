@@ -10,7 +10,7 @@ public class EnemyWanderState : EnemyBaseState
 
     public override void Enter()
     {
-        Debug.Log("Wander");
+        //Debug.Log("Wander");
         
         base.Enter();
         StartAnimation(stateMachine.Enemy.AnimationData.GroundParameterHash);

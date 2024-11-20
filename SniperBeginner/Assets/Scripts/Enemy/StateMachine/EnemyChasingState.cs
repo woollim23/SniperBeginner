@@ -10,7 +10,7 @@ public class EnemyChasingState : EnemyBaseState
 
     public override void Enter()
     {
-        Debug.Log("Chasing");
+        //Debug.Log("Chasing");
 
         base.Enter();
         StartAnimation(stateMachine.Enemy.AnimationData.GroundParameterHash);
