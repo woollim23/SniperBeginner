@@ -9,7 +9,6 @@ public class EnemyAttackState : EnemyBaseState
     }
     public override void Enter()
     {
-        Debug.Log("Attack");
         base.Enter();
         StartAnimation(stateMachine.Enemy.AnimationData.AttackParameterHash);
         StartAnimation(stateMachine.Enemy.AnimationData.FireParameterHash);
@@ -17,6 +16,7 @@ public class EnemyAttackState : EnemyBaseState
         stateMachine.Enemy.Agent.isStopped = true;
 
         stateMachine.Enemy.OnEnemyGunFire?.Invoke();
+
         stateMachine.Enemy.StartCoroutine(WaitForAnimationToEnd());
     }
 
@@ -27,14 +27,14 @@ public class EnemyAttackState : EnemyBaseState
         StopAnimation(stateMachine.Enemy.AnimationData.FireParameterHash);
 
         stateMachine.Enemy.Agent.isStopped = false;
+        stateMachine.LastAttackTime = Time.time;
     }
 
-    private IEnumerator WaitForAnimationToEnd()
+    public IEnumerator WaitForAnimationToEnd()
     {
         float animationLength = stateMachine.Enemy.Animator.GetCurrentAnimatorStateInfo(0).length;
 
         yield return new WaitForSeconds(animationLength);
-
-        stateMachine.ChangeState(stateMachine.AimingState); // 조준 상태로 변경
+        stateMachine.ChangeState(stateMachine.AimingState);
     }
 }

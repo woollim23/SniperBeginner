@@ -45,8 +45,6 @@ public class EnemyBaseState : IState
         moveCoroutine = null;
     }
 
-
-
     private void GetWanderLocation()
     {
         NavMeshHit hit;

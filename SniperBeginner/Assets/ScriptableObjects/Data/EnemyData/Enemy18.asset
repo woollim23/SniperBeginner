@@ -16,6 +16,7 @@ MonoBehaviour:
   Damage: 10
   <PlayerChasingRange>k__BackingField: 9
   <AttackRange>k__BackingField: 5
+  <RateAttackTime>k__BackingField: 3
   <Force>k__BackingField: 1
   <Dealing_Start_TransitionTime>k__BackingField: 0.25
   <Dealing_End_TransitionTime>k__BackingField: 0.35

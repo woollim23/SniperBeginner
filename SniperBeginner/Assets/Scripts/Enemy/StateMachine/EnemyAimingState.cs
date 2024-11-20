@@ -10,9 +10,9 @@ public class EnemyAimingState : EnemyBaseState
 
     public override void Enter()
     {
-        Debug.Log("aiming");
         base.Enter();
         StartAnimation(stateMachine.Enemy.AnimationData.AttackParameterHash);
+        StartAnimation(stateMachine.Enemy.AnimationData.AimingParameterName);
 
         stateMachine.Enemy.Agent.isStopped = true;
     }
@@ -21,7 +21,7 @@ public class EnemyAimingState : EnemyBaseState
     {
         base.Exit();
         StopAnimation(stateMachine.Enemy.AnimationData.AttackParameterHash);
-
+        StopAnimation(stateMachine.Enemy.AnimationData.AimingParameterName);
         stateMachine.Enemy.Agent.isStopped = false;
     }
 
@@ -29,6 +29,7 @@ public class EnemyAimingState : EnemyBaseState
     {
         if(stateMachine.Enemy.Health > 0)
             Rotate(CharacterManager.Instance.Player.transform.position - stateMachine.Enemy.transform.position);
+        
 
         if (!IsInAttackRange()) // 플레이어가 범위 밖이면
         {
@@ -42,7 +43,7 @@ public class EnemyAimingState : EnemyBaseState
                 stateMachine.ChangeState(stateMachine.IdleState); // 아이들 상태로 변경
             }
         }
-        else
+        else if(stateMachine.RateAttackTime <= Time.time - stateMachine.LastAttackTime)
         {
             stateMachine.ChangeState(stateMachine.AttackState); // 공격 상태
         }
