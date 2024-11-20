@@ -21,15 +21,11 @@ public class PlayerView : MonoBehaviour
             setting = player.setting;
             shooting = player.Shooting;
             
-            // 생애주기를 함께할 것이라 구독 취소는 구현 안함
             player.Actions.Look.performed += OnLook;
             player.Actions.Look.canceled += OnLook;
         }
 
         currentRotateY = cameraContainer.transform.localEulerAngles.y;
-
-        // 임시
-        SetCursor(true);
     }
 
     private void LateUpdate() 
@@ -59,12 +55,5 @@ public class PlayerView : MonoBehaviour
     public void UpdateAimPosition(Transform newAimPoint)
     {
         aimPoint = newAimPoint ? newAimPoint : null;
-    }
-
-
-    // 임시
-    void SetCursor(bool isLocked)
-    {
-        Cursor.lockState = isLocked ? CursorLockMode.Locked : CursorLockMode.None;
     }
 }

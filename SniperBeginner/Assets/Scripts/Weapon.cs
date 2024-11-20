@@ -12,6 +12,7 @@ public class Weapon : MonoBehaviour
     [Header("Zoom Settings")]
     public Transform firePoint;
     public Transform aimPoint;
+    public Transform lHandPoint;
 
     public event Action OnAmmoChanged;
 

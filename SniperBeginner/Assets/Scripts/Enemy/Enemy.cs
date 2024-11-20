@@ -2,10 +2,12 @@ using System;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour, ISnipable
+public class Enemy : MonoBehaviour
 {
     [field: Header("Enemy Data")]
     [field: SerializeField] private float health;
+    public float Health {get => health;}
+
     public NavMeshAgent agent;
     public float minWanderDistance;
     public float maxWanderDistance;
@@ -56,7 +58,6 @@ public class Enemy : MonoBehaviour, ISnipable
     private void Update()
     {
         stateMachine.Update();
-        if (health <= 0) Die();
     }
 
     public void EnemyDatalInit()
@@ -79,7 +80,6 @@ public class Enemy : MonoBehaviour, ISnipable
         Animator.avatar = null;
 
         GameManager.Instance.CountDeadEnemy();
-        // TODO : 5ÃÊµÚ ¿¡³Ê¹Ì ÆÄ±«
         Invoke("DestroyEnemy", 5);
     }
 
@@ -93,9 +93,4 @@ public class Enemy : MonoBehaviour, ISnipable
         Destroy(gameObject);
     }
 
-    public float CheckRemainHealth()
-    {
-        return 1f; // ?„ì‹œë¡?1f ë°˜í™˜
-        // ?ëž˜???„ìž¬ ?¨ì? ì²´ë ¥??ì¤˜ì•¼??
-    }
 }

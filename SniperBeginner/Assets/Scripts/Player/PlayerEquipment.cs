@@ -4,7 +4,8 @@ using UnityEngine;
 public class PlayerEquipment : MonoBehaviour
 {
     PlayerView view;
-    [field:SerializeField] public Weapon CurrentEquip { get; private set; }
+    PlayerAnimationController anim;
+    public Weapon CurrentEquip { get; private set; }
     
     // 손 위치
     [SerializeField] Transform rightHand;
@@ -23,6 +24,7 @@ public class PlayerEquipment : MonoBehaviour
         if(TryGetComponent(out Player player))
         {
             view = player.View;
+            anim = player.Animation;
         }
 
         quickSlotManager.OnWeaponSelected += WeaponSelected;
@@ -37,13 +39,15 @@ public class PlayerEquipment : MonoBehaviour
         Equip(weapon.GetComponent<Weapon>());
     }
 
-    private void FixedUpdate() 
+    public void ModifyWeaponDirection(Vector3 targetPoint)
     {
-        if (isReloading) return;
-
+        // 방향 잡아주기
         if (CurrentEquip != null)
         {
-            CurrentEquip.transform.rotation = Quaternion.LookRotation(leftHand.position - rightHand.position, Vector3.up);
+            CurrentEquip.transform.rotation = Quaternion.LookRotation(targetPoint - rightHand.position, Vector3.up);
+            
+            // 무기 방향 잡을 때 왼손 위치도 보정
+            anim.ModifyLeftHandIK(CurrentEquip.lHandPoint.position);
         }
     }
 
@@ -117,27 +121,27 @@ public class PlayerEquipment : MonoBehaviour
     }
 
     // 뼈에서 손 위치만 찾는 메서드
-    [ContextMenu("Find Hand")]
-    public void FindHand()
-    {
-        Animator anim = GetComponent<Animator>();
+    // [ContextMenu("Find Hand")]
+    // public void FindHand()
+    // {
+    //     Animator anim = GetComponent<Animator>();
 
-        if (leftHand == null)
-            leftHand = new GameObject("Left Hand").transform;
+    //     if (leftHand == null)
+    //         leftHand = new GameObject("Left Hand").transform;
         
-        if (rightHand == null)
-            rightHand = new GameObject("Right Hand").transform;
+    //     if (rightHand == null)
+    //         rightHand = new GameObject("Right Hand").transform;
 
 
-        leftHand.SetParent(anim.GetBoneTransform(HumanBodyBones.LeftHand));
-        rightHand.SetParent(anim.GetBoneTransform(HumanBodyBones.RightHand));
+    //     leftHand.SetParent(anim.GetBoneTransform(HumanBodyBones.LeftHand));
+    //     rightHand.SetParent(anim.GetBoneTransform(HumanBodyBones.RightHand));
 
-        leftHand.localPosition = Vector3.zero;
-        leftHand.localEulerAngles = Vector3.zero;
+    //     leftHand.localPosition = Vector3.zero;
+    //     leftHand.localEulerAngles = Vector3.zero;
 
-        rightHand.localPosition = Vector3.zero;
-        rightHand.localEulerAngles = Vector3.zero;
-    }
+    //     rightHand.localPosition = Vector3.zero;
+    //     rightHand.localEulerAngles = Vector3.zero;
+    // }
 
 
 }
