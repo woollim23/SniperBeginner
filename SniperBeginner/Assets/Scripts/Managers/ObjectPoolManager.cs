@@ -28,16 +28,17 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
         projectilePools[type].Release(projectile);
     }
 
-    public void AddParticlePool(ParticleType type, GameObject prefab, int initialSize = 10, int maxSize = 50)
+    public void AddParticlePool(ParticleType type, GameObject prefab, int initialSize = 10, int maxSize = 5000)
     {
         if (particlePools.ContainsKey(type)) return;
 
-        particlePools[type] = new ObjectPool<GameObject>(
+        particlePools.Add(type, new ObjectPool<GameObject>(
             () => Instantiate(prefab),
             (particle) => particle.SetActive(true),
             (particle) => particle.SetActive(false),
             (particle) => Destroy(particle),
-            false, initialSize, maxSize);
+            false, initialSize, maxSize)
+            );
     }
 
     public GameObject GetParticle(ParticleType type)
