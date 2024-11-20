@@ -11,6 +11,9 @@ public class UISnipeCanvas : MonoBehaviour
     [SerializeField] Vector3 originalSize;
     [SerializeField] CanvasGroup canvasGroup;
 
+    [Header("Cross hairs")]
+    [SerializeField] GameObject normalCrossHair;
+
 
     private void Awake() 
     {
@@ -27,7 +30,13 @@ public class UISnipeCanvas : MonoBehaviour
     void Set(bool isOn)
     {
         if (isOn) 
+        {
             gameObject.SetActive(true);
+            normalCrossHair.SetActive(false);
+        }
+        else
+            normalCrossHair.SetActive(true);
+
 
         if(displayRoutine != null)
         {

@@ -9,6 +9,9 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
 
     public void AddProjectilePool(Projectile projectile, int initialSize = 31, int maxSize = 500)
     {
+        if (projectilePools.ContainsKey(projectile.data.type))
+            return;
+
         projectilePools.Add(projectile.data.type, new ObjectPool<Projectile>(
             () => { return Instantiate(projectile); },
             null, //(projectile)=>{},

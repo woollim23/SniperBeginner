@@ -66,6 +66,7 @@ public class PlayerSetting
     [Header("Move")]
     public float walkSpeed = 3f;
     public float runSpeed = 6f;
+    public float crouchSpeed = 2f;
     [Range(0.01f, 1f)] public float movementInputSmoothness = 0.05f;
 
     

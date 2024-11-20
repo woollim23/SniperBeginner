@@ -117,8 +117,8 @@ MonoBehaviour:
     walkSpeed: 3
     runSpeed: 6
     movementInputSmoothness: 0.05
-    jumpPower: 5
-    fallThreshold: 5
+    jumpPower: 10
+    fallThreshold: 3.5
     lookSensitive: 10
     lookYAxisLimit: {x: -45, y: 45}
     breathAmountOnRelax: 1

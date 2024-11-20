@@ -72,11 +72,8 @@ public class PlayerEquipment : MonoBehaviour
 
         equipment.transform.SetParent(rightHand);
         equipment.transform.localPosition = Vector3.zero;
-
-        if (!ObjectPoolManager.Instance.projectilePools.ContainsKey(CurrentEquip.weaponData.projectile.data.type))
-        {
-            ObjectPoolManager.Instance.AddProjectilePool(CurrentEquip.weaponData.projectile);
-        }
+        
+        ObjectPoolManager.Instance.AddProjectilePool(CurrentEquip.weaponData.projectile);
 
         view.UpdateAimPosition(equipment.aimPoint);
     }

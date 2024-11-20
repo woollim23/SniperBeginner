@@ -10,13 +10,13 @@ public class PlayerCrawlState : PlayerIdleState
     public override void Enter()
     {
         base.Enter();
-        animation.Animator.SetBool(animation.data.CrawlParamHash, true);
+        // animation.Animator.SetBool(animation.data.CrawlParamHash, true);
     }
 
     public override void Exit()
     {
         base.Exit();
-        animation.Animator.SetBool(animation.data.CrawlParamHash, false);
+        // animation.Animator.SetBool(animation.data.CrawlParamHash, false);
     }
 
     protected override void OnPose(InputAction.CallbackContext context)

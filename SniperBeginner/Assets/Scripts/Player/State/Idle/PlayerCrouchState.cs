@@ -1,3 +1,4 @@
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 /// <summary>
@@ -21,11 +22,19 @@ public class PlayerCrouchState : PlayerIdleState
 
     protected override void OnPose(InputAction.CallbackContext context)
     {
-        stateMachine.ChangeState(stateMachine.CrawlState);
+        stateMachine.ChangeState(stateMachine.StandState);
     }
 
     protected override void Move()
     {
         base.Move();
+
+        Transform player = stateMachine.Player.transform;
+        float speed = stateMachine.Setting.crouchSpeed * Time.deltaTime;
+
+        Vector3 motion = player.right * movement.x * speed + player.forward * movement.y * speed;
+        motion += stateMachine.Player.ForceReceiver.Movement * Time.deltaTime;
+        
+        stateMachine.Player.Controller.Move(motion);
     }
 }
