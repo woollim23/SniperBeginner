@@ -56,7 +56,7 @@ public class QuickSlotManager : MonoBehaviour
 
     
     // 데이터 로직 -> UI 업데이트
-    private void HandleQuickSlotSelection(int slotIndex)
+    public void HandleQuickSlotSelection(int slotIndex)
     {
         if (slotIndex < 1 || slotIndex > quickSlots.Count)
         {

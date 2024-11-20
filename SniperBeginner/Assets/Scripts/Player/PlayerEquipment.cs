@@ -9,7 +9,7 @@ public class PlayerEquipment : MonoBehaviour
     
     // 손 위치
     [SerializeField] Transform rightHand;
-    [SerializeField] Transform leftHand;
+    // [SerializeField] Transform leftHand;
 
     [Header("Temp Place")]
     [SerializeField] QuickSlotManager quickSlotManager;

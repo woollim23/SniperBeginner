@@ -186,7 +186,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rightHand: {fileID: 4243959958579007857}
-  leftHand: {fileID: 8831633943691078246}
   quickSlotManager: {fileID: 0}
 --- !u!114 &115484477255959881
 MonoBehaviour:
@@ -244,9 +243,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e78ca9e5948e604894d4b48dcf69133, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 8
 --- !u!1 &1039340537671847095
 GameObject:
   m_ObjectHideFlags: 0
@@ -334,7 +330,7 @@ MonoBehaviour:
       - m_Target: {fileID: 3355376405754927337}
         m_TargetAssemblyTypeName: PlayerInteraction, Assembly-CSharp
         m_MethodName: ClearObject
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

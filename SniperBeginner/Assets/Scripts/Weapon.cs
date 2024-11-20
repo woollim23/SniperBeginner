@@ -31,7 +31,6 @@ public class Weapon : MonoBehaviour
         }
 
         currentAmmoInMagazine -= amount;
-        PlaySound(weaponData.fireSound);
         OnAmmoChanged?.Invoke();
         return true;
     }
