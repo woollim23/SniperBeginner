@@ -77,6 +77,18 @@ public class Projectile : MonoBehaviour
         if (IsInvoking("Release"))
             CancelInvoke("Release");
 
+        Vector3 impactPoint = other.contacts[0].point;
+        Vector3 impactNormal = other.contacts[0].normal;
+
+        if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Enemy"))
+        {
+            ParticleManager.Instance.SpawnBloodImpact(impactPoint, impactNormal);
+        }
+        else
+        {
+            ParticleManager.Instance.SpawnWallImpact(impactPoint, impactNormal);
+        }
+
         Release();
     }
 }

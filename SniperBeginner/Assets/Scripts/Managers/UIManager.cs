@@ -1,56 +1,32 @@
 ﻿using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
+using UnityEngine.UI;
 
 public class UIManager : Singleton<UIManager>
 {
-    private Dictionary<string, GameObject> uiScreens = new Dictionary<string, GameObject>();
-
     [SerializeField] private Canvas MainCanvas;
     [SerializeField] private GameObject PauseMenu;
+    [SerializeField] private TextMeshProUGUI Score;
 
     public GameObject CurrentScreen { get; private set; }
 
     void Start()
-    {
-        // UI 화면 등록
-        //foreach (Transform child in transform)
-        //{
-        //    uiScreens[child.name] = child.gameObject;
-        //    child.gameObject.SetActive(false);
-        //}
+    {        
+        GameManager.Instance.onChangeScore += OnChangeScore;
+        OnChangeScore();
+
         PauseMenuInit();
         InputManager.Instance.OnMenuEvent += OpenPauseMenu;
-        //Debug.Log("UIManager");
         SetCursor(true);
     }
 
-    public void OpenScreen(string screenName)
+    private void OnChangeScore()
     {
-        if (uiScreens.ContainsKey(screenName))
-        {
-            if (CurrentScreen != null)
-            {
-                CurrentScreen.SetActive(false);
-            }
-
-            CurrentScreen = uiScreens[screenName];
-            CurrentScreen.SetActive(true);
-        }
-        else
-        {
-            Debug.LogWarning($"UI 화면 {screenName}이(가) 등록되지 않았습니다.");
-        }
-    }
-
-
-    public void CloseCurrentScreen()
-    {
-        if (CurrentScreen != null)
-        {
-            CurrentScreen.SetActive(false);
-            CurrentScreen = null;
-        }
+        Debug.Log(GameManager.Instance.enemies.Count);
+        Score.text = GameManager.Instance.enemies.Count + " / " + GameManager.Instance.enemies.Capacity;
     }
 
     public void PauseMenuInit()

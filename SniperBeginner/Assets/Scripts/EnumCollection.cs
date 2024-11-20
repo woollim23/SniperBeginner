@@ -18,3 +18,10 @@ public enum ItemType
     PistolMagazine,
     SniperMagazine
 }
+
+public enum ParticleType
+{
+    MuzzleFlash,
+    WallImpact,
+    BloodImpact
+}
