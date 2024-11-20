@@ -1,26 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class EnemyAttackState : EnemyBaseState
 {
-    //private bool alreadyAppliedForce;
-    //private bool alreadyAppliedDealing;
-
-    public EnemyAttackState(EnemyStateMachine ememyStateMachine) : base(ememyStateMachine)
+    public EnemyAttackState(EnemyStateMachine stateMachine) : base(stateMachine)
     {
     }
-
     public override void Enter()
     {
-        //Debug.Log("Attack");
         base.Enter();
         StartAnimation(stateMachine.Enemy.AnimationData.AttackParameterHash);
         StartAnimation(stateMachine.Enemy.AnimationData.FireParameterHash);
 
         stateMachine.Enemy.Agent.isStopped = true;
-        //alreadyAppliedForce = false;
-        //alreadyAppliedDealing = false;
+
+        Fire();
+        stateMachine.Enemy.StartCoroutine(WaitForAnimationToEnd());
     }
 
     public override void Exit()
@@ -30,27 +27,38 @@ public class EnemyAttackState : EnemyBaseState
         StopAnimation(stateMachine.Enemy.AnimationData.FireParameterHash);
 
         stateMachine.Enemy.Agent.isStopped = false;
+        stateMachine.LastAttackTime = Time.time;
     }
 
-    public override void Update()
+    void Fire()
     {
-        Rotate(CharacterManager.Instance.Player.transform.position - stateMachine.Enemy.transform.position);
+        Weapon weapon = stateMachine.Enemy.Weapon;
+        Projectile bullet = ObjectPoolManager.Instance.Get(weapon.weaponData.projectile.data.type);
 
-        // 애니메이션 진행도를 0.0 ~ 1.0
-        //float normalizedTime = GetNormalizedTime(stateMachine.Enemy.Animator, "Attack");
-        if (!IsInAttackRange()) // 플레이어가 범위 밖이면
+        Ray ray = new Ray(weapon.firePoint.position, weapon.firePoint.forward);
+        if (Physics.Raycast(ray, out RaycastHit hitInfo, weapon.weaponData.range))
         {
-            if (IsInChasingRange())
+            if (hitInfo.collider.TryGetComponent(out IDamagable damagable))
             {
-                stateMachine.ChangeState(stateMachine.ChasingState);
-                return;
-            }
-            else
-            {
-                stateMachine.ChangeState(stateMachine.IdleState); // 아이들 상태로 변경
+                if (hitInfo.collider.CompareTag("Player"))
+                {
+                    // Player라면 데미지 처리
+                    damagable.TakeDamage(weapon.weaponData.damage);
+                }
             }
         }
 
-        // TODO : 플레이어가 죽으면 멈추도록 or 플레이어 죽음 이벤트 받아서 상태 변화
+        bullet.Fire(weapon.firePoint.position, weapon.firePoint.forward);
+
+        stateMachine.Enemy.OnEnemyGunFire?.Invoke();
+        SoundManager.Instance.PlaySound(weapon.weaponData.fireSound);
+    }
+
+    public IEnumerator WaitForAnimationToEnd()
+    {
+        float animationLength = stateMachine.Enemy.Animator.GetCurrentAnimatorStateInfo(0).length;
+
+        yield return new WaitForSeconds(animationLength);
+        stateMachine.ChangeState(stateMachine.AimingState);
     }
 }

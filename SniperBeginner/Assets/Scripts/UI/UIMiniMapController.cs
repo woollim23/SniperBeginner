@@ -7,45 +7,45 @@ public class UIMiniMapController : MonoBehaviour
     [SerializeField] private RectTransform playerIcon;
     [SerializeField] private RectTransform mapImage;
     [SerializeField] private GameObject enemyIconPrefab;
+    [SerializeField] private RectTransform viewCone;
     [SerializeField] private Vector2 mapSize;
 
     private Vector2 mapImageSize;
-    private Dictionary<Transform, RectTransform> enemyIcons = new();
+    private Dictionary<Transform, RectTransform> enemyIcons = new Dictionary<Transform, RectTransform>();
 
     private void Start()
     {
-        //
-        foreach(var e in CharacterManager.Instance.enemies)
-        {
-            AddEnemyIcon(e.transform);
-            e.OnEnemyDied += RemoveEnemyIcon;
-        }
-
         mapImageSize = mapImage.sizeDelta;
+
+        foreach (var enemy in CharacterManager.Instance.enemies)
+        {
+            AddEnemyIcon(enemy.transform);
+            enemy.OnEnemyDied += RemoveEnemyIcon;
+        }
     }
 
     private void Update()
     {
         UpdatePlayerIcon();
         UpdateEnemyIcons();
+        UpdateViewCone();
     }
 
     private void UpdatePlayerIcon()
     {
         Transform playerTransform = CharacterManager.Instance.Player.transform;
 
-        Vector3 playerPosition = playerTransform.position;
+        float playerX = playerTransform.position.x;
+        float playerZ = playerTransform.position.z;
 
-        // ���� ��ǥ�� �̴ϸ� ������ ��ȯ (0~1)
-        float xRatio = playerPosition.x / mapSize.x;
-        float yRatio = playerPosition.z / mapSize.y;
+        float xRatio = (playerX - (-45)) / (53 - (-45));
+        float iconX = xRatio * 360 - 180;
 
-        // �̴ϸ� �߽��� �������� ��ǥ ����
-        float xPos = (xRatio - 0.5f) * mapImageSize.x;
-        float yPos = (yRatio - 0.5f) * mapImageSize.y;
+        float yRatio = (playerZ - (-48)) / (48 - (-48));
+        float iconY = yRatio * 360 - 180;
 
-        // �÷��̾� ������ ��ġ ����
-        playerIcon.anchoredPosition = new Vector2(xPos, yPos);
+        playerIcon.anchoredPosition = new Vector2(iconX, iconY);
+
     }
 
     private void UpdateEnemyIcons()
@@ -57,18 +57,16 @@ public class UIMiniMapController : MonoBehaviour
 
             if (enemy == null) continue;
 
-            Vector3 enemyPosition = enemy.position;
+            float enemyX = enemy.position.x;
+            float enemyZ = enemy.position.z;
 
-            // ���� ��ǥ�� �̴ϸ� ������ ��ȯ (0~1)
-            float xRatio = enemyPosition.x / mapSize.x;
-            float yRatio = enemyPosition.z / mapSize.y;
+            float xRatio = (enemyX - (-45)) / (53 - (-45));
+            float iconX = xRatio * 360 - 180;
 
-            // �̴ϸ� �߽��� �������� ��ǥ ����
-            float xPos = (xRatio - 0.5f) * mapImageSize.x;
-            float yPos = (yRatio - 0.5f) * mapImageSize.y;
+            float yRatio = (enemyZ - (-48)) / (48 - (-48));
+            float iconY = yRatio * 360 - 180;
 
-            // �� ������ ��ġ ����
-            icon.anchoredPosition = new Vector2(xPos, yPos);
+            icon.anchoredPosition = new Vector2(iconX, iconY);
         }
     }
 
@@ -101,5 +99,18 @@ public class UIMiniMapController : MonoBehaviour
         }
 
         Destroy(icon.gameObject);
+    }
+
+    private void UpdateViewCone()
+    {
+        Transform playerTransform = CharacterManager.Instance.Player.transform;
+
+        float playerRotationY = playerTransform.eulerAngles.y;
+
+        viewCone.anchoredPosition = playerIcon.anchoredPosition;
+
+        viewCone.pivot = new Vector2(0.5f, 0.0f);
+
+        viewCone.localRotation = Quaternion.Euler(0, 0, -playerRotationY);
     }
 }

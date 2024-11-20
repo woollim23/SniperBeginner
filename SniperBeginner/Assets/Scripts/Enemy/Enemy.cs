@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
     [field: SerializeField] private float health;
     public float Health {get => health;}
     [field: SerializeField] public EnemySO Data { get; private set; }
+    [field: SerializeField] public Weapon Weapon { get; private set; }
 
     [field: Header("Animations")]
     [field: SerializeField] public EnemyAnimationData AnimationData { get; private set; }
@@ -71,6 +72,7 @@ public class Enemy : MonoBehaviour
         }
 
         Animator.SetTrigger("Hit");
+        Debug.Log("Hit");
         Agent.isStopped = true;
         StartCoroutine(WaitForHitAnimation());
     }
@@ -83,7 +85,6 @@ public class Enemy : MonoBehaviour
             yield return null;
             stateInfo = Animator.GetCurrentAnimatorStateInfo(0);
         }
-
         Agent.isStopped = false;
     }
 
@@ -107,9 +108,4 @@ public class Enemy : MonoBehaviour
     {
         Destroy(gameObject);
     }
-
-
-
-
-
 }
