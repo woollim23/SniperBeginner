@@ -27,7 +27,7 @@ public class UIManager : Singleton<UIManager>
     private void OnChangeScore()
     {
         if(Score != null)
-            Score.text = GameManager.Instance.enemies.Count + " / " + GameManager.Instance.enemies.Capacity;
+            Score.text = GameManager.Instance.Score + " / " + CharacterManager.Instance.enemies.Count;
     }
 
     public void PauseMenuInit()

@@ -26,6 +26,9 @@ public class Enemy : MonoBehaviour
     public NavMeshAgent Agent { get; private set; }
 
     public Action<float> onTakeDamage;
+    public Action OnEnemySpawned;
+    public Action OnEnemyDied;
+    public Action OnEnemyGunFire;
 
     private void Awake()
     {
@@ -47,7 +50,7 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         stateMachine.ChangeState(stateMachine.IdleState);
-
+        OnEnemySpawned?.Invoke();
     }
 
     private void Update()
@@ -94,7 +97,9 @@ public class Enemy : MonoBehaviour
         Animator.enabled = false;
         Agent.isStopped = true;
         GameManager.Instance.CountDeadEnemy();
+
         Invoke("DestroyEnemy", 5);
+        OnEnemyDied?.Invoke();
     }
 
     private void GiveItem()
