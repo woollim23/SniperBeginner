@@ -14,9 +14,11 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] GameObject prefabPayerCanvas;
     [SerializeField] UIAmmoInfo prefabAmmoInfo;
     [SerializeField] UIQuickSlotManager prefabQuickSlot;
+    [SerializeField] UIMiniMapController prefabMiniMap;
     
     public UIAmmoInfo AmmoInfo { get; private set; }
     public UIQuickSlotManager QuickSlot { get; private set; }
+    public UIMiniMapController MiniMap { get; private set; }
 
 
     void Start()
@@ -37,6 +39,7 @@ public class UIManager : Singleton<UIManager>
 
         AmmoInfo = Instantiate(prefabAmmoInfo, playerCanvas.transform);
         QuickSlot = Instantiate(prefabQuickSlot, playerCanvas.transform);
+        MiniMap = Instantiate(prefabMiniMap, playerCanvas.transform);
     }
 
     private void OnChangeScore()
