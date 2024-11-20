@@ -100,7 +100,8 @@ MonoBehaviour:
     speed: 100
     lifeTime: 2
     type: 1
-  damage: 50
+  mesh: {fileID: 8029292025526722745}
+  trail: {fileID: 7948349346001230405}
 --- !u!1 &7948349346001230405
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,16 +1,17 @@
 using Cinemachine;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class CinemachineBullet
+using Random = UnityEngine.Random;
+
+public class CinemachineProjectileSetting
 {
     public Transform projectile;
     public Transform destination;
     public Vector3 startPosition;
 
-    public Action OnHit;
+    public Action onEnd;
 }
 
 public class CameraController : MonoBehaviour
@@ -18,6 +19,7 @@ public class CameraController : MonoBehaviour
     public CinemachineVirtualCamera MainCamera;
     public CinemachineVirtualCamera aimCamera;
     public CinemachineVirtualCamera bulletCamera;
+    [SerializeField] [Range(0.5f, 3f)] float cameraRandomOffset;
 
     private float defaultTimeScale = 1f;
     private float slowMotionScale = 0.2f;
@@ -58,22 +60,20 @@ public class CameraController : MonoBehaviour
         ResetTimeScale();
     }
 
-    public void SwitchToBullet(Transform bullet, Vector3 firePoint, Transform target)
+
+    public void SwitchToBullet(CinemachineProjectileSetting setting)
     {
-        bulletCamera.Priority = 15;
-        bulletCamera.Follow = bullet;
-        bulletCamera.LookAt = target;
+        var orbit = bulletCamera.GetCinemachineComponent<CinemachineOrbitalTransposer>();
 
-        ApplySlowMotion();
+        if(orbit != null)
+        {
+            Vector3 random = Random.onUnitSphere * Random.Range(0.5f, cameraRandomOffset);
+            orbit.m_FollowOffset = random;
+        }
 
-        StartCoroutine(HandleBulletCamera(bullet, firePoint, target.position));
-    }
-
-    public void SwitchToBullet(CinemachineBullet setting)
-    {
         bulletCamera.Priority = 15;
         bulletCamera.Follow = setting.projectile;
-        bulletCamera.LookAt = setting.destination;
+        bulletCamera.LookAt =  setting.projectile;//setting.destination;
 
         ApplySlowMotion();
 
@@ -92,18 +92,11 @@ public class CameraController : MonoBehaviour
         Time.fixedDeltaTime = Time.timeScale * 0.02f;
     }
 
-    private IEnumerator HandleBulletCamera(Transform bullet, Vector3 firePoint, Vector3 targetPosition)
-    {
-        yield return StartCoroutine(MoveBullet(bullet, firePoint, targetPosition));
 
-        ResetTimeScale(); 
-        SwitchToIdle();
-    }
-
-    private IEnumerator HandleBulletCamera(CinemachineBullet setting)
+    private IEnumerator HandleBulletCamera(CinemachineProjectileSetting setting)
     {
         yield return StartCoroutine(MoveBullet(setting.projectile, setting.startPosition, setting.destination.position));
-        setting.OnHit?.Invoke();
+        setting.onEnd?.Invoke();
 
         ResetTimeScale(); 
         SwitchToIdle();

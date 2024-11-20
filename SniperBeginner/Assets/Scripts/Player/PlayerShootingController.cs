@@ -24,7 +24,7 @@ public class PlayerShootingController : MonoBehaviour
     public event Action<float> OnControlBreath;
     public event Action<bool> OnAim;
     public event Action<Vector3> OnGunFire;
-    public event Action<CinemachineBullet> OnSnipeEnemy;
+    public event Action<CinemachineProjectileSetting> OnSnipeEnemy;
 
 
     private void Start() 
@@ -122,11 +122,15 @@ public class PlayerShootingController : MonoBehaviour
         // 사전 검사 - 조준 중에 이번 총격으로 사망했는지?
         if (isAiming && CheckTarget(out Transform target))
         {
-            OnSnipeEnemy?.Invoke(new CinemachineBullet(){
+            AimCanceled();
+            bullet.InitializeForCinemachine(weapon.firePoint.position, weapon.firePoint.forward);
+            OnSnipeEnemy?.Invoke(new CinemachineProjectileSetting()
+            {
                 projectile = bullet.transform,
                 destination = target,
                 startPosition = weapon.firePoint.position,
-                OnHit = ()=>{
+                onEnd = ()=>
+                {
                     if(target.TryGetComponent(out IDamagable damagable))
                         damagable.TakeDamage(weapon.weaponData.damage); 
                 }
