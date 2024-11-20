@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameManager : SingletonDontDestory<GameManager>
 {
@@ -11,15 +9,19 @@ public class GameManager : SingletonDontDestory<GameManager>
     public bool isGameOver { get; private set; }
 
     public event Action onChangeScore;
+    
+    public override void Awake() 
+    {
+        base.Awake();
 
+        // 게임 내에서만 쓰는 매니저들 Initialize
+        CharacterManager.Instance.Initialize();
+        UIManager.Instance.Initialize();
+        CameraManager.Instance.Initialize();
+    }
 
     private void Start()
     {
-        if (GameData == null)
-        {
-            Debug.Log("GameData가 null입니다. 기본값을 생성합니다.");
-            LoadGame();
-        }
     }
 
     public void GameStartInit()
@@ -44,7 +46,6 @@ public class GameManager : SingletonDontDestory<GameManager>
 
     public void SaveGame()
     {
-        
         Player player = CharacterManager.Instance.Player; // Player 인스턴스 가져오기
         if (player != null)
         {
@@ -57,23 +58,4 @@ public class GameManager : SingletonDontDestory<GameManager>
         DataManager.SaveGameData(GameData);
     }
 
-    public void LoadGame()
-    {
-        GameData = DataManager.LoadGameData();
-        if (GameData == null)
-        {
-            Player player = CharacterManager.Instance.Player;
-
-            GameData = new GameData
-            {
-                // 새 데이터는 현재 값을 받아오도록
-                playerData = new PlayerData()
-                {
-                    Position = player.transform.position,
-                    Health = player.Condition.Health,
-                }
-            };
-        }
-
-    }
 }

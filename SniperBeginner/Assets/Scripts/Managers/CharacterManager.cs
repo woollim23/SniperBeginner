@@ -1,6 +1,5 @@
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class CharacterManager : Singleton<CharacterManager>
 {
@@ -8,12 +7,22 @@ public class CharacterManager : Singleton<CharacterManager>
     [SerializeField] public List<GameObject> enemies;
     public Player Player { get; set; }
 
-    [SerializeField] Transform[] SpawnPoints;
     [SerializeField] Enemy enemyPrefab;
+    [SerializeField] Transform[] SpawnPoints;
 
     private void Start() 
     {
-        if (!Player) Instantiate(playerPrefab);
+        if(!Player)
+            Instantiate(playerPrefab);
+
+        InstaiateEnemy();
+    }
+
+    public void Initialize()
+    {
+        Player = Instantiate(playerPrefab);
+        Player.Initialize(null); // TODO : 로드한 데이터 받아오기
+
         InstaiateEnemy();
     }
 
@@ -21,13 +30,13 @@ public class CharacterManager : Singleton<CharacterManager>
     {
         if (false)
         {
-            // TODO : 저장된 리스트의 카운트 수 만들 반복 되도록
-            // 저장데이터에서 위치값 불러오고 체력 적용
+            // TODO : ????? ??????? ???? ?? ???? ??? ?????
+            // ??????????? ????? ??????? ??? ????
             for (int i = 0; i < SpawnPoints.Length; i++)
             {
                 Enemy newEnemy = Instantiate(enemyPrefab, SpawnPoints[i].position, SpawnPoints[i].rotation);
 
-                // 처치된 에너미면 스코어가 오르도록 수정
+                // ???? ?????? ????? ???????? ????
                 if (newEnemy.Health <= 0)
                     GameManager.Instance.Score++;
             }
