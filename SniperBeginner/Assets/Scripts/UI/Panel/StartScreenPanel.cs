@@ -14,9 +14,8 @@ public class StartScreenPanel : MonoBehaviour
 
     public void GameLoad()
     {
-        Debug.Log("저장 게임 불러오기");
         SceneManager.LoadSceneAsync("MainGame");
-        // 저장 불러오기 버튼
+        GameManager.Instance.LoadGame();
     }
 
     public void GameExit()
