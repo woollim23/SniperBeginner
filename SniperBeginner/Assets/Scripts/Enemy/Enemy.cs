@@ -72,6 +72,7 @@ public class Enemy : MonoBehaviour
 
         Animator.SetTrigger("Hit");
         Agent.isStopped = true;
+        stateMachine.isMove = 1;
         StartCoroutine(WaitForHitAnimation());
     }
 
@@ -83,7 +84,7 @@ public class Enemy : MonoBehaviour
             yield return null;
             stateInfo = Animator.GetCurrentAnimatorStateInfo(0);
         }
-
+        stateMachine.isMove = 1;
         Agent.isStopped = false;
     }
 

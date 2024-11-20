@@ -84,7 +84,6 @@ public class EnemyBaseState : IState
 
     protected void ChangeWarningState()
     {
-        //stateMachine.ChasingState(Warn)
     }
 
     protected void StartAnimation(int animationHash)
