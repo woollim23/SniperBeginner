@@ -116,6 +116,7 @@ MonoBehaviour:
   setting:
     walkSpeed: 3
     runSpeed: 6
+    crouchSpeed: 2
     movementInputSmoothness: 0.05
     jumpPower: 10
     fallThreshold: 3.5
@@ -144,7 +145,6 @@ MonoBehaviour:
     groundParamName: '@Ground'
     standParamName: Stand
     crouchParamName: Crouch
-    crawlParamName: Crawl
     fireParamName: Fire
     aimingParamName: Aiming
     aimingModifierParamName: AimingModifier
@@ -245,6 +245,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e78ca9e5948e604894d4b48dcf69133, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactLayerMask:
+    serializedVersion: 2
+    m_Bits: 264
 --- !u!1 &1039340537671847095
 GameObject:
   m_ObjectHideFlags: 0

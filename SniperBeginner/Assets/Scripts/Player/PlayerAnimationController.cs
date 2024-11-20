@@ -93,6 +93,12 @@ public class PlayerAnimationController : MonoBehaviour
     {
         Animator.SetTrigger(data.ReloadParamHash);
     }
+
+    public void Hide(bool isHide)
+    {
+        Animator.SetBool(data.HidingParamName, isHide);;
+
+    }
 }
 
 [System.Serializable]
@@ -111,6 +117,8 @@ public class AnimationData
     public string aimingParamName = "Aiming";
     public string aimingModifierParamName = "AimingModifier";
     public string reloadParamName = "Reload";
+    public string hideParamName = "Hiding";
+
 
     public string airParamName = "@Air";
     public string jumpParamName = "Jump";
@@ -130,6 +138,7 @@ public class AnimationData
     public int AimingParamHash { get; private set; }
     public int AimingModifierParamHash { get; private set; }
     public int ReloadParamHash { get; private set; }
+    public int HidingParamName { get; private set; } 
 
     public int AirParamHash { get; private set; }
     public int JumpParamHash { get; private set; }
@@ -151,6 +160,7 @@ public class AnimationData
         AimingParamHash =       Animator.StringToHash(aimingParamName);
         AimingModifierParamHash = Animator.StringToHash(aimingModifierParamName);
         ReloadParamHash =       Animator.StringToHash(reloadParamName);
+        HidingParamName =       Animator.StringToHash(hideParamName);
 
         AirParamHash =          Animator.StringToHash(airParamName);
         JumpParamHash =         Animator.StringToHash(jumpParamName);

@@ -149,7 +149,7 @@ public class PlayerShootingController : MonoBehaviour
         else
         {
             // 데미지 : 레이 방식으로 변경
-            Ray ray = mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+            Ray ray = GetRayFromCamera(0f);
             // Ray ray = new Ray(weapon.firePoint.position, weapon.firePoint.forward);
             if (Physics.Raycast(ray, out RaycastHit hitInfo, weapon.weaponData.range, aimLayerMask))
             {
@@ -170,8 +170,8 @@ public class PlayerShootingController : MonoBehaviour
 
     void Aim()
     {
-        Ray ray = mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-        if (Physics.Raycast(ray, out RaycastHit hit , Mathf.Infinity, aimLayerMask))
+        Ray ray = GetRayFromCamera();
+        if (Physics.Raycast(ray, out RaycastHit hit , equip.CurrentEquip.weaponData.range, aimLayerMask))
         {
             AimTarget.position = hit.point;
         }
@@ -183,8 +183,8 @@ public class PlayerShootingController : MonoBehaviour
 
     bool CheckTarget(out Transform target)
     {
-        Ray ray = mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-        if (Physics.Raycast(ray, out RaycastHit hit , Mathf.Infinity, aimLayerMask))
+        Ray ray = GetRayFromCamera(0f);
+        if (Physics.Raycast(ray, out RaycastHit hit , equip.CurrentEquip.weaponData.range, aimLayerMask))
         {
             // 부위별 총격에서 데미지 확인 각각의
             if (hit.collider.TryGetComponent(out ISnipable snipable))
@@ -228,5 +228,9 @@ public class PlayerShootingController : MonoBehaviour
     }
 
 
+    Ray GetRayFromCamera(float zAxisOffset = 3f)
+    {
+        return new Ray(mainCamera.transform.position + mainCamera.transform.forward * zAxisOffset, mainCamera.transform.forward);
+    }
 
 }
