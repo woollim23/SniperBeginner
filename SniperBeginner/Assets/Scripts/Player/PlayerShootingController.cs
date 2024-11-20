@@ -111,12 +111,31 @@ public class PlayerShootingController : MonoBehaviour
     {
         Weapon weapon = equip.CurrentEquip;
         if (Time.time - lastFireTime < weapon.weaponData.fireRate || 
-            !weapon.UseAmmo() ||
+            /*!weapon.UseAmmo() ||*/
             isReloading)
             return;
 
         lastFireTime = Time.time;
+        
+        anim.Fire();
+        // 겉으로 표시만 하는 용도
         Projectile bullet = ObjectPoolManager.Instance.Get(weapon.weaponData.projectile.data.type);
+        bullet.Fire(weapon.firePoint.position, weapon.firePoint.forward);
+
+        // 레이 방식으로 변경
+        // mainCamera.ScreenPointToRay(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, 0f));
+        Ray ray = new Ray(weapon.firePoint.position, weapon.firePoint.forward);
+        if (Physics.Raycast(ray, out RaycastHit hitInfo, weapon.weaponData.range, aimLayerMask))
+        {
+            if (hitInfo.collider.TryGetComponent(out IDamagable damagable))
+            {
+                damagable.TakeDamage(weapon.weaponData.damage);
+                Debug.Log($"Ray hit : {hitInfo.collider.name}");
+            }
+        }
+
+        return;
+        
 
         // 사전 검사 - 이번 총격으로 사망했는지?
         if (CheckTarget(out Transform target))
@@ -130,14 +149,11 @@ public class PlayerShootingController : MonoBehaviour
             // 검사에서 사망하지 않았다 -> 아래 코드 : 물리적으로 공격
             bullet.Fire(weapon.firePoint.position, weapon.firePoint.forward);
         }
-        
-        anim.Fire();
         OnGunFire?.Invoke(transform.position);
     }
 
     void Aim()
     {
-        
         Ray ray = mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
         if (Physics.Raycast(ray, out RaycastHit hit , Mathf.Infinity, aimLayerMask))
         {

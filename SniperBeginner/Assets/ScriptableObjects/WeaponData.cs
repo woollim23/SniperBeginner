@@ -10,21 +10,22 @@ public class WeaponData : ScriptableObject
 
     [Header("Combat Stats")]
     public int damage;
-    public float reloadTime;           // 재장전 시간
-    public float fireRate;             // 발사 속도
+    public float reloadTime;
+    public float fireRate;
+    public float range = 1000f;
 
     [Header("Ammunition")]
-    public int magazineSize;           // 탄창 최대 크기
-    public AmmoType ammoType;          // 탄약 유형
+    public int magazineSize; 
+    public AmmoType ammoType;     
 
     [Header("Weapon Type")]
     public WeaponType weaponType;
 
     [Header("Prefabs")]
-    public GameObject equipPrefab;     // 장착 프리팹
+    public GameObject equipPrefab;
 
     [Header("Projectile")]
-    public Projectile projectile;      // 발사체        
+    public Projectile projectile; 
 
     [Header("Audio Clips")]
     public AudioClip fireSound;
