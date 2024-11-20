@@ -1503,6 +1503,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2601804990382703160, guid: 2d92fe39fca20434596a321d55d835e0,
+        type: 3}
+      propertyPath: m_XDamping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2601804990382703160, guid: 2d92fe39fca20434596a321d55d835e0,
+        type: 3}
+      propertyPath: m_YDamping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2601804990382703160, guid: 2d92fe39fca20434596a321d55d835e0,
+        type: 3}
+      propertyPath: m_ZDamping
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3652796972058218573, guid: 2d92fe39fca20434596a321d55d835e0,
         type: 3}
       propertyPath: m_LocalPosition.x

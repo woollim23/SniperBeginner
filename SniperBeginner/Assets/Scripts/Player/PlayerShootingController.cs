@@ -133,6 +133,8 @@ public class PlayerShootingController : MonoBehaviour
                 {
                     if(target.TryGetComponent(out IDamagable damagable))
                         damagable.TakeDamage(weapon.weaponData.damage); 
+
+                    bullet.Release();
                 }
             });
         }
@@ -155,7 +157,7 @@ public class PlayerShootingController : MonoBehaviour
         anim.Fire();
         SoundManager.Instance.PlaySound(weapon.weaponData.fireSound);
 
-        OnGunFire?.Invoke(transform.position);
+        OnGunFire?.Invoke(weapon.firePoint.position);
     }
 
     void Aim()

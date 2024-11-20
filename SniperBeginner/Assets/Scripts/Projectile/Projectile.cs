@@ -66,7 +66,7 @@ public class Projectile : MonoBehaviour
         Invoke("Release", data.lifeTime);
     }
 
-    protected virtual void Release()
+    public virtual void Release()
     {
         ObjectPoolManager.Instance.Release(data.type, this);
     }
