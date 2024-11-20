@@ -31,9 +31,4 @@ public class EnemyStateMachine : StateMachine
         RotationDamping = Enemy.Data.GroundData.BaseRotationDamping;
         RateAttackTime = Enemy.Data.RateAttackTime;
     }
-
-    protected void ChangeWarningState()
-    {
-        
-    }
 }

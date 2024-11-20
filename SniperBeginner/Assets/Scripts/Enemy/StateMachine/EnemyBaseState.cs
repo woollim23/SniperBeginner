@@ -81,10 +81,6 @@ public class EnemyBaseState : IState
         return playerDistanceSqr <= stateMachine.Enemy.Data.AttackRange * stateMachine.Enemy.Data.AttackRange;
     }
 
-    protected void ChangeWarningState()
-    {
-    }
-
     protected void StartAnimation(int animationHash)
     {
         stateMachine.Enemy.Animator.SetBool(animationHash, true);

@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
     [field: SerializeField] private float health;
     public float Health {get => health;}
     [field: SerializeField] public EnemySO Data { get; private set; }
+    [field: SerializeField] public Weapon Weapon { get; private set; }
 
     [field: Header("Animations")]
     [field: SerializeField] public EnemyAnimationData AnimationData { get; private set; }
