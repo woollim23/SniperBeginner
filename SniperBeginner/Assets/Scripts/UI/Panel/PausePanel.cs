@@ -8,8 +8,8 @@ public class PausePanel : MonoBehaviour
     public void GameResume()
     {
         Debug.Log("Resume");
-        gameObject.SetActive(false); // ¸Þ´º UI ºñÈ°¼ºÈ­
-        Time.timeScale = 1f;          // °ÔÀÓ Àç°³
+        gameObject.SetActive(false); // ë©”ë‰´ UI ë¹„í™œì„±í™”
+        Time.timeScale = 1f;          // ê²Œìž„ ìž¬ê°œ
         InputManager.Instance.Actions.Enable();
         UIManager.Instance.SetCursor(true);
     }

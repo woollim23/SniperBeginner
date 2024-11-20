@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7548736029863187040}
   - component: {fileID: 7774858635232708404}
+  - component: {fileID: 5357915877303090477}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -44,7 +45,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea2c908556d3e6d44841c3ccc525a57d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseMenuUI: {fileID: 0}
-  deadEnemyCnt: 0
+  enemies: []
   isGameOver: 0
-  isPaused: 0
+--- !u!114 &5357915877303090477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7693077004930876175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a305e24b16eab2b43ae2f499cc4fabf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerPrefab: {fileID: 0}
+  SpawnPoints: []
+  enemyPrefab: {fileID: 0}

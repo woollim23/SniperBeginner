@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class DataManager 
+public class DataManager // 싱글톤 - 돈디스트로이
 {
-    private static string gameDataPath => Application.dataPath + "/GameData.json"; // TODO:: 문제 없으면 Application.persistentDataPath로 바꾸기
+    public bool IsLoadedGame = false;
+    
+    private static string gameDataPath => Application.dataPath + "/GameData.json"; 
+    // TODO:: 문제 없으면 Application.persistentDataPath로 바꾸기
 
     public static void SaveGameData(GameData data)
     {
@@ -18,12 +21,7 @@ public class DataManager
         if (!File.Exists(gameDataPath)) // 저장 파일 확인
         {
             Debug.Log("저장 파일 없음");
-            return new GameData // 기본 세팅 반환
-            {
-                playerData = new PlayerData(),
-                // 에너미 데이터
-                // 인벤토리 데이터
-            };
+            return null;
         }
 
         string json = File.ReadAllText(gameDataPath);

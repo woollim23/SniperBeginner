@@ -149,6 +149,7 @@ MonoBehaviour:
     aimingParamName: Aiming
     aimingModifierParamName: AimingModifier
     reloadParamName: Aiming
+    hideParamName: Hiding
     airParamName: '@Air'
     jumpParamName: Jump
     fallParamName: Fall
@@ -666,6 +667,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1874877064047016730}
   - component: {fileID: 7849855011339813663}
+  - component: {fileID: 3986279088722456602}
   m_Layer: 0
   m_Name: Main Virtual Camera
   m_TagString: Untagged
@@ -682,7 +684,7 @@ Transform:
   m_GameObject: {fileID: 5316404768313542747}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.0000014, y: 0.00000023841858, z: -2}
+  m_LocalPosition: {x: 1, y: 0, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -728,6 +730,36 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 5714511922013603485}
+--- !u!114 &3986279088722456602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5316404768313542747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e501d18bb52cf8c40b1853ca4904654f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CollideAgainst:
+    serializedVersion: 2
+    m_Bits: 1
+  m_IgnoreTag: 
+  m_TransparentLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_MinimumDistanceFromTarget: 0.1
+  m_AvoidObstacles: 1
+  m_DistanceLimit: 0
+  m_MinimumOcclusionTime: 0
+  m_CameraRadius: 0.1
+  m_Strategy: 1
+  m_MaximumEffort: 4
+  m_SmoothingTime: 0
+  m_Damping: 0
+  m_DampingWhenOccluded: 0
+  m_OptimalTargetDistance: 0
 --- !u!1 &5387783057503427102
 GameObject:
   m_ObjectHideFlags: 0

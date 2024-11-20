@@ -14,9 +14,12 @@ public class StartScreenPanel : MonoBehaviour
 
     public void GameLoad()
     {
-        SceneManager.LoadSceneAsync("MainGame");
-        GameManager.Instance.LoadGame();
+        var a = SceneManager.LoadSceneAsync("MainGame");
+        a.completed += (op) => { GameManager.Instance.LoadGame(); };
     }
+
+
+
 
     public void GameExit()
     {
