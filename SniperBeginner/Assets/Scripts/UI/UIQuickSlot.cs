@@ -16,7 +16,6 @@ public class UIQuickSlot : MonoBehaviour
     {
         if (slotImage == null || equipText == null || background == null)
         {
-            Debug.LogWarning("UIQuickSlot: ���� UI ��Ұ� ������� �ʾҽ��ϴ�.");
             return;
         }
 

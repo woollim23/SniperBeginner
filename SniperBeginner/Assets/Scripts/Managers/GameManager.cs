@@ -1,13 +1,17 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : SingletonDontDestory<GameManager>
 {
-    [SerializeField] private List<GameObject> enemies;
-    
+    [SerializeField] public List<GameObject> enemies;
+
+    public event Action onChangeScore;
+
     public bool isGameOver;
+
 
     public void GameStartInit()
     {
@@ -17,11 +21,11 @@ public class GameManager : SingletonDontDestory<GameManager>
 
     public void GameClear()
     {
-        // 게임 클리어 확인 함수
+        
     }
 
     public void CountDeadEnemy()
     {
-        // 적 처치 카운팅 함수
+        onChangeScore?.Invoke();
     }
 }
