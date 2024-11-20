@@ -19,6 +19,7 @@ public class GameManager : SingletonDontDestory<GameManager>
         // 게임 내에서만 쓰는 매니저들 Initialize
         CharacterManager.Instance.Initialize();
         UIManager.Instance.Initialize();
+        CameraManager.Instance.Initialize();
     }
 
     private void Start()

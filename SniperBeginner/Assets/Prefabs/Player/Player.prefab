@@ -174,7 +174,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraContainer: {fileID: 3991082926354647705}
-  aimCamera: {fileID: 5444509145255941574}
+  mainVirtualCam: {fileID: 7849855011339813663}
+  aimVirtualCam: {fileID: 7742737638296623587}
 --- !u!114 &7574824395645068272
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,6 +188,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce05a785805ce64499cbc363ffa5d2a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allWeapons:
+  - {fileID: 11400000, guid: bb7084e4f4c5820478a5f3d5da925c37, type: 2}
+  - {fileID: 11400000, guid: 051e26e33ab2af34297e9e095b6d687d, type: 2}
   weaponInstance: []
   rightHand: {fileID: 4243959958579007857}
   quickSlotManager: {fileID: 0}

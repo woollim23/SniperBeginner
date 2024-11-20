@@ -17,7 +17,7 @@ public class UIManager : Singleton<UIManager>
     
     public UIAmmoInfo AmmoInfo { get; private set; }
     public UIQuickSlotManager QuickSlot { get; private set; }
-    
+
 
     void Start()
     {
@@ -33,10 +33,10 @@ public class UIManager : Singleton<UIManager>
 
     public void Initialize()
     {
-        Instantiate(prefabPayerCanvas);
+        GameObject playerCanvas = Instantiate(prefabPayerCanvas);
 
-        AmmoInfo = Instantiate(prefabAmmoInfo);
-        QuickSlot = Instantiate(prefabQuickSlot);
+        AmmoInfo = Instantiate(prefabAmmoInfo, playerCanvas.transform);
+        QuickSlot = Instantiate(prefabQuickSlot, playerCanvas.transform);
     }
 
     private void OnChangeScore()

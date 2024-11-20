@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7548736029863187040}
   - component: {fileID: 7774858635232708404}
   - component: {fileID: 5357915877303090477}
+  - component: {fileID: 2610372579832276774}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -64,3 +65,19 @@ MonoBehaviour:
   enemyPrefab: {fileID: 3966694913851334202, guid: 2f4a990f4a7037d4b96919df9934af66,
     type: 3}
   SpawnPoints: []
+--- !u!114 &2610372579832276774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7693077004930876175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b6070e996e188d4d87d047ee30315bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraController: {fileID: 0}
+  mainVirtualCamera: {fileID: 0}
+  aimVirtualCamera: {fileID: 0}
+  bulletVirtualCamera: {fileID: 0}

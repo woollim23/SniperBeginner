@@ -4,21 +4,27 @@ using System;
 
 public class UIQuickSlotManager : MonoBehaviour
 {
+    PlayerEquipment equipment;
+
     [Header("Quick Slots")]
     public Transform slotParent; // UI
     public List<UIQuickSlot> quickSlots = new List<UIQuickSlot>(); // UI
-    public List<WeaponData> allWeapons = new List<WeaponData>(); // 데이터
-
-    public event Action<int> OnWeaponSelected; // 로직
 
     private int currentSlotIndex = -1; // 로직
 
     private void Awake()
     {
+        equipment = CharacterManager.Instance.Player.Equipment;
+
         AutoRegisterSlots();
         InitializeQuickSlots();
 
         InputManager.Instance.OnQuickSlotEvent += HandleQuickSlotSelection;
+    }
+
+    private void Start() 
+    {
+        HandleQuickSlotSelection(1);
     }
 
     // UI
@@ -41,9 +47,9 @@ public class UIQuickSlotManager : MonoBehaviour
     {
         for (int i = 0; i < quickSlots.Count; i++)
         {
-            if (i < allWeapons.Count)
+            if (i < equipment.allWeapons.Count)
             {
-                quickSlots[i].weaponData = allWeapons[i];
+                quickSlots[i].weaponData = equipment.allWeapons[i];
                 quickSlots[i].UpdateUI(false);
             }
             else
@@ -84,7 +90,7 @@ public class UIQuickSlotManager : MonoBehaviour
             PlayEquipSound(selectedWeapon);
         }
 
-        OnWeaponSelected?.Invoke(slotIndex);
+        equipment.WeaponSelected(slotIndex);
     }
 
     private void PlayEquipSound(WeaponData weaponData)
