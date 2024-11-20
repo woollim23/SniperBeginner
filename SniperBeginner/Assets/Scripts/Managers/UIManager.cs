@@ -13,8 +13,13 @@ public class UIManager : Singleton<UIManager>
 
     public GameObject CurrentScreen { get; private set; }
 
+    private void Awake()
+    {
+        Score = GetComponentInChildren<TextMeshProUGUI>();
+    }
+
     void Start()
-    {        
+    {       
         GameManager.Instance.onChangeScore += OnChangeScore;
         OnChangeScore();
 
