@@ -33,10 +33,6 @@ public class EnemyAttackState : EnemyBaseState
     void Fire()
     {
         Weapon weapon = stateMachine.Enemy.Weapon;
-        Debug.Log(weapon);
-        Debug.Log(weapon.weaponData);
-        Debug.Log(weapon.weaponData.projectile);
-        Debug.Log(weapon.weaponData.projectile.data);
         Projectile bullet = ObjectPoolManager.Instance.Get(weapon.weaponData.projectile.data.type);
 
         Ray ray = new Ray(weapon.firePoint.position, weapon.firePoint.forward);
