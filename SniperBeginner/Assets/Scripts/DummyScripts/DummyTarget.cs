@@ -8,4 +8,9 @@ public class DummyTarget : MonoBehaviour, ISnipable
     {
         return 1f;
     }
+
+    public bool IsSnipable(float damage)
+    {
+        return true;
+    }
 }

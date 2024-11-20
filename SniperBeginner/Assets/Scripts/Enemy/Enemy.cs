@@ -2,13 +2,15 @@ using System;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour, ISnipable
+public class Enemy : MonoBehaviour
 {
     [field: Header("Enemy Data")]
     [field: SerializeField] private float health;
-    public NavMeshAgent agent;
-    public float minWanderDistance;
-    public float maxWanderDistance;
+    public float Health {get => health;}
+
+    public NavMeshAgent Agent { get; private set; }
+    public float MinWanderDistance { get; private set; }
+    public float MaxWanderDistance { get; private set; }
     [field: SerializeField] public EnemySO Data { get; private set; }
 
     [field: Header("Animations")]
@@ -31,9 +33,9 @@ public class Enemy : MonoBehaviour, ISnipable
 
     private void Awake()
     {
-        minWanderDistance = 2;
-        maxWanderDistance = 5;
-        agent = GetComponent<NavMeshAgent>();
+        MinWanderDistance = 2;
+        MaxWanderDistance = 5;
+        Agent = GetComponent<NavMeshAgent>();
         AnimationData.Initialize();
 
         Rigidbody = GetComponent<Rigidbody>();
@@ -56,7 +58,6 @@ public class Enemy : MonoBehaviour, ISnipable
     private void Update()
     {
         stateMachine.Update();
-        if (health <= 0) Die();
     }
 
     public void EnemyDatalInit()
@@ -77,9 +78,8 @@ public class Enemy : MonoBehaviour, ISnipable
     {
         GiveItem();
         Animator.avatar = null;
-
+        Agent.isStopped = true;
         GameManager.Instance.CountDeadEnemy();
-        // TODO : 5ÃÊµÚ ¿¡³Ê¹Ì ÆÄ±«
         Invoke("DestroyEnemy", 5);
     }
 
@@ -93,9 +93,4 @@ public class Enemy : MonoBehaviour, ISnipable
         Destroy(gameObject);
     }
 
-    public float CheckRemainHealth()
-    {
-        return 1f; // ?„ì‹œë¡?1f ë°˜í™˜
-        // ?ëž˜???„ìž¬ ?¨ì? ì²´ë ¥??ì¤˜ì•¼??
-    }
 }

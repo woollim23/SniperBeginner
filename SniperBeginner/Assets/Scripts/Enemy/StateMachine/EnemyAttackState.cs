@@ -35,12 +35,11 @@ public class EnemyAttackState : EnemyBaseState
 
         // 애니메이션 진행도를 0.0 ~ 1.0
         //float normalizedTime = GetNormalizedTime(stateMachine.Enemy.Animator, "Attack");
-        if (!IsInChasingRange()) // 플레이어가 범위 안이면
+        if (!IsInChasingRange()) // 플레이어가 범위 밖이면
         {
             stateMachine.ChangeState(stateMachine.IdleState); // 아이들 상태로 변경
             return;
         }
-
 
     }
 

@@ -4,7 +4,6 @@ using UnityEngine;
 [Serializable]
 public class ProjectileData
 {
-    public float damage = 50f;
     public float speed = 100f;
     public float lifeTime = 3f;
     public AmmoType type;
@@ -33,7 +32,7 @@ public class Projectile : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(direction);
     }
 
-    public virtual void Fire(Vector3 firePoint, Vector3 direction, float damage = 50f)
+    public virtual void Fire(Vector3 firePoint, Vector3 direction)
     {
         Initialize(firePoint, direction);
 

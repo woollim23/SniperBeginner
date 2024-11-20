@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class EnemyStateMachine : StateMachine
 {
-    public Enemy Enemy { get; }
+    public Enemy Enemy { get; private set; }
 
-    public Vector2 MovementInput { get; set; }
-    public float MovementSpeed { get; private set; }
-    public float RotationDamping { get; private set; }
+    public float BaseSpeed { get; private set; }
     public float MovementSpeedModifier { get; set; }
+    public float RotationDamping { get; private set; }
     public float FieldOfView { get; private set; }
 
     public GameObject Target { get; private set; }
@@ -26,10 +25,8 @@ public class EnemyStateMachine : StateMachine
         WanderState = new EnemyWanderState(this);
         AttackState = new EnemyAttackState(this);
 
-        Enemy.agent.speed = Enemy.Data.GroundData.BaseSpeed;
-
-        // -- º¸·ù
-        MovementSpeed = Enemy.Data.GroundData.BaseSpeed;
+        BaseSpeed = Enemy.Data.GroundData.BaseSpeed;
+        MovementSpeedModifier = Enemy.Data.GroundData.WalkSpeedModifier;
         RotationDamping = Enemy.Data.GroundData.BaseRotationDamping;
         FieldOfView = Enemy.Data.GroundData.BaseFiledOfView;
     }

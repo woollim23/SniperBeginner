@@ -12,12 +12,9 @@ public class EnemyIdleState : EnemyBaseState
     public override void Enter()
     {
         //Debug.Log("Idle");
-
-
         base.Enter();
         StartAnimation(stateMachine.Enemy.AnimationData.GroundParameterHash);
         StartAnimation(stateMachine.Enemy.AnimationData.IdleParameterHash);
-        stateMachine.Enemy.agent.isStopped = true;
     }
 
     public override void Exit()
@@ -36,7 +33,7 @@ public class EnemyIdleState : EnemyBaseState
             stateMachine.ChangeState(stateMachine.AttackState);
             return;
         }
-        if(stateMachine.Enemy.agent.velocity.magnitude > 0.1f)
+        if(stateMachine.Enemy.Agent.velocity.magnitude > 0.1f)
         {
             stateMachine.ChangeState(stateMachine.WanderState);
             return;
