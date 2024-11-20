@@ -118,6 +118,8 @@ public class PlayerShootingController : MonoBehaviour
         lastFireTime = Time.time;
         
         anim.Fire();
+        SoundManager.Instance.PlaySound(weapon.weaponData.fireSound);
+
         // 겉으로 표시만 하는 용도
         Projectile bullet = ObjectPoolManager.Instance.Get(weapon.weaponData.projectile.data.type);
         bullet.Fire(weapon.firePoint.position, weapon.firePoint.forward);
