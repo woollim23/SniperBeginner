@@ -2,20 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyWanderState : EnemyBaseState
+public class EnemyChasingState : EnemyBaseState
 {
-    public EnemyWanderState(EnemyStateMachine stateMachine) : base(stateMachine)
+    public EnemyChasingState(EnemyStateMachine stateMachine) : base(stateMachine)
     {
     }
 
     public override void Enter()
     {
-        //Debug.Log("Wander");
-        
+        //Debug.Log("Chasing");
+
         base.Enter();
         StartAnimation(stateMachine.Enemy.AnimationData.GroundParameterHash);
         StartAnimation(stateMachine.Enemy.AnimationData.WalkParameterHash);
-
     }
 
     public override void Exit()
@@ -27,14 +26,17 @@ public class EnemyWanderState : EnemyBaseState
 
     public override void Update()
     {
-        base.Update();
+        // 플레이어 추적
 
-        if (IsInChasingRange())
+        stateMachine.Enemy.Agent.SetDestination(CharacterManager.Instance.Player.transform.position);
+
+        if (IsInAttackRange())
         {
-            stateMachine.ChangeState(stateMachine.ChasingState);
+            stateMachine.ChangeState(stateMachine.AttackState);
             return;
         }
-        else if(stateMachine.Enemy.Agent.velocity.magnitude <= 0.1f)
+
+        if (!IsInChasingRange())
         {
             stateMachine.ChangeState(stateMachine.IdleState);
             return;

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-
+using UnityEngine.AI;
 public class EnemyIdleState : EnemyBaseState
 {
     public EnemyIdleState(EnemyStateMachine enemyStateMachine) : base(enemyStateMachine)
@@ -12,6 +12,7 @@ public class EnemyIdleState : EnemyBaseState
     public override void Enter()
     {
         //Debug.Log("Idle");
+
         base.Enter();
         StartAnimation(stateMachine.Enemy.AnimationData.GroundParameterHash);
         StartAnimation(stateMachine.Enemy.AnimationData.IdleParameterHash);
@@ -28,10 +29,12 @@ public class EnemyIdleState : EnemyBaseState
     {
         base.Update();
 
+
         if (IsInChasingRange())
         {
-            stateMachine.ChangeState(stateMachine.AttackState);
+            stateMachine.ChangeState(stateMachine.ChasingState);
             return;
+            
         }
         if(stateMachine.Enemy.Agent.velocity.magnitude > 0.1f)
         {

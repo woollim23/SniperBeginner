@@ -2,20 +2,21 @@ using UnityEngine;
 
 public class EnemyHitDamage : MonoBehaviour, IDamagable, ISnipable
 {
-    [SerializeField] protected Enemy enemy;
+    [SerializeField] private float damageModifier = 1;
+    private Enemy enemy;
 
     private void Awake()
     {
         enemy = GetComponentInParent<Enemy>();
     }
 
-    public virtual void TakeDamage(float damage)
+    public void TakeDamage(float damage)
     {
-        enemy.onTakeDamage(damage);
+        enemy.onTakeDamage(damage * damageModifier);
     }
 
-    public virtual bool IsSnipable(float damage)
+    public bool IsSnipable(float damage)
     {
-        return enemy.Health <= damage;
+        return enemy.Health <= damage * damageModifier;
     }
 }
