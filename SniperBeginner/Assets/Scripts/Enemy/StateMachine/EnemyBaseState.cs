@@ -15,7 +15,6 @@ public class EnemyBaseState : IState
         this.stateMachine = stateMachine;
         groundData = stateMachine.Enemy.Data.GroundData;
         stateMachine.Enemy.Agent.isStopped = false;
-        stateMachine.Enemy.Agent.speed = groundData.BaseSpeed;
     }
 
     public virtual void Enter()
@@ -31,6 +30,8 @@ public class EnemyBaseState : IState
 
     public virtual void Update()
     {
+        stateMachine.Enemy.Agent.speed = groundData.BaseSpeed * (stateMachine.Enemy.Health <=0 ? 0 : 1);
+
         if (moveCoroutine == null)
         {
             moveCoroutine = stateMachine.Enemy.StartCoroutine(DelayedMove());

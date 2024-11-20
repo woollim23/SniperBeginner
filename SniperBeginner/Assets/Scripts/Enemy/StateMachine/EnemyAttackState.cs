@@ -34,7 +34,8 @@ public class EnemyAttackState : EnemyBaseState
 
     public override void Update()
     {
-        Rotate(CharacterManager.Instance.Player.transform.position - stateMachine.Enemy.transform.position);
+        if(stateMachine.Enemy.Health > 0)
+            Rotate(CharacterManager.Instance.Player.transform.position - stateMachine.Enemy.transform.position);
 
         // 애니메이션 진행도를 0.0 ~ 1.0
         //float normalizedTime = GetNormalizedTime(stateMachine.Enemy.Animator, "Attack");
