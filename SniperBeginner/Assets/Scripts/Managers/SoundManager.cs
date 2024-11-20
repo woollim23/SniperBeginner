@@ -5,9 +5,9 @@ public class SoundManager : SingletonDontDestory<SoundManager>
     [Header("Audio Settings")]
     public AudioSource audioSource;
 
-    private void Awake()
+
+    private void Start()
     {
-        base.Awake();
         EnsureAudioSource();
     }
 

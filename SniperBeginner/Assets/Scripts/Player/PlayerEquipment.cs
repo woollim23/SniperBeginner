@@ -31,6 +31,7 @@ public class PlayerEquipment : MonoBehaviour
         for (int i = 0; i < quickSlotManager.allWeapons.Count; i++)
         {
             GameObject instance = Instantiate(quickSlotManager.allWeapons[i].equipPrefab);
+            instance.SetActive(false);
             weaponInstance.Add(instance);
         }
 
@@ -39,10 +40,9 @@ public class PlayerEquipment : MonoBehaviour
     }
 
 
-    private void WeaponSelected(WeaponData data)
+    private void WeaponSelected(int idx)
     {
-        GameObject weapon = Instantiate(data.equipPrefab);
-        Equip(weapon.GetComponent<Weapon>());
+        Equip(weaponInstance[idx - 1].GetComponent<Weapon>());
     }
 
     public void ModifyWeaponDirection(Vector3 targetPoint)
@@ -64,6 +64,9 @@ public class PlayerEquipment : MonoBehaviour
             Unequip();
 
         CurrentEquip = equipment;
+        CurrentEquip.gameObject.SetActive(true);
+
+
         CurrentEquip.OnAmmoChanged += CallOnAmmoChanged;
         CallOnAmmoChanged(); // 장착 후 초기화
 
@@ -85,7 +88,8 @@ public class PlayerEquipment : MonoBehaviour
         if(CurrentEquip != null)
         {
             // 1안. Destroy 하기 // 2안. 반환하기
-            Destroy(CurrentEquip.gameObject);
+            // Destroy(CurrentEquip.gameObject);
+            CurrentEquip.gameObject.SetActive(false);
 
             CurrentEquip.OnAmmoChanged -= CallOnAmmoChanged;
             CurrentEquip = null;

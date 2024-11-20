@@ -9,7 +9,7 @@ public class QuickSlotManager : MonoBehaviour
     public List<UIQuickSlot> quickSlots = new List<UIQuickSlot>(); // UI
     public List<WeaponData> allWeapons = new List<WeaponData>(); // 데이터
 
-    public event Action<WeaponData> OnWeaponSelected; // 로직
+    public event Action<int> OnWeaponSelected; // 로직
 
     private int currentSlotIndex = -1; // 로직
 
@@ -84,7 +84,7 @@ public class QuickSlotManager : MonoBehaviour
             PlayEquipSound(selectedWeapon);
         }
 
-        OnWeaponSelected?.Invoke(selectedWeapon);
+        OnWeaponSelected?.Invoke(slotIndex);
     }
 
     private void PlayEquipSound(WeaponData weaponData)
