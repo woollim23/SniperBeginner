@@ -13,8 +13,15 @@ public class UIManager : Singleton<UIManager>
 
     public GameObject CurrentScreen { get; private set; }
 
+    private void Awake()
+    {
+        
+    }
+
     void Start()
-    {        
+    {
+        Score = GetComponentInChildren<TextMeshProUGUI>();
+
         GameManager.Instance.onChangeScore += OnChangeScore;
         OnChangeScore();
 
@@ -25,8 +32,8 @@ public class UIManager : Singleton<UIManager>
 
     private void OnChangeScore()
     {
-        Debug.Log(GameManager.Instance.enemies.Count);
-        Score.text = GameManager.Instance.enemies.Count + " / " + GameManager.Instance.enemies.Capacity;
+        if(Score != null)
+            Score.text = GameManager.Instance.enemies.Count + " / " + GameManager.Instance.enemies.Capacity;
     }
 
     public void PauseMenuInit()
