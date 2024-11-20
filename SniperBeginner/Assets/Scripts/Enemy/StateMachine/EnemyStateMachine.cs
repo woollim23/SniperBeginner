@@ -6,10 +6,7 @@ public class EnemyStateMachine : StateMachine
 {
     public Enemy Enemy { get; private set; }
 
-    public float BaseSpeed { get; private set; }
-    public float MovementSpeedModifier { get; set; }
     public float RotationDamping { get; private set; }
-    public float FieldOfView { get; private set; }
 
     public GameObject Target { get; private set; }
     public EnemyIdleState IdleState { get; }
@@ -29,10 +26,7 @@ public class EnemyStateMachine : StateMachine
         ChasingState = new EnemyChasingState(this);
         AttackState = new EnemyAttackState(this);
 
-        BaseSpeed = Enemy.Data.GroundData.BaseSpeed;
-        MovementSpeedModifier = Enemy.Data.GroundData.WalkSpeedModifier;
         RotationDamping = Enemy.Data.GroundData.BaseRotationDamping;
-        FieldOfView = Enemy.Data.GroundData.BaseFiledOfView;
     }
 
     protected void ChangeWarningState()

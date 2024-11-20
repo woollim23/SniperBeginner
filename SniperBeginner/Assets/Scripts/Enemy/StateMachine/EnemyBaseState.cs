@@ -15,6 +15,7 @@ public class EnemyBaseState : IState
         this.stateMachine = stateMachine;
         groundData = stateMachine.Enemy.Data.GroundData;
         stateMachine.Enemy.Agent.isStopped = false;
+        stateMachine.Enemy.Agent.speed = groundData.BaseSpeed;
     }
 
     public virtual void Enter()
@@ -39,31 +40,21 @@ public class EnemyBaseState : IState
     private IEnumerator DelayedMove()
     {
         yield return new WaitForSeconds(Random.Range(4f, 7f));
-        Move();
+        GetWanderLocation();
         moveCoroutine = null;
     }
 
 
-    private void Move()
-    {
-        // MovementSpeedModifier에 따라 속력 변경
-        // 체력으로 죽음 확인 후, 움직임 결정
 
-        stateMachine.Enemy.Agent.speed = stateMachine.BaseSpeed * stateMachine.MovementSpeedModifier;
-
-        stateMachine.Enemy.Agent.SetDestination(GetWanderLocation());
-    }
-
-    private Vector3 GetWanderLocation()
+    private void GetWanderLocation()
     {
         NavMeshHit hit;
         // 포지션을 알려주면 이동할 수 있는 한 최단거리를 반환
-        NavMesh.SamplePosition(stateMachine.Enemy.transform.position + (Random.onUnitSphere * Random.Range(stateMachine.Enemy.MinWanderDistance, stateMachine.Enemy.MaxWanderDistance)), out hit, stateMachine.Enemy.MaxWanderDistance, NavMesh.AllAreas);
+        NavMesh.SamplePosition(stateMachine.Enemy.transform.position + (Random.onUnitSphere * Random.Range(groundData.MinWanderDistance, groundData.MaxWanderDistance)), out hit, groundData.MaxWanderDistance, NavMesh.AllAreas);
 
 
         Rotate(hit.position);
-
-        return hit.position;
+        stateMachine.Enemy.Agent.SetDestination(hit.position);
     }
 
     public void Rotate(Vector3 movementDirection)
