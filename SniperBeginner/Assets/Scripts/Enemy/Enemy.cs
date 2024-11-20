@@ -75,7 +75,6 @@ public class Enemy : MonoBehaviour
             return;
         }
 
-        Debug.Log("Hit");
         Animator.SetTrigger("Hit");
         Agent.isStopped = true;
         StartCoroutine(WaitForHitAnimation());
