@@ -65,6 +65,14 @@ public class PlayerShootingController : MonoBehaviour
             RecoverBreath();
     }
 
+    private void OnDisable() 
+    {
+        OnAim = null;
+        OnControlBreath = null;
+        OnGunFire = null;
+        OnSnipeEnemy = null;
+    }
+
 
     void RecoverBreath()
     {
