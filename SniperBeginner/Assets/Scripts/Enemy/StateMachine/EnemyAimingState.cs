@@ -11,8 +11,8 @@ public class EnemyAimingState : EnemyBaseState
     public override void Enter()
     {
         base.Enter();
+
         StartAnimation(stateMachine.Enemy.AnimationData.AttackParameterHash);
-        StartAnimation(stateMachine.Enemy.AnimationData.AimingParameterName);
 
         stateMachine.Enemy.Agent.isStopped = true;
     }
@@ -20,34 +20,34 @@ public class EnemyAimingState : EnemyBaseState
     public override void Exit()
     {
         base.Exit();
+
         StopAnimation(stateMachine.Enemy.AnimationData.AttackParameterHash);
-        StopAnimation(stateMachine.Enemy.AnimationData.AimingParameterName);
+
         stateMachine.Enemy.Agent.isStopped = false;
     }
 
     public override void Update()
     {
-        if(stateMachine.Enemy.Health > 0)
-            Rotate(CharacterManager.Instance.Player.transform.position - stateMachine.Enemy.transform.position);
-        
+        if (stateMachine.Enemy.Health > 0)
+            Rotate(stateMachine.Target.transform.position - stateMachine.Enemy.transform.position);
 
-        if (!IsInAttackRange()) // 플레이어가 범위 밖이면
+        if (!IsInAttackRange()) // 플레이어가 공격 범위 밖이면
         {
             if (IsInChasingRange())
             {
-                stateMachine.ChangeState(stateMachine.ChasingState);
+                stateMachine.ChangeState(stateMachine.ChasingState); // 추적 상태
                 return;
             }
             else
             {
-                stateMachine.ChangeState(stateMachine.IdleState); // 아이들 상태로 변경
+                stateMachine.ChangeState(stateMachine.IdleState); // 아이들 상태
+                return;
             }
         }
         else if(stateMachine.RateAttackTime <= Time.time - stateMachine.LastAttackTime && !stateMachine.Enemy.isDeadEnemy)
         {
             stateMachine.ChangeState(stateMachine.AttackState); // 공격 상태
+            return;
         }
-
-        // TODO : 플레이어가 죽으면 멈추도록 or 플레이어 죽음 이벤트 받아서 상태 변화
     }
 }

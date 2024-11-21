@@ -11,9 +11,8 @@ public class EnemyIdleState : EnemyBaseState
 
     public override void Enter()
     {
-        //Debug.Log("Idle");
-
         base.Enter();
+
         StartAnimation(stateMachine.Enemy.AnimationData.GroundParameterHash);
         StartAnimation(stateMachine.Enemy.AnimationData.IdleParameterHash);
     }
@@ -21,6 +20,7 @@ public class EnemyIdleState : EnemyBaseState
     public override void Exit()
     {
         base.Exit();
+
         StopAnimation(stateMachine.Enemy.AnimationData.GroundParameterHash);
         StopAnimation(stateMachine.Enemy.AnimationData.IdleParameterHash);
     }

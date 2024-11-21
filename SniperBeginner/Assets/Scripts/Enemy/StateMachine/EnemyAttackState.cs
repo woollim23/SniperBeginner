@@ -14,6 +14,7 @@ public class EnemyAttackState : EnemyBaseState
     public override void Enter()
     {
         base.Enter();
+
         StartAnimation(stateMachine.Enemy.AnimationData.AttackParameterHash);
         StartAnimation(stateMachine.Enemy.AnimationData.FireParameterHash);
 
@@ -25,11 +26,11 @@ public class EnemyAttackState : EnemyBaseState
     public override void Exit()
     {
         base.Exit();
+
         StopAnimation(stateMachine.Enemy.AnimationData.AttackParameterHash);
         StopAnimation(stateMachine.Enemy.AnimationData.FireParameterHash);
 
         stateMachine.Enemy.Agent.isStopped = false;
-        stateMachine.LastAttackTime = Time.time;
     }
 
     void Fire()
@@ -41,6 +42,7 @@ public class EnemyAttackState : EnemyBaseState
         Vector3 firePoint = weapon.firePoint.transform.position;
 
         bullet.Fire(firePoint, aimPoint-firePoint, stateMachine.Enemy.Data.Damage);
+        stateMachine.LastAttackTime = Time.time;
 
         ParticleManager.Instance.SpawnMuzzleFlash(weapon.firePoint);
         SoundManager.Instance.PlaySound(weapon.weaponData.fireSound);
@@ -50,9 +52,10 @@ public class EnemyAttackState : EnemyBaseState
     {
         yield return new WaitForSeconds(0.2f);
         Fire();
-        float animationLength = stateMachine.Enemy.Animator.GetCurrentAnimatorStateInfo(0).length;
 
+        float animationLength = stateMachine.Enemy.Animator.GetCurrentAnimatorStateInfo(0).length;
         yield return new WaitForSeconds(animationLength);
+
         stateMachine.ChangeState(stateMachine.AimingState);
     }
 }
