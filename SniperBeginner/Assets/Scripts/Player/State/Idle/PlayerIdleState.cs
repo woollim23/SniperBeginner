@@ -48,8 +48,6 @@ public class PlayerIdleState : PlayerBaseState
 
     protected override void AddPlayerInput()
     {
-        stateMachine.CurrentIdle = this;
-
         base.AddPlayerInput();
         stateMachine.Player.Actions.Pose.started += OnPose;
 
