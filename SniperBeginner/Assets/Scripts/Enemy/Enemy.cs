@@ -69,13 +69,17 @@ public class Enemy : MonoBehaviour
         }
 
         Animator.SetTrigger("Hit");
-        Agent.isStopped = true;
+
+        SoundManager.Instance.PlaySound(SoundManager.Instance.ouchSFX, 0.7f);
 
         StartCoroutine(WaitForHitAnimation());
     }
 
     private IEnumerator WaitForHitAnimation()
     {
+        Agent.isStopped = true;
+        Agent.SetDestination(transform.position);
+
         AnimatorStateInfo stateInfo = Animator.GetCurrentAnimatorStateInfo(0);
         while (stateInfo.IsName("Hit") && stateInfo.normalizedTime < 1f)
         {
@@ -94,6 +98,8 @@ public class Enemy : MonoBehaviour
         GiveItem();
         GameManager.Instance.CountDeadEnemy();
         OnEnemyDied?.Invoke(transform);
+
+        SoundManager.Instance.PlaySound(SoundManager.Instance.deadSFX, 0.7f);
 
         Invoke("DestroyEnemy", 5);
     }

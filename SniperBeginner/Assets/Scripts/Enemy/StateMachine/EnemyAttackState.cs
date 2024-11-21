@@ -41,7 +41,7 @@ public class EnemyAttackState : EnemyBaseState
         Vector3 firePoint = weapon.firePoint.transform.position;
         Vector3 targetPos = stateMachine.Target.transform.position + Vector3.up * (1f + Random.Range(-0.3f, 0.5f));
 
-        Vector3 dir = targetPos - firePoint; //stateMachine.Target.transform.position - firePoint;
+        Vector3 dir = targetPos - firePoint;
         bullet.Fire(firePoint, dir, stateMachine.Enemy.Data.Damage);
 
         stateMachine.LastAttackTime = Time.time;
