@@ -58,8 +58,15 @@ public class Player : MonoBehaviour
         if (data != null)
         {
             // 위치 및 체력 복구
+            Controller.enabled = false;
             transform.position = data.Position;
-            Condition.Health = data.Health;           
+            Controller.enabled = true;
+
+            Condition.Initialize(data.Health);
+        }
+        else
+        {
+            Condition.Initialize();
         }
 
         // 시작은 일반 - 서 있는 상태

@@ -43,11 +43,16 @@ public class CharacterManager : Singleton<CharacterManager>
 
     public void InstantiatePlayer()
     {   
+        if(Player != null)
+        {
+            Destroy(Player.gameObject);
+        }
+
         Player = Instantiate(playerPrefab);
 
         if (DataManager.Instance.IsLoadedGame)
         {
-            Player.Initialize(null);
+            Player.Initialize(DataManager.Instance.CurrentGameData.playerData);
         }
         else
         {
