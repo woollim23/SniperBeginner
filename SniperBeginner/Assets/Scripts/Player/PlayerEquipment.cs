@@ -8,7 +8,7 @@ public class PlayerEquipment : MonoBehaviour
     PlayerAnimationController anim;
 
     public List<WeaponData> allWeapons = new List<WeaponData>(); // 데이터
-    [SerializeField] List<Weapon> weaponInstance = new List<Weapon>();
+    public List<Weapon> weaponInstance = new List<Weapon>();
 
     public Weapon CurrentEquip { get; private set; }
     
