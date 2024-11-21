@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class GameManager : SingletonDontDestory<GameManager>
 {
@@ -57,11 +58,11 @@ public class GameManager : SingletonDontDestory<GameManager>
         {
             GameData.playerData.Position = player.transform.position; // 플레이어 위치 저장
             GameData.playerData.Health = player.Condition.Health; // 플레이어 체력 저장
-            // 현재 총기 저장
+            GameData.playerData.EquippedWeaponIndex = player.Equipment.allWeapons.IndexOf(player.Equipment.CurrentEquip.weaponData); // 현재 총기 저장
             // 현재 총알 수 저장
-        }
 
-        DataManager.Instance.SaveGameData(GameData);
+            DataManager.Instance.SaveGameData(GameData);
+        }
     }
 
 
