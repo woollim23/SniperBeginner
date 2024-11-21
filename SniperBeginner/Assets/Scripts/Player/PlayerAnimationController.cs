@@ -10,7 +10,7 @@ public class PlayerAnimationController : MonoBehaviour
     
     [Header("IK")]
     [SerializeField] RigBuilder rigBuilder;
-    [SerializeField] Rig rig;
+    public Rig rig;
     [SerializeField] MultiAimConstraint aimConstraint;
     [SerializeField] ChainIKConstraint leftHandIK;
     
@@ -46,7 +46,6 @@ public class PlayerAnimationController : MonoBehaviour
         leftHandIKTarget.position = targetPosition;
         leftHandIKTarget.localPosition += leftHandOffset;
     }
-
 
     public void Move(Vector2 direction)
     {
@@ -103,6 +102,21 @@ public class PlayerAnimationController : MonoBehaviour
     {
         Animator.SetInteger(data.WeaponTypeParamHash, (int)type);
     }
+
+    public void AnimationSwitch(bool isOn)
+    {
+        if(isOn)
+        {
+            Animator.enabled = isOn;
+            rig.weight = 1f;
+        }
+        else
+        {
+            Animator.enabled = isOn;
+            rig.weight = 0f;
+        }
+    }
+
 }
 
 [System.Serializable]

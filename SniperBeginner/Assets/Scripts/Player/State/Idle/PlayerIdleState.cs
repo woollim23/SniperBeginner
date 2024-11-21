@@ -43,8 +43,6 @@ public class PlayerIdleState : PlayerBaseState
         {
             stateMachine.ChangeState(stateMachine.FallState);
         }
-
-        
     }
 
 

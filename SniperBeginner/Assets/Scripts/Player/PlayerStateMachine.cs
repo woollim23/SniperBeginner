@@ -9,20 +9,27 @@ public class PlayerStateMachine : StateMachine
     // Idle 계열    
     public PlayerStandState StandState { get; private set; }
     public PlayerCrouchState CrouchState { get; private set; }
-
     // Air 계열
     public PlayerJumpState JumpState { get; private set; }
     public PlayerFallState FallState { get; private set; }
+    public PlayerDeadState DeadState { get; private set; }
+
 
     public PlayerStateMachine(Player player)
     {
         Player = player;
-        Setting = Player.setting;
+        Setting = player.setting;
 
         StandState = new PlayerStandState(this);
         CrouchState = new PlayerCrouchState(this);
 
         JumpState = new PlayerJumpState(this);
         FallState = new PlayerFallState(this);
+        DeadState = new PlayerDeadState(this);
+    }
+
+    public void SetDead()
+    {
+        ChangeState(DeadState);
     }
 }

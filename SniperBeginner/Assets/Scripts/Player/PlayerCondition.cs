@@ -26,6 +26,7 @@ public class PlayerCondition : MonoBehaviour, IDamagable
     [SerializeField] float maxHealth = 100f;
 
     public event Action<float> OnHealthChanged;
+    public event Action OnDead;
 
     private void Start() 
     {
@@ -35,6 +36,7 @@ public class PlayerCondition : MonoBehaviour, IDamagable
     public void Die()
     {
         IsDead = true;
+        OnDead?.Invoke();
     }
 
     public void TakeDamage(float damage)
