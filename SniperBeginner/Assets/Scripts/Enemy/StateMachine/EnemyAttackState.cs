@@ -37,10 +37,11 @@ public class EnemyAttackState : EnemyBaseState
         Weapon weapon = stateMachine.Enemy.Weapon;
         Projectile bullet = ObjectPoolManager.Instance.Get(weapon.weaponData.projectile.data.type);
 
-        Vector3 aimPoint = weapon.aimPoint.transform.position;
         Vector3 firePoint = weapon.firePoint.transform.position;
-
-        bullet.Fire(firePoint, aimPoint-firePoint, stateMachine.Enemy.Data.Damage);
+        
+        Vector3 targetPos = stateMachine.Target.transform.position + Vector3.up * (1f + Random.Range(-0.3f, 0.5f));
+        Vector3 dir = (targetPos - firePoint).normalized;//stateMachine.Target.transform.position - firePoint;
+        bullet.Fire(firePoint, dir, stateMachine.Enemy.Data.Damage);
 
         ParticleManager.Instance.SpawnMuzzleFlash(weapon.firePoint);
         SoundManager.Instance.PlaySound(weapon.weaponData.fireSound);

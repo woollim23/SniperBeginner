@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 1234675789485691743}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.028, y: 0.176, z: 1.028}
+  m_LocalPosition: {x: 0, y: 0.0824, z: 1.028}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -137,6 +137,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 0
+  isDeadEnemy: 0
   <Data>k__BackingField: {fileID: 11400000, guid: 0165681e31ecc9143a44b9424192fe16,
     type: 2}
   <Weapon>k__BackingField: {fileID: 1041642910160079288}
@@ -430,7 +431,7 @@ Transform:
   m_GameObject: {fileID: 7198458925211367303}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0006, y: 0.0824, z: 0.5931}
+  m_LocalPosition: {x: 0, y: 0.0824, z: 0.5931}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

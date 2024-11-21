@@ -18,7 +18,7 @@ public class EnemyStateMachine : StateMachine
     public EnemyStateMachine(Enemy enemy)
     {
         this.Enemy = enemy;
-        Target = GameObject.FindGameObjectWithTag("Player");
+        Target = CharacterManager.Instance.Player.gameObject;//GameObject.FindGameObjectWithTag("Player");
 
         IdleState = new EnemyIdleState(this);
         WanderState = new EnemyWanderState(this);

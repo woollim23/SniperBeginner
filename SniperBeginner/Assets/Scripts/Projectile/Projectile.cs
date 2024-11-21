@@ -57,6 +57,7 @@ public class Projectile : MonoBehaviour
     public virtual void Fire(Vector3 firePoint, Vector3 direction, float damage = 30f, string shooter = "Enemy")
     {
         Initialize(firePoint, direction);
+        
         data.damage = damage;
         shooterTag = shooter;
 
