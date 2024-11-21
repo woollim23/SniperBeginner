@@ -21,7 +21,6 @@ public class Enemy : MonoBehaviour
     public Rigidbody Rigidbody { get; private set; }
     public Animator Animator { get; private set; }
     public CharacterController Controller { get; private set; }
-    public ForceReceiver ForceReceiver { get; private set; }
 
     public EnemyStateMachine stateMachine;
     public NavMeshAgent Agent { get; private set; }
@@ -37,8 +36,6 @@ public class Enemy : MonoBehaviour
         Rigidbody = GetComponent<Rigidbody>();
         Animator = GetComponentInChildren<Animator>();
         Controller = GetComponent<CharacterController>();
-
-        ForceReceiver = GetComponent<ForceReceiver>();
         stateMachine = new EnemyStateMachine(this);
 
         onTakeDamage += OnTakeDamage;
