@@ -28,7 +28,6 @@ public class Enemy : MonoBehaviour
 
     public Action<float> onTakeDamage;
     public Action<Transform> OnEnemyDied;
-    public Action OnEnemyGunFire;
 
     private void Awake()
     {
