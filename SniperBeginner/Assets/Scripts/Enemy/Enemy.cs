@@ -6,8 +6,7 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
     [field: Header("Enemy Data")]
-    [field: SerializeField] private float health;
-    public float Health {get => health;}
+    public float Health { get; set; }
     public bool isDeadEnemy;
     [field: SerializeField] public EnemySO Data { get; private set; }
     [field: SerializeField] public Weapon Weapon { get; private set; }
@@ -56,14 +55,14 @@ public class Enemy : MonoBehaviour
 
     public void EnemyDatalInit()
     {
-        health = Data.MaxHealth;
+        Health = Data.MaxHealth;
         isDeadEnemy = false;
     }
 
     public void OnTakeDamage(float damage)
     {
-        health = Mathf.Max(health - damage, 0);
-        if (health == 0 && isDeadEnemy == false)
+        Health = Mathf.Max(Health - damage, 0);
+        if (Health == 0 && isDeadEnemy == false)
         {
             Die();
             return;
