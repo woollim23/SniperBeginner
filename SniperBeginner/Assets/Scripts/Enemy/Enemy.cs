@@ -107,4 +107,9 @@ public class Enemy : MonoBehaviour
     {
         Destroy(gameObject);
     }
+
+    public void CineDontMove()
+    {
+        Agent.SetDestination(transform.position);
+    }
 }
