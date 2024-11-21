@@ -44,4 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eebae0f371deec646808dc9a7cd40a16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: 0}
+  bgmSource: {fileID: 0}
+  sfxSource: {fileID: 0}
+  titleBGM: {fileID: 8300000, guid: 7b054868f6540ae419c62655f2c1f74f, type: 3}
+  gameBGM: {fileID: 0}
+  buttonClickSFX: {fileID: 8300000, guid: 4e30e743178b3694da33d8e567ce1028, type: 3}
+  itemPickSFX: {fileID: 8300000, guid: 6aaec3a9fe2b30f439c7475b50296607, type: 3}

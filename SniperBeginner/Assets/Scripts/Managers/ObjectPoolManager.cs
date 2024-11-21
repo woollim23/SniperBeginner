@@ -14,7 +14,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
 
         projectilePools.Add(projectile.data.type, new ObjectPool<Projectile>(
             () => { return Instantiate(projectile); },
-            null, //(projectile)=>{},
+            null, //(projectile)=> { },
             (projectile) => { projectile.gameObject.SetActive(false); }, 
             (projectile) => { Destroy(projectile.gameObject); }, 
             false, initialSize, maxSize));

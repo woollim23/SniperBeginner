@@ -10,6 +10,7 @@ public class PlayerEquipment : MonoBehaviour
     public List<WeaponData> allWeapons = new List<WeaponData>(); // 데이터
     public List<Weapon> weaponInstance = new List<Weapon>();
 
+    public int CurrentWeaponIndex { get; set; } = 1;
     public Weapon CurrentEquip { get; private set; }
     
     // 손 위치
@@ -20,21 +21,26 @@ public class PlayerEquipment : MonoBehaviour
     public event Action<bool> OnReload;
     public event Action<int, int> OnAmmoChanged;
 
-
-    private void Start() 
+    private void Awake() 
     {
-        if(TryGetComponent(out Player player))
+        for (int i = 0; i < allWeapons.Count; i++)
+        {
+            GameObject instance = Instantiate(allWeapons[i].equipPrefab);
+            
+            instance.SetActive(false);
+            weaponInstance.Add(instance.GetComponent<Weapon>());
+        }
+    }
+
+    void Start()
+    {
+        if (TryGetComponent(out Player player))
         {
             view = player.View;
             anim = player.Animation;
         }
-        
-        for (int i = 0; i < allWeapons.Count; i++)
-        {
-            GameObject instance = Instantiate(allWeapons[i].equipPrefab);
-            instance.SetActive(false);
-            weaponInstance.Add(instance.GetComponent<Weapon>());
-        }
+
+        UIManager.Instance.QuickSlot.HandleQuickSlotSelection(CurrentWeaponIndex);
     }
 
 

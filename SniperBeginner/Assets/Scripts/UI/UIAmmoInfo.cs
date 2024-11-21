@@ -6,13 +6,8 @@ public class UIAmmoInfo : MonoBehaviour
     [Header("UI Elements")]
     public TextMeshProUGUI ammoCountText;
     
-    private void Start()
+    private void Awake()
     {
-        if (CharacterManager.Instance.Player == null)
-        {
-            return;
-        }
-
         CharacterManager.Instance.Player.Equipment.OnAmmoChanged += UpdateWeaponUI;
     }
 

@@ -38,10 +38,12 @@ public class EnemyAttackState : EnemyBaseState
         Weapon weapon = stateMachine.Enemy.Weapon;
         Projectile bullet = ObjectPoolManager.Instance.Get(weapon.weaponData.projectile.data.type);
 
-        Vector3 aimPoint = weapon.aimPoint.transform.position;
         Vector3 firePoint = weapon.firePoint.transform.position;
+        Vector3 targetPos = stateMachine.Target.transform.position + Vector3.up * (1f + Random.Range(-0.3f, 0.5f));
 
-        bullet.Fire(firePoint, aimPoint-firePoint, stateMachine.Enemy.Data.Damage);
+        Vector3 dir = targetPos - firePoint; //stateMachine.Target.transform.position - firePoint;
+        bullet.Fire(firePoint, dir, stateMachine.Enemy.Data.Damage);
+
         stateMachine.LastAttackTime = Time.time;
 
         ParticleManager.Instance.SpawnMuzzleFlash(weapon.firePoint);

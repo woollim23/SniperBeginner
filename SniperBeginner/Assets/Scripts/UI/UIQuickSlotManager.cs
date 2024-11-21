@@ -22,11 +22,6 @@ public class UIQuickSlotManager : MonoBehaviour
         InputManager.Instance.OnQuickSlotEvent += HandleQuickSlotSelection;
     }
 
-    private void Start() 
-    {
-        HandleQuickSlotSelection(1);
-    }
-
     // UI
     private void AutoRegisterSlots()
     {

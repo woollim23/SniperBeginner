@@ -28,12 +28,12 @@ public class CameraController : MonoBehaviour
         SubscribeBulletEvents();
         SwitchToIdle();
     }
+    
 
     private void SubscribeBulletEvents()
     {
         CharacterManager.Instance.Player.Shooting.OnSnipe += SwitchToBullet;
     }
-
 
     public void SwitchToIdle()
     {
@@ -99,9 +99,13 @@ public class CameraController : MonoBehaviour
     private IEnumerator HandleBulletCamera(Transform projectile, Transform destination, Vector3 startPosition, Action onEnd)
     {
         yield return StartCoroutine(CharacterManager.Instance.Player.Shooting.MoveBullet(projectile, startPosition, destination, travelSpeed));
+
         onEnd?.Invoke();
 
-        ResetTimeScale(); 
+        ResetTimeScale();
+
+        bulletCamera.Follow = null;
+        bulletCamera.LookAt = null; //setting.destination;
         SwitchToIdle();
     }
 

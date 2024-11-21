@@ -476,6 +476,7 @@ GameObject:
   - component: {fileID: 862774652547641729}
   - component: {fileID: 8827395932706441897}
   - component: {fileID: 4566214275654829828}
+  - component: {fileID: 7095569406553364373}
   m_Layer: 5
   m_Name: Title Button
   m_TagString: Untagged
@@ -585,13 +586,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3293145470752969681}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PausePanel, Assembly-CSharp
-        m_MethodName: GameTitle
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgumentAssemblyTypeName: 
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -612,3 +613,16 @@ MonoBehaviour:
   m_EffectColor: {r: 1, g: 1, b: 1, a: 1}
   m_EffectDistance: {x: 2, y: -2}
   m_UseGraphicAlpha: 1
+--- !u!114 &7095569406553364373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8283943830030046917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b81cc4eec3686694e98f4f5d35da3b0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  btn: {fileID: 8827395932706441897}
