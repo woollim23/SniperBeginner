@@ -28,10 +28,7 @@ public abstract class PlayerBaseState : IState
         UnsubscribeEvent();
     }
 
-    public virtual void Update()
-    {
-        // Debug.Log($"{movement} : input {moveInput}");
-    }
+    public virtual void Update() {}
 
     public virtual void FixedUpdate(){}
 
