@@ -17,7 +17,6 @@ public class SaveLoadManager
         SavePlayerData(gameManager);
         SaveEnemyData(gameManager);
 
-        // µ¥ÀÌÅÍ ÀúÀå ·ÎÁ÷ È£Ãâ
         DataManager.Instance.SaveGameData(gameManager.GameData);
     }
 
@@ -61,7 +60,7 @@ public class SaveLoadManager
                 };
                 gameManager.GameData.enemyData.Add(enemyData);
 
-                Debug.Log($"Àû ÀúÀå: À§Ä¡ {enemy.transform.position}, Ã¼·Â {enemy.Health}");
+                Debug.Log($"ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: ï¿½ï¿½Ä¡ {enemy.transform.position}, Ã¼ï¿½ï¿½ {enemy.Health}");
             }
         }
     }

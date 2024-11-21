@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Playables;
 
-public class GameManager : SingletonDontDestory<GameManager>
+public class GameManager : Singleton<GameManager>
 {
 
     public GameData GameData { get; set; }
@@ -13,10 +10,8 @@ public class GameManager : SingletonDontDestory<GameManager>
 
     public event Action onChangeScore;
     
-    public override void Awake() 
+    public void Awake() 
     {
-        base.Awake();
-
         saveLoadManager = new SaveLoadManager();
 
         // 게임 내에서만 쓰는 매니저들 Initialize
@@ -27,6 +22,7 @@ public class GameManager : SingletonDontDestory<GameManager>
 
     private void Start()
     {
+        
     }
 
     public void GameStartInit()

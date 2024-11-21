@@ -54,6 +54,8 @@ public class PlayerInteraction : MonoBehaviour
         {
             interactable?.Interact();
             ClearObject(interactable);
+
+            
         }
     }
 

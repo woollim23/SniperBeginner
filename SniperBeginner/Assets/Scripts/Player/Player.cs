@@ -57,16 +57,25 @@ public class Player : MonoBehaviour
     {
         if (data != null)
         {
-            // 위치 및 체력 복구
+            // 위치
             Controller.enabled = false;
             transform.position = data.Position;
             Controller.enabled = true;
 
+            // 체력 적용
             Condition.Initialize(data.Health);
+
+            // 무기 적용
+            Equipment.CurrentWeaponIndex = data.EquippedWeaponIndex;
+            for (int i = 0; i < data.CurrentAmmoInMagazine.Count; i++)
+            {
+                Equipment.weaponInstance[i].currentAmmoInMagazine = data.CurrentAmmoInMagazine[i];
+            }
         }
         else
         {
             Condition.Initialize();
+            Equipment.CurrentWeaponIndex = 1;
         }
 
         // 시작은 일반 - 서 있는 상태
