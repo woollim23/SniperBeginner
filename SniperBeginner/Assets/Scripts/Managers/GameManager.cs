@@ -2,7 +2,6 @@
 
 public class GameManager : Singleton<GameManager>
 {
-
     private SaveLoadManager saveLoadManager;
     public int Score { get; set; } = 0;
     public bool isGameOver { get; private set; }
