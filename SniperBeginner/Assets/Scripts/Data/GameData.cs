@@ -6,6 +6,6 @@ using UnityEngine;
 public class GameData 
 {
     public PlayerData playerData;
-    // public List<EnemyData> enemyData;
-    // public InventoryData inventoryData;
+    public List<EnemyData> enemyData = new List<EnemyData>();
+
 }

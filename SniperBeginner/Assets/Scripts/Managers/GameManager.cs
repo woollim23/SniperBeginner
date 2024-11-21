@@ -53,7 +53,28 @@ public class GameManager : SingletonDontDestory<GameManager>
             // 플레이어 총알 저장
         }
 
-        DataManager.SaveGameData(GameData);
+        DataManager.Instance.SaveGameData(GameData);
+    }
+
+
+    public void LoadGame()
+    {
+        DataManager.Instance.LoadGameData();
+        if (GameData == null)
+        {
+            Player player = CharacterManager.Instance.Player;
+
+            GameData = new GameData
+            {
+                // 새 데이터는 현재 값을 받아오도록
+                playerData = new PlayerData()
+                {
+                    Position = player.transform.position,
+                    Health = player.Condition.Health,
+                }
+            };
+        }
+
     }
 
 }
