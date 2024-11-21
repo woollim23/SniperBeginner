@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System;
 
 public class ParticleManager : Singleton<ParticleManager>
 {
@@ -56,5 +57,10 @@ public class ParticleManager : Singleton<ParticleManager>
         yield return new WaitForSeconds(delay);
 
         ObjectPoolManager.Instance.ReleaseParticle(type, particle);
+    }
+
+    internal void SpawnBloodImpact(ContactPoint contact, object impactNormal)
+    {
+        throw new NotImplementedException();
     }
 }

@@ -15,6 +15,7 @@ public class PlayerShootingController : MonoBehaviour
     [SerializeField] LayerMask aimLayerMask;
     [SerializeField] LayerMask snipeLayerMask;
     public Transform AimTarget => anim.aimIKTarget;
+    [SerializeField] float sphereCastRadius = 0.25f;
 
     [Header("Hold Breath")]
     [SerializeField] float currentBreath;
@@ -168,28 +169,6 @@ public class PlayerShootingController : MonoBehaviour
         }
     }  
 
-    bool CheckTarget(out Transform target)
-    {
-        Ray rayFromCamera = GetRayFromCamera(0f);
-        Ray rayFromFirepoint = GetRayFromFirePoint();
-
-        RaycastHit hit;
-
-        if (Physics.Raycast(rayFromCamera, out hit , equip.CurrentEquip.weaponData.range, snipeLayerMask) ||
-            Physics.Raycast(rayFromFirepoint, out hit , equip.CurrentEquip.weaponData.range, snipeLayerMask))
-        {
-            // 부위별 총격에서 데미지 확인 각각의
-            if (hit.collider.TryGetComponent(out ISnipable snipable))
-            {
-                target = hit.collider.transform;
-                return snipable.IsSnipable(equip.CurrentEquip.weaponData.damage);
-            }
-        }
-
-        target = null;
-        return false;
-    }
-
     // 저격하기
     void Snipe(Transform target, Weapon weapon, Projectile bullet)
     {
@@ -214,6 +193,24 @@ public class PlayerShootingController : MonoBehaviour
         };
 
         OnSnipe?.Invoke(bullet.transform, target, weapon.firePoint.position, actionOnEnd);
+    }
+    
+    bool CheckTarget(out Transform target)
+    {
+        RaycastHit hit;
+        
+        if (Physics.SphereCast(mainCamera.transform.position, sphereCastRadius, mainCamera.transform.forward, out hit, equip.CurrentEquip.weaponData.range, snipeLayerMask))
+        {
+            // 부위별 총격에서 데미지 확인 각각의
+            if (hit.collider.TryGetComponent(out ISnipable snipable))
+            {
+                target = hit.collider.transform;
+                return snipable.IsSnipable(equip.CurrentEquip.weaponData.damage);
+            }
+        }
+
+        target = null;
+        return false;
     }
 
     void OnControlBreathStart()
@@ -241,7 +238,6 @@ public class PlayerShootingController : MonoBehaviour
             AimCanceled();
         }
     }
-
 
     Ray GetRayFromCamera(float zAxisOffset = 3f)
     {

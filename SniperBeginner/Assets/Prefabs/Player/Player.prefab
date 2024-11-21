@@ -226,6 +226,7 @@ MonoBehaviour:
   snipeLayerMask:
     serializedVersion: 2
     m_Bits: 512
+  sphereCastRadius: 0.05
   currentBreath: 0
 --- !u!114 &1361368798122350215
 MonoBehaviour:
