@@ -33,10 +33,18 @@ public class PlayerCondition : MonoBehaviour, IDamagable
         Health = maxHealth;    
     }
 
+    private void OnDisable() 
+    {
+        OnDead = null;
+        OnHealthChanged = null;    
+    }
+
     public void Die()
     {
         IsDead = true;
         OnDead?.Invoke();
+
+        UIManager.Instance.OpenGameOverMenu();
     }
 
     public void TakeDamage(float damage)

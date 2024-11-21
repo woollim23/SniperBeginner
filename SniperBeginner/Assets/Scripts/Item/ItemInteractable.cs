@@ -58,8 +58,8 @@ public class ItemInteractable : MonoBehaviour, IInteractable
                 CharacterManager.Instance.Player.Condition.Heal(generatedItem.effectValue);
                 break;
 
-            case ItemType.PistolMagazine:
-                CharacterManager.Instance.Player.Equipment.ReplaceAmmo(generatedItem.effectValue, AmmoType.PistolAmmo); 
+            case ItemType.RifleMagazine:
+                CharacterManager.Instance.Player.Equipment.ReplaceAmmo(generatedItem.effectValue, AmmoType.RifleAmmo); 
                 break;
 
             case ItemType.SniperMagazine:

@@ -1,6 +1,7 @@
 ﻿using System;
+using UnityEngine;
 
-public class GameManager : SingletonDontDestory<GameManager>
+public class GameManager : Singleton<GameManager>
 {
     public GameData GameData { get; private set; }
     public int Score { get; set; } = 0;
@@ -8,10 +9,8 @@ public class GameManager : SingletonDontDestory<GameManager>
 
     public event Action onChangeScore;
     
-    public override void Awake() 
+    public void Awake() 
     {
-        base.Awake();
-
         // 게임 내에서만 쓰는 매니저들 Initialize
         CharacterManager.Instance.Initialize();
         UIManager.Instance.Initialize();
@@ -44,13 +43,20 @@ public class GameManager : SingletonDontDestory<GameManager>
 
     public void SaveGame()
     {
+        if (GameData == null)
+        {
+            GameData = new GameData
+            {
+                playerData = new PlayerData()
+            };
+        }
         Player player = CharacterManager.Instance.Player; // Player 인스턴스 가져오기
         if (player != null)
         {
             GameData.playerData.Position = player.transform.position; // 플레이어 위치 저장
             GameData.playerData.Health = player.Condition.Health; // 플레이어 체력 저장
-            // 플레이어 장비 저장
-            // 플레이어 총알 저장
+            // 현재 총기 저장
+            // 현재 총알 수 저장
         }
 
         DataManager.Instance.SaveGameData(GameData);
@@ -60,20 +66,7 @@ public class GameManager : SingletonDontDestory<GameManager>
     public void LoadGame()
     {
         DataManager.Instance.LoadGameData();
-        if (GameData == null)
-        {
-            Player player = CharacterManager.Instance.Player;
-
-            GameData = new GameData
-            {
-                // 새 데이터는 현재 값을 받아오도록
-                playerData = new PlayerData()
-                {
-                    Position = player.transform.position,
-                    Health = player.Condition.Health,
-                }
-            };
-        }
+        GameData = DataManager.Instance.CurrentGameData;
 
     }
 

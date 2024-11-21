@@ -7,6 +7,6 @@ public class PlayerData
 {
     public Vector3 Position;
     public float Health;
-    public int EquippedWeaponIndex; // Àåºñ ¸®½ºÆ® »ç¿ë
+    public int EquippedWeaponIndex; // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½
     public int CurrentAmmoInMagazine;
 }

@@ -15,7 +15,7 @@ public enum AmmoType
 public enum ItemType
 {
     Heal,
-    PistolMagazine,
+    RifleMagazine,
     SniperMagazine
 }
 

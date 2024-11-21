@@ -9,7 +9,6 @@ public class PlayerDeadState : PlayerBaseState
         base.Enter();
 
         stateMachine.Player.Animation.AnimationSwitch(false);
-        //else
     }
 
     public override void Exit()

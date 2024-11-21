@@ -35,22 +35,12 @@ public class EnemyAttackState : EnemyBaseState
         Weapon weapon = stateMachine.Enemy.Weapon;
         Projectile bullet = ObjectPoolManager.Instance.Get(weapon.weaponData.projectile.data.type);
 
-        Ray ray = new Ray(weapon.firePoint.position, weapon.firePoint.forward);
-        if (Physics.Raycast(ray, out RaycastHit hitInfo, weapon.weaponData.range))
-        {
-            if (hitInfo.collider.TryGetComponent(out IDamagable damagable))
-            {
-                if (hitInfo.collider.CompareTag("Player"))
-                {
-                    // Player라면 데미지 처리
-                    damagable.TakeDamage(weapon.weaponData.damage);
-                }
-            }
-        }
+        Vector3 aimPoint = weapon.firePoint.transform.position;
+        Vector3 target = CharacterManager.Instance.Player.transform.position;
 
-        bullet.Fire(weapon.firePoint.position, weapon.firePoint.forward);
+        bullet.Fire(weapon.firePoint.position, target - aimPoint, stateMachine.Enemy.Data.Damage);
 
-        stateMachine.Enemy.OnEnemyGunFire?.Invoke();
+        ParticleManager.Instance.SpawnMuzzleFlash(weapon.firePoint);
         SoundManager.Instance.PlaySound(weapon.weaponData.fireSound);
     }
 

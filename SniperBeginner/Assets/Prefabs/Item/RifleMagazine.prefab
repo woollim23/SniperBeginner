@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -3830111138473473808}
   - component: {fileID: 2274016759164505634}
   m_Layer: 3
-  m_Name: PistolMagazine
+  m_Name: RifleMagazine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
