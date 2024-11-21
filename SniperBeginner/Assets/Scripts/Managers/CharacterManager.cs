@@ -45,7 +45,7 @@ public class CharacterManager : Singleton<CharacterManager>
     {   
         Player = Instantiate(playerPrefab);
 
-        if(DataManager.Instance.IsLoadedGame)
+        if (DataManager.Instance.IsLoadedGame)
         {
             Player.Initialize(null);
         }
