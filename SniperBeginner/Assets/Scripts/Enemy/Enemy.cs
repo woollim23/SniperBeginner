@@ -69,7 +69,6 @@ public class Enemy : MonoBehaviour
         }
 
         Animator.SetTrigger("Hit");
-        Agent.isStopped = true;
 
         SoundManager.Instance.PlaySound(SoundManager.Instance.ouchSFX, 0.7f);
 
@@ -78,6 +77,9 @@ public class Enemy : MonoBehaviour
 
     private IEnumerator WaitForHitAnimation()
     {
+        Agent.isStopped = true;
+        Agent.SetDestination(transform.position);
+
         AnimatorStateInfo stateInfo = Animator.GetCurrentAnimatorStateInfo(0);
         while (stateInfo.IsName("Hit") && stateInfo.normalizedTime < 1f)
         {
