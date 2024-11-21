@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: "\uB77C\uC774\uD50C"
   weaponDescription: "\uB9D0\uADF8\uB300\uB85C \uB77C\uC774\uD50C\uC774\uB2E4."
-  icon: {fileID: 21300000, guid: 2c356b50c798a224b99c7646753cca08, type: 3}
+  icon: {fileID: 21300000, guid: 339ec2429871c8348b3ec0ae00f1f22b, type: 3}
   damage: 20
   reloadTime: 1.5
   fireRate: 0.2
+  range: 1000
   magazineSize: 30
   ammoType: 1
   weaponType: 1
