@@ -127,8 +127,8 @@ public class PlayerShootingController : MonoBehaviour
     {
         Weapon weapon = equip.CurrentEquip;
         
-        if (Time.time - lastFireTime < weapon.weaponData.fireRate || !weapon.UseAmmo() ||
-            isReloading || isInCinemachine)
+        if (Time.time - lastFireTime < weapon.weaponData.fireRate || 
+            !weapon.UseAmmo() || isReloading || isInCinemachine)
             return;
 
         lastFireTime = Time.time;

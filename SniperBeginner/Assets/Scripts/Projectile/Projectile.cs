@@ -37,8 +37,9 @@ public class Projectile : MonoBehaviour
         rigidBody.angularVelocity = Vector3.zero;
 
         transform.position = firePoint;
-        transform.rotation = Quaternion.identity;
         transform.rotation = Quaternion.LookRotation(direction);
+
+        gameObject.SetActive(true);
     }
 
     public void InitializeForCinemachine(Vector3 firePoint, Vector3 direction)
@@ -64,8 +65,6 @@ public class Projectile : MonoBehaviour
         data.damage = damage;
         shooterTag = shooter;
 
-        gameObject.SetActive(true);
-
         rigidBody.AddForce(direction.normalized * data.speed, ForceMode.Impulse);
 
         if (IsInvoking("Release"))
@@ -81,28 +80,22 @@ public class Projectile : MonoBehaviour
 
     private void OnCollisionEnter(Collision other) 
     {
-        if(IsSuicide(other.collider.tag))
+        if (IsSuicide(other.collider.tag))
             return;
+
+        if (other.gameObject.TryGetComponent(out IDamagable damagable))
+            damagable.TakeDamage(data.damage);
+
+
+        ContactPoint contact = other.contacts[0];
+
+        if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Enemy"))
+            ParticleManager.Instance.SpawnBloodImpact(contact.point, contact.normal);
+        else
+            ParticleManager.Instance.SpawnWallImpact(contact.point, contact.normal);
 
         if (IsInvoking("Release"))
             CancelInvoke("Release");
-
-        Vector3 impactPoint = other.contacts[0].point;
-        Vector3 impactNormal = other.contacts[0].normal;
-
-        if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Enemy"))
-        {
-            ParticleManager.Instance.SpawnBloodImpact(impactPoint, impactNormal);
-        }
-        else
-        {
-            ParticleManager.Instance.SpawnWallImpact(impactPoint, impactNormal);
-        }
-
-        if(other.gameObject.TryGetComponent(out IDamagable damagable))
-        {
-            damagable.TakeDamage(data.damage);
-        }
 
         Release();
     }

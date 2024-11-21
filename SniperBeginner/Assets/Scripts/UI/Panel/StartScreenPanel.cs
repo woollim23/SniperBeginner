@@ -17,13 +17,12 @@ public class StartScreenPanel : MonoBehaviour
         SceneManager.LoadSceneAsync("MainGame");
     }
 
-
     public void GameExit()
     {
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else
-            Application.Quit();
+        Application.Quit();
 #endif
     }
 }

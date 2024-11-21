@@ -141,7 +141,6 @@ public class AnimationData
     public string groundParamName = "@Ground";
     public string standParamName = "Stand";
     public string crouchParamName = "Crouch";
-    // public string crawlParamName = "Crawl";
 
     public string fireParamName = "Fire";
 
@@ -164,7 +163,6 @@ public class AnimationData
     public int GroundParamHash { get; private set; }
     public int StandParamHash { get; private set; }
     public int CrouchParamHash { get; private set; }
-    // public int CrawlParamHash { get; private set; }
 
     public int FireParamHash { get; private set; }
     public int WeaponTypeParamHash { get; private set; }
@@ -187,7 +185,6 @@ public class AnimationData
         GroundParamHash =       Animator.StringToHash(groundParamName);
         StandParamHash =        Animator.StringToHash(standParamName);
         CrouchParamHash =       Animator.StringToHash(crouchParamName);
-        // CrawlParamHash =        Animator.StringToHash(crawlParamName);
 
         FireParamHash =         Animator.StringToHash(fireParamName);
         WeaponTypeParamHash =   Animator.StringToHash(weaponTypeParamName);

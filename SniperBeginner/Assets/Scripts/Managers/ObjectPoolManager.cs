@@ -7,6 +7,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
     private Dictionary<AmmoType, ObjectPool<Projectile>> projectilePools = new Dictionary<AmmoType, ObjectPool<Projectile>>();
     private Dictionary<ParticleType, ObjectPool<GameObject>> particlePools = new Dictionary<ParticleType, ObjectPool<GameObject>>();
 
+
     public void AddProjectilePool(Projectile projectile, int initialSize = 31, int maxSize = 500)
     {
         if (projectilePools.ContainsKey(projectile.data.type))
@@ -17,7 +18,8 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
             null,
             (projectile) => { projectile.gameObject.SetActive(false); }, 
             (projectile) => { Destroy(projectile.gameObject); }, 
-            false, initialSize, maxSize));
+            false, initialSize, maxSize)
+        );
     }
 
     public Projectile Get(AmmoType type)
