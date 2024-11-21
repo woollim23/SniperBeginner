@@ -170,7 +170,7 @@ public class PlayerShootingController : MonoBehaviour
         }
         else
         {
-            bullet.Fire(weapon.firePoint.position, weapon.firePoint.forward, weapon.weaponData.damage);
+            bullet.Fire(weapon.firePoint.position, weapon.firePoint.forward, weapon.weaponData.damage, gameObject.tag);
         }
         
         anim.Fire();
@@ -188,7 +188,10 @@ public class PlayerShootingController : MonoBehaviour
         Ray ray = GetRayFromCamera();
         if (Physics.Raycast(ray, out RaycastHit hit , equip.CurrentEquip.weaponData.range, aimLayerMask))
         {
-            AimTarget.position = hit.point;
+            if(!hit.collider.CompareTag("Player"))
+                AimTarget.position = hit.point;
+            else
+                AimTarget.position = mainCamera.transform.position + mainCamera.transform.forward * 10f;    
         }
         else
         {
