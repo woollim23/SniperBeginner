@@ -4,6 +4,8 @@ public class PlayerStateMachine : StateMachine
 {
     public Player Player { get; private set; }
     public PlayerSetting Setting { get; private set; }
+    public Vector2 Movement {get; set;}
+    public Vector2 MoveInput {get; set;}
     
     public IState CurrentIdle { get; set; }
     // Idle 계열    

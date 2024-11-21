@@ -118,6 +118,7 @@ MonoBehaviour:
     runSpeed: 6
     crouchSpeed: 2
     movementInputSmoothness: 0.05
+    speedMultiplyOnJump: 2
     jumpPower: 10
     fallThreshold: 3.5
     lookSensitive: 10

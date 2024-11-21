@@ -28,6 +28,11 @@ public class PlayerAirState : PlayerBaseState
 
     protected virtual void Fall()
     {
-        controller.Move(stateMachine.Player.ForceReceiver.Movement * Time.deltaTime);
+        Transform player = stateMachine.Player.transform;
+        float speed = stateMachine.Setting.speedMultiplyOnJump * Time.deltaTime;
+        Vector3 motion = player.right * stateMachine.Movement.x * speed + player.forward * stateMachine.Movement.y * speed;
+        motion += stateMachine.Player.ForceReceiver.Movement * Time.deltaTime;
+
+        controller.Move(motion);
     }
 }

@@ -6,7 +6,6 @@ public abstract class PlayerBaseState : IState
     protected CharacterController controller;
     protected PlayerStateMachine stateMachine;
     protected PlayerAnimationController animation;
-    protected Vector2 moveInput;
 
 
     public PlayerBaseState(PlayerStateMachine stateMachine)
@@ -29,7 +28,10 @@ public abstract class PlayerBaseState : IState
         UnsubscribeEvent();
     }
 
-    public virtual void Update(){}
+    public virtual void Update()
+    {
+        // Debug.Log($"{movement} : input {moveInput}");
+    }
 
     public virtual void FixedUpdate(){}
 
@@ -66,7 +68,7 @@ public abstract class PlayerBaseState : IState
 
     protected virtual void OnMove(InputAction.CallbackContext context)
     {
-        moveInput = context.ReadValue<Vector2>();
+        stateMachine.MoveInput = context.ReadValue<Vector2>();
     }
 
     protected virtual void OnJump(InputAction.CallbackContext context)

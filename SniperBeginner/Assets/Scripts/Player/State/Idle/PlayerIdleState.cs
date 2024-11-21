@@ -7,16 +7,16 @@ using UnityEngine.InputSystem;
 public class PlayerIdleState : PlayerBaseState
 {
     protected bool IsRun { get; set; } = false;
-    protected Vector2 movement = Vector2.zero;
 
     public PlayerIdleState(PlayerStateMachine stateMachine) : base(stateMachine) {}
 
     public override void Enter()
     {
         base.Enter();
-        Initialize();
 
         animation.InGround(true);
+
+        Initialize();
     }
 
     public override void Exit()
@@ -30,7 +30,7 @@ public class PlayerIdleState : PlayerBaseState
     {
         base.Update();
         
-        movement = Vector2.Lerp(movement, moveInput, stateMachine.Setting.movementInputSmoothness);
+        SmoothenMove();
         Move();
     }
 
@@ -80,19 +80,26 @@ public class PlayerIdleState : PlayerBaseState
     protected override void OnJump(InputAction.CallbackContext context)
     {
         if (controller.isGrounded)
+        {
+            SmoothenMove();
+            
             stateMachine.ChangeState(stateMachine.JumpState);
+        }
     }
 
     void Initialize()
     {
-        // movement = Vector2.zero;
-        moveInput = Vector2.zero;
+        stateMachine.MoveInput = Vector2.zero;
         animation.Move(Vector2.zero);
     }
 
     protected virtual void Move()
     {
-        animation.Move(movement);
+        animation.Move(stateMachine.Movement);
     }
 
+    void SmoothenMove()
+    {
+        stateMachine.Movement = Vector2.Lerp(stateMachine.Movement, stateMachine.MoveInput, stateMachine.Setting.movementInputSmoothness);
+    }
 }

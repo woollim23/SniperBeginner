@@ -78,6 +78,7 @@ public class PlayerSetting
     [Range(0.01f, 1f)] public float movementInputSmoothness = 0.05f;
     
     [Header("Jump")]
+    public float speedMultiplyOnJump = 1.5f;
     public float jumpPower = 20f;
 
     [Header("Fall")]
