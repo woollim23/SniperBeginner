@@ -11,12 +11,6 @@ public class UIAmmoInfo : MonoBehaviour
         CharacterManager.Instance.Player.Equipment.OnAmmoChanged += UpdateWeaponUI;
     }
 
-    // private void OnDisable() 
-    // {
-    //     CharacterManager.Instance.Player.Equipment.OnAmmoChanged -= UpdateWeaponUI;
-    // }
-
-
     private void UpdateWeaponUI(int curAmmo, int maxAmmo)
     {
         if (ammoCountText == null)
