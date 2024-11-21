@@ -142,6 +142,8 @@ public class PlayerShootingController : MonoBehaviour
             AimCanceled();
             isInCinemachine = true;
             UIManager.Instance.PlayerCanvas.alpha = 0f;
+
+            // Enemy Pause 기능 필요
             
             bullet.InitializeForCinemachine
             (

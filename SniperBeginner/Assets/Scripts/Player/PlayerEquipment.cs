@@ -101,7 +101,6 @@ public class PlayerEquipment : MonoBehaviour
         }
         else
         {
-            // TODO : 퀵슬롯에서 찾아서 넣어주기
             foreach (Weapon weapon in weaponInstance)
             {
                 if(weapon == CurrentEquip)  continue;

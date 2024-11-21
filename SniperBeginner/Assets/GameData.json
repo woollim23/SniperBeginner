@@ -1,11 +1,11 @@
 {
     "playerData": {
         "Position": {
-            "x": 24.312408447265626,
+            "x": -1.4531915187835694,
             "y": 0.00010499358177185059,
-            "z": -34.10559844970703
+            "z": -2.0187015533447267
         },
-        "Health": 90.0,
+        "Health": 100.0,
         "EquippedWeaponIndex": 0,
         "CurrentAmmoInMagazine": 0
     },
