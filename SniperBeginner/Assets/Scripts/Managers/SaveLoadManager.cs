@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class SaveLoadManager
 {
@@ -23,8 +21,6 @@ public class SaveLoadManager
     public void LoadGame()
     {
         DataManager.Instance.LoadGameData();
-        // LoadPlayerData(gameManager);
-        // LoadEnemyData(gameManager);
     }
 
     private void SavePlayerData()
@@ -63,33 +59,4 @@ public class SaveLoadManager
             }
         }
     }
-
-    //private void LoadPlayerData(GameManager gameManager)
-    //{
-    //    Player player = CharacterManager.Instance.Player;
-    //    if (player != null && gameManager.GameData.playerData != null)
-    //    {
-    //        player.transform.position = gameManager.GameData.playerData.Position;
-    //        player.Condition.Health = gameManager.GameData.playerData.Health;
-
-    //        for (int i = 0; i < gameManager.GameData.playerData.CurrentAmmoInMagazine.Count; i++)
-    //        {
-    //            if (i < player.Equipment.weaponInstance.Count)
-    //            {
-    //                player.Equipment.weaponInstance[i].currentAmmoInMagazine = gameManager.GameData.playerData.CurrentAmmoInMagazine[i];
-    //            }
-    //        }
-    //    }
-    //}
-
-    //private void LoadEnemyData(GameManager gameManager)
-    //{
-    //    CharacterManager.Instance.enemies.Clear();
-    //    foreach (var enemyData in gameManager.GameData.enemyData)
-    //    {
-    //        Enemy newEnemy = Object.Instantiate(CharacterManager.Instance.enemyPrefab, enemyData.Position, Quaternion.identity);
-    //        newEnemy.Health = enemyData.Health;
-    //        CharacterManager.Instance.enemies.Add(newEnemy);
-    //    }
-    //}
 }

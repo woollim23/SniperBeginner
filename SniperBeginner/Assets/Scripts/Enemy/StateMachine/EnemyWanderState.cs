@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class EnemyWanderState : EnemyBaseState
 {
     public EnemyWanderState(EnemyStateMachine stateMachine) : base(stateMachine)
