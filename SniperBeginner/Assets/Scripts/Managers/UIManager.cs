@@ -11,6 +11,7 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] TextMeshProUGUI prefabScore;
     [SerializeField] GameObject prefabPauseMenu;
     [SerializeField] GameObject prefabGameOverMenu;
+    [SerializeField] GameObject prefabGameClearMenu;
 
     public CanvasGroup PlayerCanvas { get; private set; }
     public UIAmmoInfo AmmoInfo { get; private set; }
@@ -62,6 +63,15 @@ public class UIManager : Singleton<UIManager>
     public void OpenGameOverMenu()
     {
         Instantiate(prefabGameOverMenu, PlayerCanvas.transform);
+
+        Time.timeScale = 0f;
+        InputManager.Instance.Actions.Disable();
+        SetCursor(false);
+    }
+
+    public void OpenGameClearMenu()
+    {
+        Instantiate(prefabGameClearMenu, PlayerCanvas.transform);
 
         Time.timeScale = 0f;
         InputManager.Instance.Actions.Disable();
