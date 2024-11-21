@@ -53,7 +53,6 @@ public class Player : MonoBehaviour
         StateMachine.FixedUpdate();
     }
 
-
     public void Initialize(PlayerData data)
     {
         if (data != null)

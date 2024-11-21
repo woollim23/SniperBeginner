@@ -33,6 +33,8 @@ public class PlayerView : MonoBehaviour
             
             player.Actions.Look.performed += OnLook;
             player.Actions.Look.canceled += OnLook;
+
+            player.Condition.OnDead += () => { enabled = false; };
         }
 
         currentRotateY = cameraContainer.transform.localEulerAngles.y;

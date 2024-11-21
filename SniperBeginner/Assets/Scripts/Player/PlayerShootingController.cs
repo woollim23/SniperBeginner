@@ -45,8 +45,11 @@ public class PlayerShootingController : MonoBehaviour
             player.Actions.Aim.canceled += (context) => { AimCanceled(); };
 
             player.Actions.Fire.started += (context) => { Fire(); };
+            
             player.Actions.ControlBreath.started += (context) => { OnControlBreathStart();};
             player.Actions.ControlBreath.canceled += (context) => { OnControlBreathEnd();};
+
+            player.Condition.OnDead += () => { enabled = false; };
 
             equip.OnReload += Reload;
             

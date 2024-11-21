@@ -20,20 +20,18 @@ public abstract class PlayerBaseState : IState
     public virtual void Enter()
     {
         AddPlayerInput();
+        SubscribeEvent();
     }
 
     public virtual void Exit()
     {
         RemovePlayerInput();
+        UnsubscribeEvent();
     }
 
-    public virtual void Update() 
-    {
-    }
+    public virtual void Update(){}
 
-    public virtual void FixedUpdate() 
-    {
-    }
+    public virtual void FixedUpdate(){}
 
     protected virtual void AddPlayerInput()
     {
@@ -49,6 +47,21 @@ public abstract class PlayerBaseState : IState
         stateMachine.Player.Actions.Move.canceled -= OnMove;
 
         stateMachine.Player.Actions.Jump.started -= OnJump;
+    }
+
+    protected virtual void SubscribeEvent()
+    {
+        stateMachine.Player.Condition.OnDead += OnDead;
+    }
+
+    protected virtual void UnsubscribeEvent()
+    {
+        stateMachine.Player.Condition.OnDead -= OnDead;
+    }
+    
+    protected virtual void OnDead()
+    {
+        stateMachine.ChangeState(stateMachine.DeadState);
     }
 
     protected virtual void OnMove(InputAction.CallbackContext context)

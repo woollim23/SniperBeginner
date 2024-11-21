@@ -28,7 +28,9 @@ public class PlayerStateMachine : StateMachine
         DeadState = new PlayerDeadState(this);
     }
 
-    public void SetDead()
+
+
+    void SetDead()
     {
         ChangeState(DeadState);
     }
