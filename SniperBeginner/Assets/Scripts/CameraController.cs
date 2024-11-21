@@ -52,17 +52,7 @@ public class CameraController : MonoBehaviour
         bulletCamera.Follow = projectile;
         bulletCamera.LookAt = projectile; //setting.destination;
 
-        Vector3 sphericalPos = Random.onUnitSphere * Random.Range(cameraMinOffset, cameraMaxOffset);
-        Vector3 newPos = sphericalPos + startPosition;
-        Vector3 dir = (newPos - startPosition).normalized;
-        float dot = Vector3.Dot(dir, projectile.forward);
-
-        if(dot < 0f)
-        {
-            sphericalPos *= -1;
-        }
-
-        bulletCamera.transform.position = startPosition + sphericalPos;
+        bulletCamera.transform.position = GetCameraStartPosition(startPosition, projectile.forward);
 
         CinemachineTransposer transposer = bulletCamera.GetCinemachineComponent<CinemachineTransposer>();
         if (transposer != null)
@@ -80,13 +70,26 @@ public class CameraController : MonoBehaviour
         StartCoroutine(HandleBulletCamera(projectile, destination, startPosition, onEnd));
     }
 
+    // 총구 주변에서 카메라가 시작하도록 주변 위치값 도출하기
+    Vector3 GetCameraStartPosition(Vector3 basePosition, Vector3 projectileDirection)
+    {
+        Vector3 sphericalPos = Random.onUnitSphere * Random.Range(cameraMinOffset, cameraMaxOffset);
+        Vector3 newPos = sphericalPos + basePosition;
+        Vector3 dir = (newPos - basePosition).normalized;
+        float dot = Vector3.Dot(dir, projectileDirection);
 
-    
+        if(dot < 0f)
+        {
+            sphericalPos *= -1;
+        }
+
+        return basePosition + sphericalPos;
+    }
+
     private void ApplySlowMotion()
     {
         Time.timeScale = slowMotionScale;
         Time.fixedDeltaTime = Time.timeScale * 0.02f;
-        
     }
 
     private void ResetTimeScale()
@@ -94,7 +97,6 @@ public class CameraController : MonoBehaviour
         Time.timeScale = defaultTimeScale;
         Time.fixedDeltaTime = originFixedDeltaTime;
     }
-
 
     private IEnumerator HandleBulletCamera(Transform projectile, Transform destination, Vector3 startPosition, Action onEnd)
     {

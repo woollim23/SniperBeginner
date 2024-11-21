@@ -126,53 +126,21 @@ public class PlayerShootingController : MonoBehaviour
     void Fire()
     {
         Weapon weapon = equip.CurrentEquip;
-        if (Time.time - lastFireTime < weapon.weaponData.fireRate || 
-            !weapon.UseAmmo() ||
-            isReloading ||
-            isInCinemachine)
+        
+        if (Time.time - lastFireTime < weapon.weaponData.fireRate || !weapon.UseAmmo() ||
+            isReloading || isInCinemachine)
             return;
 
         lastFireTime = Time.time;
 
-        // 겉으로 표시만 하는 용도
+        // 총알 오브젝트 풀에서 꺼내오기
         Projectile bullet = ObjectPoolManager.Instance.Get(weapon.weaponData.projectile.data.type);
 
-        // 사전 검사 - 조준 중에 이번 총격으로 사망했는지?
-        if (isAiming && CheckTarget(out Transform target))
-        {
-            AimCanceled();
-            isInCinemachine = true;
-            UIManager.Instance.PlayerCanvas.alpha = 0f;
-
-            if(target.TryGetComponent(out Enemy e))
-            {   
-                // Enemy Pause
-                e.CineDontMove();
-            }
-            
-            bullet.InitializeForCinemachine(weapon.firePoint.position, weapon.firePoint.forward);
-
-            Action actionOnEnd = () =>
-            {
-                if (target.TryGetComponent(out IDamagable damagable))
-                    damagable.TakeDamage(weapon.weaponData.damage); 
-
-                bullet.Release();
-                UIManager.Instance.PlayerCanvas.alpha = 1f;
-                isInCinemachine = false;
-            };
-
-            OnSnipe?.Invoke(
-                bullet.transform,
-                target,
-                weapon.firePoint.position,
-                actionOnEnd
-            );
-        }
-        else
-        {
+        // 사전 검사 - 조준 중에 이번 총격으로 사망하는지 체크
+        if (isAiming && CheckTarget(out Transform target)) 
+            Snipe(target, weapon, bullet); // 저격 시작
+        else // 일반 사격
             bullet.Fire(weapon.firePoint.position, weapon.firePoint.forward, weapon.weaponData.damage, gameObject.tag);
-        }
         
         anim.Fire();
 
@@ -222,6 +190,31 @@ public class PlayerShootingController : MonoBehaviour
         return false;
     }
 
+    void Snipe(Transform target, Weapon weapon, Projectile bullet)
+    {
+        isInCinemachine = true;
+        
+        AimCanceled();
+        UIManager.Instance.PlayerCanvas.alpha = 0f;
+
+        if (target.TryGetComponent(out Enemy e))
+            e.CineDontMove(); // Enemy Pause
+            
+        bullet.InitializeForCinemachine(weapon.firePoint.position, weapon.firePoint.forward);
+
+        Action actionOnEnd = () =>
+        {
+            if (target.TryGetComponent(out IDamagable damagable))
+                damagable.TakeDamage(weapon.weaponData.damage); 
+
+            bullet.Release();
+            UIManager.Instance.PlayerCanvas.alpha = 1f;
+            isInCinemachine = false;
+        };
+
+        OnSnipe?.Invoke(bullet.transform, target, weapon.firePoint.position, actionOnEnd);
+    }
+
     void OnControlBreathStart()
     {
         if (currentBreath < player.setting.minBreathForControl) 
@@ -259,7 +252,8 @@ public class PlayerShootingController : MonoBehaviour
         return new Ray(equip.CurrentEquip.firePoint.position, equip.CurrentEquip.firePoint.forward);
     }
 
-
+    // 수동으로 총알을 움직이는 코루틴
+    // 시네머신에서 쓸 것
     public IEnumerator MoveBullet(Transform bullet, Vector3 firePoint, Transform destination, float travelSpeed)
     {
         float sqrDistance = Vector3.SqrMagnitude(firePoint - destination.position);
