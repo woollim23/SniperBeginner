@@ -1,16 +1,24 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
-public class GameManager : Singleton<GameManager>
+public class GameManager : SingletonDontDestory<GameManager>
 {
-    public GameData GameData { get; private set; }
+
+    public GameData GameData { get; set; }
+    private SaveLoadManager saveLoadManager;
     public int Score { get; set; } = 0;
     public bool isGameOver { get; private set; }
 
     public event Action onChangeScore;
     
-    public void Awake() 
+    public override void Awake() 
     {
+        base.Awake();
+
+        saveLoadManager = new SaveLoadManager();
+
         // 게임 내에서만 쓰는 매니저들 Initialize
         CharacterManager.Instance.Initialize();
         UIManager.Instance.Initialize();
@@ -43,31 +51,13 @@ public class GameManager : Singleton<GameManager>
 
     public void SaveGame()
     {
-        if (GameData == null)
-        {
-            GameData = new GameData
-            {
-                playerData = new PlayerData()
-            };
-        }
-        Player player = CharacterManager.Instance.Player; // Player 인스턴스 가져오기
-        if (player != null)
-        {
-            GameData.playerData.Position = player.transform.position; // 플레이어 위치 저장
-            GameData.playerData.Health = player.Condition.Health; // 플레이어 체력 저장
-            // 현재 총기 저장
-            // 현재 총알 수 저장
-        }
-
-        DataManager.Instance.SaveGameData(GameData);
+        saveLoadManager.SaveGame(this);
     }
 
 
     public void LoadGame()
     {
-        DataManager.Instance.LoadGameData();
-        GameData = DataManager.Instance.CurrentGameData;
-
+        saveLoadManager.LoadGame(this);
     }
 
 }
