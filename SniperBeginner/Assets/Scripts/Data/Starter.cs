@@ -27,13 +27,12 @@ public class Starter : MonoBehaviour
     public void StartNewGame() // 저장된 게임 불러오지 않고 게임 시작
     {
         // 새 게임 데이터 초기화
-        GameData newGameData = new GameData
+        DataManager.Instance.CurrentGameData = new GameData
         {
             playerData = new PlayerData(),
             // TODO :: 에너미 데이터 초기화
-            // TODO :: 인벤 데이터 초기화
         };
-                
+
         DataManager.Instance.IsLoadedGame = false; 
 
         // 메인 게임 씬 로드
