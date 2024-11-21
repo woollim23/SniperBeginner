@@ -60,7 +60,7 @@ public class PlayerShootingController : MonoBehaviour
 
     private void Update() 
     {
-        if (equip.CurrentEquip)
+        if (equip.CurrentEquip && !isReloading)
         {
             Aim();
             equip.ModifyWeaponDirection(AimTarget.position);
@@ -128,7 +128,8 @@ public class PlayerShootingController : MonoBehaviour
         Weapon weapon = equip.CurrentEquip;
         if (Time.time - lastFireTime < weapon.weaponData.fireRate || 
             !weapon.UseAmmo() ||
-            isReloading)
+            isReloading ||
+            isInCinemachine)
             return;
 
         lastFireTime = Time.time;

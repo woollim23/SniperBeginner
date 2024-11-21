@@ -64,8 +64,8 @@ public class CameraController : MonoBehaviour
 
         bulletCamera.transform.position = startPosition + sphericalPos;
 
-        var transposer = bulletCamera.GetCinemachineComponent<CinemachineTransposer>();
-        if(transposer != null)
+        CinemachineTransposer transposer = bulletCamera.GetCinemachineComponent<CinemachineTransposer>();
+        if (transposer != null)
         {
             Vector3 random = Random.onUnitSphere * Random.Range(cameraMinOffset, cameraMaxOffset);
             random.z = -cameraMinOffset;
