@@ -71,6 +71,8 @@ public class Enemy : MonoBehaviour
         Animator.SetTrigger("Hit");
         Agent.isStopped = true;
 
+        SoundManager.Instance.PlaySound(SoundManager.Instance.ouchSFX, 0.7f);
+
         StartCoroutine(WaitForHitAnimation());
     }
 
@@ -94,6 +96,8 @@ public class Enemy : MonoBehaviour
         GiveItem();
         GameManager.Instance.CountDeadEnemy();
         OnEnemyDied?.Invoke(transform);
+
+        SoundManager.Instance.PlaySound(SoundManager.Instance.deadSFX, 0.7f);
 
         Invoke("DestroyEnemy", 5);
     }

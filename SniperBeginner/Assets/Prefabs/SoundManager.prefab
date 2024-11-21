@@ -50,3 +50,5 @@ MonoBehaviour:
   gameBGM: {fileID: 0}
   buttonClickSFX: {fileID: 8300000, guid: 4e30e743178b3694da33d8e567ce1028, type: 3}
   itemPickSFX: {fileID: 8300000, guid: 6aaec3a9fe2b30f439c7475b50296607, type: 3}
+  deadSFX: {fileID: 8300000, guid: effdc992afb6ea244af4938157bc4014, type: 3}
+  ouchSFX: {fileID: 8300000, guid: 64a03f41ed6fadf4f9ac4a0a3536cb91, type: 3}

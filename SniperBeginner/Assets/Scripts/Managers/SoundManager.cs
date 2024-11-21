@@ -11,6 +11,8 @@ public class SoundManager : SingletonDontDestory<SoundManager>
     public AudioClip gameBGM;
     public AudioClip buttonClickSFX;
     public AudioClip itemPickSFX;
+    public AudioClip deadSFX;
+    public AudioClip ouchSFX;
 
     private void Start()
     {

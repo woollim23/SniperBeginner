@@ -641,6 +641,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: SoundManager
       objectReference: {fileID: 0}
+    - target: {fileID: 8884650234374791832, guid: 442b3b72c11c08640b43ea0a2a95943d,
+        type: 3}
+      propertyPath: deadSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: effdc992afb6ea244af4938157bc4014, type: 3}
+    - target: {fileID: 8884650234374791832, guid: 442b3b72c11c08640b43ea0a2a95943d,
+        type: 3}
+      propertyPath: ouchSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: 64a03f41ed6fadf4f9ac4a0a3536cb91, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
