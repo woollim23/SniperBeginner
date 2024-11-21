@@ -1,6 +1,6 @@
 ﻿using System;
 
-public class GameManager : SingletonDontDestory<GameManager>
+public class GameManager : Singleton<GameManager>
 {
     public GameData GameData { get; private set; }
     public int Score { get; set; } = 0;
@@ -8,10 +8,8 @@ public class GameManager : SingletonDontDestory<GameManager>
 
     public event Action onChangeScore;
     
-    public override void Awake() 
+    public void Awake() 
     {
-        base.Awake();
-
         // 게임 내에서만 쓰는 매니저들 Initialize
         CharacterManager.Instance.Initialize();
         UIManager.Instance.Initialize();

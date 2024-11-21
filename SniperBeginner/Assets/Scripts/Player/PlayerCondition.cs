@@ -43,6 +43,8 @@ public class PlayerCondition : MonoBehaviour, IDamagable
     {
         IsDead = true;
         OnDead?.Invoke();
+
+        UIManager.Instance.OpenGameOverMenu();
     }
 
     public void TakeDamage(float damage)

@@ -10,6 +10,7 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] UIMiniMapController prefabMiniMap;
     [SerializeField] TextMeshProUGUI prefabScore;
     [SerializeField] GameObject prefabPauseMenu;
+    [SerializeField] GameObject prefabGameOverMenu;
 
     public CanvasGroup PlayerCanvas { get; private set; }
     public UIAmmoInfo AmmoInfo { get; private set; }
@@ -56,5 +57,14 @@ public class UIManager : Singleton<UIManager>
     public void SetCursor(bool isLocked)
     {
         Cursor.lockState = isLocked ? CursorLockMode.Locked : CursorLockMode.None;
+    }
+
+    public void OpenGameOverMenu()
+    {
+        Instantiate(prefabGameOverMenu, PlayerCanvas.transform);
+
+        Time.timeScale = 0f;
+        InputManager.Instance.Actions.Disable();
+        SetCursor(false);
     }
 }
