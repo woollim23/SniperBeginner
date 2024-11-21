@@ -11,7 +11,6 @@ public class EnemyStateMachine : StateMachine
     public GameObject Target { get; private set; }
     public EnemyIdleState IdleState { get; }
     public EnemyWanderState WanderState { get; private set; }
-    public EnemyWarningState WarningState { get; private set; }
     public EnemyChasingState ChasingState { get; private set; }
     public EnemyAimingState AimingState { get; private set; }
     public EnemyAttackState AttackState { get; private set; }
@@ -23,7 +22,6 @@ public class EnemyStateMachine : StateMachine
 
         IdleState = new EnemyIdleState(this);
         WanderState = new EnemyWanderState(this);
-        WarningState = new EnemyWarningState(this);
         ChasingState = new EnemyChasingState(this);
         AimingState = new EnemyAimingState(this);
         AttackState = new EnemyAttackState(this);

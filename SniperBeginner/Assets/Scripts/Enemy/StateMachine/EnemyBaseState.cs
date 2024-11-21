@@ -67,16 +67,20 @@ public class EnemyBaseState : IState
 
     protected bool IsInChasingRange()
     {
-        //if (!stateMachine.Target.GetComponent<PlayerCondition>()) return false;
+        Vector3 targetPosition = stateMachine.Target.transform.position;
+        Vector3 currentPosition = stateMachine.Enemy.transform.position;
 
-        float playerDistanceSqr = (stateMachine.Target.transform.position - stateMachine.Enemy.transform.position).sqrMagnitude;
+        float playerDistanceSqr = (targetPosition - currentPosition).sqrMagnitude;
 
         return playerDistanceSqr <= stateMachine.Enemy.Data.PlayerChasingRange * stateMachine.Enemy.Data.PlayerChasingRange;
     }
 
     protected bool IsInAttackRange()
     {
-        float playerDistanceSqr = (stateMachine.Target.transform.position - stateMachine.Enemy.transform.position).sqrMagnitude;
+        Vector3 targetPosition = stateMachine.Target.transform.position;
+        Vector3 currentPosition = stateMachine.Enemy.transform.position;
+
+        float playerDistanceSqr = (targetPosition - currentPosition).sqrMagnitude;
 
         return playerDistanceSqr <= stateMachine.Enemy.Data.AttackRange * stateMachine.Enemy.Data.AttackRange;
     }

@@ -101,13 +101,16 @@ public class PlayerEquipment : MonoBehaviour
         }
         else
         {
-            // TODO : 퀵슬롯에서 찾아서 넣어주기
             foreach (Weapon weapon in weaponInstance)
             {
-                if(weapon == CurrentEquip)  continue;
+                if (weapon == CurrentEquip)
+                    continue;
 
-                if(weapon.weaponData.ammoType == type)
+                if (weapon.weaponData.ammoType == type)
+                {
                     weapon.ReplaceMagazine(count);
+                    break;
+                }
             }
         }
     }
@@ -118,6 +121,7 @@ public class PlayerEquipment : MonoBehaviour
         OnReload?.Invoke(isReloading);
         
         // 모션 재생
+        anim.rig.weight = 0f;
         anim.Reload();
     }
 
@@ -125,6 +129,8 @@ public class PlayerEquipment : MonoBehaviour
     {
         isReloading = false;
         OnReload?.Invoke(isReloading);
+
+        anim.rig.weight = 1f;
     }
 
     void CallOnAmmoChanged()

@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.PackageManager;
+using UnityEditorInternal;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class EnemyAttackState : EnemyBaseState
 {
@@ -16,7 +19,6 @@ public class EnemyAttackState : EnemyBaseState
 
         stateMachine.Enemy.Agent.isStopped = true;
 
-        Fire();
         stateMachine.Enemy.StartCoroutine(WaitForAnimationToEnd());
     }
 
@@ -35,10 +37,10 @@ public class EnemyAttackState : EnemyBaseState
         Weapon weapon = stateMachine.Enemy.Weapon;
         Projectile bullet = ObjectPoolManager.Instance.Get(weapon.weaponData.projectile.data.type);
 
-        Vector3 aimPoint = weapon.firePoint.transform.position;
-        Vector3 target = CharacterManager.Instance.Player.transform.position;
+        Vector3 aimPoint = weapon.aimPoint.transform.position;
+        Vector3 firePoint = weapon.firePoint.transform.position;
 
-        bullet.Fire(weapon.firePoint.position, target - aimPoint, stateMachine.Enemy.Data.Damage);
+        bullet.Fire(firePoint, aimPoint-firePoint, stateMachine.Enemy.Data.Damage);
 
         ParticleManager.Instance.SpawnMuzzleFlash(weapon.firePoint);
         SoundManager.Instance.PlaySound(weapon.weaponData.fireSound);
@@ -46,6 +48,8 @@ public class EnemyAttackState : EnemyBaseState
 
     public IEnumerator WaitForAnimationToEnd()
     {
+        yield return new WaitForSeconds(0.2f);
+        Fire();
         float animationLength = stateMachine.Enemy.Animator.GetCurrentAnimatorStateInfo(0).length;
 
         yield return new WaitForSeconds(animationLength);

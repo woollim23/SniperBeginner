@@ -64,6 +64,9 @@ public class UIQuickSlotManager : MonoBehaviour
     // 데이터 로직 -> UI 업데이트
     public void HandleQuickSlotSelection(int slotIndex)
     {
+        // 결합이 강력해짐
+        if(CharacterManager.Instance.Player.Shooting.isAiming) return;
+
         if (slotIndex < 1 || slotIndex > quickSlots.Count)
         {
             return;

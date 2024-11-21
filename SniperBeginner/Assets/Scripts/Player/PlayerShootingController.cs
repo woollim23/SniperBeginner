@@ -60,7 +60,7 @@ public class PlayerShootingController : MonoBehaviour
 
     private void Update() 
     {
-        if (equip.CurrentEquip)
+        if (equip.CurrentEquip && !isReloading)
         {
             Aim();
             equip.ModifyWeaponDirection(AimTarget.position);
@@ -128,7 +128,8 @@ public class PlayerShootingController : MonoBehaviour
         Weapon weapon = equip.CurrentEquip;
         if (Time.time - lastFireTime < weapon.weaponData.fireRate || 
             !weapon.UseAmmo() ||
-            isReloading)
+            isReloading ||
+            isInCinemachine)
             return;
 
         lastFireTime = Time.time;
@@ -142,6 +143,8 @@ public class PlayerShootingController : MonoBehaviour
             AimCanceled();
             isInCinemachine = true;
             UIManager.Instance.PlayerCanvas.alpha = 0f;
+
+            // Enemy Pause 기능 필요
             
             bullet.InitializeForCinemachine
             (
@@ -168,7 +171,7 @@ public class PlayerShootingController : MonoBehaviour
         }
         else
         {
-            bullet.Fire(weapon.firePoint.position, weapon.firePoint.forward, weapon.weaponData.damage);
+            bullet.Fire(weapon.firePoint.position, weapon.firePoint.forward, weapon.weaponData.damage, gameObject.tag);
         }
         
         anim.Fire();
@@ -186,7 +189,10 @@ public class PlayerShootingController : MonoBehaviour
         Ray ray = GetRayFromCamera();
         if (Physics.Raycast(ray, out RaycastHit hit , equip.CurrentEquip.weaponData.range, aimLayerMask))
         {
-            AimTarget.position = hit.point;
+            if(!hit.collider.CompareTag("Player"))
+                AimTarget.position = hit.point;
+            else
+                AimTarget.position = mainCamera.transform.position + mainCamera.transform.forward * 10f;    
         }
         else
         {

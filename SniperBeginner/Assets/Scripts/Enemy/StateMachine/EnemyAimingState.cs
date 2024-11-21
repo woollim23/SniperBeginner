@@ -43,7 +43,7 @@ public class EnemyAimingState : EnemyBaseState
                 stateMachine.ChangeState(stateMachine.IdleState); // 아이들 상태로 변경
             }
         }
-        else if(stateMachine.RateAttackTime <= Time.time - stateMachine.LastAttackTime && stateMachine.Enemy.Health > 0)
+        else if(stateMachine.RateAttackTime <= Time.time - stateMachine.LastAttackTime && !stateMachine.Enemy.isDeadEnemy)
         {
             stateMachine.ChangeState(stateMachine.AttackState); // 공격 상태
         }

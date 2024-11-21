@@ -1513,6 +1513,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 401759254758054916, guid: 3f8a57adb5246f241b761e8130e7b596,
+        type: 3}
+      propertyPath: cameraMaxOffset
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5357915877303090477, guid: 3f8a57adb5246f241b761e8130e7b596,
         type: 3}
       propertyPath: SpawnPoints.Array.data[0]
