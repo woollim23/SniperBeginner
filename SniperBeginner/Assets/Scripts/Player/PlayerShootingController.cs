@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class PlayerShootingController : MonoBehaviour
@@ -8,9 +9,11 @@ public class PlayerShootingController : MonoBehaviour
     PlayerEquipment equip;
     Camera mainCamera;
 
+
     [Header("Aim Setting")]
     public bool isAiming;
     [SerializeField] LayerMask aimLayerMask;
+    [SerializeField] LayerMask snipeLayerMask;
     public Transform AimTarget => anim.aimIKTarget;
 
     [Header("Hold Breath")]
@@ -20,11 +23,12 @@ public class PlayerShootingController : MonoBehaviour
 
     bool isControllingBreath = false;
     bool isReloading = false;
+    bool isInCinemachine = false;
     
     public event Action<float> OnControlBreath;
     public event Action<bool> OnAim;
     public event Action<Vector3> OnGunFire;
-    public event Action<CinemachineProjectileSetting> OnSnipeEnemy;
+    public event Action<Transform, Transform, Vector3, Action> OnSnipe;
 
 
     private void Start() 
@@ -70,7 +74,7 @@ public class PlayerShootingController : MonoBehaviour
         OnAim = null;
         OnControlBreath = null;
         OnGunFire = null;
-        OnSnipeEnemy = null;
+        OnSnipe = null;
     }
 
 
@@ -103,7 +107,8 @@ public class PlayerShootingController : MonoBehaviour
         isAiming = true;
         anim.Aiming(isAiming);
 
-        OnAim?.Invoke(true);
+        if (equip.CurrentEquip.weaponData.ammoType == AmmoType.SniperAmmo)
+            OnAim?.Invoke(true);
     }
 
     void AimCanceled()
@@ -111,7 +116,8 @@ public class PlayerShootingController : MonoBehaviour
         isAiming = false;
         anim.Aiming(false);
 
-        OnAim?.Invoke(false);
+        if (equip.CurrentEquip.weaponData.ammoType == AmmoType.SniperAmmo)
+            OnAim?.Invoke(false);
     }
 
     void Fire()
@@ -124,8 +130,6 @@ public class PlayerShootingController : MonoBehaviour
 
         lastFireTime = Time.time;
 
-        ParticleManager.Instance.SpawnMuzzleFlash(weapon.firePoint);
-
         // 겉으로 표시만 하는 용도
         Projectile bullet = ObjectPoolManager.Instance.Get(weapon.weaponData.projectile.data.type);
 
@@ -133,38 +137,40 @@ public class PlayerShootingController : MonoBehaviour
         if (isAiming && CheckTarget(out Transform target))
         {
             AimCanceled();
-            bullet.InitializeForCinemachine(weapon.firePoint.position, weapon.firePoint.forward);
-            OnSnipeEnemy?.Invoke(new CinemachineProjectileSetting()
-            {
-                projectile = bullet.transform,
-                destination = target,
-                startPosition = weapon.firePoint.position,
-                onEnd = ()=>
-                {
-                    if(target.TryGetComponent(out IDamagable damagable))
-                        damagable.TakeDamage(weapon.weaponData.damage); 
+            isInCinemachine = true;
+            UIManager.Instance.PlayerCanvas.alpha = 0f;
+            
+            bullet.InitializeForCinemachine
+            (
+                weapon.firePoint.position,
+                weapon.firePoint.forward
+            );
 
-                    bullet.Release();
-                }
-            });
+            Action actionOnEnd = () =>
+            {
+                if (target.TryGetComponent(out IDamagable damagable))
+                    damagable.TakeDamage(weapon.weaponData.damage); 
+
+                bullet.Release();
+                UIManager.Instance.PlayerCanvas.alpha = 1f;
+                isInCinemachine = false;
+            };
+
+            OnSnipe?.Invoke(
+                bullet.transform,
+                target,
+                weapon.firePoint.position,
+                actionOnEnd
+            );
         }
         else
         {
-            // 데미지 : 레이 방식으로 변경
-            Ray ray = GetRayFromCamera(0f);
-            // Ray ray = new Ray(weapon.firePoint.position, weapon.firePoint.forward);
-            if (Physics.Raycast(ray, out RaycastHit hitInfo, weapon.weaponData.range, aimLayerMask))
-            {
-                if (hitInfo.collider.TryGetComponent(out IDamagable damagable))
-                {
-                    damagable.TakeDamage(weapon.weaponData.damage);
-                }
-
-                bullet.Fire(weapon.firePoint.position, weapon.firePoint.forward);
-            }
+            bullet.Fire(weapon.firePoint.position, weapon.firePoint.forward, weapon.weaponData.damage);
         }
         
         anim.Fire();
+
+        ParticleManager.Instance.SpawnMuzzleFlash(weapon.firePoint);
         SoundManager.Instance.PlaySound(weapon.weaponData.fireSound);
 
         OnGunFire?.Invoke(weapon.firePoint.position);
@@ -172,6 +178,8 @@ public class PlayerShootingController : MonoBehaviour
 
     void Aim()
     {
+        if(isInCinemachine) return;
+
         Ray ray = GetRayFromCamera();
         if (Physics.Raycast(ray, out RaycastHit hit , equip.CurrentEquip.weaponData.range, aimLayerMask))
         {
@@ -185,8 +193,13 @@ public class PlayerShootingController : MonoBehaviour
 
     bool CheckTarget(out Transform target)
     {
-        Ray ray = GetRayFromCamera(0f);
-        if (Physics.Raycast(ray, out RaycastHit hit , equip.CurrentEquip.weaponData.range, aimLayerMask))
+        Ray rayFromCamera = GetRayFromCamera(0f);
+        Ray rayFromFirepoint = GetRayFromFirePoint();
+
+        RaycastHit hit;
+
+        if (Physics.Raycast(rayFromCamera, out hit , equip.CurrentEquip.weaponData.range, snipeLayerMask) ||
+            Physics.Raycast(rayFromFirepoint, out hit , equip.CurrentEquip.weaponData.range, snipeLayerMask))
         {
             // 부위별 총격에서 데미지 확인 각각의
             if (hit.collider.TryGetComponent(out ISnipable snipable))
@@ -215,17 +228,14 @@ public class PlayerShootingController : MonoBehaviour
         anim.AimingModifier(1f);
     }
 
-
-    // TODO : Equip에 있어도 될거 같음
     void Reload(bool isStart)
     {
+        // 재장전 시, 조준 해제
         isReloading = isStart;
-        if(isStart)
+        if (isStart)
         {
             // aim 강제 해제
             AimCanceled();
-            // 모션 재생
-            anim.Reload();
         }
     }
 
@@ -233,6 +243,31 @@ public class PlayerShootingController : MonoBehaviour
     Ray GetRayFromCamera(float zAxisOffset = 3f)
     {
         return new Ray(mainCamera.transform.position + mainCamera.transform.forward * zAxisOffset, mainCamera.transform.forward);
+    }
+
+    Ray GetRayFromFirePoint()
+    {
+        return new Ray(equip.CurrentEquip.firePoint.position, equip.CurrentEquip.firePoint.forward);
+    }
+
+
+    public IEnumerator MoveBullet(Transform bullet, Vector3 firePoint, Transform destination, float travelSpeed)
+    {
+        float sqrDistance = Vector3.SqrMagnitude(firePoint - destination.position);
+        float travelTime = sqrDistance / (travelSpeed * travelSpeed);
+        float elapsedTime = 0f;
+
+        Vector3 end = destination.position;
+
+        while (elapsedTime < travelTime)
+        {
+            elapsedTime += Time.deltaTime;
+            bullet.position = Vector3.Lerp(firePoint, end, elapsedTime / travelTime);  //
+            
+            yield return null;
+        }
+
+        bullet.position = destination.position;
     }
 
 }

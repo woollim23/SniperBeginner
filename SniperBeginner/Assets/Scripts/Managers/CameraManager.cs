@@ -8,6 +8,7 @@ public class CameraManager : Singleton<CameraManager>
     [Space(10f)]
     public CinemachineVirtualCamera mainVirtualCamera;
     public CinemachineVirtualCamera aimVirtualCamera;
+    public CinemachineVirtualCamera generalAimVirtualCamera;
     public CinemachineVirtualCamera bulletVirtualCamera;
 
 
@@ -15,6 +16,8 @@ public class CameraManager : Singleton<CameraManager>
     {
         cameraController.mainCamera = mainVirtualCamera;
         cameraController.aimCamera = aimVirtualCamera;
+        cameraController.generalAimCamera = generalAimVirtualCamera;
         cameraController.bulletCamera = bulletVirtualCamera;
+        
     }
 }

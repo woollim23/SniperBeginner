@@ -6,11 +6,6 @@ public interface IInteractable
     void Interact();
 }
 
-public enum InterationType
-{
-    Pick, // 줍기
-    Open, // 열기
-}
 
 [System.Serializable]
 public class InteractionData

@@ -15,7 +15,6 @@ public class EnemyBaseState : IState
         this.stateMachine = stateMachine;
         groundData = stateMachine.Enemy.Data.GroundData;
         stateMachine.Enemy.Agent.isStopped = false;
-        stateMachine.Enemy.Agent.speed = groundData.BaseSpeed;
     }
 
     public virtual void Enter()
@@ -31,6 +30,8 @@ public class EnemyBaseState : IState
 
     public virtual void Update()
     {
+        stateMachine.Enemy.Agent.speed = groundData.BaseSpeed * (stateMachine.Enemy.Health <=0 ? 0 : 1);
+
         if (moveCoroutine == null)
         {
             moveCoroutine = stateMachine.Enemy.StartCoroutine(DelayedMove());
@@ -43,8 +44,6 @@ public class EnemyBaseState : IState
         GetWanderLocation();
         moveCoroutine = null;
     }
-
-
 
     private void GetWanderLocation()
     {
@@ -80,11 +79,6 @@ public class EnemyBaseState : IState
         float playerDistanceSqr = (stateMachine.Target.transform.position - stateMachine.Enemy.transform.position).sqrMagnitude;
 
         return playerDistanceSqr <= stateMachine.Enemy.Data.AttackRange * stateMachine.Enemy.Data.AttackRange;
-    }
-
-    protected void ChangeWarningState()
-    {
-        //stateMachine.ChasingState(Warn)
     }
 
     protected void StartAnimation(int animationHash)

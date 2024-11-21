@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System;
 
 public class CharacterManager : Singleton<CharacterManager>
 {
@@ -14,7 +13,7 @@ public class CharacterManager : Singleton<CharacterManager>
     public void Initialize()
     {
         Player = Instantiate(playerPrefab);
-        Player.Initialize(null); // TODO : ·ÎµåÇÑ µ¥ÀÌÅÍ ¹Þ¾Æ¿À±â
+        Player.Initialize(null); // TODO : ï¿½Îµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½ï¿½ï¿½
 
         InstaiateEnemy();
     }

@@ -13,13 +13,15 @@ public class PlayerView : MonoBehaviour
     [SerializeField] Transform cameraContainer;
     public CinemachineVirtualCamera mainVirtualCam;
     public CinemachineVirtualCamera aimVirtualCam;
+    public CinemachineVirtualCamera generalAimVirtualCam;
 
     Transform aimPoint;
 
     private void Awake() 
     {
         CameraManager.Instance.mainVirtualCamera = mainVirtualCam;
-        CameraManager.Instance.aimVirtualCamera = aimVirtualCam;    
+        CameraManager.Instance.aimVirtualCamera = aimVirtualCam;
+        CameraManager.Instance.generalAimVirtualCamera = generalAimVirtualCam;
     }
 
     private void Start() 

@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6450132543975392484
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3123752784843491694}
+  - component: {fileID: 4625216501776239905}
+  m_Layer: 0
+  m_Name: UIManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3123752784843491694
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6450132543975392484}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 960, y: 540, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4625216501776239905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6450132543975392484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 043c007ffc8fff840927ae610883276b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabPlayerCanvas: {fileID: -6400473186415350299, guid: f60b00ddf09086548be5205fdf9dfbe5,
+    type: 3}
+  prefabAmmoInfo: {fileID: 2547704951697346788, guid: c83c076b47667aa41ac3a41ff7a0ab65,
+    type: 3}
+  prefabQuickSlot: {fileID: 6026172891943885927, guid: 4c67ed51671399349a24f7dc48ea6685,
+    type: 3}
+  prefabMiniMap: {fileID: 6992059242411987594, guid: a750a613c8f847c48830422754613791,
+    type: 3}
+  prefabScore: {fileID: 7446433510461923005, guid: 9ebdee5fbaa60444cb306dfc925281d9,
+    type: 3}
+  prefabPauseMenu: {fileID: 5785689196937466219, guid: 97a797b73c49b2342b12d94cf5102721,
+    type: 3}

@@ -8,7 +8,7 @@ public class PlayerEquipment : MonoBehaviour
     PlayerAnimationController anim;
 
     public List<WeaponData> allWeapons = new List<WeaponData>(); // 데이터
-    [SerializeField] List<GameObject> weaponInstance = new List<GameObject>();
+    [SerializeField] List<Weapon> weaponInstance = new List<Weapon>();
 
     public Weapon CurrentEquip { get; private set; }
     
@@ -33,7 +33,7 @@ public class PlayerEquipment : MonoBehaviour
         {
             GameObject instance = Instantiate(allWeapons[i].equipPrefab);
             instance.SetActive(false);
-            weaponInstance.Add(instance);
+            weaponInstance.Add(instance.GetComponent<Weapon>());
         }
     }
 
@@ -64,7 +64,6 @@ public class PlayerEquipment : MonoBehaviour
         CurrentEquip = equipment;
         CurrentEquip.gameObject.SetActive(true);
 
-
         CurrentEquip.OnAmmoChanged += CallOnAmmoChanged;
         CallOnAmmoChanged(); // 장착 후 초기화
 
@@ -74,6 +73,7 @@ public class PlayerEquipment : MonoBehaviour
         ObjectPoolManager.Instance.AddProjectilePool(CurrentEquip.weaponData.projectile);
 
         view.UpdateAimPosition(equipment.aimPoint);
+        anim.SetWeaponType(equipment.weaponData.weaponType);
     }
 
     public void Unequip()
@@ -82,8 +82,6 @@ public class PlayerEquipment : MonoBehaviour
 
         if(CurrentEquip != null)
         {
-            // 1안. Destroy 하기 // 2안. 반환하기
-            // Destroy(CurrentEquip.gameObject);
             CurrentEquip.gameObject.SetActive(false);
 
             CurrentEquip.OnAmmoChanged -= CallOnAmmoChanged;
@@ -104,6 +102,7 @@ public class PlayerEquipment : MonoBehaviour
         else
         {
             // TODO : 퀵슬롯에서 찾아서 넣어주기
+
         }
     }
 
@@ -111,6 +110,9 @@ public class PlayerEquipment : MonoBehaviour
     {
         isReloading = true;
         OnReload?.Invoke(isReloading);
+        
+        // 모션 재생
+        anim.Reload();
     }
 
     void ReloadEnd()

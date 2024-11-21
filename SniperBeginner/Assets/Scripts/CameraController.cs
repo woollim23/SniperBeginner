@@ -5,34 +5,33 @@ using UnityEngine;
 
 using Random = UnityEngine.Random;
 
-public class CinemachineProjectileSetting
-{
-    public Transform projectile;
-    public Transform destination;
-    public Vector3 startPosition;
-
-    public Action onEnd;
-}
 
 public class CameraController : MonoBehaviour
 {
     public CinemachineVirtualCamera mainCamera;
     public CinemachineVirtualCamera aimCamera;
+    public CinemachineVirtualCamera generalAimCamera;
+
     public CinemachineVirtualCamera bulletCamera;
-    [SerializeField] [Range(0.5f, 3f)] float cameraRandomOffset;
+    [SerializeField][Range(0.5f, 5f)] float cameraMinOffset;
+    [SerializeField][Range(5f, 10f)] float cameraMaxOffset;
+    [SerializeField] float travelSpeed = 25f;
 
     private float defaultTimeScale = 1f;
-    private float slowMotionScale = 0.2f;
+    private float slowMotionScale = 0.1f;
+    float originFixedDeltaTime = 0f;
 
     private void Start()
     {
+        originFixedDeltaTime = Time.fixedDeltaTime;
+
         SubscribeBulletEvents();
         SwitchToIdle();
     }
 
     private void SubscribeBulletEvents()
     {
-        CharacterManager.Instance.Player.Shooting.OnSnipeEnemy += SwitchToBullet;
+        CharacterManager.Instance.Player.Shooting.OnSnipe += SwitchToBullet;
     }
 
 
@@ -40,69 +39,60 @@ public class CameraController : MonoBehaviour
     {
         mainCamera.Priority = 10;
         aimCamera.Priority = 5;
+        generalAimCamera.Priority = 5;
         bulletCamera.Priority = 0;
 
         ResetTimeScale();
     }
 
 
-    public void SwitchToBullet(CinemachineProjectileSetting setting)
+    public void SwitchToBullet(Transform projectile, Transform destination, Vector3 startPosition, Action onEnd)
     {
-        var orbit = bulletCamera.GetCinemachineComponent<CinemachineOrbitalTransposer>();
+        // Stand by에서 세팅
+        bulletCamera.Follow = projectile;
+        bulletCamera.LookAt = projectile; //setting.destination;
 
-        if(orbit != null)
+        bulletCamera.transform.position = startPosition + Random.onUnitSphere * Random.Range(cameraMinOffset, cameraMaxOffset);
+
+        var transposer = bulletCamera.GetCinemachineComponent<CinemachineTransposer>();
+        if(transposer != null)
         {
-            Vector3 random = Random.onUnitSphere * Random.Range(0.5f, cameraRandomOffset);
-            orbit.m_FollowOffset = random;
+            Vector3 random = Random.onUnitSphere * Random.Range(cameraMinOffset, cameraMaxOffset);
+            random.z = -cameraMinOffset;
+            transposer.m_FollowOffset = random;
         }
-
+        
+        // Live 전환
         bulletCamera.Priority = 15;
-        bulletCamera.Follow = setting.projectile;
-        bulletCamera.LookAt =  setting.projectile;//setting.destination;
 
         ApplySlowMotion();
 
-        StartCoroutine(HandleBulletCamera(setting));
+        StartCoroutine(HandleBulletCamera(projectile, destination, startPosition, onEnd));
     }
 
+
+    
     private void ApplySlowMotion()
     {
         Time.timeScale = slowMotionScale;
         Time.fixedDeltaTime = Time.timeScale * 0.02f;
+        
     }
 
     private void ResetTimeScale()
     {
         Time.timeScale = defaultTimeScale;
-        Time.fixedDeltaTime = Time.timeScale * 0.02f;
+        Time.fixedDeltaTime = originFixedDeltaTime;
     }
 
 
-    private IEnumerator HandleBulletCamera(CinemachineProjectileSetting setting)
+    private IEnumerator HandleBulletCamera(Transform projectile, Transform destination, Vector3 startPosition, Action onEnd)
     {
-        yield return StartCoroutine(MoveBullet(setting.projectile, setting.startPosition, setting.destination.position));
-        setting.onEnd?.Invoke();
+        yield return StartCoroutine(CharacterManager.Instance.Player.Shooting.MoveBullet(projectile, startPosition, destination, travelSpeed));
+        onEnd?.Invoke();
 
         ResetTimeScale(); 
         SwitchToIdle();
-    }
-
-    private IEnumerator MoveBullet(Transform bullet, Vector3 firePoint, Vector3 targetPosition)
-    {
-        float distance = Vector3.Distance(firePoint, targetPosition); 
-        float travelTime = distance / 50f;
-        float elapsedTime = 0f;
-
-        bullet.position = firePoint;
-
-        while (elapsedTime < travelTime)
-        {
-            elapsedTime += Time.deltaTime;
-            bullet.position = Vector3.Lerp(firePoint, targetPosition, elapsedTime / travelTime); 
-            yield return null;
-        }
-
-        bullet.position = targetPosition;
     }
 
 }

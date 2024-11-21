@@ -928,6 +928,7 @@ GameObject:
   - component: {fileID: 4051500045743120775}
   - component: {fileID: 6471258794423888546}
   - component: {fileID: 3243681692390678574}
+  - component: {fileID: -6400473186415350299}
   m_Layer: 5
   m_Name: UIPlayerCanvas
   m_TagString: Untagged
@@ -979,7 +980,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_TargetDisplay: 0
 --- !u!114 &6471258794423888546
 MonoBehaviour:
@@ -1021,6 +1022,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!225 &-6400473186415350299
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4674809590667589747}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &5015547767772977363
 GameObject:
   m_ObjectHideFlags: 0
