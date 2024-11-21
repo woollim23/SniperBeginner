@@ -58,3 +58,5 @@ MonoBehaviour:
     type: 3}
   prefabGameOverMenu: {fileID: 5785689196937466219, guid: e4dabc2b02f98f0499ac8f8f3e7c3997,
     type: 3}
+  prefabGameClearMenu: {fileID: 5785689196937466219, guid: 70d7d1eb26f55c348ad2d1ffbd24ba08,
+    type: 3}
