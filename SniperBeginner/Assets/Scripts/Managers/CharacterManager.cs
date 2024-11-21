@@ -12,9 +12,7 @@ public class CharacterManager : Singleton<CharacterManager>
 
     public void Initialize()
     {
-        Player = Instantiate(playerPrefab);
-        Player.Initialize(null); // TODO : �ε��� ������ �޾ƿ���
-
+        InstantiatePlayer();
         InstaiateEnemy();
     }
 
@@ -43,4 +41,22 @@ public class CharacterManager : Singleton<CharacterManager>
         }
     }
 
+    public void InstantiatePlayer()
+    {   
+        if(Player != null)
+        {
+            Destroy(Player.gameObject);
+        }
+
+        Player = Instantiate(playerPrefab);
+
+        if (DataManager.Instance.IsLoadedGame)
+        {
+            Player.Initialize(DataManager.Instance.CurrentGameData.playerData);
+        }
+        else
+        {
+            Player.Initialize(null);
+        }
+    }
 }

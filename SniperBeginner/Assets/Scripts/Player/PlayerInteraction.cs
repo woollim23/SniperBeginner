@@ -16,6 +16,7 @@ public class PlayerInteraction : MonoBehaviour
         if(TryGetComponent(out Player player))
         {
             player.Actions.Interaction.started += (context) => { Interact(); };
+            player.Condition.OnDead += () => { enabled = false; };
         }
     }
 

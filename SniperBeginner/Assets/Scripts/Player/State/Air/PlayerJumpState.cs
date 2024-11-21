@@ -18,5 +18,4 @@ public class PlayerJumpState : PlayerAirState
         stateMachine.ChangeState(stateMachine.FallState);
     }
 
-
 }

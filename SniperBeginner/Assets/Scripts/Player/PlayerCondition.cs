@@ -6,7 +6,7 @@ public class PlayerCondition : MonoBehaviour, IDamagable
     public bool IsDead { get; private set; } = false;
 
     // 체력
-    [SerializeField] float health;
+    [SerializeField] float health = 100f;
     public float Health
     {
         get => health;
@@ -17,7 +17,7 @@ public class PlayerCondition : MonoBehaviour, IDamagable
 
             health = value;
 
-            OnHealthChanged?.Invoke(health / maxHealth);
+            OnHealthChanged?.Invoke(GetPercent());
 
             if(health <= 0f)
                 Die();
@@ -28,15 +28,26 @@ public class PlayerCondition : MonoBehaviour, IDamagable
     public event Action<float> OnHealthChanged;
     public event Action OnDead;
 
-    private void Start() 
+    private void OnDisable() 
     {
-        Health = maxHealth;    
+        OnDead = null;
+        OnHealthChanged = null;    
+    }
+
+    public void Initialize(float initialHealth = 0f)
+    {
+        if (initialHealth > 0f)
+            Health = initialHealth;
+        else
+            Health = maxHealth;
     }
 
     public void Die()
     {
         IsDead = true;
         OnDead?.Invoke();
+
+        UIManager.Instance.OpenGameOverMenu();
     }
 
     public void TakeDamage(float damage)
@@ -47,6 +58,11 @@ public class PlayerCondition : MonoBehaviour, IDamagable
     public void Heal(float amount)
     {
         Health = Mathf.Min(Health + amount, maxHealth);
+    }
+
+    public float GetPercent()
+    {
+        return Health / maxHealth;
     }
 
     [ContextMenu("TestDamage")]

@@ -1,0 +1,13 @@
+{
+    "playerData": {
+        "Position": {
+            "x": -1.4531915187835694,
+            "y": 0.00010499358177185059,
+            "z": -2.0187015533447267
+        },
+        "Health": 100.0,
+        "EquippedWeaponIndex": 0,
+        "CurrentAmmoInMagazine": 0
+    },
+    "enemyData": []
+}

@@ -12,12 +12,13 @@ public class PlayerAnimationController : MonoBehaviour
     [SerializeField] RigBuilder rigBuilder;
     public Rig rig;
     [SerializeField] MultiAimConstraint aimConstraint;
-    [SerializeField] ChainIKConstraint leftHandIK;
     
-
     public Transform aimIKTarget; // IK point로 쓸 것
     [SerializeField] Transform leftHandIKTarget;
     [SerializeField] Vector3 leftHandOffset;
+
+    [Header("Ragdoll")]
+    [SerializeField] Rigidbody[] ragdolls;
 
     private void Awake() 
     {        
@@ -114,6 +115,17 @@ public class PlayerAnimationController : MonoBehaviour
         {
             Animator.enabled = isOn;
             rig.weight = 0f;
+        }
+
+        SetRagdoll(isOn);
+    }
+
+    void SetRagdoll(bool isOn)
+    {
+        foreach(Rigidbody rigidbody in ragdolls)
+        {
+            rigidbody.isKinematic = isOn;
+            rigidbody.useGravity = !isOn;
         }
     }
 

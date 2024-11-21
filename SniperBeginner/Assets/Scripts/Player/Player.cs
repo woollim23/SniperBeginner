@@ -53,14 +53,20 @@ public class Player : MonoBehaviour
         StateMachine.FixedUpdate();
     }
 
-
     public void Initialize(PlayerData data)
     {
         if (data != null)
         {
             // 위치 및 체력 복구
+            Controller.enabled = false;
             transform.position = data.Position;
-            Condition.Health = data.Health;           
+            Controller.enabled = true;
+
+            Condition.Initialize(data.Health);
+        }
+        else
+        {
+            Condition.Initialize();
         }
 
         // 시작은 일반 - 서 있는 상태
@@ -79,6 +85,7 @@ public class PlayerSetting
     [Range(0.01f, 1f)] public float movementInputSmoothness = 0.05f;
     
     [Header("Jump")]
+    public float speedMultiplyOnJump = 1.5f;
     public float jumpPower = 20f;
 
     [Header("Fall")]

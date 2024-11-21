@@ -13,8 +13,8 @@ public class CameraController : MonoBehaviour
     public CinemachineVirtualCamera generalAimCamera;
 
     public CinemachineVirtualCamera bulletCamera;
-    [SerializeField][Range(0.5f, 5f)] float cameraMinOffset;
-    [SerializeField][Range(5f, 10f)] float cameraMaxOffset;
+    [SerializeField][Range(0.3f, 1f)] float cameraMinOffset;
+    [SerializeField][Range(1f, 10f)] float cameraMaxOffset;
     [SerializeField] float travelSpeed = 25f;
 
     private float defaultTimeScale = 1f;
@@ -52,7 +52,17 @@ public class CameraController : MonoBehaviour
         bulletCamera.Follow = projectile;
         bulletCamera.LookAt = projectile; //setting.destination;
 
-        bulletCamera.transform.position = startPosition + Random.onUnitSphere * Random.Range(cameraMinOffset, cameraMaxOffset);
+        Vector3 sphericalPos = Random.onUnitSphere * Random.Range(cameraMinOffset, cameraMaxOffset);
+        Vector3 newPos = sphericalPos + startPosition;
+        Vector3 dir = (newPos - startPosition).normalized;
+        float dot = Vector3.Dot(dir, projectile.forward);
+
+        if(dot < 0f)
+        {
+            sphericalPos *= -1;
+        }
+
+        bulletCamera.transform.position = startPosition + sphericalPos;
 
         var transposer = bulletCamera.GetCinemachineComponent<CinemachineTransposer>();
         if(transposer != null)

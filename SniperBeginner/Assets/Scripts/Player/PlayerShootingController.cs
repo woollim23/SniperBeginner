@@ -45,8 +45,11 @@ public class PlayerShootingController : MonoBehaviour
             player.Actions.Aim.canceled += (context) => { AimCanceled(); };
 
             player.Actions.Fire.started += (context) => { Fire(); };
+            
             player.Actions.ControlBreath.started += (context) => { OnControlBreathStart();};
             player.Actions.ControlBreath.canceled += (context) => { OnControlBreathEnd();};
+
+            player.Condition.OnDead += () => { enabled = false; };
 
             equip.OnReload += Reload;
             
@@ -139,6 +142,8 @@ public class PlayerShootingController : MonoBehaviour
             AimCanceled();
             isInCinemachine = true;
             UIManager.Instance.PlayerCanvas.alpha = 0f;
+
+            // Enemy Pause 기능 필요
             
             bullet.InitializeForCinemachine
             (
@@ -165,7 +170,7 @@ public class PlayerShootingController : MonoBehaviour
         }
         else
         {
-            bullet.Fire(weapon.firePoint.position, weapon.firePoint.forward, weapon.weaponData.damage);
+            bullet.Fire(weapon.firePoint.position, weapon.firePoint.forward, weapon.weaponData.damage, gameObject.tag);
         }
         
         anim.Fire();
@@ -183,7 +188,10 @@ public class PlayerShootingController : MonoBehaviour
         Ray ray = GetRayFromCamera();
         if (Physics.Raycast(ray, out RaycastHit hit , equip.CurrentEquip.weaponData.range, aimLayerMask))
         {
-            AimTarget.position = hit.point;
+            if(!hit.collider.CompareTag("Player"))
+                AimTarget.position = hit.point;
+            else
+                AimTarget.position = mainCamera.transform.position + mainCamera.transform.forward * 10f;    
         }
         else
         {

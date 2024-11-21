@@ -16,6 +16,8 @@ public class UIHealthBar : MonoBehaviour
     private void Start() 
     {
         CharacterManager.Instance.Player.Condition.OnHealthChanged += UpdateUI;
+
+        UpdateUI(CharacterManager.Instance.Player.Condition.GetPercent());
     }
 
     void UpdateUI(float percent)

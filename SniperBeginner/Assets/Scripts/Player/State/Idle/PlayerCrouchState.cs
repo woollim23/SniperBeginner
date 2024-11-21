@@ -32,7 +32,7 @@ public class PlayerCrouchState : PlayerIdleState
         Transform player = stateMachine.Player.transform;
         float speed = stateMachine.Setting.crouchSpeed * Time.deltaTime;
 
-        Vector3 motion = player.right * movement.x * speed + player.forward * movement.y * speed;
+        Vector3 motion = player.right * stateMachine.Movement.x * speed + player.forward * stateMachine.Movement.y * speed;
         motion += stateMachine.Player.ForceReceiver.Movement * Time.deltaTime;
         
         stateMachine.Player.Controller.Move(motion);
