@@ -8,14 +8,20 @@ public class DataManager : SingletonDontDestory<DataManager>
     public bool existData = false;
     public GameData CurrentGameData { get; set; } // 현재 게임 데이터
 
+
     private static string gameDataPath => Application.dataPath + "/GameData.json"; 
     // TODO:: 문제 없으면 Application.persistentDataPath로 바꾸기
 
     public void SaveGameData(GameData data)
     {
-        string json = JsonUtility.ToJson(data, true);
-        File.WriteAllText(gameDataPath, json);
         CurrentGameData = data;
+        SaveGameData();
+    }
+    
+    public void SaveGameData()
+    {
+        string json = JsonUtility.ToJson(CurrentGameData, true);
+        File.WriteAllText(gameDataPath, json);
     }
 
     public void LoadGameData()

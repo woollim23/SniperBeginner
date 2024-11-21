@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.PackageManager;
+using UnityEditorInternal;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class EnemyAttackState : EnemyBaseState
 {
@@ -11,23 +14,23 @@ public class EnemyAttackState : EnemyBaseState
     public override void Enter()
     {
         base.Enter();
+
         StartAnimation(stateMachine.Enemy.AnimationData.AttackParameterHash);
         StartAnimation(stateMachine.Enemy.AnimationData.FireParameterHash);
 
         stateMachine.Enemy.Agent.isStopped = true;
 
-        Fire();
         stateMachine.Enemy.StartCoroutine(WaitForAnimationToEnd());
     }
 
     public override void Exit()
     {
         base.Exit();
+
         StopAnimation(stateMachine.Enemy.AnimationData.AttackParameterHash);
         StopAnimation(stateMachine.Enemy.AnimationData.FireParameterHash);
 
         stateMachine.Enemy.Agent.isStopped = false;
-        stateMachine.LastAttackTime = Time.time;
     }
 
     void Fire()
@@ -35,30 +38,26 @@ public class EnemyAttackState : EnemyBaseState
         Weapon weapon = stateMachine.Enemy.Weapon;
         Projectile bullet = ObjectPoolManager.Instance.Get(weapon.weaponData.projectile.data.type);
 
-        Ray ray = new Ray(weapon.firePoint.position, weapon.firePoint.forward);
-        if (Physics.Raycast(ray, out RaycastHit hitInfo, weapon.weaponData.range))
-        {
-            if (hitInfo.collider.TryGetComponent(out IDamagable damagable))
-            {
-                if (hitInfo.collider.CompareTag("Player"))
-                {
-                    // Player라면 데미지 처리
-                    damagable.TakeDamage(weapon.weaponData.damage);
-                }
-            }
-        }
+        Vector3 firePoint = weapon.firePoint.transform.position;
+        Vector3 targetPos = stateMachine.Target.transform.position + Vector3.up * (1f + Random.Range(-0.3f, 0.5f));
 
-        bullet.Fire(weapon.firePoint.position, weapon.firePoint.forward);
+        Vector3 dir = targetPos - firePoint; //stateMachine.Target.transform.position - firePoint;
+        bullet.Fire(firePoint, dir, stateMachine.Enemy.Data.Damage);
 
-        stateMachine.Enemy.OnEnemyGunFire?.Invoke();
+        stateMachine.LastAttackTime = Time.time;
+
+        ParticleManager.Instance.SpawnMuzzleFlash(weapon.firePoint);
         SoundManager.Instance.PlaySound(weapon.weaponData.fireSound);
     }
 
     public IEnumerator WaitForAnimationToEnd()
     {
-        float animationLength = stateMachine.Enemy.Animator.GetCurrentAnimatorStateInfo(0).length;
+        yield return new WaitForSeconds(0.2f);
+        Fire();
 
+        float animationLength = stateMachine.Enemy.Animator.GetCurrentAnimatorStateInfo(0).length;
         yield return new WaitForSeconds(animationLength);
+
         stateMachine.ChangeState(stateMachine.AimingState);
     }
 }

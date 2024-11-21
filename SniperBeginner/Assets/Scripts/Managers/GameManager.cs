@@ -1,22 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Playables;
 
-public class GameManager : SingletonDontDestory<GameManager>
+public class GameManager : Singleton<GameManager>
 {
 
-    public GameData GameData { get; set; }
     private SaveLoadManager saveLoadManager;
     public int Score { get; set; } = 0;
     public bool isGameOver { get; private set; }
 
     public event Action onChangeScore;
     
-    public override void Awake() 
+    public void Awake() 
     {
-        base.Awake();
-
         saveLoadManager = new SaveLoadManager();
 
         // 게임 내에서만 쓰는 매니저들 Initialize
@@ -27,6 +21,7 @@ public class GameManager : SingletonDontDestory<GameManager>
 
     private void Start()
     {
+        SoundManager.Instance.PlayBackgroundMusic(SoundManager.Instance.gameBGM);
     }
 
     public void GameStartInit()
@@ -37,7 +32,6 @@ public class GameManager : SingletonDontDestory<GameManager>
 
     public void GameClear()
     {
-        
     }
 
     public void CountDeadEnemy()
@@ -51,13 +45,13 @@ public class GameManager : SingletonDontDestory<GameManager>
 
     public void SaveGame()
     {
-        saveLoadManager.SaveGame(this);
+        saveLoadManager.SaveGame();
     }
 
 
     public void LoadGame()
     {
-        saveLoadManager.LoadGame(this);
+        saveLoadManager.LoadGame();
     }
 
 }

@@ -30,7 +30,7 @@ public class EnemyBaseState : IState
 
     public virtual void Update()
     {
-        stateMachine.Enemy.Agent.speed = groundData.BaseSpeed * (stateMachine.Enemy.Health <=0 ? 0 : 1);
+        stateMachine.Enemy.Agent.speed = groundData.BaseSpeed * (stateMachine.Enemy.isDeadEnemy ? 0 : 1);
 
         if (moveCoroutine == null)
         {
@@ -67,16 +67,20 @@ public class EnemyBaseState : IState
 
     protected bool IsInChasingRange()
     {
-        //if (!stateMachine.Target.GetComponent<PlayerCondition>()) return false;
+        Vector3 targetPosition = stateMachine.Target.transform.position;
+        Vector3 currentPosition = stateMachine.Enemy.transform.position;
 
-        float playerDistanceSqr = (stateMachine.Target.transform.position - stateMachine.Enemy.transform.position).sqrMagnitude;
+        float playerDistanceSqr = (targetPosition - currentPosition).sqrMagnitude;
 
         return playerDistanceSqr <= stateMachine.Enemy.Data.PlayerChasingRange * stateMachine.Enemy.Data.PlayerChasingRange;
     }
 
     protected bool IsInAttackRange()
     {
-        float playerDistanceSqr = (stateMachine.Target.transform.position - stateMachine.Enemy.transform.position).sqrMagnitude;
+        Vector3 targetPosition = stateMachine.Target.transform.position;
+        Vector3 currentPosition = stateMachine.Enemy.transform.position;
+
+        float playerDistanceSqr = (targetPosition - currentPosition).sqrMagnitude;
 
         return playerDistanceSqr <= stateMachine.Enemy.Data.AttackRange * stateMachine.Enemy.Data.AttackRange;
     }
@@ -89,24 +93,5 @@ public class EnemyBaseState : IState
     protected void StopAnimation(int animationHash)
     {
         stateMachine.Enemy.Animator.SetBool(animationHash, false);
-    }
-
-    protected float GetNormalizedTime(Animator animator, string tag)
-    {
-        AnimatorStateInfo currentInfo = animator.GetCurrentAnimatorStateInfo(0);
-        AnimatorStateInfo nextInfo = animator.GetNextAnimatorStateInfo(0);
-
-        if (animator.IsInTransition(0) && nextInfo.IsTag(tag))
-        {
-            return nextInfo.normalizedTime;
-        }
-        else if (!animator.IsInTransition(0) && currentInfo.IsTag(tag))
-        {
-            return currentInfo.normalizedTime;
-        }
-        else
-        {
-            return 0f;
-        }
     }
 }

@@ -22,11 +22,6 @@ public class UIQuickSlotManager : MonoBehaviour
         InputManager.Instance.OnQuickSlotEvent += HandleQuickSlotSelection;
     }
 
-    private void Start() 
-    {
-        HandleQuickSlotSelection(1);
-    }
-
     // UI
     private void AutoRegisterSlots()
     {
@@ -64,6 +59,9 @@ public class UIQuickSlotManager : MonoBehaviour
     // 데이터 로직 -> UI 업데이트
     public void HandleQuickSlotSelection(int slotIndex)
     {
+        // 결합이 강력해짐
+        if(CharacterManager.Instance.Player.Shooting.isAiming) return;
+
         if (slotIndex < 1 || slotIndex > quickSlots.Count)
         {
             return;

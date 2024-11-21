@@ -12,25 +12,21 @@ public class CharacterManager : Singleton<CharacterManager>
 
     public void Initialize()
     {
-        Player = Instantiate(playerPrefab);
-        Player.Initialize(null); // TODO : �ε��� ������ �޾ƿ���
-
+        InstantiatePlayer();
         InstaiateEnemy();
     }
 
     public void InstaiateEnemy()
     {
-        if (false)
-        {
-            // TODO : ????? ??????? ???? ?? ???? ??? ?????
-            // ??????????? ????? ??????? ??? ????
-            for (int i = 0; i < SpawnPoints.Length; i++)
-            {
-                Enemy newEnemy = Instantiate(enemyPrefab, SpawnPoints[i].position, SpawnPoints[i].rotation);
 
-                // ???? ?????? ????? ???????? ????
-                if (newEnemy.Health <= 0)
-                    GameManager.Instance.Score++;
+        if (DataManager.Instance.IsLoadedGame)
+        {
+            foreach (var enemy in DataManager.Instance.CurrentGameData.enemyData)
+            {
+                Enemy newEnemy = Instantiate(enemyPrefab, enemy.Position, Quaternion.Euler(0, 90, 0));
+
+                newEnemy.Health = enemy.Health;
+                enemies.Add(newEnemy);
             }
         }
         else
@@ -43,4 +39,22 @@ public class CharacterManager : Singleton<CharacterManager>
         }
     }
 
+    public void InstantiatePlayer()
+    {   
+        if(Player != null)
+        {
+            Destroy(Player.gameObject);
+        }
+
+        Player = Instantiate(playerPrefab);
+
+        if (DataManager.Instance.IsLoadedGame)
+        {
+            Player.Initialize(DataManager.Instance.CurrentGameData.playerData);
+        }
+        else
+        {
+            Player.Initialize(null);
+        }
+    }
 }

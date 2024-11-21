@@ -16,10 +16,9 @@ public class Weapon : MonoBehaviour
 
     public event Action OnAmmoChanged;
 
-    void Start()
+    private void Awake() 
     {
         currentAmmoInMagazine = weaponData.magazineSize;
-        OnAmmoChanged?.Invoke();
     }
 
     public bool UseAmmo(int amount = 1)

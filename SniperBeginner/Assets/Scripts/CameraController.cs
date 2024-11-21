@@ -13,8 +13,8 @@ public class CameraController : MonoBehaviour
     public CinemachineVirtualCamera generalAimCamera;
 
     public CinemachineVirtualCamera bulletCamera;
-    [SerializeField][Range(0.5f, 5f)] float cameraMinOffset;
-    [SerializeField][Range(5f, 10f)] float cameraMaxOffset;
+    [SerializeField][Range(0.3f, 1f)] float cameraMinOffset;
+    [SerializeField][Range(1f, 10f)] float cameraMaxOffset;
     [SerializeField] float travelSpeed = 25f;
 
     private float defaultTimeScale = 1f;
@@ -28,12 +28,12 @@ public class CameraController : MonoBehaviour
         SubscribeBulletEvents();
         SwitchToIdle();
     }
+    
 
     private void SubscribeBulletEvents()
     {
         CharacterManager.Instance.Player.Shooting.OnSnipe += SwitchToBullet;
     }
-
 
     public void SwitchToIdle()
     {
@@ -52,10 +52,20 @@ public class CameraController : MonoBehaviour
         bulletCamera.Follow = projectile;
         bulletCamera.LookAt = projectile; //setting.destination;
 
-        bulletCamera.transform.position = startPosition + Random.onUnitSphere * Random.Range(cameraMinOffset, cameraMaxOffset);
+        Vector3 sphericalPos = Random.onUnitSphere * Random.Range(cameraMinOffset, cameraMaxOffset);
+        Vector3 newPos = sphericalPos + startPosition;
+        Vector3 dir = (newPos - startPosition).normalized;
+        float dot = Vector3.Dot(dir, projectile.forward);
 
-        var transposer = bulletCamera.GetCinemachineComponent<CinemachineTransposer>();
-        if(transposer != null)
+        if(dot < 0f)
+        {
+            sphericalPos *= -1;
+        }
+
+        bulletCamera.transform.position = startPosition + sphericalPos;
+
+        CinemachineTransposer transposer = bulletCamera.GetCinemachineComponent<CinemachineTransposer>();
+        if (transposer != null)
         {
             Vector3 random = Random.onUnitSphere * Random.Range(cameraMinOffset, cameraMaxOffset);
             random.z = -cameraMinOffset;
@@ -89,9 +99,13 @@ public class CameraController : MonoBehaviour
     private IEnumerator HandleBulletCamera(Transform projectile, Transform destination, Vector3 startPosition, Action onEnd)
     {
         yield return StartCoroutine(CharacterManager.Instance.Player.Shooting.MoveBullet(projectile, startPosition, destination, travelSpeed));
+
         onEnd?.Invoke();
 
-        ResetTimeScale(); 
+        ResetTimeScale();
+
+        bulletCamera.Follow = null;
+        bulletCamera.LookAt = null; //setting.destination;
         SwitchToIdle();
     }
 

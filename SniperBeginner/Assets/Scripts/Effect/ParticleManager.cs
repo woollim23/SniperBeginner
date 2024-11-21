@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class ParticleManager : Singleton<ParticleManager>
 {
@@ -50,9 +51,10 @@ public class ParticleManager : Singleton<ParticleManager>
         }
     }
 
-    private System.Collections.IEnumerator ReturnParticleAfterDelay(ParticleType type, GameObject particle, float delay)
+    IEnumerator ReturnParticleAfterDelay(ParticleType type, GameObject particle, float delay)
     {
         yield return new WaitForSeconds(delay);
+
         ObjectPoolManager.Instance.ReleaseParticle(type, particle);
     }
 }

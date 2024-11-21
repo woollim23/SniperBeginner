@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6142758608641667373}
   - component: {fileID: 2061145960944608894}
   - component: {fileID: 6856698152828133587}
+  - component: {fileID: 7709017307797652165}
   m_Layer: 5
   m_Name: Resume Button
   m_TagString: Untagged
@@ -149,6 +150,19 @@ MonoBehaviour:
   m_EffectColor: {r: 1, g: 1, b: 1, a: 1}
   m_EffectDistance: {x: 2, y: -2}
   m_UseGraphicAlpha: 1
+--- !u!114 &7709017307797652165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 75046836331224467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b81cc4eec3686694e98f4f5d35da3b0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  btn: {fileID: 2061145960944608894}
 --- !u!1 &1647750236551822748
 GameObject:
   m_ObjectHideFlags: 0
@@ -538,6 +552,7 @@ GameObject:
   - component: {fileID: 2533950976073209721}
   - component: {fileID: 7461950235539448822}
   - component: {fileID: 91714788455116148}
+  - component: {fileID: 7331830870237551845}
   m_Layer: 5
   m_Name: Exit Button
   m_TagString: Untagged
@@ -674,6 +689,19 @@ MonoBehaviour:
   m_EffectColor: {r: 1, g: 1, b: 1, a: 1}
   m_EffectDistance: {x: 2, y: -2}
   m_UseGraphicAlpha: 1
+--- !u!114 &7331830870237551845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2561668730436336240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b81cc4eec3686694e98f4f5d35da3b0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  btn: {fileID: 7461950235539448822}
 --- !u!1 &4300048605683857110
 GameObject:
   m_ObjectHideFlags: 0
@@ -1182,6 +1210,7 @@ GameObject:
   - component: {fileID: 862774652547641729}
   - component: {fileID: 8827395932706441897}
   - component: {fileID: 4566214275654829828}
+  - component: {fileID: 8222645566158538815}
   m_Layer: 5
   m_Name: Title Button
   m_TagString: Untagged
@@ -1318,6 +1347,19 @@ MonoBehaviour:
   m_EffectColor: {r: 1, g: 1, b: 1, a: 1}
   m_EffectDistance: {x: 2, y: -2}
   m_UseGraphicAlpha: 1
+--- !u!114 &8222645566158538815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8283943830030046917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b81cc4eec3686694e98f4f5d35da3b0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  btn: {fileID: 8827395932706441897}
 --- !u!1 &8692924986828241558
 GameObject:
   m_ObjectHideFlags: 0
@@ -1331,6 +1373,7 @@ GameObject:
   - component: {fileID: 192195848825484732}
   - component: {fileID: 7487101618228657418}
   - component: {fileID: 4207394968631217836}
+  - component: {fileID: 6773967678947320516}
   m_Layer: 5
   m_Name: Save Button
   m_TagString: Untagged
@@ -1467,3 +1510,16 @@ MonoBehaviour:
   m_EffectColor: {r: 1, g: 1, b: 1, a: 1}
   m_EffectDistance: {x: 2, y: -2}
   m_UseGraphicAlpha: 1
+--- !u!114 &6773967678947320516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8692924986828241558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b81cc4eec3686694e98f4f5d35da3b0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  btn: {fileID: 7487101618228657418}

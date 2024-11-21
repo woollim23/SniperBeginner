@@ -16,6 +16,7 @@ public class PlayerInteraction : MonoBehaviour
         if(TryGetComponent(out Player player))
         {
             player.Actions.Interaction.started += (context) => { Interact(); };
+            player.Condition.OnDead += () => { enabled = false; };
         }
     }
 
@@ -52,7 +53,10 @@ public class PlayerInteraction : MonoBehaviour
         if (interactable != null)
         {
             interactable?.Interact();
+            SoundManager.Instance.PlaySound(SoundManager.Instance.itemPickSFX, 1f);
             ClearObject(interactable);
+
+            
         }
     }
 

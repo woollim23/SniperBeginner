@@ -4,52 +4,52 @@ using UnityEngine;
 
 public class SaveLoadManager
 {
-    public void SaveGame(GameManager gameManager)
+    public void SaveGame()
     {
-        if (gameManager.GameData == null)
+        if (DataManager.Instance.CurrentGameData == null)
         {
-            gameManager.GameData = new GameData
+            DataManager.Instance.CurrentGameData = new GameData
             {
                 playerData = new PlayerData()
             };
         }
 
-        SavePlayerData(gameManager);
-        SaveEnemyData(gameManager);
+        SavePlayerData();
+        SaveEnemyData();
 
-        // 데이터 저장 로직 호출
-        DataManager.Instance.SaveGameData(gameManager.GameData);
+        DataManager.Instance.SaveGameData();
     }
 
-    public void LoadGame(GameManager gameManager)
+    public void LoadGame()
     {
         DataManager.Instance.LoadGameData();
-        gameManager.GameData = DataManager.Instance.CurrentGameData;
-
         // LoadPlayerData(gameManager);
         // LoadEnemyData(gameManager);
     }
 
-    private void SavePlayerData(GameManager gameManager)
+    private void SavePlayerData()
     {
         Player player = CharacterManager.Instance.Player;
+        GameData data = DataManager.Instance.CurrentGameData;
         if (player != null)
         {
-            gameManager.GameData.playerData.Position = player.transform.position;
-            gameManager.GameData.playerData.Health = player.Condition.Health;
-            gameManager.GameData.playerData.EquippedWeaponIndex = player.Equipment.allWeapons.IndexOf(player.Equipment.CurrentEquip.weaponData);
+            data.playerData.Position = player.transform.position;
+            data.playerData.Health = player.Condition.Health;
+            data.playerData.EquippedWeaponIndex = player.Equipment.allWeapons.IndexOf(player.Equipment.CurrentEquip.weaponData);
 
-            gameManager.GameData.playerData.CurrentAmmoInMagazine = new List<int>();
+            data.playerData.CurrentAmmoInMagazine = new List<int>();
             foreach (var weapon in player.Equipment.weaponInstance)
             {
-                gameManager.GameData.playerData.CurrentAmmoInMagazine.Add(weapon.currentAmmoInMagazine);
+                data.playerData.CurrentAmmoInMagazine.Add(weapon.currentAmmoInMagazine);
             }
         }
     }
 
-    private void SaveEnemyData(GameManager gameManager)
+    private void SaveEnemyData()
     {
-        gameManager.GameData.enemyData.Clear();
+        GameData data = DataManager.Instance.CurrentGameData;
+        data.enemyData.Clear();
+
         foreach (var enemy in CharacterManager.Instance.enemies)
         {
             if (enemy.Health > 0)
@@ -59,9 +59,7 @@ public class SaveLoadManager
                     Position = enemy.transform.position,
                     Health = enemy.Health
                 };
-                gameManager.GameData.enemyData.Add(enemyData);
-
-                Debug.Log($"적 저장: 위치 {enemy.transform.position}, 체력 {enemy.Health}");
+                data.enemyData.Add(enemyData);
             }
         }
     }

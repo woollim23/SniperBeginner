@@ -6,14 +6,15 @@ using UnityEngine.UI;
 public class Starter : MonoBehaviour
 {
 
-    [SerializeField] private Button loadGameButton; // ·Îµå ¹öÆ° : ÀúÀåµÈ µ¥ÀÌÅÍ°¡ ÀÖÀ» ¶§¸¸ InteractableÀÌ È°¼ºÈ­ µÊ
+    [SerializeField] private Button loadGameButton; // ë¡œë“œ ë²„íŠ¼ : ì €ì¥ëœ ë°ì´í„°ê°€ ìˆì„ ë•Œë§Œ Interactableì´ í™œì„±í™” ë¨
 
     private void Start()
     {
+        Debug.Log("Starter Start Load");
         
-        DataManager.Instance.LoadGameData(); // ÀúÀåµÈ µ¥ÀÌÅÍ ·Îµå
+        DataManager.Instance.LoadGameData(); // ì €ì¥ëœ ë°ì´í„° ë¡œë“œ
 
-        // ÀúÀåµÈ °ÔÀÓ µ¥ÀÌÅÍ°¡ ÀÖ´Â °æ¿ì ¹öÆ° ÄÄÆ÷³ÍÆ®ÀÇ InteractableÀÌ È°¼ºÈ­ µÊ
+        // ì €ì¥ëœ ê²Œì„ ë°ì´í„°ê°€ ìˆëŠ” ê²½ìš° ë²„íŠ¼ ì»´í¬ë„ŒíŠ¸ì˜ Interactableì´ í™œì„±í™” ë¨
         if (DataManager.Instance.existData)
         {
             loadGameButton.interactable = true;
@@ -22,28 +23,30 @@ public class Starter : MonoBehaviour
         {
             loadGameButton.interactable = false;
         }
+
+        SoundManager.Instance.PlayBackgroundMusic(SoundManager.Instance.titleBGM);
     }
 
-    public void StartNewGame() // ÀúÀåµÈ °ÔÀÓ ºÒ·¯¿ÀÁö ¾Ê°í °ÔÀÓ ½ÃÀÛ
+    public void StartNewGame() // ì €ì¥ëœ ê²Œì„ ë¶ˆëŸ¬ì˜¤ì§€ ì•Šê³  ê²Œì„ ì‹œì‘
     {
-        // »õ °ÔÀÓ µ¥ÀÌÅÍ ÃÊ±âÈ­
+        // ìƒˆ ê²Œì„ ë°ì´í„° ì´ˆê¸°í™”
         DataManager.Instance.CurrentGameData = new GameData
         {
             playerData = new PlayerData(),
-            // TODO :: ¿¡³Ê¹Ì µ¥ÀÌÅÍ ÃÊ±âÈ­
+            // TODO :: ì—ë„ˆë¯¸ ë°ì´í„° ì´ˆê¸°í™”
         };
 
         DataManager.Instance.IsLoadedGame = false; 
 
-        // ¸ŞÀÎ °ÔÀÓ ¾À ·Îµå
+        // ë©”ì¸ ê²Œì„ ì”¬ ë¡œë“œ
         UnityEngine.SceneManagement.SceneManager.LoadScene("MainGame");
     }
 
-    public void LoadExistingGame() // ÀúÀåµÈ °ÔÀÓ ºÒ·¯¿À±â
+    public void LoadExistingGame() // ì €ì¥ëœ ê²Œì„ ë¶ˆëŸ¬ì˜¤ê¸°
     {
-        DataManager.Instance.IsLoadedGame = true;  // IsLoadedGameÀ» true·Î ¼³Á¤ ¡æ ÀúÀåÇÑ °ÔÀÓ µ¥ÀÌÅÍ È°¿ëÇÔ
+        DataManager.Instance.IsLoadedGame = true;  // IsLoadedGameì„ trueë¡œ ì„¤ì • â†’ ì €ì¥í•œ ê²Œì„ ë°ì´í„° í™œìš©í•¨
 
-        // ¸ŞÀÎ °ÔÀÓ ¾À ·Îµå
+        // ë©”ì¸ ê²Œì„ ì”¬ ë¡œë“œ
         UnityEngine.SceneManagement.SceneManager.LoadScene("MainGame");
     }
 }

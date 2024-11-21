@@ -6,8 +6,8 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
     [field: Header("Enemy Data")]
-    [field: SerializeField] private float health;
-    public float Health {get => health;}
+    public float Health { get; set; }
+    public bool isDeadEnemy;
     [field: SerializeField] public EnemySO Data { get; private set; }
     [field: SerializeField] public Weapon Weapon { get; private set; }
 
@@ -21,14 +21,12 @@ public class Enemy : MonoBehaviour
     public Rigidbody Rigidbody { get; private set; }
     public Animator Animator { get; private set; }
     public CharacterController Controller { get; private set; }
-    public ForceReceiver ForceReceiver { get; private set; }
 
     public EnemyStateMachine stateMachine;
     public NavMeshAgent Agent { get; private set; }
 
     public Action<float> onTakeDamage;
     public Action<Transform> OnEnemyDied;
-    public Action OnEnemyGunFire;
 
     private void Awake()
     {
@@ -38,8 +36,6 @@ public class Enemy : MonoBehaviour
         Rigidbody = GetComponent<Rigidbody>();
         Animator = GetComponentInChildren<Animator>();
         Controller = GetComponent<CharacterController>();
-
-        ForceReceiver = GetComponent<ForceReceiver>();
         stateMachine = new EnemyStateMachine(this);
 
         onTakeDamage += OnTakeDamage;
@@ -59,21 +55,22 @@ public class Enemy : MonoBehaviour
 
     public void EnemyDatalInit()
     {
-        health = Data.MaxHealth;
+        Health = Data.MaxHealth;
+        isDeadEnemy = false;
     }
 
     public void OnTakeDamage(float damage)
     {
-        health = Mathf.Max(health - damage, 0);
-        if (health == 0)
+        Health = Mathf.Max(Health - damage, 0);
+        if (Health == 0 && isDeadEnemy == false)
         {
             Die();
             return;
         }
 
         Animator.SetTrigger("Hit");
-        Debug.Log("Hit");
         Agent.isStopped = true;
+
         StartCoroutine(WaitForHitAnimation());
     }
 
@@ -90,13 +87,15 @@ public class Enemy : MonoBehaviour
 
     public void Die()
     {
-        GiveItem();
+        isDeadEnemy = true;
         Animator.enabled = false;
         Agent.isStopped = true;
+
+        GiveItem();
         GameManager.Instance.CountDeadEnemy();
+        OnEnemyDied?.Invoke(transform);
 
         Invoke("DestroyEnemy", 5);
-        OnEnemyDied?.Invoke(transform);
     }
 
     private void GiveItem()

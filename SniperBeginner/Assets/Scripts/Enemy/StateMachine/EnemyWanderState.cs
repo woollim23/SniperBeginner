@@ -10,9 +10,8 @@ public class EnemyWanderState : EnemyBaseState
 
     public override void Enter()
     {
-        //Debug.Log("Wander");
-        
         base.Enter();
+
         StartAnimation(stateMachine.Enemy.AnimationData.GroundParameterHash);
         StartAnimation(stateMachine.Enemy.AnimationData.WalkParameterHash);
 
@@ -21,6 +20,7 @@ public class EnemyWanderState : EnemyBaseState
     public override void Exit()
     {
         base.Exit();
+
         StopAnimation(stateMachine.Enemy.AnimationData.GroundParameterHash);
         StopAnimation(stateMachine.Enemy.AnimationData.WalkParameterHash);
     }

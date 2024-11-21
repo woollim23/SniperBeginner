@@ -23,6 +23,6 @@ public class EnemyHitDamage : HitDamage, ISnipable
 
     public bool IsSnipable(float damage)
     {
-        return enemy.Health <= damage * damageModifier;
+        return enemy.Health > 0f && enemy.Health <= damage * damageModifier;
     }
 }
