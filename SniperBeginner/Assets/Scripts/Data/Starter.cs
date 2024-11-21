@@ -23,6 +23,8 @@ public class Starter : MonoBehaviour
         {
             loadGameButton.interactable = false;
         }
+
+        SoundManager.Instance.PlayBackgroundMusic(SoundManager.Instance.titleBGM);
     }
 
     public void StartNewGame() // 저장된 게임 불러오지 않고 게임 시작

@@ -373,6 +373,7 @@ GameObject:
   - component: {fileID: 7529854260656419003}
   - component: {fileID: 2825195700943807936}
   - component: {fileID: 4868530242175940072}
+  - component: {fileID: 4255645598805565426}
   m_Layer: 5
   m_Name: Start Button
   m_TagString: Untagged
@@ -509,6 +510,19 @@ MonoBehaviour:
   m_EffectColor: {r: 1, g: 1, b: 1, a: 1}
   m_EffectDistance: {x: 2, y: -2}
   m_UseGraphicAlpha: 1
+--- !u!114 &4255645598805565426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1848409898815075378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b81cc4eec3686694e98f4f5d35da3b0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  btn: {fileID: 2825195700943807936}
 --- !u!1 &2029582662091724845
 GameObject:
   m_ObjectHideFlags: 0
@@ -762,6 +776,7 @@ GameObject:
   - component: {fileID: 6051752505429876596}
   - component: {fileID: 772583747070339916}
   - component: {fileID: 479998103227971673}
+  - component: {fileID: 8217449096460978520}
   m_Layer: 5
   m_Name: Load Button
   m_TagString: Untagged
@@ -898,6 +913,19 @@ MonoBehaviour:
   m_EffectColor: {r: 1, g: 1, b: 1, a: 1}
   m_EffectDistance: {x: 2, y: -2}
   m_UseGraphicAlpha: 1
+--- !u!114 &8217449096460978520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5530256627020683207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b81cc4eec3686694e98f4f5d35da3b0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  btn: {fileID: 772583747070339916}
 --- !u!1 &5721093706637103263
 GameObject:
   m_ObjectHideFlags: 0
@@ -1046,6 +1074,7 @@ GameObject:
   - component: {fileID: 2042947813514179761}
   - component: {fileID: 7808116869264072458}
   - component: {fileID: 441511087511091147}
+  - component: {fileID: 1269201344298363691}
   m_Layer: 5
   m_Name: Exit Button
   m_TagString: Untagged
@@ -1182,3 +1211,16 @@ MonoBehaviour:
   m_EffectColor: {r: 1, g: 1, b: 1, a: 1}
   m_EffectDistance: {x: 2, y: -2}
   m_UseGraphicAlpha: 1
+--- !u!114 &1269201344298363691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7970532540784695199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b81cc4eec3686694e98f4f5d35da3b0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  btn: {fileID: 7808116869264072458}

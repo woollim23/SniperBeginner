@@ -53,6 +53,7 @@ public class PlayerInteraction : MonoBehaviour
         if (interactable != null)
         {
             interactable?.Interact();
+            SoundManager.Instance.PlaySound(SoundManager.Instance.itemPickSFX, 1f);
             ClearObject(interactable);
         }
     }
