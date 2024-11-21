@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Starter : MonoBehaviour
 {
-
     [SerializeField] private Button loadGameButton; // 로드 버튼 : 저장된 데이터가 있을 때만 Interactable이 활성화 됨
 
     private void Start()

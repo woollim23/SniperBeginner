@@ -43,6 +43,12 @@ public class PlayerEquipment : MonoBehaviour
         UIManager.Instance.QuickSlot.HandleQuickSlotSelection(CurrentWeaponIndex);
     }
 
+    private void OnDisable() 
+    {
+        OnReload = null;       
+        OnAmmoChanged = null; 
+    }
+
 
     public void WeaponSelected(int idx)
     {

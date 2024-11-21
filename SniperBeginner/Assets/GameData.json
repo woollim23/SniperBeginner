@@ -1,16 +1,25 @@
 {
     "playerData": {
         "Position": {
-            "x": 1.4540746212005616,
+            "x": 23.678483963012697,
             "y": 0.00010499358177185059,
-            "z": -4.622856616973877
+            "z": -29.51614761352539
         },
         "Health": 100.0,
-        "EquippedWeaponIndex": 2,
+        "EquippedWeaponIndex": 1,
         "CurrentAmmoInMagazine": [
             3,
-            27
+            30
         ]
     },
-    "enemyData": []
+    "enemyData": [
+        {
+            "Position": {
+                "x": 5.431787490844727,
+                "y": 0.06560516357421875,
+                "z": 13.587800025939942
+            },
+            "Health": 100.0
+        }
+    ]
 }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
@@ -25,7 +23,7 @@ public class ForceReceiver : MonoBehaviour
         AdjustForce();
     }
 
-    // Ãß°¡
+
     public void Reset()
     {
         vertical = 0;

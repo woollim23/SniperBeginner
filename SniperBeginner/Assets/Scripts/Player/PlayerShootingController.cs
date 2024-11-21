@@ -190,16 +190,17 @@ public class PlayerShootingController : MonoBehaviour
         return false;
     }
 
+    // 저격하기
     void Snipe(Transform target, Weapon weapon, Projectile bullet)
     {
         isInCinemachine = true;
-        
+
         AimCanceled();
         UIManager.Instance.PlayerCanvas.alpha = 0f;
 
         if (target.TryGetComponent(out Enemy e))
             e.CineDontMove(); // Enemy Pause
-            
+        
         bullet.InitializeForCinemachine(weapon.firePoint.position, weapon.firePoint.forward);
 
         Action actionOnEnd = () =>

@@ -34,10 +34,6 @@ public class ItemData : ScriptableObject
 
     public GameObject GetDropPrefab()
     {
-        if (dropPrefab == null)
-        {
-            Debug.LogWarning($"{itemName}에 드랍 프리팹이 설정되지 않았습니다.");
-        }
         return dropPrefab;
     }
 }
