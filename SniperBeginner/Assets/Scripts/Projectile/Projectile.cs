@@ -29,6 +29,7 @@ public class Projectile : MonoBehaviour
     public void Initialize(Vector3 firePoint, Vector3 direction)
     {
         gameObject.SetActive(false);
+
         mesh.SetActive(false);
         trail.SetActive(true);
         
@@ -36,12 +37,14 @@ public class Projectile : MonoBehaviour
         rigidBody.angularVelocity = Vector3.zero;
 
         transform.position = firePoint;
+        transform.rotation = Quaternion.identity;
         transform.rotation = Quaternion.LookRotation(direction);
     }
 
     public void InitializeForCinemachine(Vector3 firePoint, Vector3 direction)
     {
         gameObject.SetActive(false);
+
         mesh.SetActive(true);
         trail.SetActive(false);
 
@@ -57,7 +60,7 @@ public class Projectile : MonoBehaviour
     public virtual void Fire(Vector3 firePoint, Vector3 direction, float damage = 30f, string shooter = "Enemy")
     {
         Initialize(firePoint, direction);
-        
+
         data.damage = damage;
         shooterTag = shooter;
 
