@@ -10,9 +10,8 @@ public class EnemyChasingState : EnemyBaseState
 
     public override void Enter()
     {
-        //Debug.Log("Chasing");
-
         base.Enter();
+
         StartAnimation(stateMachine.Enemy.AnimationData.GroundParameterHash);
         StartAnimation(stateMachine.Enemy.AnimationData.WalkParameterHash);
     }
@@ -20,15 +19,14 @@ public class EnemyChasingState : EnemyBaseState
     public override void Exit()
     {
         base.Exit();
+
         StopAnimation(stateMachine.Enemy.AnimationData.GroundParameterHash);
         StopAnimation(stateMachine.Enemy.AnimationData.WalkParameterHash);
     }
 
     public override void Update()
     {
-        // 플레이어 추적
-
-        stateMachine.Enemy.Agent.SetDestination(CharacterManager.Instance.Player.transform.position);
+        stateMachine.Enemy.Agent.SetDestination(stateMachine.Target.transform.position);
 
         if (IsInAttackRange())
         {

@@ -14,7 +14,6 @@ public class EnemyAnimationData
     [SerializeField] private string fallParameterName = "Fall";
 
     [SerializeField] private string attackParameterName = "@Attack";
-    [SerializeField] private string aimingParameterName = "Aiming";
     [SerializeField] private string fireParameterName = "Fire";
 
     public int GroundParameterHash { get; private set; }
@@ -27,7 +26,6 @@ public class EnemyAnimationData
     public int FallParameterHash { get; private set; }
 
     public int AttackParameterHash { get; private set; }
-    public int AimingParameterName { get; private set; }
     public int FireParameterHash { get; private set; }
 
     public void Initialize()
@@ -42,7 +40,6 @@ public class EnemyAnimationData
         FallParameterHash = Animator.StringToHash(fallParameterName);
 
         AttackParameterHash = Animator.StringToHash(attackParameterName);
-        AimingParameterName = Animator.StringToHash(aimingParameterName);
         FireParameterHash = Animator.StringToHash(fireParameterName);
     }
 }
