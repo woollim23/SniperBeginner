@@ -14,9 +14,14 @@ public class DataManager : SingletonDontDestory<DataManager>
 
     public void SaveGameData(GameData data)
     {
-        string json = JsonUtility.ToJson(data, true);
-        File.WriteAllText(gameDataPath, json);
         CurrentGameData = data;
+        SaveGameData();
+    }
+    
+    public void SaveGameData()
+    {
+        string json = JsonUtility.ToJson(CurrentGameData, true);
+        File.WriteAllText(gameDataPath, json);
     }
 
     public void LoadGameData()

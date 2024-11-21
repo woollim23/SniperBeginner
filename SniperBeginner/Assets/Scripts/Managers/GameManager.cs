@@ -3,7 +3,6 @@
 public class GameManager : Singleton<GameManager>
 {
 
-    public GameData GameData { get; set; }
     private SaveLoadManager saveLoadManager;
     public int Score { get; set; } = 0;
     public bool isGameOver { get; private set; }
@@ -46,13 +45,13 @@ public class GameManager : Singleton<GameManager>
 
     public void SaveGame()
     {
-        saveLoadManager.SaveGame(this);
+        saveLoadManager.SaveGame();
     }
 
 
     public void LoadGame()
     {
-        saveLoadManager.LoadGame(this);
+        saveLoadManager.LoadGame();
     }
 
 }

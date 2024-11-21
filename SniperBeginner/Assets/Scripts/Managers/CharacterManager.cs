@@ -21,7 +21,7 @@ public class CharacterManager : Singleton<CharacterManager>
 
         if (DataManager.Instance.IsLoadedGame)
         {
-            foreach (var enemy in GameManager.Instance.GameData.enemyData)
+            foreach (var enemy in DataManager.Instance.CurrentGameData.enemyData)
             {
                 Enemy newEnemy = Instantiate(enemyPrefab, enemy.Position, Quaternion.Euler(0, 90, 0));
 
