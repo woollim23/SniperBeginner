@@ -3,65 +3,66 @@ using UnityEngine;
 public class SoundManager : SingletonDontDestory<SoundManager>
 {
     [Header("Audio Settings")]
-    public AudioSource audioSource;
+    public AudioSource bgmSource;
+    public AudioSource sfxSource;
 
+    [Header("Audio Clips")]
+    public AudioClip titleBGM;
+    public AudioClip gameBGM;
+    public AudioClip buttonClickSFX;
+    public AudioClip itemPickSFX;
 
     private void Start()
     {
-        EnsureAudioSource();
+        EnsureAudioSources();
     }
 
-    private void EnsureAudioSource()
+    private void EnsureAudioSources()
     {
-        audioSource = GetComponent<AudioSource>();
-        if (audioSource == null)
+        if (bgmSource == null)
         {
-            audioSource = gameObject.AddComponent<AudioSource>();
+            bgmSource = gameObject.AddComponent<AudioSource>();
+            bgmSource.loop = true;
+        }
+
+        if (sfxSource == null)
+        {
+            sfxSource = gameObject.AddComponent<AudioSource>();
         }
     }
 
     public void PlaySound(AudioClip clip, float volume = 0.15f)
     {
-        if (audioSource == null)
+        if (sfxSource == null || clip == null)
         {
             return;
         }
 
-        if (clip != null)
-        {
-            audioSource.PlayOneShot(clip, volume);
-        }        
-    }
-
-    public void PlaySoundAtPosition(AudioClip clip, Vector3 position, float volume = 0.15f)
-    {
-        if (clip != null)
-        {
-            AudioSource.PlayClipAtPoint(clip, position, volume);
-        }
+        sfxSource.PlayOneShot(clip, volume);
     }
 
     public void PlayBackgroundMusic(AudioClip clip)
     {
-        if (audioSource == null)
+        if (bgmSource == null || clip == null)
         {
-            
             return;
         }
 
-        if (clip != null)
+        if (bgmSource.clip == clip && bgmSource.isPlaying)
         {
-            audioSource.clip = clip;
-            audioSource.loop = true;
-            audioSource.Play();
-        }        
+            return;
+        }
+
+        bgmSource.clip = clip;
+        bgmSource.volume = 0.5f;
+        bgmSource.Play();
     }
 
     public void StopBackgroundMusic()
     {
-        if (audioSource != null && audioSource.isPlaying)
+        if (bgmSource != null && bgmSource.isPlaying)
         {
-            audioSource.Stop();
+            bgmSource.Stop();
         }
     }
 }

@@ -22,7 +22,7 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
-        
+        SoundManager.Instance.PlayBackgroundMusic(SoundManager.Instance.gameBGM);
     }
 
     public void GameStartInit()
@@ -33,7 +33,6 @@ public class GameManager : Singleton<GameManager>
 
     public void GameClear()
     {
-        
     }
 
     public void CountDeadEnemy()

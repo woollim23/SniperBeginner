@@ -7,8 +7,8 @@ public class Enemy : MonoBehaviour
 {
     [field: Header("Enemy Data")]
     [field: SerializeField] private float health;
-    public bool isDeadEnemy;
     public float Health {get => health;}
+    public bool isDeadEnemy;
     [field: SerializeField] public EnemySO Data { get; private set; }
     [field: SerializeField] public Weapon Weapon { get; private set; }
 
@@ -42,8 +42,6 @@ public class Enemy : MonoBehaviour
         onTakeDamage += OnTakeDamage;
 
         EnemyDatalInit();
-
-        isDeadEnemy = false;
     }
 
     private void Start()
@@ -59,6 +57,7 @@ public class Enemy : MonoBehaviour
     public void EnemyDatalInit()
     {
         health = Data.MaxHealth;
+        isDeadEnemy = false;
     }
 
     public void OnTakeDamage(float damage)
@@ -72,6 +71,7 @@ public class Enemy : MonoBehaviour
 
         Animator.SetTrigger("Hit");
         Agent.isStopped = true;
+
         StartCoroutine(WaitForHitAnimation());
     }
 
@@ -89,13 +89,14 @@ public class Enemy : MonoBehaviour
     public void Die()
     {
         isDeadEnemy = true;
-        GiveItem();
         Animator.enabled = false;
         Agent.isStopped = true;
+
+        GiveItem();
         GameManager.Instance.CountDeadEnemy();
+        OnEnemyDied?.Invoke(transform);
 
         Invoke("DestroyEnemy", 5);
-        OnEnemyDied?.Invoke(transform);
     }
 
     private void GiveItem()
