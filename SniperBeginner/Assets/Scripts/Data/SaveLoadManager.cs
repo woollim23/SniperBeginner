@@ -35,7 +35,7 @@ public class SaveLoadManager
         {
             data.playerData.Position = player.transform.position;
             data.playerData.Health = player.Condition.Health;
-            data.playerData.EquippedWeaponIndex = player.Equipment.allWeapons.IndexOf(player.Equipment.CurrentEquip.weaponData);
+            data.playerData.EquippedWeaponIndex = player.Equipment.allWeapons.IndexOf(player.Equipment.CurrentEquip.weaponData) + 1;
 
             data.playerData.CurrentAmmoInMagazine = new List<int>();
             foreach (var weapon in player.Equipment.weaponInstance)

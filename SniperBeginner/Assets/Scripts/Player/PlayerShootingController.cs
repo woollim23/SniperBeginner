@@ -146,15 +146,11 @@ public class PlayerShootingController : MonoBehaviour
 
             if(target.TryGetComponent(out Enemy e))
             {   
-                // Enemy Pause 기능 필요
-                // pause
+                // Enemy Pause
+                e.CineDontMove();
             }
             
-            bullet.InitializeForCinemachine
-            (
-                weapon.firePoint.position,
-                weapon.firePoint.forward
-            );
+            bullet.InitializeForCinemachine(weapon.firePoint.position, weapon.firePoint.forward);
 
             Action actionOnEnd = () =>
             {
@@ -193,7 +189,7 @@ public class PlayerShootingController : MonoBehaviour
         Ray ray = GetRayFromCamera();
         if (Physics.Raycast(ray, out RaycastHit hit , equip.CurrentEquip.weaponData.range, aimLayerMask))
         {
-            if(!hit.collider.CompareTag("Player"))
+            if (!hit.collider.CompareTag("Player"))
                 AimTarget.position = hit.point;
             else
                 AimTarget.position = mainCamera.transform.position + mainCamera.transform.forward * 10f;    

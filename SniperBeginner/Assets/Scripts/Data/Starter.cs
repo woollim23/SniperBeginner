@@ -10,8 +10,6 @@ public class Starter : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("Starter Start Load");
-        
         DataManager.Instance.LoadGameData(); // 저장된 데이터 로드
 
         // 저장된 게임 데이터가 있는 경우 버튼 컴포넌트의 Interactable이 활성화 됨
