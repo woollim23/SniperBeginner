@@ -48,6 +48,8 @@ public class PlayerCondition : MonoBehaviour, IDamagable
         OnDead?.Invoke();
 
         UIManager.Instance.OpenGameOverMenu();
+
+        SoundManager.Instance.PlaySound(SoundManager.Instance.playerDeadSFX, 1.0f);
     }
 
     public void TakeDamage(float damage)

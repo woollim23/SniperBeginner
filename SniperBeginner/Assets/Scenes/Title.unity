@@ -651,6 +651,11 @@ PrefabInstance:
       propertyPath: ouchSFX
       value: 
       objectReference: {fileID: 8300000, guid: 64a03f41ed6fadf4f9ac4a0a3536cb91, type: 3}
+    - target: {fileID: 8884650234374791832, guid: 442b3b72c11c08640b43ea0a2a95943d,
+        type: 3}
+      propertyPath: playerDeadSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: fd0c1e56873fa7f46bd748938f141eb7, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

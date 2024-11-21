@@ -13,6 +13,7 @@ public class SoundManager : SingletonDontDestory<SoundManager>
     public AudioClip itemPickSFX;
     public AudioClip deadSFX;
     public AudioClip ouchSFX;
+    public AudioClip playerDeadSFX;
 
     private void Start()
     {
@@ -56,7 +57,7 @@ public class SoundManager : SingletonDontDestory<SoundManager>
         }
 
         bgmSource.clip = clip;
-        bgmSource.volume = 0.5f;
+        bgmSource.volume = 0.4f;
         bgmSource.Play();
     }
 
