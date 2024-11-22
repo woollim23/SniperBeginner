@@ -102,7 +102,7 @@
 
 # 📚 참고 자료
 
-- [Sniper Elite 시리즈 공식 웹사이트](https://sniperelite.com)
+- [Sniper Elite 시리즈 공식 웹사이트](https://sniperelite.com/ko-kr)
 - [Unity Documentation](https://docs.unity3d.com/Manual/index.html)
 - [Cinemachine Documentation](https://docs.unity3d.com/Packages/com.unity.cinemachine@2.6/manual/index.html)
 
