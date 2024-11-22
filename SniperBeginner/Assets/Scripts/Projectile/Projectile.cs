@@ -20,18 +20,14 @@ public class Projectile : MonoBehaviour
     [SerializeField] GameObject mesh;
     [SerializeField] GameObject trail;
 
-    protected virtual void Awake() 
+    private void Awake() 
     {
         rigidBody = GetComponent<Rigidbody>();
     }
 
-
-    public void Initialize(Vector3 firePoint, Vector3 direction)
+    void CleanUp(Vector3 firePoint, Vector3 direction)
     {
         gameObject.SetActive(false);
-
-        mesh.SetActive(false);
-        trail.SetActive(true);
         
         rigidBody.velocity = Vector3.zero;
         rigidBody.angularVelocity = Vector3.zero;
@@ -42,23 +38,23 @@ public class Projectile : MonoBehaviour
         gameObject.SetActive(true);
     }
 
+    public void Initialize(Vector3 firePoint, Vector3 direction)
+    {
+        CleanUp(firePoint, direction);
+        
+        mesh.SetActive(false);
+        trail.SetActive(true);
+    }
+
     public void InitializeForCinemachine(Vector3 firePoint, Vector3 direction)
     {
-        gameObject.SetActive(false);
+        CleanUp(firePoint, direction);
 
         mesh.SetActive(true);
         trail.SetActive(false);
-
-        rigidBody.velocity = Vector3.zero;
-        rigidBody.angularVelocity = Vector3.zero;
-
-        transform.position = firePoint;
-        transform.rotation = Quaternion.LookRotation(direction);
-
-        gameObject.SetActive(true);
     }
 
-    public virtual void Fire(Vector3 firePoint, Vector3 direction, float damage = 30f, string shooter = "Enemy")
+    public void Fire(Vector3 firePoint, Vector3 direction, float damage = 30f, string shooter = "Enemy")
     {
         Initialize(firePoint, direction);
 
@@ -73,7 +69,7 @@ public class Projectile : MonoBehaviour
         Invoke("Release", data.lifeTime);
     }
 
-    public virtual void Release()
+    public void Release()
     {
         ObjectPoolManager.Instance.Release(data.type, this);
     }

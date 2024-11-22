@@ -142,7 +142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponData: {fileID: 11400000, guid: bb7084e4f4c5820478a5f3d5da925c37, type: 2}
-  currentAmmoInMagazine: 30
+  currentAmmoInMagazine: 10
   firePoint: {fileID: 1730291088304789257}
   aimPoint: {fileID: 6033140158775473826}
   lHandPoint: {fileID: 4825203930499309555}
