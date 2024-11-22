@@ -116,13 +116,31 @@
 
 ### 스크린샷
 
-타이틀 : ![타이틀](https://github.com/user-attachments/assets/05c43a77-fa00-4b1a-8de3-90afbb51d606)
+### 타이틀 화면
+<img src="https://github.com/user-attachments/assets/05c43a77-fa00-4b1a-8de3-90afbb51d606" width="600"/>
 
-미니맵 : ![미니맵](https://github.com/user-attachments/assets/dfe4c869-fc38-442d-a8f0-1af00a415100)
+> **게임 시작 전 타이틀 화면** - 깔끔한 UI와 메뉴.
 
-일반사격 : ![사격](https://github.com/user-attachments/assets/52094a52-e9e9-4d66-8d38-0fe317e0d314)
+---
 
-시네머신 : ![Animation1](https://github.com/user-attachments/assets/fe1e56a2-d922-425d-be9b-4a4c42e0686a)
+### 미니맵 UI
+<img src="https://github.com/user-attachments/assets/dfe4c869-fc38-442d-a8f0-1af00a415100" width="600"/>
+
+> **실시간 미니맵** - 적의 위치와 목표 지점을 시각적으로 확인 가능.
+
+---
+
+### 일반 사격
+<img src="https://github.com/user-attachments/assets/52094a52-e9e9-4d66-8d38-0fe317e0d314" width="600"/>
+
+> **일반 사격** - 상황에 따라 무기를 전환해 전술적으로 플레이 가능.
+
+---
+
+### 저격 모드
+<img src="https://github.com/user-attachments/assets/fe1e56a2-d922-425d-be9b-4a4c42e0686a" width="600"/>
+
+> **시네머신** - 몰입감을 더하는 세부 연출.
 
 ---
 
