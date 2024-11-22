@@ -117,5 +117,7 @@ public class Enemy : MonoBehaviour
     public void CineDontMove()
     {
         Agent.SetDestination(transform.position);
+        Agent.speed = 0f;
+        Agent.isStopped = true;
     }
 }

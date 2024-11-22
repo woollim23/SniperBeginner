@@ -766,10 +766,7 @@ MonoBehaviour:
   m_AnimatedTarget: {fileID: 4540956004945665614}
   m_LayerIndex: 1
   m_ShowDebugText: 0
-  m_ChildCameras:
-  - {fileID: 7849855011339813663}
-  - {fileID: 7742737638296623587}
-  - {fileID: 3468733153772026090}
+  m_ChildCameras: []
   m_Instructions:
   - m_FullHash: 0
     m_VirtualCamera: {fileID: 7849855011339813663}
@@ -812,7 +809,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1874877064047016730}
   - component: {fileID: 7849855011339813663}
-  - component: {fileID: 5660846306015612160}
+  - component: {fileID: 8467906022983968047}
   m_Layer: 0
   m_Name: Main Virtual Camera
   m_TagString: Untagged
@@ -875,7 +872,7 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 5714511922013603485}
---- !u!114 &5660846306015612160
+--- !u!114 &8467906022983968047
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -904,7 +901,7 @@ MonoBehaviour:
   m_SmoothingTime: 0
   m_Damping: 0
   m_DampingWhenOccluded: 0
-  m_OptimalTargetDistance: 0
+  m_OptimalTargetDistance: 0.5
 --- !u!1 &5387783057503427102
 GameObject:
   m_ObjectHideFlags: 0

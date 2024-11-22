@@ -58,7 +58,7 @@ public class Projectile : MonoBehaviour
         gameObject.SetActive(true);
     }
 
-    public virtual void Fire (Vector3 firePoint, Vector3 direction, float damage = 30f, string shooter = "Enemy")
+    public virtual void Fire(Vector3 firePoint, Vector3 direction, float damage = 30f, string shooter = "Enemy")
     {
         Initialize(firePoint, direction);
 

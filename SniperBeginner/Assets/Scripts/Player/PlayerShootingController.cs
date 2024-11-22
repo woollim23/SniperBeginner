@@ -15,7 +15,7 @@ public class PlayerShootingController : MonoBehaviour
     [SerializeField] LayerMask aimLayerMask;
     [SerializeField] LayerMask snipeLayerMask;
     public Transform AimTarget => anim.aimIKTarget;
-    [SerializeField] float sphereCastRadius = 0.25f;
+    [SerializeField] float sphereCastRadius = 0.05f;
 
     [Header("Hold Breath")]
     [SerializeField] float currentBreath;
@@ -244,10 +244,6 @@ public class PlayerShootingController : MonoBehaviour
         return new Ray(mainCamera.transform.position + mainCamera.transform.forward * zAxisOffset, mainCamera.transform.forward);
     }
 
-    Ray GetRayFromFirePoint()
-    {
-        return new Ray(equip.CurrentEquip.firePoint.position, equip.CurrentEquip.firePoint.forward);
-    }
 
     // 수동으로 총알을 움직이는 코루틴
     // 시네머신에서 쓸 것
@@ -255,14 +251,16 @@ public class PlayerShootingController : MonoBehaviour
     {
         float sqrDistance = Vector3.SqrMagnitude(firePoint - destination.position);
         float travelTime = sqrDistance / (travelSpeed * travelSpeed);
+        travelTime = travelTime < 1f ? 1f : travelTime;
+
         float elapsedTime = 0f;
 
         Vector3 end = destination.position;
 
         while (elapsedTime < travelTime)
         {
-            elapsedTime += Time.deltaTime;
-            bullet.position = Vector3.Lerp(firePoint, end, elapsedTime / travelTime);  //
+            elapsedTime += Time.fixedDeltaTime;
+            bullet.position = Vector3.Lerp(firePoint, end, elapsedTime / travelTime);
             
             yield return null;
         }

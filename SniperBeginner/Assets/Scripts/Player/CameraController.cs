@@ -80,7 +80,7 @@ public class CameraController : MonoBehaviour
 
         if(dot < 0f)
         {
-            sphericalPos *= -1;
+            sphericalPos = -sphericalPos;
         }
 
         return basePosition + sphericalPos;
