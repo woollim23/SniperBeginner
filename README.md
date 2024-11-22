@@ -11,19 +11,19 @@
 
 # ⏲️ 개발 기간
 
-- 2024.11.15(금) ~ 2024.11.22(금)
+- **2024.11.15(금) ~ 2024.11.22(금)**
 
 ---
 
 # 🧑‍🤝‍🧑 개발자 소개
 
-- 권예림 : Enemy, AI
+- **권예림 : Enemy, AI**
 
-- 김정환 : Player, Aim, Shoot
+- **김정환 : Player, Aim, Shoot**
 
-- 김지훈 : QuickSlot, MiniMap, ParticleSystem, Sound
+- **김지훈 : QuickSlot, MiniMap, ParticleSystem, Sound**
 
-- 신윤영 : Save/Load, Cinemachine
+- **신윤영 : Save/Load, Cinemachine**
 
 ---
 
@@ -41,7 +41,7 @@
 ### 툴
 - **Unity Editor**
 - **Visual Studio 2022**
-- **Git** (버전 관리)
+- **Git (버전 관리)**
 
 ---
 
@@ -84,8 +84,11 @@
 # 📋 TODO
 
 - [ ] (우선순위: 높음) 적 AI의 행동 패턴 개선.
+      
 - [ ] (우선순위: 높음) 스나이핑 시스템의 물리적 효과 추가 (예: 탄도 계산, 바람 효과).
+      
 - [ ] (우선순위: 중간) 다양한 무기 추가 (예: 소음기 장착, 산탄총 등).
+      
 - [ ] (우선순위: 낮음) 추가적인 맵 및 미션 설계.
 
 ---
