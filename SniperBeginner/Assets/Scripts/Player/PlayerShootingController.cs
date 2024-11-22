@@ -199,7 +199,12 @@ public class PlayerShootingController : MonoBehaviour
     {
         RaycastHit hit;
         
-        if (Physics.SphereCast(mainCamera.transform.position, sphereCastRadius, mainCamera.transform.forward, out hit, equip.CurrentEquip.weaponData.range, snipeLayerMask))
+        if (Physics.SphereCast(mainCamera.transform.position, 
+            sphereCastRadius, 
+            mainCamera.transform.forward, 
+            out hit, 
+            equip.CurrentEquip.weaponData.range, 
+            snipeLayerMask))
         {
             // 부위별 총격에서 데미지 확인 각각의
             if (hit.collider.TryGetComponent(out ISnipable snipable))

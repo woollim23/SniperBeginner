@@ -50,7 +50,7 @@ public class CameraController : MonoBehaviour
     {
         // Stand by에서 세팅
         bulletCamera.Follow = projectile;
-        bulletCamera.LookAt = projectile; //setting.destination;
+        bulletCamera.LookAt = projectile;
 
         bulletCamera.transform.position = GetCameraStartPosition(startPosition, projectile.forward);
 
@@ -107,7 +107,7 @@ public class CameraController : MonoBehaviour
         ResetTimeScale();
 
         bulletCamera.Follow = null;
-        bulletCamera.LookAt = null; //setting.destination;
+        bulletCamera.LookAt = null;
         SwitchToIdle();
     }
 
