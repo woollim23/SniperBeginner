@@ -125,7 +125,7 @@
 
 ### 데모 영상
 
-[YouTube 데모 영상](https://youtube.com/yourdemo)
+[YouTube 데모 영상](https://drive.google.com/file/d/1X-ueFeSW8uiDV2D7Yb5vcVLXgQp39bxg/view?usp=sharing)
 
 ### 스크린샷
 
