@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3c949a445e0dbb43b026642625b0d1e, type: 3}
+  m_Name: SniperRifleSO
+  m_EditorClassIdentifier: 
+  weaponName: "\uC800\uACA9\uCD1D"
+  weaponDescription: "\uB9D0\uADF8\uB300\uB85C \uC800\uACA9\uCD1D\uC774\uB2E4."
+  icon: {fileID: 21300000, guid: db3351c617b76494693c53d45c272c00, type: 3}
+  damage: 80
+  reloadTime: 2.5
+  fireRate: 1
+  magazineSize: 10
+  ammoType: 2
+  weaponType: 2
+  equipPrefab: {fileID: 8467474915087469755, guid: 8a225aa3664e03340bd6c63b4fa1aab2,
+    type: 3}
+  projectile: {fileID: 2875054006511490313, guid: 158bd8e68e522ba44830e1b7ed7cdeaf,
+    type: 3}
+  fireSound: {fileID: 8300000, guid: d089796f848610443b4dc3c571dd346c, type: 3}
+  emptyFireSound: {fileID: 8300000, guid: 694d13ea30b7a8b498c0e14a16737381, type: 3}
+  reloadSound: {fileID: 8300000, guid: 221e5c4a9c767a346a512a40bb22d936, type: 3}
+  equipSound: {fileID: 8300000, guid: 4111ad2d818fbc14b9ff3c555b856050, type: 3}

@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1567806211061409368
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8734863916376685868}
+  - component: {fileID: 8926807375426488448}
+  m_Layer: 0
+  m_Name: ItemDropManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8734863916376685868
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1567806211061409368}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8926807375426488448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1567806211061409368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48ed7edd0762ef346910cadc1a632de1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healItemData: {fileID: 11400000, guid: 6de4947d49064eb458b8a9fa1e49f83e, type: 2}
+  pistolAmmoData: {fileID: 11400000, guid: bb2b9b0b176a89d489cb15609773a357, type: 2}
+  sniperAmmoData: {fileID: 11400000, guid: 6ae0a891bd7145c46bcc0e03539b4e50, type: 2}
+  healDropRate: 0.4
+  pistolAmmoDropRate: 0.35
+  sniperAmmoDropRate: 0.25
