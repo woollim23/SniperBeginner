@@ -57,11 +57,7 @@ public class Player : MonoBehaviour
     {
         if (data != null)
         {
-            // 위치
-            Controller.enabled = false;
-            transform.position = data.Position;
-            Controller.enabled = true;
-
+            // 위치 : 인스턴스화할때 이미 정해짐
             // 체력 적용
             Condition.Initialize(data.Health);
 

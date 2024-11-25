@@ -51,7 +51,6 @@ public class InputManager : Singleton<InputManager>
 
     void CallQuickSlotEvent(InputAction.CallbackContext context)
     {
-        int num = (int)context.ReadValue<Single>();
-        OnQuickSlotEvent?.Invoke(num);
+        OnQuickSlotEvent?.Invoke((int)context.ReadValue<Single>());
     }
 }

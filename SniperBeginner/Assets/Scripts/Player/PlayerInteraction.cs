@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class PlayerInteraction : MonoBehaviour
 {
-    [SerializeField] LayerMask interactLayerMask = 1 << 3 | 1 << 8;
-
     List<IInteractable> interactables = new List<IInteractable>();
 
     public event Action<InteractionData> OnDetected;
@@ -55,8 +53,6 @@ public class PlayerInteraction : MonoBehaviour
             interactable?.Interact();
             SoundManager.Instance.PlaySound(SoundManager.Instance.itemPickSFX, 1f);
             ClearObject(interactable);
-
-            
         }
     }
 

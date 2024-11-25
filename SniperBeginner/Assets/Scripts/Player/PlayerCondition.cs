@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 
+// TODO : 리팩토링 : 적 체력과 관련해서 통합 가능한지
 public class PlayerCondition : MonoBehaviour, IDamagable
 {
     public bool IsDead { get; private set; } = false;

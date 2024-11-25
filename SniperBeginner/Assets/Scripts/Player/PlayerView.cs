@@ -11,6 +11,7 @@ public class PlayerView : MonoBehaviour
     float currentRotateY = 0f;
 
     [SerializeField] Transform cameraContainer;
+    // TODO : 리팩토링 대상
     public CinemachineVirtualCamera mainVirtualCam;
     public CinemachineVirtualCamera aimVirtualCam;
     public CinemachineVirtualCamera generalAimVirtualCam;

@@ -42,8 +42,8 @@ public class PlayerShootingController : MonoBehaviour
             anim = player.Animation;
             equip = player.Equipment;
 
-            player.Actions.Aim.started += (context) => { AimStarted(); };
-            player.Actions.Aim.canceled += (context) => { AimCanceled(); };
+            player.Actions.Aim.started += (context) => { AimStart(); };
+            player.Actions.Aim.canceled += (context) => { AimCancel(); };
 
             player.Actions.Fire.started += (context) => { Fire(); };
             
@@ -106,7 +106,7 @@ public class PlayerShootingController : MonoBehaviour
     }
 
 
-    void AimStarted()
+    void AimStart()
     {
         isAiming = true;
         anim.Aiming(isAiming);
@@ -115,7 +115,7 @@ public class PlayerShootingController : MonoBehaviour
             OnAim?.Invoke(true);
     }
 
-    void AimCanceled()
+    void AimCancel()
     {
         isAiming = false;
         anim.Aiming(false);
@@ -174,7 +174,7 @@ public class PlayerShootingController : MonoBehaviour
     {
         isInCinemachine = true;
 
-        AimCanceled();
+        AimCancel();
         UIManager.Instance.PlayerCanvas.alpha = 0f;
 
         if (target.TryGetComponent(out Enemy e))
@@ -240,7 +240,7 @@ public class PlayerShootingController : MonoBehaviour
         if (isStart)
         {
             // aim 강제 해제
-            AimCanceled();
+            AimCancel();
         }
     }
 
