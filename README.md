@@ -4,7 +4,7 @@
 
 # 👨‍🏫 프로젝트 소개
 
-- **스나이퍼 엘리트** 시리즈에 영감받아 제작한 FPS 잠입 액션 게임의 프로토타입입니다.
+- **스나이퍼 엘리트** 시리즈에 영감받아 제작한 FPS 잠입 액션 게임입니다.
 - 플레이어는 적의 감시를 피해 목표를 제거하며, 긴장감 넘치는 잠입과 정밀한 저격 메커니즘으로 몰입감 있는 게임플레이를 제공합니다.
 
 ---
@@ -92,6 +92,19 @@
 
 ---
 
+# 🎮 조작법
+
+- **이동**: `W`, `A`, `S`, `D`  
+- **점프**: `Space`  
+- **앉기**: `C`  
+- **상호작용**: `F`  
+- **발사**: `좌클릭`  
+- **조준**: `우클릭`  
+- **퀵슬롯**: `1` ~ `5`  
+- **포즈 메뉴**: `ESC`
+
+---
+
 # 🚀 설치 및 실행 방법
 
 1. **Unity 설치**
@@ -111,10 +124,36 @@
 # 🎥 데모 및 스크린샷
 
 ### 데모 영상
-[YouTube 데모 영상](https://youtube.com/yourdemo)
+
+[YouTube 데모 영상](https://drive.google.com/file/d/1X-ueFeSW8uiDV2D7Yb5vcVLXgQp39bxg/view?usp=sharing)
 
 ### 스크린샷
-(스크린샷 이미지를 추가하세요)
+
+### 타이틀 화면
+<img src="https://github.com/user-attachments/assets/05c43a77-fa00-4b1a-8de3-90afbb51d606" width="600"/>
+
+> **게임 시작 전 타이틀 화면** - 깔끔한 UI와 메뉴.
+
+---
+
+### 미니맵 UI
+<img src="https://github.com/user-attachments/assets/dfe4c869-fc38-442d-a8f0-1af00a415100" width="600"/>
+
+> **실시간 미니맵** - 적의 위치와 목표 지점을 시각적으로 확인 가능.
+
+---
+
+### 일반 사격
+<img src="https://github.com/user-attachments/assets/52094a52-e9e9-4d66-8d38-0fe317e0d314" width="600"/>
+
+> **일반 사격** - 상황에 따라 무기를 전환해 전술적으로 플레이 가능.
+
+---
+
+### 저격 모드
+<img src="https://github.com/user-attachments/assets/fe1e56a2-d922-425d-be9b-4a4c42e0686a" width="600"/>
+
+> **시네머신** - 몰입감을 더하는 세부 연출.
 
 ---
 
